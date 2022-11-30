@@ -1,0 +1,20 @@
+ <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 22 22" id="fill-icon">
+      <path
+        fillRule="evenodd"
+        stroke="#fff"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.5"
+        fill="#7A6895"
+        d="M3.423 8.95l7.579-6.2 7.576 6.2c.425.349.672.87.672 1.42v7.047c0 1.013-.82 1.833-1.833 1.833H4.583a1.833 1.833 0 01-1.833-1.833v-7.048c0-.55.248-1.07.673-1.419z"
+        clipRule="evenodd"
+      ></path>
+      <path
+        stroke="#fff"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="1.5"
+        d="M12.466 15.583H9.534"
+      ></path>
+</svg>
+
