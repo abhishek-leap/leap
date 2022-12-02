@@ -63,6 +63,7 @@ module.exports = {
     extensions: [
       '.web.tsx',
       '.web.ts',
+      '.web.jsx',
       '.tsx',
       '.ts',
       '.web.js',

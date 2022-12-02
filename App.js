@@ -12,7 +12,7 @@ import HomeIconFilled from './shared/images/home-icon-filled.svg';
 import SearchIconFilled from './shared/images/search-icon-filled.svg';
 import DareCenterIconFilled from './shared/images/dare-center-filled.svg';
 import ProfileIconFilled from './shared/images/profile-icon-filled.svg';
-// import FeedScreen from './shared/screens/feed';
+import FeedScreen from './shared/screens/feed';
 import SearchScreen from './shared/screens/search';
 import Header from './shared/components/header';
 
@@ -23,13 +23,13 @@ const App = () => {
     <NavigationContainer>
       <Tab.Navigator
         screenOptions={{
-          // header: Header,
+          header: Header,
           tabBarStyle: {
             backgroundColor: '#290C54',
           },
           tabBarShowLabel: false,
         }}>
-        {/* <Tab.Screen
+        <Tab.Screen
           name="Feed"
           component={FeedScreen}
           options={{
@@ -44,7 +44,7 @@ const App = () => {
               return <HomeIcon />;
             },
           }}
-        /> */}
+        />
         <Tab.Screen
           name="Search"
           component={SearchScreen}
@@ -64,43 +64,43 @@ const App = () => {
         <Tab.Screen
           name="Create Dare"
           component={SearchScreen}
-          // options={{
-          //   tabBarIcon: ({focused}) => {
-          //     return <CreateDareIcon style={{marginBottom: 4}} />;
-          //   },
-          // }}
+          options={{
+            tabBarIcon: ({focused}) => {
+              return <CreateDareIcon style={{marginBottom: 4}} />;
+            },
+          }}
         />
         <Tab.Screen
           name="Dare Center"
           component={SearchScreen}
-          // options={{
-          //   tabBarIcon: ({focused}) => {
-          //     if (focused) {
-          //       return (
-          //         <IconContainer>
-          //           <DareCenterIconFilled />
-          //         </IconContainer>
-          //       );
-          //     }
-          //     return <DareCenterIcon />;
-          //   },
-          // }}
+          options={{
+            tabBarIcon: ({focused}) => {
+              if (focused) {
+                return (
+                  <IconContainer>
+                    <DareCenterIconFilled />
+                  </IconContainer>
+                );
+              }
+              return <DareCenterIcon />;
+            },
+          }}
         />
         <Tab.Screen
           name="Profile"
           component={SearchScreen}
-          // options={{
-          //   tabBarIcon: ({focused}) => {
-          //     if (focused) {
-          //       return (
-          //         <IconContainer>
-          //           <ProfileIconFilled />
-          //         </IconContainer>
-          //       );
-          //     }
-          //     return <ProfileIcon />;
-          //   },
-          // }}
+          options={{
+            tabBarIcon: ({focused}) => {
+              if (focused) {
+                return (
+                  <IconContainer>
+                    <ProfileIconFilled />
+                  </IconContainer>
+                );
+              }
+              return <ProfileIcon />;
+            },
+          }}
         />
         {/* <Tab.Screen name="Stories" component={StoryScreen} /> */}
       </Tab.Navigator>

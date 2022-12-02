@@ -25,7 +25,7 @@ export default Group;
 
 const Container = styled.View`
   width: ${props => `${props.width - 10}px`};
-  height: ${props => `${props.height - 10}px`};
+  height:100px;
   margin-left: 6px;
   margin-right: 6px;
 `;

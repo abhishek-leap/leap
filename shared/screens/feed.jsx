@@ -1,7 +1,7 @@
 import React, {useEffect, useState, useCallback} from 'react';
 import {StyleSheet, View, FlatList, Dimensions, Platform} from 'react-native';
 import {loadFeeds} from '../apis';
-// import DareBar from '../components/dare/darebar';
+import DareBar from '../components/dare/darebar';
 import VideoPlayer from '../components/feed';
 
 const windowWidth = Dimensions.get('window').width;
@@ -70,7 +70,7 @@ export default () => {
 
   return (
     <View style={styles.wrapper}>
-      {/* <DareBar height={90} /> */}
+      <DareBar height={90} />
       <FlatList
         data={feeds}
         renderItem={({item, index}) => (
