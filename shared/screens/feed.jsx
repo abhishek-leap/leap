@@ -3,11 +3,13 @@ import {StyleSheet, View, FlatList, Dimensions, Platform} from 'react-native';
 import {loadFeeds} from '../apis';
 import DareBar from '../components/dare/darebar';
 import VideoPlayer from '../components/feed';
+import styled from '@emotion/native';
+import {useTheme} from '@react-navigation/native';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
 const height =
-  Platform.OS === 'ios' ? windowHeight * 0.695 : windowHeight * 0.738;
+  Platform.OS === 'ios' ? parseInt(windowHeight * 0.695): parseInt(windowHeight * 0.738);
 const styles = StyleSheet.create({
   wrapper: {flex: 1, height: height, backgroundColor: '#290C54'},
   slide: {
@@ -38,6 +40,7 @@ export default () => {
   const [feedMetaData, setFeedMetaData] = useState({});
   const [activeIndex, setActiveIndex] = useState(0);
   const [muted, setIsMuted] = useState(true);
+  const {colors} = useTheme();
 
   const fetchFeedsFromApi = async offset => {
     console.log('Calling API ??????: ', offset);
@@ -56,7 +59,7 @@ export default () => {
 
   const onViewableItemsChanged = useCallback(({viewableItems}) => {
     const item = viewableItems[0];
-    setActiveIndex(item.index);
+    setActiveIndex(item?.index);
   }, []);
 
   const loadMoreFeeds = async info => {
@@ -69,7 +72,7 @@ export default () => {
   };
 
   return (
-    <View style={styles.wrapper}>
+    <Container height={height} colors={colors}>
       <DareBar height={90} />
       <FlatList
         data={feeds}
@@ -89,6 +92,12 @@ export default () => {
         onEndReached={loadMoreFeeds}
         onEndReachedThreshold={3}
       />
-    </View>
+    </Container>
   );
 };
+
+const Container = styled.View`
+flex: 1;
+height: ${props =>props.height};
+  background-color: ${props => props.colors.primary};
+`;

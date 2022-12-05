@@ -1,5 +1,4 @@
 import {useEffect, useState} from 'react';
-import {View, Platform} from 'react-native';
 import styled from '@emotion/native';
 import Group from './group';
 import {loadDares} from '../../apis';
