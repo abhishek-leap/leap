@@ -8,8 +8,19 @@ import {useTheme} from '@react-navigation/native';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
+console.log(windowHeight, 'height');
 const height =
-  Platform.OS === 'ios' ? parseInt(windowHeight * 0.695): parseInt(windowHeight * 0.738);
+  Platform.OS === 'ios'
+    ? windowHeight > 850
+      ? parseInt(windowHeight * 0.71)
+      : windowHeight > 820
+      ? parseInt(windowHeight * 0.699)
+      : windowHeight > 800
+      ? parseInt(windowHeight * 0.689)
+      : windowHeight < 680
+      ? parseInt(windowHeight * 0.67)
+      : parseInt(windowHeight * 0.695)
+    : parseInt(windowHeight * 0.738);
 const styles = StyleSheet.create({
   wrapper: {flex: 1, height: height, backgroundColor: '#290C54'},
   slide: {
@@ -97,7 +108,7 @@ export default () => {
 };
 
 const Container = styled.View`
-flex: 1;
-height: ${props =>props.height};
+  flex: 1;
+  height: ${props => props.height};
   background-color: ${props => props.colors.primary};
 `;
