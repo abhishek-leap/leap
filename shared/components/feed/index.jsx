@@ -4,7 +4,7 @@ import FeedOptions from './components/feed-options';
 import ProgressBar from './components/progress-bar';
 import VideoPlayer from './components/video-player';
 
-const FeedItem = ({data, isActive, muted, setIsMuted}) => {
+const FeedItem = ({data, isActive, muted, setIsMuted,index}) => {
   const [progress, setProgress] = useState();
 
   const clickHandler = () => {
@@ -18,6 +18,7 @@ const FeedItem = ({data, isActive, muted, setIsMuted}) => {
         isActive={isActive}
         muted={muted}
         setProgress={setProgress}
+        index={index}
       />
       <ProgressBar data={progress} />
       <FeedOptionsContainer>

@@ -31,7 +31,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const Slide = ({item, isActive, muted, setIsMuted}) => {
+const Slide = ({item, isActive, muted, setIsMuted,index}) => {
   // const {height, width} = useWindowDimensions();
   return (
     <View style={styles.slide}>
@@ -40,6 +40,7 @@ const Slide = ({item, isActive, muted, setIsMuted}) => {
         isActive={isActive}
         muted={muted}
         setIsMuted={setIsMuted}
+        index={index}
       />
     </View>
   );
@@ -93,14 +94,16 @@ export default () => {
             item={item}
             muted={muted}
             setIsMuted={setIsMuted}
+            index={index}
           />
         )}
-        windowSize={height}
+        removeClippedSubviews={true}
+        windowSize={3}
         maxToRenderPerBatch={3}
         initialNumToRender={3}
         keyExtractor={(item, index) => `${index}_${item.id}`}
         snapToInterval={height}
-        decelerationRate={Platform.OS === 'ios' ? 0.4 : 0.88}
+        decelerationRate={Platform.OS === 'ios' ? 0.3 : 0.88}
         viewabilityConfig={{viewAreaCoveragePercentThreshold: 50}}
         onViewableItemsChanged={onViewableItemsChanged}
         onEndReached={loadMoreFeeds}
