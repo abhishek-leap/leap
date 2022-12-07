@@ -1,11 +1,16 @@
 import styled from '@emotion/native';
-import {useState} from 'react';
+import React, {useState} from 'react';
 import FeedOptions from './components/feed-options';
 import ProgressBar from './components/progress-bar';
 import VideoPlayer from './components/video-player';
 
-export default ({data, isActive, muted, setIsMuted}) => {
+const FeedItem = ({data, isActive, muted, setIsMuted}) => {
   const [progress, setProgress] = useState();
+
+  const clickHandler = () => {
+    setIsMuted(prevState => !prevState);
+  };
+
   return (
     <Container>
       <VideoPlayer
@@ -18,10 +23,7 @@ export default ({data, isActive, muted, setIsMuted}) => {
       <FeedOptionsContainer>
         <FeedOptions />
       </FeedOptionsContainer>
-      <AudioIconContainer
-        onPress={() => {
-          setIsMuted(prevState => !prevState);
-        }}>
+      <AudioIconContainer onPress={clickHandler}>
         <ImageContainer
           source={
             muted
@@ -34,11 +36,13 @@ export default ({data, isActive, muted, setIsMuted}) => {
   );
 };
 
+export default React.memo(FeedItem);
+
 const Container = styled.View`
   height: 100%;
   width: 100%;
-  padding-top:10px;
-  padding-bottom:10px;
+  padding-top: 10px;
+  padding-bottom: 10px;
 `;
 
 const FeedOptionsContainer = styled.View`
@@ -49,8 +53,9 @@ const FeedOptionsContainer = styled.View`
 
 const AudioIconContainer = styled.TouchableOpacity`
   position: absolute;
-  bottom: 15px;
+  bottom: 20px;
   left: 15px;
+  padding:5px;
 `;
 
 const ImageContainer = styled.Image`

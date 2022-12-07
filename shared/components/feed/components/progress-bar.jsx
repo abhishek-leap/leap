@@ -1,6 +1,7 @@
+import React from 'react';
 import styled from '@emotion/native';
 
-export default ({data}) => {
+const ProgressBar= ({data}) => {
   const progress = (data?.currentTime * 100) / data?.seekableDuration || 0;
   return (
     <Container>
@@ -10,6 +11,8 @@ export default ({data}) => {
   );
 };
 
+export default React.memo(ProgressBar);
+
 const Container = styled.View`
   height: 3px;
   width: 100%;
@@ -18,7 +21,7 @@ const Container = styled.View`
 
 const ProgressLine = styled.View`
   height: 100%;
-  width: ${props => (props.progress ? `${props.progress}%` : 0)};
+  width: ${props => (props.progress ? `${props.progress}%` : `0%`)};
   background-color: rgb(255, 0, 172);
   border-radius: 40px;
   text-align: right;

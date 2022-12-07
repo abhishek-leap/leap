@@ -8,7 +8,6 @@ import {useTheme} from '@react-navigation/native';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
-console.log(windowHeight, 'height');
 const height =
   Platform.OS === 'ios'
     ? windowHeight > 850
@@ -70,6 +69,7 @@ export default () => {
 
   const onViewableItemsChanged = useCallback(({viewableItems}) => {
     const item = viewableItems[0];
+    console.log(item?.index,"active index")
     setActiveIndex(item?.index);
   }, []);
 
@@ -95,9 +95,12 @@ export default () => {
             setIsMuted={setIsMuted}
           />
         )}
+        windowSize={height}
+        maxToRenderPerBatch={3}
+        initialNumToRender={3}
         keyExtractor={(item, index) => `${index}_${item.id}`}
         snapToInterval={height}
-        decelerationRate={0}
+        decelerationRate={Platform.OS === 'ios' ? 0.4 : 0.88}
         viewabilityConfig={{viewAreaCoveragePercentThreshold: 50}}
         onViewableItemsChanged={onViewableItemsChanged}
         onEndReached={loadMoreFeeds}

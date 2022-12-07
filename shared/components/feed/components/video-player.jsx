@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import React,{useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import Video from 'react-native-video';
 
@@ -8,7 +8,7 @@ const styles = StyleSheet.create({
     height: '100%',
   },
 });
-export default ({data, isActive, muted, setProgress}) => {
+const VideoPlayer= ({data, isActive, muted, setProgress}) => {
   const asset = data.videos[0];
   const uri = asset.reference;
   const poster = asset.imageLink;
@@ -35,3 +35,5 @@ export default ({data, isActive, muted, setProgress}) => {
     </View>
   );
 };
+
+export default React.memo(VideoPlayer);

@@ -1,10 +1,11 @@
+import React from 'react';
 import HeartIcon from '../../../images/heart.svg';
 import CommentIcon from '../../../images/comment.svg';
 import ShareIcon from '../../../images/share.svg';
 import Profile from './profile';
 import styled from '@emotion/native';
 
-export default ({}) => {
+const FeedOptions= ({}) => {
   return (
     <Container>
       <StyledSection>
@@ -25,6 +26,8 @@ export default ({}) => {
     </Container>
   );
 };
+
+export default React.memo(FeedOptions);
 
 const Container = styled.View`
   justify-content: center;

@@ -1,7 +1,8 @@
+import React from 'react';
 import Shield from '../../../images/shield.svg';
 import styled from '@emotion/native';
 
-export default ({size = 40}) => {
+const Profile= ({size = 40}) => {
   return (
     <Container size={size}>
       <Shield width="100%" height="100%" />
@@ -16,6 +17,8 @@ export default ({size = 40}) => {
     </Container>
   );
 };
+
+export default React.memo(Profile);
 
 const Container = styled.View`
   width: ${props => `${props.size}px`};
