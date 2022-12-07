@@ -1,4 +1,3 @@
-import {Image, View} from 'react-native';
 import styled from '@emotion/native';
 import Card from './card';
 import Shield from './shield';
@@ -25,7 +24,7 @@ export default Group;
 
 const Container = styled.View`
   width: ${props => `${props.width - 10}px`};
-  height:100px;
+  height:${props => `${props.height - 10}px`};
   margin-left: 6px;
   margin-right: 6px;
 `;

@@ -1,6 +1,6 @@
 import * as React from 'react';
 import styled from '@emotion/native';
-import {NavigationContainer} from '@react-navigation/native';
+import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {View, Text} from 'react-native';
 
@@ -20,10 +20,18 @@ import BottomDrawer from './shared/components/bottom-drawer';
 
 const Tab = createBottomTabNavigator();
 
+const AppTheme = {
+  ...DefaultTheme,
+  colors: {
+    ...DefaultTheme.colors,
+    primary: '#290C54',
+  },
+};
+
 const App = () => {
   return (
     <>
-      <NavigationContainer>
+      <NavigationContainer theme={AppTheme}>
         <Tab.Navigator
           screenOptions={{
             header: Header,
@@ -46,6 +54,7 @@ const App = () => {
                 }
                 return <HomeIcon />;
               },
+              tabBarShowLabel: false,
             }}
           />
           <Tab.Screen

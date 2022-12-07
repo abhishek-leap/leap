@@ -1,30 +1,25 @@
-import {View, Platform} from 'react-native';
+import {Platform} from 'react-native';
 import styled from '@emotion/native';
-
 import BellIcon from '../images/bell-icon.svg';
 import Logo from '../images/logo.svg';
+import {useTheme} from '@react-navigation/native';
 
 const Header = () => {
+  const {colors} = useTheme();
   return (
-    <SubContainer platform={Platform.OS}>
+    <Container platform={Platform.OS} colors={colors}>
       <Logo height={20} width={60} />
       <BellIcon />
-    </SubContainer>
+    </Container>
   );
 };
 
 export default Header;
 
 const Container = styled.View`
-  width: 100%;
-  background-color: #290c54;
-  padding-top: ${props => (props.platform === 'ios' ? '25px' : '40px')};
-`;
-
-const SubContainer = styled.View`
-  background-color: #290c54;
+  background-color: ${props => props.colors.primary};
   flex-direction: row;
   padding: 20px;
   justify-content: space-between;
-  padding-top: ${props => (props.platform === 'ios' ? '45px' : '50px')};
+  padding-top: ${props => (props.platform === 'ios' ? '45px' : '12px')};
 `;
