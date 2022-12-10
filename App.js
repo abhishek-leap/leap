@@ -1,9 +1,11 @@
 import * as React from 'react';
+import {Provider} from 'react-redux';
 import styled from '@emotion/native';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {View, Text} from 'react-native';
 
+import {store} from './shared/redux-ui-state/store';
 import HomeIcon from './shared/images/home-icon.svg';
 import SearchIcon from './shared/images/search-icon.svg';
 import DareCenterIcon from './shared/images/dare-center-icon.svg';
@@ -30,13 +32,13 @@ const AppTheme = {
 
 const App = () => {
   return (
-    <>
+    <Provider store={store}>
       <NavigationContainer theme={AppTheme}>
         <Tab.Navigator
           screenOptions={{
             header: Header,
             tabBarStyle: {
-              backgroundColor: '#290C54',
+              backgroundColor: AppTheme.colors.primary,
             },
             tabBarShowLabel: false,
           }}>
@@ -117,7 +119,7 @@ const App = () => {
         </Tab.Navigator>
       </NavigationContainer>
       <BottomDrawer />
-    </>
+    </Provider>
   );
 };
 
