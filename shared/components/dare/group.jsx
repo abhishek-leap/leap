@@ -1,3 +1,4 @@
+import React from 'react';
 import styled from '@emotion/native';
 import Card from './card';
 import Shield from './shield';
@@ -20,7 +21,7 @@ const Group = ({width = 115, height = 90, dare}) => {
   );
 };
 
-export default Group;
+export default React.memo(Group);
 
 const Container = styled.View`
   width: ${props => `${props.width - 10}px`};

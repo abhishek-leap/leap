@@ -1,4 +1,4 @@
-import {useState} from 'react';
+import React,{useState} from 'react';
 import {StyleSheet, View} from 'react-native';
 import Video from 'react-native-video';
 
@@ -8,11 +8,12 @@ const styles = StyleSheet.create({
     height: '100%',
   },
 });
-export default ({data, isActive, muted, setProgress}) => {
+const VideoPlayer= ({data, isActive, muted, setProgress,index}) => {
   const asset = data.videos[0];
   const uri = asset.reference;
   const poster = asset.imageLink;
   const [playing, setPlaying] = useState(true);
+  console.log("here")
   return (
     <View style={styles.video}>
       <Video
@@ -25,6 +26,12 @@ export default ({data, isActive, muted, setProgress}) => {
         paused={!isActive || !playing}
         resizeMode="contain"
         repeat={true}
+        bufferConfig={{
+          minBufferMs: 10000,
+          maxBufferMs: 10000,
+          bufferForPlaybackMs: 2500,
+          bufferForPlaybackAfterRebufferMs: 5000
+        }}
         onProgress={data => {
           setProgress(data);
         }}
@@ -35,3 +42,5 @@ export default ({data, isActive, muted, setProgress}) => {
     </View>
   );
 };
+
+export default React.memo(VideoPlayer);

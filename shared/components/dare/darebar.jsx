@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import React,{useEffect, useState} from 'react';
 import styled from '@emotion/native';
 import Group from './group';
 import {loadDares} from '../../apis';
@@ -46,7 +46,7 @@ const DareBar = ({height}) => {
   );
 };
 
-export default DareBar;
+export default React.memo(DareBar);
 
 const Root = styled.ScrollView`
   width: 100%;

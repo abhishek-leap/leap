@@ -1,3 +1,4 @@
+import React  from 'react';
 import styled from '@emotion/native';
 
 const Card = ({src}) => {
@@ -13,7 +14,7 @@ const Card = ({src}) => {
   );
 };
 
-export default Card;
+export default React.memo(Card);
 
 const Container = styled.View`
   width: 100%;
