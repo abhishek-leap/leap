@@ -1,9 +1,16 @@
 import * as React from 'react';
+import {View, Text, AppState, Platform} from 'react-native';
+import NetInfo from '@react-native-community/netinfo';
 import {Provider} from 'react-redux';
+import {
+  QueryClient,
+  QueryClientProvider,
+  onlineManager,
+  focusManager,
+} from '@tanstack/react-query';
 import styled from '@emotion/native';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {View, Text} from 'react-native';
 
 import {store} from './shared/redux-ui-state/store';
 import HomeIcon from './shared/images/home-icon.svg';
@@ -30,7 +37,36 @@ const AppTheme = {
   },
 };
 
+// Event Listner for checking network online/offline status
+onlineManager.setEventListener(setOnline => {
+  return NetInfo.addEventListener(state => {
+    setOnline(!!state.isConnected);
+  });
+});
+
+// Create a client
+const queryClient = new QueryClient();
+
+// Devtool plugin for Flipper
+if (__DEV__) {
+  import('react-query-native-devtools').then(({addPlugin}) => {
+    addPlugin({queryClient});
+  });
+}
+
 const App = () => {
+  function onAppStateChange(status) {
+    if (Platform.OS !== 'web') {
+      focusManager.setFocused(status === 'active');
+    }
+  }
+
+  React.useEffect(() => {
+    const subscription = AppState.addEventListener('change', onAppStateChange);
+
+    return () => subscription.remove();
+  }, []);
+
   return (
     <Provider store={store}>
       <NavigationContainer theme={AppTheme}>
@@ -123,7 +159,15 @@ const App = () => {
   );
 };
 
-export default App;
+const AppWithReactQuery = () => {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <App />
+    </QueryClientProvider>
+  );
+};
+
+export default AppWithReactQuery;
 
 const IconContainer = styled.View`
   border-bottom-width: 2px;
