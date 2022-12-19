@@ -56,7 +56,6 @@ export default BottomDrawer;
 
 const Body = styled.View`
   height: 100%;
-  background: red;
 `;
 
 const ClosedContainer = styled.TouchableOpacity`

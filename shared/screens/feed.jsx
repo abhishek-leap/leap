@@ -1,5 +1,10 @@
 import React, {useEffect, useState, useCallback} from 'react';
-import {StyleSheet, View, FlatList, Dimensions, Platform,Animated} from 'react-native';
+import {
+  StyleSheet,
+  Dimensions,
+  Platform,
+  Animated,
+} from 'react-native';
 import {loadFeeds} from '../apis';
 import DareBar from '../components/dare/darebar';
 import VideoPlayer from '../components/feed';
@@ -19,6 +24,8 @@ const height =
       : windowHeight < 680
       ? parseInt(windowHeight * 0.67)
       : parseInt(windowHeight * 0.695)
+    : Platform.OS === 'web'
+    ? parseInt(windowHeight * 0.79)
     : parseInt(windowHeight * 0.738);
 const styles = StyleSheet.create({
   wrapper: {flex: 1, height: height, backgroundColor: '#290C54'},
@@ -30,8 +37,6 @@ const styles = StyleSheet.create({
     height: height,
   },
 });
-
-
 
 export default () => {
   const [feeds, setFeeds] = useState([]);
@@ -58,7 +63,7 @@ export default () => {
 
   const onViewableItemsChanged = useCallback(({viewableItems}) => {
     const item = viewableItems[0];
-    console.log(item?.index,"active index")
+    console.log(item?.index, 'active index');
     setActiveIndex(item?.index);
   }, []);
 
@@ -81,7 +86,7 @@ export default () => {
         style={[
           styles.slide,
           {
-            transform: [{scale}],
+            transform: Platform.OS !== 'web' && [{scale}],
           },
         ]}>
         <VideoPlayer

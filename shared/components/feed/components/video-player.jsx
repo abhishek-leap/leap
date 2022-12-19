@@ -13,7 +13,6 @@ const VideoPlayer= ({data, isActive, muted, setProgress,index}) => {
   const uri = asset.reference;
   const poster = asset.imageLink;
   const [playing, setPlaying] = useState(true);
-  console.log("here")
   return (
     <View style={styles.video}>
       <Video

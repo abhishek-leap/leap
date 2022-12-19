@@ -153,8 +153,9 @@ const App = () => {
             }}
           />
         </Tab.Navigator>
+        <BottomDrawer />
       </NavigationContainer>
-      <BottomDrawer />
+
     </Provider>
   );
 };

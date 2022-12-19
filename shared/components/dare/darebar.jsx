@@ -1,7 +1,8 @@
-import React,{useEffect, useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from '@emotion/native';
 import Group from './group';
 import {loadDares} from '../../apis';
+import {Platform} from 'react-native';
 
 const DareBar = ({height}) => {
   const [dares, setDares] = useState([]);
@@ -35,6 +36,7 @@ const DareBar = ({height}) => {
 
   return (
     <Root
+      display={Platform.OS === 'web' ? 'contents' : 'flex'}
       height={height}
       horizontal
       onEndReached={loadMoreDares}
@@ -52,4 +54,5 @@ const Root = styled.ScrollView`
   width: 100%;
   height: ${props => `${props.height + 10}px`};
   flex-direction: row;
+  display: ${props => props.display};
 `;
