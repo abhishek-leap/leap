@@ -3,9 +3,8 @@ import styled from '@emotion/native';
 import {View, Animated, SafeAreaView, Text} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {useSelector, useDispatch} from 'react-redux';
-
+import CloseIcon from '../../shared/images/close.svg';
 import {closeAuthenticationBottomDrawer} from '../redux-ui-state/slices/authenticationSlice';
-import Xicon from '../images/x.svg';
 import {WINDOW_HEIGHT} from '../constants';
 
 const ANIMATION_DURATION = 1000; // 5 sec
@@ -25,6 +24,9 @@ const BottomDrawer = props => {
     }).start();
   };
 
+  const onCloseIconClick = () => {
+    dispatch(closeAuthenticationBottomDrawer());
+  };
   useEffect(() => {
     toggleDrawer();
   }, [toggleDrawer, show]);
@@ -40,7 +42,11 @@ const BottomDrawer = props => {
         transform: [{translateY: slideAnimation}],
       }}>
       <SafeAreaView>
-        <Body></Body>
+        <Body>
+          <ClosedContainer onPress={onCloseIconClick}>
+            <CloseIcon width={34} height={45} />
+          </ClosedContainer>
+        </Body>
       </SafeAreaView>
     </Animated.View>
   );
@@ -48,14 +54,13 @@ const BottomDrawer = props => {
 
 export default BottomDrawer;
 
-// const CloseIcon = styled(Xicon)`
-//   position: absolute;
-//   top: 150%;
-//   right: 0;
-//   color: white;
-// `;
-
 const Body = styled.View`
   height: 100%;
   background: red;
+`;
+
+const ClosedContainer = styled.TouchableOpacity`
+  position: absolute;
+  right: 10px;
+  padding: 5px;
 `;
