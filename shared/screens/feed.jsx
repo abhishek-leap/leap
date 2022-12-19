@@ -1,5 +1,5 @@
 import React, {useEffect, useState, useCallback} from 'react';
-import {StyleSheet, View, FlatList, Dimensions, Platform} from 'react-native';
+import {StyleSheet, View, FlatList, Dimensions, Platform,Animated} from 'react-native';
 import {loadFeeds} from '../apis';
 import DareBar from '../components/dare/darebar';
 import VideoPlayer from '../components/feed';
@@ -31,20 +31,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const Slide = ({item, isActive, muted, setIsMuted,index}) => {
-  // const {height, width} = useWindowDimensions();
-  return (
-    <View style={styles.slide}>
-      <VideoPlayer
-        data={item}
-        isActive={isActive}
-        muted={muted}
-        setIsMuted={setIsMuted}
-        index={index}
-      />
-    </View>
-  );
-};
+
 
 export default () => {
   const [feeds, setFeeds] = useState([]);
@@ -52,6 +39,7 @@ export default () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [muted, setIsMuted] = useState(true);
   const {colors} = useTheme();
+  const Yscroll = React.useRef(new Animated.Value(0)).current;
 
   const fetchFeedsFromApi = async offset => {
     console.log('Calling API ??????: ', offset);
@@ -83,10 +71,34 @@ export default () => {
     fetchFeedsFromApi(offset);
   };
 
+  const Slide = ({item, isActive, muted, setIsMuted, index}) => {
+    const scale = Yscroll.interpolate({
+      inputRange: [-1, 0, height * index, height * (index + 2)],
+      outputRange: [1, 1, 1, 0],
+    });
+    return (
+      <Animated.View
+        style={[
+          styles.slide,
+          {
+            transform: [{scale}],
+          },
+        ]}>
+        <VideoPlayer
+          data={item}
+          isActive={isActive}
+          muted={muted}
+          setIsMuted={setIsMuted}
+          index={index}
+        />
+      </Animated.View>
+    );
+  };
+
   return (
     <Container height={height} colors={colors}>
       <DareBar height={90} />
-      <FlatList
+      <Animated.FlatList
         data={feeds}
         renderItem={({item, index}) => (
           <Slide
@@ -96,6 +108,10 @@ export default () => {
             setIsMuted={setIsMuted}
             index={index}
           />
+        )}
+        onScroll={Animated.event(
+          [{nativeEvent: {contentOffset: {y: Yscroll}}}],
+          {useNativeDriver: true},
         )}
         removeClippedSubviews={true}
         windowSize={3}
