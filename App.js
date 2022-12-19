@@ -1,5 +1,5 @@
 import * as React from 'react';
-import {View, Text, AppState, Platform} from 'react-native';
+import {AppState, Platform} from 'react-native';
 import NetInfo from '@react-native-community/netinfo';
 import {Provider} from 'react-redux';
 import {
