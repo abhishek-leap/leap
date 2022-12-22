@@ -27,6 +27,7 @@ import FeedScreen from './shared/screens/feed';
 import SearchScreen from './shared/screens/search';
 import Header from './shared/components/header';
 import BottomDrawer from './shared/components/bottom-drawer';
+import DemoScreen from './shared/screens/demo';
 
 import {storage} from './shared/mmkv-store/store';
 
@@ -108,7 +109,7 @@ const App = () => {
           />
           <Tab.Screen
             name="Search"
-            component={SearchScreen}
+            component={DemoScreen}
             options={{
               tabBarIcon: ({focused}) => {
                 if (focused) {
