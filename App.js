@@ -11,6 +11,7 @@ import {
 import styled from '@emotion/native';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
+import {initializeMMKVFlipper} from 'react-native-mmkv-flipper-plugin';
 
 import {store} from './shared/redux-ui-state/store';
 import HomeIcon from './shared/images/home-icon.svg';
@@ -26,6 +27,8 @@ import FeedScreen from './shared/screens/feed';
 import SearchScreen from './shared/screens/search';
 import Header from './shared/components/header';
 import BottomDrawer from './shared/components/bottom-drawer';
+
+import {storage} from './shared/mmkv-store/store';
 
 const Tab = createBottomTabNavigator();
 
@@ -52,6 +55,9 @@ if (__DEV__) {
   import('react-query-native-devtools').then(({addPlugin}) => {
     addPlugin({queryClient});
   });
+
+  // register mmkv flipper plugin
+  initializeMMKVFlipper({default: storage});
 }
 
 const App = () => {
@@ -65,6 +71,11 @@ const App = () => {
     const subscription = AppState.addEventListener('change', onAppStateChange);
 
     return () => subscription.remove();
+  }, []);
+
+  React.useEffect(() => {
+    // App mounted
+    storage.set('app', 'started');
   }, []);
 
   return (
@@ -155,7 +166,6 @@ const App = () => {
         </Tab.Navigator>
         <BottomDrawer />
       </NavigationContainer>
-
     </Provider>
   );
 };
