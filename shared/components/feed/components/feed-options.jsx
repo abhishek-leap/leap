@@ -27,7 +27,7 @@ const FeedOptions= ({}) => {
   );
 };
 
-export default React.memo(FeedOptions);
+export default FeedOptions;
 
 const Container = styled.View`
   justify-content: center;

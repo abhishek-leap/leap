@@ -28,7 +28,8 @@ import SearchScreen from './shared/screens/search';
 import Header from './shared/components/header';
 import BottomDrawer from './shared/components/bottom-drawer';
 import DemoScreen from './shared/screens/demo';
-
+import DareCenterScreen from './shared/screens/dareCenter';
+import ProfileScreen from './shared/screens/profile';
 import {storage} from './shared/mmkv-store/store';
 
 const Tab = createBottomTabNavigator();
@@ -70,13 +71,7 @@ const App = () => {
 
   React.useEffect(() => {
     const subscription = AppState.addEventListener('change', onAppStateChange);
-
     return () => subscription.remove();
-  }, []);
-
-  React.useEffect(() => {
-    // App mounted
-    storage.set('app', 'started');
   }, []);
 
   return (
@@ -111,6 +106,7 @@ const App = () => {
             name="Search"
             component={DemoScreen}
             options={{
+              unmountOnBlur: true,
               tabBarIcon: ({focused}) => {
                 if (focused) {
                   return (
@@ -134,7 +130,7 @@ const App = () => {
           />
           <Tab.Screen
             name="Dare Center"
-            component={SearchScreen}
+            component={DareCenterScreen}
             options={{
               tabBarIcon: ({focused}) => {
                 if (focused) {
@@ -150,8 +146,9 @@ const App = () => {
           />
           <Tab.Screen
             name="Profile"
-            component={SearchScreen}
+            component={ProfileScreen}
             options={{
+              unmountOnBlur: true,
               tabBarIcon: ({focused}) => {
                 if (focused) {
                   return (

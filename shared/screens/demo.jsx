@@ -59,7 +59,7 @@ export default () => {
     useInfiniteQuery({
       queryKey: ['feeds'],
       queryFn: fetchFeedsFromApi,
-      getNextPageParam: (lastPage, pages) => pages[0]?.meta?.offset + 10,
+      getNextPageParam: (lastPage, pages) => lastPage?.meta?.offset + 10,
     });
 
   const onViewableItemsChanged = useCallback(({viewableItems}) => {
@@ -74,9 +74,13 @@ export default () => {
 
   useEffect(() => {
     if (data) {
-      console.log(data?.pages);
-      const newArr=[...data?.pages[0]?.feeds];
-      setFeeds(newArr);
+      setFeeds(prevState => {
+        const newArr = data?.pages?.map(item => {
+          return item?.feeds;
+        });
+        const flatArr = [].concat(...newArr);
+        return flatArr;
+      });
     }
   }, [data]);
 

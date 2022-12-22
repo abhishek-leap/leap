@@ -21,7 +21,7 @@ const Group = ({width = 115, height = 90, dare}) => {
   );
 };
 
-export default React.memo(Group);
+export default Group;
 
 const Container = styled.View`
   width: ${props => `${props.width - 10}px`};

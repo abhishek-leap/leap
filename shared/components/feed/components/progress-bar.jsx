@@ -11,7 +11,7 @@ const ProgressBar= ({data}) => {
   );
 };
 
-export default React.memo(ProgressBar);
+export default ProgressBar;
 
 const Container = styled.View`
   height: 3px;

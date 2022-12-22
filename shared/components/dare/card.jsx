@@ -14,7 +14,7 @@ const Card = ({src}) => {
   );
 };
 
-export default React.memo(Card);
+export default Card;
 
 const Container = styled.View`
   width: 100%;

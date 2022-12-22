@@ -42,4 +42,4 @@ const VideoPlayer= ({data, isActive, muted, setProgress,index}) => {
   );
 };
 
-export default React.memo(VideoPlayer);
+export default VideoPlayer;

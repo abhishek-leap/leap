@@ -48,7 +48,7 @@ const DareBar = ({height}) => {
   );
 };
 
-export default React.memo(DareBar);
+export default DareBar;
 
 const Root = styled.ScrollView`
   width: 100%;

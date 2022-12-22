@@ -5,4 +5,4 @@ const Shield = ({ width, height }) => {
   return <ShieldIcon width={width} height={height} />;
 };
 
-export default React.memo(Shield);
+export default Shield;

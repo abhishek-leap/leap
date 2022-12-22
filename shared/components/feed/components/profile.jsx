@@ -18,7 +18,7 @@ const Profile= ({size = 40}) => {
   );
 };
 
-export default React.memo(Profile);
+export default Profile;
 
 const Container = styled.View`
   width: ${props => `${props.size}px`};

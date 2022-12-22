@@ -37,7 +37,7 @@ const FeedItem = ({data, isActive, muted, setIsMuted,index}) => {
   );
 };
 
-export default React.memo(FeedItem);
+export default FeedItem;
 
 const Container = styled.View`
   height: 100%;
