@@ -1,4 +1,4 @@
-package com.leap.newarchitecture;
+package io.playleap.rnative.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.leap.BuildConfig;
-import com.leap.newarchitecture.components.MainComponentsRegistry;
-import com.leap.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import io.playleap.rnative.BuildConfig;
+import io.playleap.rnative.newarchitecture.components.MainComponentsRegistry;
+import io.playleap.rnative.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.leap.newarchitecture.modules;
+package io.playleap.rnative.newarchitecture.modules;
 
 import com.facebook.jni.HybridData;
 import com.facebook.react.ReactPackage;

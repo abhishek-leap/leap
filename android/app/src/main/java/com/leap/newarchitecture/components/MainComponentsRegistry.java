@@ -1,4 +1,4 @@
-package com.leap.newarchitecture.components;
+package io.playleap.rnative.newarchitecture.components;
 
 import com.facebook.jni.HybridData;
 import com.facebook.proguard.annotations.DoNotStrip;

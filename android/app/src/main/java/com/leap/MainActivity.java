@@ -1,4 +1,4 @@
-package com.leap;
+package io.playleap.rnative;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;
