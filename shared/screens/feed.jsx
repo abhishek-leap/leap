@@ -1,15 +1,15 @@
-import React, {useEffect, useState, useCallback} from 'react';
+import React, {useState, useCallback} from 'react';
 import {
   StyleSheet,
   Dimensions,
   Platform,
   Animated,
 } from 'react-native';
-import {loadFeeds} from '../apis';
 import DareBar from '../components/dare/darebar';
 import VideoPlayer from '../components/feed';
 import styled from '@emotion/native';
 import {useTheme} from '@react-navigation/native';
+import { useInfiniteFeeds } from '../hooks/useInfiniteFeeds';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -39,42 +39,17 @@ const styles = StyleSheet.create({
 });
 
 export default () => {
-  const [feeds, setFeeds] = useState([]);
-  const [feedMetaData, setFeedMetaData] = useState({});
   const [activeIndex, setActiveIndex] = useState(0);
   const [muted, setIsMuted] = useState(true);
   const {colors} = useTheme();
   const Yscroll = React.useRef(new Animated.Value(0)).current;
-
-  const fetchFeedsFromApi = async offset => {
-    console.log('Calling API ??????: ', offset);
-    const queyParams = {options: JSON.stringify({offset, limit: 10})};
-    const res = await loadFeeds(queyParams);
-    const result = await res.json();
-
-    const {feeds: apiFeeds, meta} = result;
-    setFeeds([...feeds, ...apiFeeds]);
-    setFeedMetaData(meta);
-  };
-
-  useEffect(() => {
-    fetchFeedsFromApi(0);
-  }, []);
+  const { status, data, error, isLoading, refetch, fetchNextPage } = useInfiniteFeeds()
 
   const onViewableItemsChanged = useCallback(({viewableItems}) => {
     const item = viewableItems[0];
     console.log(item?.index, 'active index');
     setActiveIndex(item?.index);
   }, []);
-
-  const loadMoreFeeds = async info => {
-    console.log('fetching more: ', info);
-    const offset = feeds.length;
-    // no more elements to fetch
-    if (offset >= feedMetaData.total) return;
-
-    fetchFeedsFromApi(offset);
-  };
 
   const Slide = ({item, isActive, muted, setIsMuted, index}) => {
     const scale = Yscroll.interpolate({
@@ -104,7 +79,7 @@ export default () => {
     <Container height={height} colors={colors}>
       <DareBar height={90} />
       <Animated.FlatList
-        data={feeds}
+        data={data?.feeds}
         renderItem={({item, index}) => (
           <Slide
             isActive={index === activeIndex}
@@ -127,7 +102,9 @@ export default () => {
         decelerationRate={Platform.OS === 'ios' ? 0.3 : 0.88}
         viewabilityConfig={{viewAreaCoveragePercentThreshold: 50}}
         onViewableItemsChanged={onViewableItemsChanged}
-        onEndReached={loadMoreFeeds}
+        // onRefresh={refetch}
+        // refreshing={isLoading}
+        onEndReached={() => fetchNextPage()}
         onEndReachedThreshold={3}
       />
     </Container>
@@ -139,3 +116,4 @@ const Container = styled.View`
   height: ${props => props.height};
   background-color: ${props => props.colors.primary};
 `;
+
