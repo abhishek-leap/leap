@@ -15,7 +15,7 @@ const getInfiniteFeeds = async ({ pageParam = 0 }) => {
 export const useInfiniteFeeds = () => {
 	return useInfiniteQuery(['feeds'], getInfiniteFeeds, {
 		select: data => {
-			const allPagesArray: any = []
+			const allPagesArray = []
 			data?.pages ? data.pages.forEach(feedsArray => allPagesArray.push(feedsArray?.response)) : null
 			const flatContacts = allPagesArray.flat()
 			return {
@@ -25,7 +25,7 @@ export const useInfiniteFeeds = () => {
 			}
 		},
 		getNextPageParam: lastPage => lastPage?.nextPage?.offset + OFFSET_LIMIT,
-		onError: (error: Error) => console.log(error),
+		onError: (error) => console.log(error),
 		// staleTime: 1000 * 60 * 60,
 	})
 }
