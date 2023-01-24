@@ -104,7 +104,7 @@ const App = () => {
           />
           <Tab.Screen
             name="Search"
-            component={DemoScreen}
+            component={SearchScreen}
             options={{
               unmountOnBlur: true,
               tabBarIcon: ({focused}) => {

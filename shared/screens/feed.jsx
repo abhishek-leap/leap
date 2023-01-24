@@ -47,7 +47,7 @@ export default () => {
 
   const onViewableItemsChanged = useCallback(({viewableItems}) => {
     const item = viewableItems[0];
-    console.log(item?.index, 'active index');
+    // console.log(item?.index, 'active index');
     setActiveIndex(item?.index);
   }, []);
 
@@ -57,7 +57,7 @@ export default () => {
       outputRange: [1, 1, 1, 0],
     });
     return (
-      <Animated.View
+        <Animated.View
         style={[
           styles.slide,
           {
@@ -70,6 +70,8 @@ export default () => {
           muted={muted}
           setIsMuted={setIsMuted}
           index={index}
+          height={height}
+          width={windowWidth}
         />
       </Animated.View>
     );
@@ -89,18 +91,22 @@ export default () => {
             index={index}
           />
         )}
-        onScroll={Animated.event(
-          [{nativeEvent: {contentOffset: {y: Yscroll}}}],
-          {useNativeDriver: true},
-        )}
+        onScroll={(event) => {
+          Animated.event(
+            [{nativeEvent: {contentOffset: {y: Yscroll}}}],
+            {useNativeDriver: true},
+          )
+        }
+         }
         removeClippedSubviews={true}
-        windowSize={3}
-        maxToRenderPerBatch={3}
-        initialNumToRender={3}
+        windowSize={3} //Cons: For a bigger windowSize, you will have more memory consumption. For a lower windowSize, you will have a bigger chance of seeing blank areas.
+        // maxToRenderPerBatch={3} //Cons: Less frequent batches may cause blank areas, More frequent batches may cause responsiveness issues.
+        initialNumToRender={3} //Cons: Setting a low initialNumToRender may cause blank areas, especially if it's too small to cover the viewport on initial render.
         keyExtractor={(item, index) => `${index}_${item.id}`}
         snapToInterval={height}
-        decelerationRate={Platform.OS === 'ios' ? 0.3 : 0.88}
-        viewabilityConfig={{viewAreaCoveragePercentThreshold: 50}}
+        snapToAlignment={"start"}
+        decelerationRate={Platform.OS === 'ios' ? 0.3 : 0.50}
+        viewabilityConfig={{viewAreaCoveragePercentThreshold: 65}}
         onViewableItemsChanged={onViewableItemsChanged}
         // onRefresh={refetch}
         // refreshing={isLoading}
