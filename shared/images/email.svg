@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>A8FA0E5F-A8F5-4EDB-8A46-C59881E6D2DE@2x</title>
+    <defs>
+        <filter color-interpolation-filters="auto" id="filter-1">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0.600000 0"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Login" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="Log-in---By-Email-3-1" transform="translate(-52.000000, -308.000000)">
+            <g id="Buttons-/-Contained-/-With-Icon-/-Enabled-/-Border-/-40H" transform="translate(40.000000, 296.000000)">
+                <g id="Group-5" transform="translate(12.000000, 12.000000)" filter="url(#filter-1)">
+                    <g transform="translate(2.000000, 3.333333)">
+                        <path d="M1.09133333,0 L10.9093333,0 C11.512,0 12,0.488666667 12,1.09066667 L12,8.182 C12,8.78466667 11.512,9.27266667 10.9093333,9.27266667 L1.09133333,9.27266667 C0.488666667,9.27266667 0,8.78466667 0,8.182 L0,1.09066667 C0,0.488666667 0.488666667,0 1.09133333,0 Z" id="Stroke-1" stroke="currentColor"></path>
+                        <path d="M0.0799333333,0.686 L5.2086,4.35466667 C5.6726,4.68666667 6.29526667,4.68666667 6.75926667,4.356 L11.9179333,0.676666667" id="Stroke-3" stroke="currentColor"></path>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

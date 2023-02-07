@@ -4,5 +4,29 @@ const {width, height} = Dimensions.get('window');
 
 export const WINDOW_WIDTH = width;
 export const WINDOW_HEIGHT = height;
-
+export const SITE_KEY = '6Ld-JYkfAAAAAHDOOVWS4iWciHjsubtVVmEHIKxq';
 export const OFFSET_LIMIT = 10;
+
+export const SIGN_IN_UP_FOR = 'Sign in/up for';
+export const USE_EMAIL = "USE EMAIL";
+export const USE_PHONE = "USE PHONE";
+export const WHAT_IS_EMAIL_ADDRESS = 'What is your Email Address?';
+export const WHAT_IS_PHONE_NUMBER = 'What is your Phone Number?';
+export const WE_SENT_AUTH_CODE = 'We have sent you a authentication code';
+export const NEXT = "NEXT";
+export const DONE = "DONE";
+export const PLACEHOLDER_EMAIL_ADDRESS = "Type email address";
+export const PLACEHOLDER_PHONE_NUMBER = "Type phone number";
+export const TO_PHONE_NUMBER = "To a phone number ";
+export const TO_EMAIL_ADDRESS = "To an email address ";
+export const DID_NOT_RECEIVE_CODE = "Did not receive a code?";
+export const SEND_AGAIN = "Send again";
+export const SIGN_IN_UP = "Sign in/up";
+export const DEFAULT_HASH_TAGS_COUNTOSHOW= 2;
+export const ACTIVE_DARE_STATUS = "active";
+export const KNOW_YOU_BETTER = "Let's get to know you better";
+export const NICKNAME = "Nickname";
+export const ERROR_EMAIL_FORMAT = "Please provide a valid email address eg. user@server.com";
+export const ERROR_PHONE_FORMAT = "Please provide a valid phone number";
+export const WHAT_IS_YOUR_BIRTHDAY = 'What is your birthday?';
+export const WE_ARE_ALMOST_DONE = "We're almost done";

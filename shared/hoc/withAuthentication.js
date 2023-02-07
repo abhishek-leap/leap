@@ -1,11 +1,18 @@
-import React, {useEffect} from 'react';
-import {storage} from '../../shared/mmkv-store/store';
+import React from 'react';
+import { getData } from '../utils/helper';
 
 const withAuthentication =
   Component =>
   ({...props}) => {
-    const isAuthenticated = storage.getString('isAuthenticated');
-    return <Component {...props} isAuthenticated={isAuthenticated} />;
+    const isToken = getData('token');
+    const isBasicAuthentication = getData('isBasicSignupCompleted', 'string');
+    const isExtendedAuthentication = getData('isExtendedSignupCompleted', 'string');
+    return <Component 
+            {...props} 
+            isToken={isToken} 
+            isBasicSignupCompleted={isBasicAuthentication} 
+            isExtendedSignupCompleted={isExtendedAuthentication}
+          />;
   };
 
 export default withAuthentication;

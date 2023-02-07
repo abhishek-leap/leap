@@ -1,24 +1,28 @@
 import {useEffect, useRef} from 'react';
 import styled from '@emotion/native';
-import {View, Animated, SafeAreaView, Text} from 'react-native';
+import { Animated, SafeAreaView } from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {useSelector, useDispatch} from 'react-redux';
-import CloseIcon from '../../shared/images/close.svg';
 import {closeAuthenticationBottomDrawer} from '../redux-ui-state/slices/authenticationSlice';
 import {WINDOW_HEIGHT} from '../constants';
+import { SignInUp } from '../screens/authentication/signInUp';
+import { useState } from 'react';
+import { getData } from '../utils/helper';
 
-const ANIMATION_DURATION = 1000; // 5 sec
+const ANIMATION_DURATION = 500; // 5 sec
 
-const BottomDrawer = props => {
+const BottomDrawer = (props, { navigation }) => {
   const dispatch = useDispatch();
   const {show} = useSelector(state => state.authentication);
+  const {authStatus} = useSelector(state => state.authentication);
+  const [isBasicSignupDone , setIsBasicSignupDone] = useState(false);
 
   const {colors} = useTheme();
   const slideAnimation = useRef(new Animated.Value(WINDOW_HEIGHT)).current;
 
   const toggleDrawer = () => {
     Animated.timing(slideAnimation, {
-      toValue: show ? 100 : WINDOW_HEIGHT,
+      toValue: show ? 0 : WINDOW_HEIGHT,
       duration: ANIMATION_DURATION,
       useNativeDriver: true,
     }).start();
@@ -29,6 +33,8 @@ const BottomDrawer = props => {
   };
   useEffect(() => {
     toggleDrawer();
+    const isBasicSignupCompleted = getData('isBasicSignupCompleted');
+    setIsBasicSignupDone(isBasicSignupCompleted);
   }, [toggleDrawer, show]);
 
   return (
@@ -43,9 +49,9 @@ const BottomDrawer = props => {
       }}>
       <SafeAreaView>
         <Body>
-          <ClosedContainer onPress={onCloseIconClick}>
-            <CloseIcon width={34} height={45} />
-          </ClosedContainer>
+          {show &&
+            <SignInUp onCloseIconClick={onCloseIconClick} isBasicSignupCompleted={isBasicSignupDone} authStatus={authStatus} />
+          }
         </Body>
       </SafeAreaView>
     </Animated.View>
@@ -56,10 +62,4 @@ export default BottomDrawer;
 
 const Body = styled.View`
   height: 100%;
-`;
-
-const ClosedContainer = styled.TouchableOpacity`
-  position: absolute;
-  right: 10px;
-  padding: 5px;
 `;

@@ -66,3 +66,8 @@ ios/Podfile.lock
 # npm/yarn
 yarn.lock
 package-lock.json
+
+# Exclude Gemfile
+Gemfile.lock
+*.lock
+android/Gemfile.lock

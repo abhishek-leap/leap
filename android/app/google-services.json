@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "204515243759",
+    "project_id": "playleap-deb0b",
+    "storage_bucket": "playleap-deb0b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:204515243759:android:118d7783b630d118314d1a",
+        "android_client_info": {
+          "package_name": "io.playleap.rnative"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "204515243759-ddm0u48nsme3jksfl5fi6m5bf69c8fr8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDKrgYM4rijXuJV30ccBwGSM5L1Np_rn6g"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "204515243759-ddm0u48nsme3jksfl5fi6m5bf69c8fr8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

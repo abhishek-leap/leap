@@ -1,4 +1,4 @@
-import React, {useState, useCallback} from 'react';
+import React, {useState, useCallback, useRef} from 'react';
 import {
   StyleSheet,
   Dimensions,
@@ -10,6 +10,7 @@ import VideoPlayer from '../components/feed';
 import styled from '@emotion/native';
 import {useTheme} from '@react-navigation/native';
 import { useInfiniteFeeds } from '../hooks/useInfiniteFeeds';
+import { setGlobalNavigation } from '../utils/helper';
 
 const windowWidth = Dimensions.get('window').width;
 const windowHeight = Dimensions.get('window').height;
@@ -38,19 +39,25 @@ const styles = StyleSheet.create({
   },
 });
 
-export default () => {
-  const [activeIndex, setActiveIndex] = useState(0);
+export default ({navigation}) => {
+  const activeIndex = useRef(0);
   const [muted, setIsMuted] = useState(true);
+  const [playing, setPlaying] = useState(true);
   const {colors} = useTheme();
   const Yscroll = React.useRef(new Animated.Value(0)).current;
   const { status, data, error, isLoading, refetch, fetchNextPage } = useInfiniteFeeds()
+  const viewabilityConfig = {minimumViewTime: 600, viewAreaCoveragePercentThreshold: 10};
 
-  const onViewableItemsChanged = useCallback(({viewableItems}) => {
+  setGlobalNavigation(navigation);
+  
+  const onViewableItemsChanged = useCallback(({viewableItems, changed}) => {
     const item = viewableItems[0];
-    // console.log(item?.index, 'active index');
-    setActiveIndex(item?.index);
+    console.log(item?.index);
+    activeIndex.current = item?.index
   }, []);
 
+  const viewabilityConfigCallbackPairs = useRef([{ viewabilityConfig: viewabilityConfig, onViewableItemsChanged }])
+  
   const Slide = ({item, isActive, muted, setIsMuted, index}) => {
     const scale = Yscroll.interpolate({
       inputRange: [-1, 0, height * index, height * (index + 2)],
@@ -66,12 +73,15 @@ export default () => {
         ]}>
         <VideoPlayer
           data={item}
-          isActive={isActive}
+          currentIndex={activeIndex.current}
           muted={muted}
           setIsMuted={setIsMuted}
           index={index}
           height={height}
           width={windowWidth}
+          playing={playing}
+          setPlaying={setPlaying}
+          windowHeight={windowHeight}
         />
       </Animated.View>
     );
@@ -79,12 +89,12 @@ export default () => {
 
   return (
     <Container height={height} colors={colors}>
-      <DareBar height={90} />
+      <DareBar height={Platform.OS == 'ios' ? 105 : 100} />
       <Animated.FlatList
         data={data?.feeds}
+        extraData={data?.feeds}
         renderItem={({item, index}) => (
           <Slide
-            isActive={index === activeIndex}
             item={item}
             muted={muted}
             setIsMuted={setIsMuted}
@@ -96,22 +106,21 @@ export default () => {
             [{nativeEvent: {contentOffset: {y: Yscroll}}}],
             {useNativeDriver: true},
           )
-        }
-         }
-        removeClippedSubviews={true}
+        }}
+        removeClippedSubviews={false}
         windowSize={3} //Cons: For a bigger windowSize, you will have more memory consumption. For a lower windowSize, you will have a bigger chance of seeing blank areas.
-        // maxToRenderPerBatch={3} //Cons: Less frequent batches may cause blank areas, More frequent batches may cause responsiveness issues.
-        initialNumToRender={3} //Cons: Setting a low initialNumToRender may cause blank areas, especially if it's too small to cover the viewport on initial render.
+        maxToRenderPerBatch={3} //Cons: Less frequent batches may cause blank areas, More frequent batches may cause responsiveness issues.
+        initialNumToRender={0} //Cons: Setting a low initialNumToRender may cause blank areas, especially if it's too small to cover the viewport on initial render.
         keyExtractor={(item, index) => `${index}_${item.id}`}
         snapToInterval={height}
         snapToAlignment={"start"}
-        decelerationRate={Platform.OS === 'ios' ? 0.3 : 0.50}
-        viewabilityConfig={{viewAreaCoveragePercentThreshold: 65}}
+        decelerationRate={'fast'}
+        disableIntervalMomentum
+        // viewabilityConfig={{viewAreaCoveragePercentThreshold: 15}}
+        // viewabilityConfigCallbackPairs={viewabilityConfigCallbackPairs.current}
         onViewableItemsChanged={onViewableItemsChanged}
-        // onRefresh={refetch}
-        // refreshing={isLoading}
         onEndReached={() => fetchNextPage()}
-        onEndReachedThreshold={3}
+        onEndReachedThreshold={5}
       />
     </Container>
   );

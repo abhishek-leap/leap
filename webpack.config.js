@@ -50,6 +50,52 @@ const imageLoaderConfiguration = {
   },
 };
 
+const confirmationCodeField = {
+  test: /\.(js|jsx)$/,
+  include: [
+    path.resolve('src'),
+    path.parse(require.resolve('react-native-confirmation-code-field/package.json')).dir
+  ],
+  use: {
+    loader: 'babel-loader',
+    options: {
+      presets: [
+        '@babel/preset-env',
+        '@babel/preset-react',
+        '@babel/preset-flow',
+        '@babel/preset-typescript',
+      ],
+      plugins: [
+        'babel-plugin-react-native-web',
+        '@babel/plugin-proposal-class-properties',
+      ],
+    },
+  },
+};
+
+const webLoader = {
+  test: /\.(js|jsx)$/,
+  include: [
+    path.resolve('src'),
+    path.parse(require.resolve('react-native-webview/package.json')).dir
+  ],
+  use: {
+    loader: 'babel-loader',
+    options: {
+      presets: [
+        '@babel/preset-env',
+        '@babel/preset-react',
+        '@babel/preset-flow',
+        '@babel/preset-typescript',
+      ],
+      plugins: [
+        'babel-plugin-react-native-web',
+        '@babel/plugin-proposal-class-properties',
+      ],
+    },
+  },
+};
+
 module.exports = {
   entry: {
     app: path.join(__dirname, 'index.web.js'),
@@ -79,6 +125,8 @@ module.exports = {
       babelLoaderConfiguration,
       imageLoaderConfiguration,
       svgLoaderConfiguration,
+      confirmationCodeField,
+      webLoader
     ],
   },
   plugins: [

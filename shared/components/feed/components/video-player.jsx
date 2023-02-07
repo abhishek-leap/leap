@@ -1,5 +1,5 @@
-import React,{useState} from 'react';
-import {StyleSheet, View, ActivityIndicator, Dimensions} from 'react-native';
+import React,{useState, useRef} from 'react';
+import {StyleSheet, View, ActivityIndicator, Dimensions, Platform} from 'react-native';
 import Video from 'react-native-video';
 
 const styles = StyleSheet.create({
@@ -8,12 +8,13 @@ const styles = StyleSheet.create({
    height: '100%',
   },
 });
-const VideoPlayer= ({data, isActive, muted, setProgress,index, height, width}) => {
+const VideoPlayer= ({data, muted, setProgress,index, height, width, currentIndex, playing, setPlaying}) => {
   const asset = data.videos[0];
-  const uri = asset.reference;
+  const uri = asset?.reference || null;
   const poster = asset.imageLink;
-  const [playing, setPlaying] = useState(true);
-  const [opacity, setOpacity] = useState(0);
+  const opacity = useRef(0);
+  const activeVideo = index === currentIndex;
+
   return (
     <View style={styles.video}>
       <Video
@@ -21,15 +22,18 @@ const VideoPlayer= ({data, isActive, muted, setProgress,index, height, width}) =
         style={styles.video}
         source={{uri: uri}}
         poster={poster}
-        paused={!isActive || !playing}
+        paused={!activeVideo || !playing}
         resizeMode="contain"
         posterResizeMode='contain'
         repeat={true}
+        automaticallyWaitsToMinimizeStalling={false}
+        currentPlaybackTime
+        progressUpdateInterval={5000}
         bufferConfig={{
-          minBufferMs: 10000,
-          maxBufferMs: 10000,
-          bufferForPlaybackMs: 2500,
-          bufferForPlaybackAfterRebufferMs: 5000
+          minBufferMs: 100000,
+          maxBufferMs: 100000,
+          bufferForPlaybackMs: 100000,
+          bufferForPlaybackAfterRebufferMs: 500000
         }}
         onProgress={data => {
           setProgress(data);
@@ -38,18 +42,13 @@ const VideoPlayer= ({data, isActive, muted, setProgress,index, height, width}) =
           setPlaying(prevState => !prevState);
         }}
         onBuffer={({isBuffering}) => {
-          setOpacity(isBuffering ? 1 : 0);
+          opacity.current = isBuffering ? 1 : 0;
         }}
         onLoadStart={() => {
-          setOpacity(1);
+          opacity.current = 1
         }}
         onLoad={() => {
-          videoTracks: [{width: '100%'}],
-          setOpacity(0);
-        }}
-        onSeek={{
-          currentTime: 100.5,
-          seekTime: 100
+          opacity.current = 0;
         }}
       />
       <ActivityIndicator
@@ -62,7 +61,7 @@ const VideoPlayer= ({data, isActive, muted, setProgress,index, height, width}) =
             left: width / 2,
             right: width / 2,
             },
-            {opacity: opacity}
+            {opacity: opacity.current}
           ]}
       />
     </View>

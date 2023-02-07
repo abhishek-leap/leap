@@ -24,6 +24,7 @@ target 'leap' do
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
+  pod 'react-native-webview', :path => '../node_modules/react-native-webview'
 
   target 'leapTests' do
     inherit! :complete

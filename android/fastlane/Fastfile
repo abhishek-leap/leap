@@ -1,0 +1,60 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+# platform :android do
+  # desc "Submit a new Beta Build to Firebase App Distribution"
+  # lane :distribute do
+  #   gradle(
+  #     task: "assemble",
+  #     build_type: "Release"
+  #   )
+  #   firebase_app_distribution(
+  #           app: "1:204515243759:android:118d7783b630d118314d1a",
+  #           testers: "pankaj.goyal@bigsteptech.com, pgpankajbigstep@gmail.com, sandeep.kumar@bigsteptech.com, kumarsandeep1@gmail.com",
+  #           firebase_cli_token:"1//0ggw0FW70dwkSCgYIARAAGBASNwF-L9IrSBK6-uu7pa_Eg07a9tnZpkGSdvJdQuPIkVbRikQVr39EnUtvgkJC--I4dQtqbrwem4M",
+  #           android_artifact_type:"APK",
+  #           release_notes: "Lots of amazing new features to test out!"
+  #   )
+  # end
+  
+  # Get the last version code and increment it.
+  previous_build_number = google_play_track_version_codes(
+    package_name: 'io.playleap.rnative',
+    track: "V1.0",
+    json_key: "../android/app/api-5544213569440370374-848765-fdcd7a6a26b2.json",
+  )[0]
+
+  current_build_number = previous_build_number + 1
+
+  desc 'Google Play store closed testing V1.0'
+
+  lane :increment_version_upload_to_playstore do
+    increment_version_code(
+      gradle_file_path: '../android/app/build.gradle',
+      version_code: current_build_number
+    )
+    gradle(
+      task: 'clean bundleRelease',
+    )
+    upload_to_play_store(
+      track: 'V1.0',
+      skip_upload_metadata: true,
+      skip_upload_changelogs: true,
+      skip_upload_screenshots: true,
+      skip_upload_images: true,
+      skip_upload_apk: true,
+    )
+  end
+# end

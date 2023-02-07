@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>206EB172-36CA-4033-8C5D-6ECCF7263BDB@1.5x</title>
+    <defs>
+        <filter color-interpolation-filters="auto" id="filter-1">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Lean-sign-up" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="Lean-sign-up---By-Email-3-1" transform="translate(-16.000000, -52.000000)">
+            <g id="Page-Title" transform="translate(16.000000, 49.000000)">
+                <g id="Group-62" transform="translate(0.000000, 3.000000)" filter="url(#filter-1)">
+                    <g transform="translate(3.000000, 3.290100)">
+                        <path d="M9,0 L9,0 C13.971,0 18,4.029 18,9 C18,13.971 13.971,18 9,18 C4.029,18 0,13.971 0,9 C0,4.029 4.029,0 9,0 Z" id="Stroke-219" stroke="currentColor" stroke-width="1.5"></path>
+                        <line x1="5" y1="9" x2="13" y2="9" id="Stroke-221" stroke="currentColor" stroke-width="1.5"></line>
+                        <polyline id="Stroke-223" stroke="currentColor" stroke-width="1.5" points="8 11.9995 5 8.9995 8 6.0005"></polyline>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

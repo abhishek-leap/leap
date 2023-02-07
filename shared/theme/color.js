@@ -1,0 +1,8 @@
+export const color = {
+    PLAYLEAP_WHITE: '#FFFFFF',
+    PLAYLEAP_BLUE: '#290c54',
+    PLAYLEAP_PINK: '#ff00ac',
+    PLAYLEAP_GREY: '#323232',
+    PLAYLEAP_LIGHT_GREY: '#848484',
+    PLAYLEAP_SILVER: '#a0b5c7'
+}

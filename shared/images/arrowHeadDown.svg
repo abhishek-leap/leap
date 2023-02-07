@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="16px" height="16px" viewBox="0 0 16 16" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>FEDD035F-E502-468C-A201-C662E58EB23E@2x</title>
+    <defs>
+        <filter color-interpolation-filters="auto" id="filter-1">
+            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0.600000 0"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Coach-Marks" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" stroke-linecap="round" stroke-linejoin="round">
+        <g id="Sign-Up:-First-Onbording---Coach-marks-1-2" transform="translate(-280.000000, -70.000000)">
+            <g id="language" transform="translate(249.000000, 66.000000)">
+                <g id="Stroke-158" transform="translate(31.000000, 4.000000)" filter="url(#filter-1)">
+                    <g transform="translate(5.333333, 6.666667)">
+                        <polyline id="Stroke-157" stroke="currentColor" stroke-width="1.5" points="0 0 2.66666667 2.66666667 5.33333333 0"></polyline>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

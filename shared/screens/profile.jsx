@@ -1,18 +1,19 @@
 import React, {useEffect} from 'react';
 import {Text, View} from 'react-native';
 import {useDispatch} from 'react-redux';
-import {openAuthenticationBottomDrawer} from '../redux-ui-state/slices/authenticationSlice';
+import {FullAuthentication, openAuthenticationBottomDrawer} from '../redux-ui-state/slices/authenticationSlice';
 import withAuthentication from '../hoc/withAuthentication';
+import { getData, isDate13orMoreYearsOld } from '../utils/helper';
 
-const Profile = ({isAuthenticated}) => {
+const Profile = ({isToken}) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!isAuthenticated) {
+    if (!isToken) {
+      dispatch(FullAuthentication(0));
       dispatch(openAuthenticationBottomDrawer());
     }
-  }, [isAuthenticated]);
-
+  }, [isToken]);
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
       <Text>Profile</Text>

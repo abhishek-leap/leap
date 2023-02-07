@@ -5,23 +5,25 @@ import ShareIcon from '../../../images/share.svg';
 import Profile from './profile';
 import styled from '@emotion/native';
 
-const FeedOptions= ({}) => {
+const FeedOptions= ({data}) => {
+  const {stats, author} = data;
+
   return (
     <Container>
       <StyledSection>
-        <Profile />
+        <Profile author={author}/>
       </StyledSection>
       <StyledSection>
         <HeartIcon height={28} />
-        <StyledText>0</StyledText>
+        <StyledText>{stats?.reactions}</StyledText>
       </StyledSection>
       <StyledSection>
         <CommentIcon height={28} />
-        <StyledText>0</StyledText>
+        <StyledText>{stats?.comments}</StyledText>
       </StyledSection>
       <StyledSection>
         <ShareIcon height={28} />
-        <StyledText>0</StyledText>
+        <StyledText>{stats?.views}</StyledText>
       </StyledSection>
     </Container>
   );

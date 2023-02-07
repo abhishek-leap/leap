@@ -1,10 +1,12 @@
 import React from 'react';
 import styled from '@emotion/native';
+import { Platform } from 'react-native';
 
-const ProgressBar= ({data}) => {
+const ProgressBar= ({data, windowHeight}) => {
   const progress = (data?.currentTime * 100) / data?.seekableDuration || 0;
+
   return (
-    <Container>
+    <Container windowHeight={windowHeight} OS={Platform.OS}>
       <ProgressLine progress={progress} />
       <ProgressDot progress={progress} />
     </Container>
@@ -17,7 +19,7 @@ const Container = styled.View`
   height: 3px;
   width: 100%;
   background-color: rgba(255, 0, 172, 0.5);
-  bottom: -6.5px;
+  top: ${props => props.OS == 'android' ? (props.windowHeight / 0.671)+'px' : null};
 `;
 
 const ProgressLine = styled.View`
@@ -26,7 +28,7 @@ const ProgressLine = styled.View`
   background-color: rgb(255, 0, 172);
   border-radius: 40px;
   text-align: right;
-  bottom: 1.5px;
+  bottom: 1.3px;
 `;
 
 const ProgressDot = styled.View`

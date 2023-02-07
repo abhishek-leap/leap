@@ -1,0 +1,2 @@
+json_key_file("../android/app/api-5544213569440370374-848765-fdcd7a6a26b2.json") # Path to the json secret file - Follow https://docs.fastlane.tools/actions/supply/#setup to get one
+package_name("io.playleap.rnative") # e.g. com.krausefx.app
