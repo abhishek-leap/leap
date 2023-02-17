@@ -43,7 +43,7 @@ const Header = ({backIcon, text, onCloseIconClick, handleBack, screenName, setSc
             }
             {text ? <HeaderTxt color={colors.PLAYLEAP_WHITE}>{text}</HeaderTxt> : <View></View>}
             <ClosedContainer onPress={() => closeScreen()}>
-                <CloseIcon width={25} height={25} />
+                <CloseIcon color={colors.PLAYLEAP_WHITE} width={25} height={25} />
             </ClosedContainer>
         </TopView>
     )

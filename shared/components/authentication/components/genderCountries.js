@@ -14,7 +14,7 @@ import {openGenderBottomDrawer, openCountryBottomDrawer} from '../../../redux-ui
 // Images 
 import ArrowIcon from '../../../images/arrowHeadDown.svg';
 import GetRecaptcha from './getRecaptcha';
-import Loader from '../../../components/loader';
+import Loader from '../../common/loader';
 
 const GenderCountries = ({ optionChoose, value, isLoading, postGenderCountryToApi, action }) => {
     const {colors} = useTheme();

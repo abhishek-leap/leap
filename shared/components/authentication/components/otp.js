@@ -18,7 +18,7 @@ import {DID_NOT_RECEIVE_CODE,
 import { color } from '../../../theme/color';
 import GetRecaptcha from './getRecaptcha';
 import { useState } from 'react';
-import Loader from '../../../components/loader';
+import Loader from '../../common/loader';
 
 export const OTP = ({optionChoose, postOTPToApi, setScreen, valuePrevious, isSubmit, setIsSubmit, action, otpError, isLoading}) => {
     const CELL_COUNT = 6;

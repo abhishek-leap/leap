@@ -3,34 +3,46 @@ import styled from '@emotion/native';
 import { Animated, SafeAreaView } from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {useSelector, useDispatch} from 'react-redux';
-import {closeGenderBottomDrawer} from '../redux-ui-state/slices/authenticationSlice';
-import {WINDOW_HEIGHT} from '../constants';
-import Picker from './picker';
+import {WINDOW_HEIGHT} from '../../constants';
+import Picker from '../common/picker';
+import { useHashtagList } from '../../hooks/useMasterAPI';
+import { closeHastagBottomDrawer, selectedHashtags } from '../../redux-ui-state/slices/createDareSlice';
 
 const ANIMATION_DURATION = 500; // 5 sec
 
-const GenderDrawer = (props, { navigation }) => {
+const HashtagsDrawer = (props, { navigation }) => {
   const dispatch = useDispatch();
-  const {genderShow} = useSelector(state => state.authentication);
+  const hashtagList = useHashtagList();
+  const {hashtagShow} = useSelector(state => state.createDare);
   const {colors} = useTheme();
   const slideAnimation = useRef(new Animated.Value(WINDOW_HEIGHT)).current;
 
   const toggleDrawer = () => {
     Animated.timing(slideAnimation, {
-      toValue: genderShow ? WINDOW_HEIGHT / 1.3 : WINDOW_HEIGHT,
+      toValue: hashtagShow ? WINDOW_HEIGHT / 4 : WINDOW_HEIGHT,
       duration: ANIMATION_DURATION,
       useNativeDriver: true,
     }).start();
   };
 
   const onCloseIconClick = () => {
-    dispatch(closeGenderBottomDrawer());
+    dispatch(closeHastagBottomDrawer());
   };
 
   useEffect(() => {
     toggleDrawer();
-  }, [toggleDrawer, genderShow]);
+  }, [toggleDrawer, hashtagShow]);
 
+  useEffect(() => {
+    if(hashtagList.data === undefined) {
+      hashtagList.mutate();
+    }
+  }, [hashtagShow])
+
+  const handleItem = (item) => {
+    dispatch(selectedHashtags({name: item.name, value: item.name}));
+    onCloseIconClick();
+  }
 
   return (
     <Animated.View
@@ -44,11 +56,11 @@ const GenderDrawer = (props, { navigation }) => {
       }}>
       <SafeAreaView>
         <Body>
-           <Picker
-              title={'Gender'} 
-              data={[{name: "Male", code: "male", id: 0}, {name: "Female", code: "female", id: 1}]}
+          <Picker
+              title={'Hashtags'} 
+              data={hashtagList.data}
               onCloseIconClick={onCloseIconClick}
-              store_key={'SelectedGender'}
+              handleSelectItem={handleItem}
           />
         </Body>
       </SafeAreaView>
@@ -56,7 +68,7 @@ const GenderDrawer = (props, { navigation }) => {
   );
 };
 
-export default GenderDrawer;
+export default HashtagsDrawer;
 
 const Body = styled.View`
   height: 100%;
@@ -66,12 +78,4 @@ const ClosedContainer = styled.TouchableOpacity`
   position: absolute;
   right: 10px;
   padding: 5px;
-`;
-
-const Title = styled.View`
-`;
-
-const TitleTxt = styled.Text`
-  color: white;
-  font-size: 16px;
 `;

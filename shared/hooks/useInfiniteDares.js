@@ -6,8 +6,7 @@ import {OFFSET_LIMIT} from '../constants';
 
 const getInfiniteDares = async ({ pageParam = 0 }) => {
     const queyParams = {options: JSON.stringify({filter: {offset: pageParam, limit: 10}, q: {source: 'bar'}})};
-    const res = await loadDares(queyParams);
-	const {dares: apiDares, meta} = await res.json();
+    const {dares: apiDares, meta} = await loadDares(queyParams);
 	// const data = apiDares.reduce((group, arr) => {
 	// 	const { status } = arr;
 	// 	group[status] = group[status] ?? [];

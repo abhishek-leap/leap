@@ -21,13 +21,13 @@ const DareBar = ({height}) => {
         paddingBottom: 65,
       } : null}
       data={data?.dares}
-      keyExtractor={(item, index) => `${index}_${item.id}`}
+      keyExtractor={(item, index) => `${index}_${item?.id}`}
       renderItem={({item, index}) => (
-        ((index === 0 && data?.dares[0]?.status !== 'public') || item.status !== data?.dares[index - 1].status) ? (
-          <View key={`${index}_${item.id}`}>
-            <DareHead status={item.status}>
-              <DareHeadText status={item.status}>
-                {item.status === ACTIVE_DARE_STATUS ? <Text>{"new"}</Text>: <Text>{"closed"}</Text>}
+        ((index === 0 && data?.dares[0]?.status !== 'public') || item?.status !== data?.dares[index - 1]?.status) ? (
+          <View key={`${index}_${item?.id}`}>
+            <DareHead status={item?.status}>
+              <DareHeadText status={item?.status}>
+                {item?.status === ACTIVE_DARE_STATUS ? <Text>{"new"}</Text>: <Text>{"closed"}</Text>}
               </DareHeadText>
             </DareHead>
           </View>

@@ -7,7 +7,7 @@ import {useTheme} from '@react-navigation/native';
 import { color } from '../../../theme/color';
 import { DONE, KNOW_YOU_BETTER, NICKNAME, WINDOW_WIDTH } from '../../../constants';
 import GetRecaptcha from './getRecaptcha';
-import Loader from '../../../components/loader';
+import Loader from '../../common/loader';
 
 // images
 import Header from './header';

@@ -10,8 +10,8 @@
         <g transform="translate(-280.000000, -52.000000)" id="ic-/-General-/-One-tone--/-Social-Media-/-9-Copy-4">
             <g transform="translate(280.000000, 52.000000)" filter="url(#filter-1)" id="Group-7">
                 <g transform="translate(8.428932, 8.428932)">
-                    <line x1="7.07106781" y1="0" x2="0" y2="7.07106781" id="Stroke-5" stroke="#fff" stroke-width="1.5"></line>
-                    <line x1="7.07106781" y1="7.07106781" x2="0" y2="0" id="Stroke-7" stroke="#fff" stroke-width="1.5"></line>
+                    <line x1="7.07106781" y1="0" x2="0" y2="7.07106781" id="Stroke-5" stroke="currentColor" stroke-width="1.5"></line>
+                    <line x1="7.07106781" y1="7.07106781" x2="0" y2="0" id="Stroke-7" stroke="currentColor" stroke-width="1.5"></line>
                 </g>
             </g>
         </g>

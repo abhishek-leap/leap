@@ -14,7 +14,10 @@
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-leap-leapTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-leap-leapTests.a */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		EB091B6B29925B9800B1101A /* VideoEditorModuleBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = EB091B6A29925B9800B1101A /* VideoEditorModuleBridge.m */; };
+		EB091B6E29925BF100B1101A /* VideoEditorModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB091B6D29925BF100B1101A /* VideoEditorModule.swift */; };
 		EB2A6C1A29756D6800E7E5BC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EB2A6C1929756D6800E7E5BC /* GoogleService-Info.plist */; };
+		EB762E742992717B00634C99 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB762E732992717B00634C99 /* Constants.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -44,7 +47,12 @@
 		5DCACB8F33CDC322A6C60F78 /* libPods-leap.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-leap.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = leap/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-leap-leapTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-leap-leapTests.release.xcconfig"; path = "Target Support Files/Pods-leap-leapTests/Pods-leap-leapTests.release.xcconfig"; sourceTree = "<group>"; };
+		EB091B6A29925B9800B1101A /* VideoEditorModuleBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideoEditorModuleBridge.m; sourceTree = "<group>"; };
+		EB091B6C29925BF100B1101A /* leap-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "leap-Bridging-Header.h"; sourceTree = "<group>"; };
+		EB091B6D29925BF100B1101A /* VideoEditorModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoEditorModule.swift; sourceTree = "<group>"; };
 		EB2A6C1929756D6800E7E5BC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		EB762E732992717B00634C99 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		EB762E752992744300634C99 /* leapDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = leapDebug.entitlements; path = leap/leapDebug.entitlements; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -88,6 +96,7 @@
 		13B07FAE1A68108700A75B9A /* leap */ = {
 			isa = PBXGroup;
 			children = (
+				EB762E752992744300634C99 /* leapDebug.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
 				13B07FB51A68108700A75B9A /* Images.xcassets */,
@@ -95,6 +104,10 @@
 				13B07FB61A68108700A75B9A /* Info.plist */,
 				81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */,
 				13B07FB71A68108700A75B9A /* main.m */,
+				EB762E732992717B00634C99 /* Constants.swift */,
+				EB091B6D29925BF100B1101A /* VideoEditorModule.swift */,
+				EB091B6A29925B9800B1101A /* VideoEditorModuleBridge.m */,
+				EB091B6C29925BF100B1101A /* leap-Bridging-Header.h */,
 			);
 			name = leap;
 			sourceTree = "<group>";
@@ -210,7 +223,7 @@
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						LastSwiftMigration = 1120;
+						LastSwiftMigration = 1420;
 					};
 				};
 			};
@@ -416,7 +429,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EB762E742992717B00634C99 /* Constants.swift in Sources */,
+				EB091B6B29925B9800B1101A /* VideoEditorModuleBridge.m in Sources */,
 				13B07FBC1A68108700A75B9A /* AppDelegate.mm in Sources */,
+				EB091B6E29925BF100B1101A /* VideoEditorModule.swift in Sources */,
 				13B07FC11A68108700A75B9A /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -436,6 +452,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5B7EB9410499542E8C5724F5 /* Pods-leap-leapTests.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
@@ -463,6 +480,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 89C6BE57DB24E9ADA2F236DE /* Pods-leap-leapTests.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				INFOPLIST_FILE = leapTests/Info.plist;
@@ -489,6 +507,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = leap/leapDebug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				CODE_SIGN_STYLE = Manual;
@@ -498,7 +517,7 @@
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = leap/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = LeapNative;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -512,7 +531,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = io.playleap.rnative;
 				PRODUCT_NAME = leap;
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = playleap_dev_provision;
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = development_leap_rnative;
+				SWIFT_OBJC_BRIDGING_HEADER = "leap-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -534,7 +554,7 @@
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = leap/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = LeapNative;
-				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -549,6 +569,7 @@
 				PRODUCT_NAME = leap;
 				PROVISIONING_PROFILE_SPECIFIER = "match AppStore io.playleap.rnative";
 				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = distribution;
+				SWIFT_OBJC_BRIDGING_HEADER = "leap-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				VERSIONING_SYSTEM = "apple-generic";
 			};

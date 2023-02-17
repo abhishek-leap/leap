@@ -62,7 +62,7 @@ const FeedItem = ({data, isActive, muted, setIsMuted,index, height, width, curre
           <Text style={{color: 'white'}}>{author.alias && author.alias !== author?.entityId ? author.alias : author?.name}</Text>
         )}
         {postTitle && <Text style={{color: 'white'}}>{postTitle}</Text> }
-        {hashTags && (
+        {hashTags ? (
             <HashtagsContainer>
               {data.hashTags?.map((item, idx) => {
                 return (
@@ -79,7 +79,7 @@ const FeedItem = ({data, isActive, muted, setIsMuted,index, height, width, curre
                 </ContentMoreSpan>
               )}
             </HashtagsContainer>
-        )}
+        ) : <></>}
         {skillStr && (
            <View style={{flexDirection: 'row'}}>
             <Skill width={20} height={20} />

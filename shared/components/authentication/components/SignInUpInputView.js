@@ -7,7 +7,7 @@ import {useTheme} from '@react-navigation/native';
 import { ERROR_EMAIL_FORMAT, ERROR_PHONE_FORMAT, NEXT, PLACEHOLDER_EMAIL_ADDRESS, PLACEHOLDER_PHONE_NUMBER, WHAT_IS_EMAIL_ADDRESS, WHAT_IS_PHONE_NUMBER, WINDOW_HEIGHT, WINDOW_WIDTH } from '../../../constants';
 import GetRecaptcha from './getRecaptcha';
 import Header from './header';
-import Loader from '../../../components/loader';
+import Loader from '../../common/loader';
 // images
 import Email from '../../../images/email.svg';
 import Phone from '../../../images/phone.svg';

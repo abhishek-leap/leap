@@ -52,7 +52,6 @@ export default ({navigation}) => {
   
   const onViewableItemsChanged = useCallback(({viewableItems, changed}) => {
     const item = viewableItems[0];
-    console.log(item?.index);
     activeIndex.current = item?.index
   }, []);
 
@@ -111,7 +110,7 @@ export default ({navigation}) => {
         windowSize={3} //Cons: For a bigger windowSize, you will have more memory consumption. For a lower windowSize, you will have a bigger chance of seeing blank areas.
         maxToRenderPerBatch={3} //Cons: Less frequent batches may cause blank areas, More frequent batches may cause responsiveness issues.
         initialNumToRender={0} //Cons: Setting a low initialNumToRender may cause blank areas, especially if it's too small to cover the viewport on initial render.
-        keyExtractor={(item, index) => `${index}_${item.id}`}
+        keyExtractor={(item, index) => `${index}_${item?.id}`}
         snapToInterval={height}
         snapToAlignment={"start"}
         decelerationRate={'fast'}

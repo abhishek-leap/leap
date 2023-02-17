@@ -3,7 +3,6 @@ import {Text, View} from 'react-native';
 import {useDispatch} from 'react-redux';
 import {FullAuthentication, openAuthenticationBottomDrawer} from '../redux-ui-state/slices/authenticationSlice';
 import withAuthentication from '../hoc/withAuthentication';
-import { getData, isDate13orMoreYearsOld } from '../utils/helper';
 
 const Profile = ({isToken}) => {
   const dispatch = useDispatch();

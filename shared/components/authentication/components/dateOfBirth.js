@@ -16,7 +16,7 @@ import { NEXT, SIGN_IN_UP_FOR,
 // Images 
 import CustomWheel from './customWheel';
 import { getCurrentYear } from "../../../utils/helper";
-import Loader from '../../../components/loader';
+import Loader from '../../common/loader';
 import GetRecaptcha from './getRecaptcha';
 
 // const currentYear = getCurrentYear();

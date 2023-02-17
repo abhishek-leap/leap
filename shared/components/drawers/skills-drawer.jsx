@@ -3,47 +3,51 @@ import styled from '@emotion/native';
 import { Animated, SafeAreaView } from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {useSelector, useDispatch} from 'react-redux';
-import {closeCountryBottomDrawer} from '../redux-ui-state/slices/authenticationSlice';
-import {WINDOW_HEIGHT} from '../constants';
-import Picker from './picker';
-import { countriesList } from '../apis';
-import { storage } from '../mmkv-store/store';
-import { useCountryList } from '../hooks/useMasterAPI';
+import {WINDOW_HEIGHT} from '../../constants';
+import Picker from '../common/picker';
+import { useSkillsGroup, useSkillsList } from '../../hooks/useMasterAPI';
+import { closeSkillsBottomDrawer, selectedSkills } from '../../redux-ui-state/slices/createDareSlice';
 
 const ANIMATION_DURATION = 500; // 5 sec
 
-const CountryDrawer = (props, { navigation }) => {
+const SkillsDrawer = (props, { navigation }) => {
   const dispatch = useDispatch();
-  const countryList = useCountryList();
-  const {countryShow} = useSelector(state => state.authentication);
+  const skillsList = useSkillsList();
+  const skillGroup = useSkillsGroup();
+  const {skillsShow} = useSelector(state => state.createDare);
   const {colors} = useTheme();
   const slideAnimation = useRef(new Animated.Value(WINDOW_HEIGHT)).current;
 
   const toggleDrawer = () => {
     Animated.timing(slideAnimation, {
-      toValue: countryShow ? WINDOW_HEIGHT / 4 : WINDOW_HEIGHT,
+      toValue: skillsShow ? WINDOW_HEIGHT / 1.7 : WINDOW_HEIGHT,
       duration: ANIMATION_DURATION,
       useNativeDriver: true,
     }).start();
   };
 
   const onCloseIconClick = () => {
-    dispatch(closeCountryBottomDrawer());
+    dispatch(closeSkillsBottomDrawer());
   };
 
   useEffect(() => {
     toggleDrawer();
-  }, [toggleDrawer, countryShow]);
+  }, [toggleDrawer, skillsShow]);
 
   useEffect(() => {
-    if(countryList.data === undefined) {
-      countriListAPICall();
+    if(skillGroup.data == undefined) {
+      skillGroup.mutate();
     }
-  }, [countryShow])
+    if((skillsList.data === undefined) && (skillGroup?.data != undefined)) {
+      const searchSkillID = skillGroup?.data?.filter((item) => (item.alias == 'player_technical' && item.entityName == 'Player'))
+      skillsList.mutate(searchSkillID[0].id);
+    }
+    
+  }, [skillsShow]);
 
-  const countriListAPICall = async () => {
-      let tokenID = storage.getString('token');
-      countryList.mutate(tokenID);
+  const handleItem = (item) => {
+    dispatch(selectedSkills({name: item.name, value: item.id, alias: item.alias}));
+    onCloseIconClick();
   }
 
   return (
@@ -59,10 +63,10 @@ const CountryDrawer = (props, { navigation }) => {
       <SafeAreaView>
         <Body>
           <Picker
-              title={'Country'} 
-              data={countryList.data}
+              title={'Skills'} 
+              data={skillsList.data}
               onCloseIconClick={onCloseIconClick}
-              store_key={'SelectedCountry'}
+              handleSelectItem={handleItem}
           />
         </Body>
       </SafeAreaView>
@@ -70,7 +74,7 @@ const CountryDrawer = (props, { navigation }) => {
   );
 };
 
-export default CountryDrawer;
+export default SkillsDrawer;
 
 const Body = styled.View`
   height: 100%;

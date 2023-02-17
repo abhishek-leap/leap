@@ -42,16 +42,14 @@ export const SignInUp = ({onCloseIconClick, isBasicSignupCompleted, authStatus})
 
   // email and phone API calling
   const handleSumbit = async (screen) => {
-    // setIsLoading(true);
-    setScreen(screen)
+    setIsLoading(true);
     let queyParams = {"email":value, 'googleCaptchaToken' :reCaptchaCode};
     if(option == 'phone') {
       queyParams =  {"phone":value, 'googleCaptchaToken' : reCaptchaCode};
     }
-    const res = await authentication(queyParams);
-    const data = await res.json();
+    const data = await authentication(queyParams);
     if(data) {
-      // setIsLoading(false);
+      setIsLoading(false);
       setScreen('OTP');
     } else {
       console.log('User Authentication data not available')
@@ -155,8 +153,7 @@ export const SignInUp = ({onCloseIconClick, isBasicSignupCompleted, authStatus})
     if(option == 'phone') {
       queyParams =  {"code": otpValue, "phone":value, 'googleCaptchaToken' : reCaptchaCode};
     }
-    const res = await otpVerify(queyParams);
-    const data = await res.json();
+    const data = await otpVerify(queyParams);
     if(data) {
       setIsLoading(false)
       handleStorage(data)
@@ -169,18 +166,15 @@ export const SignInUp = ({onCloseIconClick, isBasicSignupCompleted, authStatus})
   const postAliasToApi = async () => {
     setIsLoading(true);
     
-    const queyParams = {params: 
-      {
+    const queyParams = {
         "alias": value, 
         "fmsUtm":{fmsVisitorId: undefined}, 
         'googleCaptchaToken' : reCaptchaCode
-      }, authToken: tokenID};
-    const res = await aliasInput(queyParams);
-    const data = await res.json();
+    };
+    const data = await aliasInput(queyParams);
     if(data) {
       setIsLoading(false);
-      handleAliasResponse(data)
-      
+      handleAliasResponse(data);
     } else {
       console.log('data not available');
     } 
@@ -189,13 +183,12 @@ export const SignInUp = ({onCloseIconClick, isBasicSignupCompleted, authStatus})
   const postBirthdateToApi = async (date) => {
     let tokenID = getData('token');
     setIsLoading(true);
-      let queyParams = {params:  {
+      let queyParams = {
         "birthDate": date, 
         "fmsUtm":{fmsVisitorId: undefined},  
         'googleCaptchaToken' : reCaptchaCode
-      }, authToken: tokenID};
-      const res = await birthDateRegistration(queyParams);
-      const data = await res.json();
+      };
+      const data = await birthDateRegistration(queyParams);
       if(data) {
         setIsLoading(false);
         setData('user_dob', data?.details?.birthDate);
@@ -209,14 +202,13 @@ export const SignInUp = ({onCloseIconClick, isBasicSignupCompleted, authStatus})
   const postGenderCountryToApi = async (sex, country_code) => {
     let tokenID = getData('token');
     setIsLoading(true);
-      let queyParams = {params:  {
+      let queyParams = {
         "country": country_code, 
         "sex": sex,
         "fmsUtm":{fmsVisitorId: undefined},  
         'googleCaptchaToken' : reCaptchaCode
-      }, authToken: tokenID};
-      const res = await genderCountryRegistration(queyParams);
-      const data = await res.json();
+      };
+      const data = await genderCountryRegistration(queyParams);
       if(data) {
         setIsLoading(false);
         setData('user_country', data?.details?.country);

@@ -9,6 +9,7 @@ import {
   focusManager,
 } from '@tanstack/react-query';
 import styled from '@emotion/native';
+import {useDispatch, useSelector} from 'react-redux';
 import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
 import {createNativeStackNavigator} from '@react-navigation/native-stack';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
@@ -27,16 +28,23 @@ import ProfileIconFilled from './shared/images/profile-icon-filled.svg';
 import FeedScreen from './shared/screens/feed';
 import SearchScreen from './shared/screens/search';
 import Header from './shared/components/header';
-import DemoScreen from './shared/screens/demo';
+// import DemoScreen from './shared/screens/demo';
 import DareCenterScreen from './shared/screens/dareCenter';
 import ProfileScreen from './shared/screens/profile';
 import {storage} from './shared/mmkv-store/store';
 import createDare from './shared/screens/createDare';
-import { SignInUp } from './shared/screens/authentication/signInUp';
-import AuthenticationDrawer from './shared/components/authentication';
-import GenderDrawer from './shared/components/gender-drawer';
-import CountryDrawer from './shared/components/country-drawer';
-import { getData, isDate13orMoreYearsOld } from './shared/utils/helper';
+import { SignInUp } from './shared/components/authentication';
+import AuthenticationDrawer from './shared/components/drawers/authentication';
+import GenderDrawer from './shared/components/drawers/gender-drawer';
+import CountryDrawer from './shared/components/drawers/country-drawer';
+import CreateDareDrawer from './shared/components/drawers/create-dare-drawer';
+import { getData, isUserMinor } from './shared/utils/helper';
+import SkillsDrawer from './shared/components/drawers/skills-drawer';
+import HashtagsDrawer from './shared/components/drawers/hashtag-drawer';
+import SportsDrawer from './shared/components/drawers/sports-drawer';
+import CompetitorDrawer from './shared/components/drawers/competitor-drawer';
+import ProgressBar from './shared/components/common/progressBar';
+import Toaster from './shared/components/common/toaster';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -48,6 +56,7 @@ const AppTheme = {
     primary: '#290C54',
     secondary: '#ff00ac',
     PLAYLEAP_WHITE: '#FFFFFF',
+    PLAYLEAP_OFF_WHITE: 'rgba(255, 255, 255, 0.6)',
     PLAYLEAP_GREY: '#323232',
     PLAYLEAP_LIGHT_GREY: '#848484',
     PLAYLEAP_SILVER: '#a0b5c7',
@@ -83,16 +92,12 @@ const App = () => {
 
   const updateTabBar = () => {
     let date = getData('user_dob');
-    console.log("App JS Date ", date);
-    if(date !== undefined && !isDate13orMoreYearsOld(date)) {
-      console.log("you are minor with date ", date);
+    if(date !== undefined && !isUserMinor(date)) {
       CreateStatus = false;
     } else if (date) {
       CreateStatus = true;
-      console.log("you are not minor with date ", date);
     } else {
       CreateStatus = true;
-      console.log("Date is not defined in local storage");
     }
   }
 
@@ -161,7 +166,8 @@ const App = () => {
             options={{
               unmountOnBlur: true,
               tabBarIcon: ({focused}) => {
-                return <CreateDareIcon style={{marginBottom: 4}} />;
+                const { progressStatus, progressBarShow } = useSelector(state => state.createDare);
+                return <ProgressBar percent={progressStatus} progressBarShow={progressBarShow} />;
               },
             }}
           />
@@ -223,6 +229,11 @@ const App = () => {
         <AuthenticationDrawer />
         <GenderDrawer />
         <CountryDrawer />
+        <CreateDareDrawer />
+        <SportsDrawer />
+        <SkillsDrawer />
+        <HashtagsDrawer />
+        <CompetitorDrawer />
       </NavigationContainer>
     </Provider>
   );

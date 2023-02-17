@@ -5,10 +5,8 @@ import {loadFeeds} from '../apis';
 import {OFFSET_LIMIT} from '../constants';
 
 const getInfiniteFeeds = async ({ pageParam = 0 }) => {
-    const queyParams = {options: JSON.stringify({offset: pageParam, limit: 10})};
-    const res = await loadFeeds(queyParams);
-    console.log('calling API of feeds');
-    const {feeds: apiFeeds, meta} = await res.json();
+    const queyParams = {options: JSON.stringify({filter: {offset: pageParam, limit: 10}, q: {smartSort: 'true'}})};
+    const {feeds: apiFeeds, meta} = await loadFeeds(queyParams);
     return { response: apiFeeds, nextPage: meta };
 }
 
