@@ -15,8 +15,8 @@ export const isMediaNext = url => url.includes("://media-next");
 
 export const isBearer = url => [isFeedNext, isCommunication, isPartners, isDare, isMediaNext].some(fn => fn(url));
 
-export const loadFeeds = options => get(`${FEED_NEXT_STG}/feeds/feedsByUserId?`, options);
-export const loadDares = options => get(`${DARE_STG}/dares?`, options);
+export const loadFeeds = options => get(`${FEED_NEXT_STG}/feeds/feedsByUserId${queryString(options)}`);
+export const loadDares = options => get(`${DARE_STG}/dares${queryString(options)}`);
 
 // Registration APIs
 export const authentication = options => post(`${BASE_URL_AUTHENTICATION}/registration/authentication`, options);
@@ -36,6 +36,10 @@ export const suggestionList = (options) => get(`${BASE_URL_CORE_STG}/Searches/gl
 export const hashtagList = () => get(`${BASE_URL_CORE_STG}/Hashtags`);
 export const createDare = params => post(`${DARE_STG}/dares`, params);
 export const createFeed = params => post(`${FEED_NEXT_STG}/feeds`, params);
+
+//Dare Back APIs
+export const dareBack = params => post(`${DARE_STG}/dares`, params);
+export const dareBackPreUploadedVideos = options => get(`${FEED_NEXT_STG}/feeds/feedsByUserId?${queryString(options)}`);
 
 //Upload Video APIs with create dare
 export const lensGroup = () => get(`${BASE_URL_CORE_STG}/LensGroups/findGroup`);
@@ -84,7 +88,7 @@ const post = async (url, param) => {
   };
 
   try {
-    console.log("FetchURL, headers ", FetchURL + " "+ JSON.stringify(headers));
+    // console.log("FetchURL, headers ", FetchURL + " "+ JSON.stringify(headers));
     const response = await fetch(FetchURL, headers);
     return await response.json();
   }

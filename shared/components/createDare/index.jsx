@@ -1,5 +1,5 @@
-import React, {useRef, useState, useEffect} from 'react';
-import { TouchableOpacity, StyleSheet } from 'react-native';
+import React, {useRef, useState } from 'react';
+import { TouchableOpacity } from 'react-native';
 import styled from '@emotion/native';
 import {useTheme} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
@@ -39,21 +39,13 @@ import { UPLOAD_BROWSE_TYPE, USER_TYPE } from '../../constants';
 import CloseIcon from '../../images/close.svg';
 import { getFields } from '../../utils/helper';
 import Toaster from '../common/toaster';
-import { useHashtagList } from '../../hooks/useMasterAPI';
 
 const CreateDare = ({ optionChoose, value, isLoading, onCloseIconClick}) => {
     const {colors} = useTheme();
     const dispatch = useDispatch();
-    const hashtagList = useHashtagList();
     const { videoURI, sport, hashtags, skills, competitor, videoThumbnailImg } = useSelector(state => state.createDare);
     const isVideoUploadStatus = useRef('');
     const [title, setTitle] = useState('');
-
-    useEffect(() => {
-        if(hashtagList.data === undefined) {
-          hashtagList.mutate();
-        }
-    }, [])
 
     const handleBack = () => {
         dispatch(selectedHashtags(''));
@@ -165,9 +157,9 @@ const CreateDare = ({ optionChoose, value, isLoading, onCloseIconClick}) => {
         />
         <InnerView colors={colors} currentWidth={WINDOW_WIDTH}>
         <TopView>
-            <Thumbnail 
-                source={{uri: videoThumbnailImg || null}}
-            />
+            {videoThumbnailImg && <Thumbnail 
+                source={{uri: videoThumbnailImg}}
+            /> }
             <ThumbnailRightView>
                 <RightText colors={colors}>{SELECT_FROM_GALLERY}</RightText>
             </ThumbnailRightView>
@@ -222,28 +214,6 @@ const CreateDare = ({ optionChoose, value, isLoading, onCloseIconClick}) => {
 }
 
 export default CreateDare;
-
-const styles = StyleSheet.create({
-    container: {
-        width: '100%',
-        marginBottom: 45
-    },
-    heading:{
-        // marginTop: 50,
-        // marginBottom:10,
-        marginLeft: 15,
-        fontSize: 25
-    },
-    flatList:{
-        color: 'white',
-        paddingLeft: 15, 
-        // marginTop:15, 
-        // paddingBottom:15,
-        fontSize: 20,
-        borderBottomColor: '#26a69a',
-        borderBottomWidth:1
-    }
-  });
 
 const InnerView = styled.View`
     flex: 1;

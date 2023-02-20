@@ -3,43 +3,37 @@ import styled from '@emotion/native';
 import { Animated, SafeAreaView } from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {useSelector, useDispatch} from 'react-redux';
-import {closeCountryBottomDrawer, selectedCountry} from '../../redux-ui-state/slices/authenticationSlice';
 import {WINDOW_HEIGHT} from '../../constants';
-import Picker from '../common/picker';
-import { useCountryList } from '../../hooks/useMasterAPI';
+import DareBack from '../dareBack';
+import { closeDareBackBottomDrawer } from '../../redux-ui-state/slices/dareBackSlice';
 
 const ANIMATION_DURATION = 500; // 5 sec
 
-const CountryDrawer = (props) => {
+const DareBackDrawer = (props, { navigation }) => {
   const dispatch = useDispatch();
-  const { data } = useCountryList()
-  const {countryShow} = useSelector(state => state.authentication);
+  const {show, selectedPostItem} = useSelector(state => state.dareBack);
   const {colors} = useTheme();
   const slideAnimation = useRef(new Animated.Value(WINDOW_HEIGHT)).current;
 
   const toggleDrawer = () => {
     Animated.timing(slideAnimation, {
-      toValue: countryShow ? WINDOW_HEIGHT / 4 : WINDOW_HEIGHT,
+      toValue: show ? WINDOW_HEIGHT / 6 : WINDOW_HEIGHT,
       duration: ANIMATION_DURATION,
       useNativeDriver: true,
     }).start();
   };
 
   const onCloseIconClick = () => {
-    dispatch(closeCountryBottomDrawer());
+    dispatch(closeDareBackBottomDrawer());
   };
-
-  const handleSelectItem = (item) => {
-    dispatch(selectedCountry({name: item.name, value: item.code}));
-    onCloseIconClick();
-  }
 
   useEffect(() => {
     toggleDrawer();
-  }, [toggleDrawer, countryShow]);
-  
+  }, [toggleDrawer, show]);
+
+
   return (
-    <Animated.View
+    <TopView
       style={{
         ...props.style,
         position: 'absolute',
@@ -50,26 +44,24 @@ const CountryDrawer = (props) => {
       }}>
       <SafeAreaView>
         <Body>
-          <Picker
-              title={'Country'} 
-              data={data}
-              onCloseIconClick={onCloseIconClick}
-              handleSelectItem={handleSelectItem}
-          />
+          {show &&
+           <DareBack 
+            selectedPostItem={selectedPostItem}
+            onCloseIconClick={onCloseIconClick}
+           />
+          }
         </Body>
       </SafeAreaView>
-    </Animated.View>
+    </TopView>
   );
 };
 
-export default CountryDrawer;
+export default DareBackDrawer;
 
 const Body = styled.View`
   height: 100%;
 `;
 
-const ClosedContainer = styled.TouchableOpacity`
-  position: absolute;
-  right: 10px;
-  padding: 5px;
-`;
+const TopView = styled(Animated.View)`
+  border-radius: 25px 25px 0 0;
+`

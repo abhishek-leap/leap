@@ -6,6 +6,7 @@ export const WINDOW_WIDTH = width;
 export const WINDOW_HEIGHT = height;
 export const SITE_KEY = '6Ld-JYkfAAAAAHDOOVWS4iWciHjsubtVVmEHIKxq';
 export const OFFSET_LIMIT = 10;
+export const MAX_TOTAL_CONNECTIONS = 50;
 
 export const SIGN_IN_UP_FOR = "Sign in/up for";
 export const USE_EMAIL = "USE EMAIL";
@@ -32,6 +33,7 @@ export const ERROR_PHONE_FORMAT = "Please provide a valid phone number";
 export const WHAT_IS_YOUR_BIRTHDAY = 'What is your birthday?';
 export const WE_ARE_ALMOST_DONE = "We're almost done";
 export const CREATE_DARE = "Create Dare";
+export const DARE_BACK = "Dare Back";
 export const PLACEHOLDER_SPORTS = "Sport (#Soccer)";
 export const PLACEHOLDER_SKILLS = "Skills *";
 export const PLACEHOLDER_COMPETITOR = "Competitor";
@@ -65,4 +67,8 @@ export const LIST_TYPE = {
   FOLLOWERS: "followers"
 }
 
-export const MAX_TOTAL_CONNECTIONS = 50;
+export const HEADER_DARE_BACK_SUBTITLE = "Head to Head Battle";
+export const HEADER_DARE_BACK_DETAILS = "Choose from your uploaded battle";
+export const UPLOAD_NEW = "Upload new";
+export const UPLOAD_FOR_BATTLE = "for this battle";
+export const BUTTON_START_BATTLE = "Start Battle";

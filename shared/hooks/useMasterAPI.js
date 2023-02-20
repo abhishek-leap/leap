@@ -1,33 +1,28 @@
 import {
 	useInfiniteQuery,
 	useMutation,
+	useQuery,
   } from '@tanstack/react-query';
 import { competitorList, countriesList, getEntityId, hashtagList, skillsGroups, skillsList, sportsList, suggestionList } from '../apis';
-import { ENTITY, LIST_TYPE, MAX_TOTAL_CONNECTIONS, OFFSET_LIMIT, ROLE_TYPE } from '../constants';
-import { getData, queryString } from '../utils/helper';
+import { ENTITY, MAX_TOTAL_CONNECTIONS, ROLE_TYPE } from '../constants';
+import { getData } from '../utils/helper';
 
 export const useCountryList = () => {
-	return useMutation({
-		mutationFn: async () => {
+	return useQuery(['countryList'], async () => {
 		  return await countriesList()
-		},
 	})
 }
 
 export const useSportList = () => {
-	const options = {filter: JSON.stringify({where:{type: 'sport'}})};
-	return useMutation({
-		mutationFn: async () => {
+	return useQuery(['sportList'], async () => {
+			const options = {filter: JSON.stringify({where:{type: 'sport'}})};
 		  return await sportsList(options)
-		},
 	})
 }
 
 export const useSkillsGroup = () => {
-	return useMutation({
-		mutationFn: async () => {
-		  return await skillsGroups();
-		},
+	return useQuery(['skillsGroup'], async () => {
+		  return await skillsGroups()
 	})
 }
 
@@ -68,10 +63,8 @@ export const useSuggestionList = () => {
 }
 
 export const useHashtagList = () => {
-	return useMutation({
-		mutationFn: async () => {
+	return useQuery(['hashList'], async () => {
 		  return await hashtagList()
-		},
 	})
 }
 

@@ -59,7 +59,6 @@ const CompetitorDrawer = (props, { navigation }) => {
       const followingArray = [...connectionsList.data?.items, ...followersList.data?.items, ...followingList.data?.items];
       setMergeArray(followingArray);
     }
-    console.log("suggested List ", suggestionList.data);
   }, [competitorShow]);
 
   const handleItem = (item) => {

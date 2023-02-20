@@ -13,6 +13,7 @@ const Header = ({backIcon, text, onCloseIconClick, handleBack, screenName, setSc
     const {colors} = useTheme();
 
     const closeScreen = () => {
+        console.log("clicked on close screen ");
         if(screenName == 'input' && currentScreen == 'ALIAS') {
             removeAllData();
         }
@@ -52,25 +53,19 @@ const Header = ({backIcon, text, onCloseIconClick, handleBack, screenName, setSc
 export default Header;
 
 const ClosedContainer = styled.TouchableOpacity`
-  position: absolute;
-  right: 30px;
-  padding: 5px;
-  margin-top: 40px;
+  right: 100%;
 `;
 
 const BackBtn = styled.TouchableOpacity`
-    position: absolute;
-    left: 30px;
-    padding: 5px 5px 5px 5px;
-    margin-top: 40px;
+    left: 100%;
 `;
 
 const HeaderTxt = styled.Text`
     color: ${props => props.color};
-    margin-top: 50px;
 `;
 
 const TopView = styled.View`
     flexDirection: row;
-    justify-content: space-around;
+    justify-content: space-between;
+    margin-top: 20px;
 `;

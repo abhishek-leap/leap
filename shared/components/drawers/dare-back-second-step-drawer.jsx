@@ -3,41 +3,36 @@ import styled from '@emotion/native';
 import { Animated, SafeAreaView } from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {useSelector, useDispatch} from 'react-redux';
-import {closeCountryBottomDrawer, selectedCountry} from '../../redux-ui-state/slices/authenticationSlice';
 import {WINDOW_HEIGHT} from '../../constants';
-import Picker from '../common/picker';
-import { useCountryList } from '../../hooks/useMasterAPI';
+import { closeDareBackSecondStepBottomDrawer } from '../../redux-ui-state/slices/dareBackSlice';
+import DareBackSecondStep from '../dareBack/components/dareBackSecondStep';
 
-const ANIMATION_DURATION = 500; // 5 sec
+const ANIMATION_DURATION = 100; // 5 sec
 
-const CountryDrawer = (props) => {
+const DareBackSecondStepDrawer = (props, { navigation }) => {
   const dispatch = useDispatch();
-  const { data } = useCountryList()
-  const {countryShow} = useSelector(state => state.authentication);
+  const {secondStepShow} = useSelector(state => state.dareBack);
   const {colors} = useTheme();
   const slideAnimation = useRef(new Animated.Value(WINDOW_HEIGHT)).current;
 
   const toggleDrawer = () => {
     Animated.timing(slideAnimation, {
-      toValue: countryShow ? WINDOW_HEIGHT / 4 : WINDOW_HEIGHT,
+      toValue: secondStepShow ? 0 : WINDOW_HEIGHT,
       duration: ANIMATION_DURATION,
       useNativeDriver: true,
     }).start();
   };
 
   const onCloseIconClick = () => {
-    dispatch(closeCountryBottomDrawer());
+    console.log("back clicked");
+    dispatch(closeDareBackSecondStepBottomDrawer());
   };
-
-  const handleSelectItem = (item) => {
-    dispatch(selectedCountry({name: item.name, value: item.code}));
-    onCloseIconClick();
-  }
 
   useEffect(() => {
     toggleDrawer();
-  }, [toggleDrawer, countryShow]);
-  
+  }, [toggleDrawer, secondStepShow]);
+
+
   return (
     <Animated.View
       style={{
@@ -50,19 +45,16 @@ const CountryDrawer = (props) => {
       }}>
       <SafeAreaView>
         <Body>
-          <Picker
-              title={'Country'} 
-              data={data}
-              onCloseIconClick={onCloseIconClick}
-              handleSelectItem={handleSelectItem}
-          />
+          <DareBackSecondStep 
+            onCloseIconClick={onCloseIconClick}
+           />
         </Body>
       </SafeAreaView>
     </Animated.View>
   );
 };
 
-export default CountryDrawer;
+export default DareBackSecondStepDrawer;
 
 const Body = styled.View`
   height: 100%;
@@ -72,4 +64,12 @@ const ClosedContainer = styled.TouchableOpacity`
   position: absolute;
   right: 10px;
   padding: 5px;
+`;
+
+const Title = styled.View`
+`;
+
+const TitleTxt = styled.Text`
+  color: white;
+  font-size: 16px;
 `;

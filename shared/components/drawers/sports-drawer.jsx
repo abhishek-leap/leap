@@ -12,7 +12,7 @@ const ANIMATION_DURATION = 500; // 5 sec
 
 const SportsDrawer = (props, { navigation }) => {
   const dispatch = useDispatch();
-  const sportsList = useSportList();
+  const {  data } = useSportList()
   const {sportsShow} = useSelector(state => state.createDare);
   const {colors} = useTheme();
   const slideAnimation = useRef(new Animated.Value(WINDOW_HEIGHT)).current;
@@ -33,12 +33,6 @@ const SportsDrawer = (props, { navigation }) => {
     toggleDrawer();
   }, [toggleDrawer, sportsShow]);
 
-  useEffect(() => {
-    if(sportsList.data === undefined) {
-      sportsList.mutate();
-    }
-  }, [sportsShow]);
-
   const handleItem = (item) => {
     dispatch(selectedSport({name: item.name, value: item.id}));
     onCloseIconClick();
@@ -58,7 +52,7 @@ const SportsDrawer = (props, { navigation }) => {
         <Body>
           <Picker
               title={'Sport #(Soccer)'} 
-              data={sportsList.data}
+              data={data}
               onCloseIconClick={onCloseIconClick}
               handleSelectItem={handleItem}
           />

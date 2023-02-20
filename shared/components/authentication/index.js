@@ -224,7 +224,7 @@ export const SignInUp = ({onCloseIconClick, isBasicSignupCompleted, authStatus})
 
   return (
     <Container source={require('../../images/BG.png')}>
-      <Header 
+      {screen !== 'input' && screen !== 'ALIAS' && <Header 
         onCloseIconClick={onCloseIconClick}
         backIcon={screen != '' ? true : false}
         handleBack={handleBack}
@@ -233,7 +233,7 @@ export const SignInUp = ({onCloseIconClick, isBasicSignupCompleted, authStatus})
         setValue={setValue}
         text={screen == 'OTP' ? SIGN_IN_UP : ''}
         isBasicSignupCompleted={isBasicSignupCompleted}
-      />
+      /> }
       {screen == '' ?
         <SignUpOptions 
           option={option}

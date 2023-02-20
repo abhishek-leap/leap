@@ -9,10 +9,14 @@ import Content from './components/content';
 import Skill from '../feed/components/skill';
 import Battle from '../feed/components/battle';
 import { parsePostBody } from '../../utils';
+import { useDispatch } from 'react-redux';
+import { openDareBackBottomDrawer, selectedPost } from '../../redux-ui-state/slices/dareBackSlice';
+import {FullAuthentication, openAuthenticationBottomDrawer} from '../../redux-ui-state/slices/authenticationSlice';
 
 const FeedItem = ({data, isActive, muted, setIsMuted,index, height, width, currentIndex, playing, setPlaying, windowHeight}) => {
   const { hashTags, body, author, skills, availableForDareBack } = data;
   const [progress, setProgress] = useState();
+  const dispatch = useDispatch();
   const [showMoreHashtagsBtn, setShowMoreHashtagsBtn] = useState(hashTags > DEFAULT_HASH_TAGS_COUNTOSHOW);
   const skillStr = skills?.[0]?.alias;
   const [postTitle] = parsePostBody(body);
@@ -26,6 +30,17 @@ const FeedItem = ({data, isActive, muted, setIsMuted,index, height, width, curre
     //   dispatch(resetCurrentPost());
     // }
   };
+
+  const dareBackUI = (isBasicSignupCompleted, isExtendedSignupCompleted) => {
+    if (isBasicSignupCompleted != "true" || isExtendedSignupCompleted != "true") {
+      dispatch(FullAuthentication(1));
+      dispatch(openAuthenticationBottomDrawer());
+    } else if (isBasicSignupCompleted == "true" || isExtendedSignupCompleted == "true") {
+      dispatch(selectedPost(data))
+      dispatch(openDareBackBottomDrawer());
+
+    }
+  }
 
   return (
     <Container>
@@ -55,7 +70,7 @@ const FeedItem = ({data, isActive, muted, setIsMuted,index, height, width, curre
         />
       </AudioIconContainer>
       {availableForDareBack ? <BattleIconContainer>
-        <Battle width={35} height={35}/>
+        <Battle width={35} height={35} onCallBackFunc={dareBackUI}/>
       </BattleIconContainer> : <></> }
       <InfoContainer>
         {author.alias !== "" && (

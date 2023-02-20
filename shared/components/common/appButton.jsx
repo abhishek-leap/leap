@@ -4,10 +4,10 @@ import {useTheme} from '@react-navigation/native';
 
 export const AppButton = (props) => {
     const {colors} = useTheme();
-    const {onPress, title, style, isLoading, value}  = props;
+    const {onPress, title, style, isLoading, value, width, height}  = props;
 
     return(
-        <View colors={colors} value={value}>
+        <View width={width} height={height} colors={colors} value={value}>
             <ButtonPress
                 onPressIn={onPress} >
                 <ButtonText>{!isLoading ? title : <Loader />}</ButtonText>
@@ -17,6 +17,8 @@ export const AppButton = (props) => {
 };
 
 const View = styled.View`
+    width: ${props => props.width};
+    height: ${props => props.height};
     border-radius: 20px;
     padding-vertical: 5px;
     background-color: ${props => props.value == '' ? props.colors.PLAYLEAP_SILVER : props.colors.secondary};
@@ -33,11 +35,3 @@ const ButtonText = styled.Text`
     text-align: center;
     padding: 0 30px 0 30px;
 `;
-
-// border-width: 1.5px;
-// width: 30%;
-// height: 40px;
-// align-self:center;
-// border-color: color.BLUE;
-// background-color: color.BLUE;
-// justify-content: center;

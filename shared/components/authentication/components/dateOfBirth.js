@@ -1,61 +1,22 @@
 import React, { useState } from 'react';
-import { View, TouchableOpacity, Text } from 'react-native';
+import { TouchableOpacity } from 'react-native';
 import styled from '@emotion/native';
 import {useTheme} from '@react-navigation/native';
-import {Calendar, CalendarList, Agenda} from 'react-native-calendars';
+import {Calendar} from 'react-native-calendars';
 
-// import 
-import { color } from '../../../theme/color';
-import { NEXT, SIGN_IN_UP_FOR, 
-  USE_EMAIL, USE_PHONE, 
+// import
+import { NEXT, 
   WHAT_IS_YOUR_BIRTHDAY, 
-  WINDOW_HEIGHT, 
   WINDOW_WIDTH 
 } from '../../../constants';
 
-// Images 
-import CustomWheel from './customWheel';
-import { getCurrentYear } from "../../../utils/helper";
+// Images
 import Loader from '../../common/loader';
 import GetRecaptcha from './getRecaptcha';
 
-// const currentYear = getCurrentYear();
-
-// let MONTHS = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12"];
-
-// let Days = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16", "17", "18", "19", "20", "21", "22", "23", "24", "25", "26", "27", "28", "29", "30", "31"];
-
-// const YEARS = new Array(122).fill(currentYear - 121).map((value, index) => value + index);
-
 const DateOfBirth = ({ optionChoose, value, isLoading, postBirthdateToApi, setDOB, action }) => {
     const {colors} = useTheme();
-
     const [date, setDate] = useState("");
-    // const [days, setDays] = useState([]);
-    // const [months, setMonths] = useState([]);
-    // const [years, setYears] = useState([]);
-
-    // const unexpectedDate = new Date(YEARS[0], 0, 1);
-    // const date = new Date(value || unexpectedDate);
-
-    // onChange(date);
-
-    const changeHandle = (type, digit) => {
-      console.log(type, digit);
-      switch (type) {
-          case "day":
-              date.setDate(digit);
-              break;
-          case "month":
-              date.setMonth(digit - 1);
-              break;
-          case "year":
-              date.setFullYear(digit);
-              break;
-      }
-
-      // onChange(date);
-    }
 
     const addZero = (a) => {
       if (a < 10 && a > 0) {
@@ -89,23 +50,6 @@ const DateOfBirth = ({ optionChoose, value, isLoading, postBirthdateToApi, setDO
           <>
             <InnerView currentWidth={WINDOW_WIDTH}>
               <Title>{WHAT_IS_YOUR_BIRTHDAY}</Title> 
-              {/* <CustomView currentWidth={WINDOW_WIDTH}>
-                  <CustomWheel 
-                    data={Days}
-                    type={'day'}
-                    onChange={changeHandle}
-                  />
-                  <CustomWheel 
-                    data={MONTHS}
-                    type={'month'}
-                    onChange={changeHandle}
-                  />
-                  <CustomWheel 
-                    data={YEARS}
-                    type={'year'}
-                    onChange={changeHandle}
-                  />
-              </CustomView> */}
               <Calendar
                   current={getCurrentDate().toString()}
                   maxDate={getMaxDate().toString()}
@@ -125,7 +69,6 @@ const DateOfBirth = ({ optionChoose, value, isLoading, postBirthdateToApi, setDO
                   }}
                   enableSwipeMonths={true}
               />
-               {/* <Text style={{fontSize:20,textAlign:'center',fontSize:25,fontWeight:'bold'}}>{date}</Text> */}
               <NextBtn optionChoose={optionChoose} colors={colors} searchValue={value}>
                   <TouchableOpacity onPress={() => nextAPI()}>
                       <NextBtnText>{!isLoading ? NEXT : <Loader />}</NextBtnText>
@@ -139,12 +82,6 @@ const DateOfBirth = ({ optionChoose, value, isLoading, postBirthdateToApi, setDO
 }
 
 export default DateOfBirth;
-
-
-const CustomView = styled.View`
-  flex-direction: row;
-  width: 70%;
-`;
 
 const InnerView = styled.View`
     flex: 1;

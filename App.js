@@ -19,7 +19,6 @@ import {store} from './shared/redux-ui-state/store';
 import HomeIcon from './shared/images/home-icon.svg';
 import SearchIcon from './shared/images/search-icon.svg';
 import DareCenterIcon from './shared/images/dare-center-icon.svg';
-import CreateDareIcon from './shared/images/create-dare.svg';
 import ProfileIcon from './shared/images/profile-icon.svg';
 import HomeIconFilled from './shared/images/home-icon-filled.svg';
 import SearchIconFilled from './shared/images/search-icon-filled.svg';
@@ -45,6 +44,8 @@ import SportsDrawer from './shared/components/drawers/sports-drawer';
 import CompetitorDrawer from './shared/components/drawers/competitor-drawer';
 import ProgressBar from './shared/components/common/progressBar';
 import Toaster from './shared/components/common/toaster';
+import DareBackDrawer from './shared/components/drawers/dare-back-drawer';
+import DareBackSecondStepDrawer from './shared/components/drawers/dare-back-second-step-drawer';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -53,8 +54,9 @@ const AppTheme = {
   ...DefaultTheme,
   colors: {
     ...DefaultTheme.colors,
-    primary: '#290C54',
-    secondary: '#ff00ac',
+    primary: '#290C54', //rgb(41,12,84)
+    secondary: '#ff00ac', //rgb(255,0,172)
+    PLAYLEAP_DARK_BLUE: '#371270', //rgb(55, 18, 112);
     PLAYLEAP_WHITE: '#FFFFFF',
     PLAYLEAP_OFF_WHITE: 'rgba(255, 255, 255, 0.6)',
     PLAYLEAP_GREY: '#323232',
@@ -227,6 +229,8 @@ const App = () => {
         </Stack.Navigator>
         
         <AuthenticationDrawer />
+        <DareBackDrawer />
+        <DareBackSecondStepDrawer />
         <GenderDrawer />
         <CountryDrawer />
         <CreateDareDrawer />

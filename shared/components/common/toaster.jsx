@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from "react";
 import {
   Animated,
   Dimensions,
+  Modal
 } from "react-native";
 import { useDispatch } from "react-redux";
 import {progressBarStatus} from '../../redux-ui-state/slices/createDareSlice';

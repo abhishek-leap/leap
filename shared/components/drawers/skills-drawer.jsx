@@ -13,7 +13,7 @@ const ANIMATION_DURATION = 500; // 5 sec
 const SkillsDrawer = (props, { navigation }) => {
   const dispatch = useDispatch();
   const skillsList = useSkillsList();
-  const skillGroup = useSkillsGroup();
+  const { status, data, error, isLoading, refetch, fetchNextPage } = useSkillsGroup()
   const {skillsShow} = useSelector(state => state.createDare);
   const {colors} = useTheme();
   const slideAnimation = useRef(new Animated.Value(WINDOW_HEIGHT)).current;
@@ -35,11 +35,8 @@ const SkillsDrawer = (props, { navigation }) => {
   }, [toggleDrawer, skillsShow]);
 
   useEffect(() => {
-    if(skillGroup.data == undefined) {
-      skillGroup.mutate();
-    }
-    if((skillsList.data === undefined) && (skillGroup?.data != undefined)) {
-      const searchSkillID = skillGroup?.data?.filter((item) => (item.alias == 'player_technical' && item.entityName == 'Player'))
+    if((skillsList.data === undefined) && (data != undefined)) {
+      const searchSkillID = data?.filter((item) => (item.alias == 'player_technical' && item.entityName == 'Player'))
       skillsList.mutate(searchSkillID[0].id);
     }
     

@@ -12,7 +12,7 @@ const ANIMATION_DURATION = 500; // 5 sec
 
 const HashtagsDrawer = (props, { navigation }) => {
   const dispatch = useDispatch();
-  const hashtagList = useHashtagList();
+  const { status, data, error, isLoading, refetch, fetchNextPage } = useHashtagList();
   const {hashtagShow} = useSelector(state => state.createDare);
   const {colors} = useTheme();
   const slideAnimation = useRef(new Animated.Value(WINDOW_HEIGHT)).current;
@@ -33,12 +33,6 @@ const HashtagsDrawer = (props, { navigation }) => {
     toggleDrawer();
   }, [toggleDrawer, hashtagShow]);
 
-  useEffect(() => {
-    if(hashtagList.data === undefined) {
-      hashtagList.mutate();
-    }
-  }, [hashtagShow])
-
   const handleItem = (item) => {
     dispatch(selectedHashtags({name: item.name, value: item.name}));
     onCloseIconClick();
@@ -58,7 +52,7 @@ const HashtagsDrawer = (props, { navigation }) => {
         <Body>
           <Picker
               title={'Hashtags'} 
-              data={hashtagList.data}
+              data={data}
               onCloseIconClick={onCloseIconClick}
               handleSelectItem={handleItem}
           />
@@ -72,10 +66,4 @@ export default HashtagsDrawer;
 
 const Body = styled.View`
   height: 100%;
-`;
-
-const ClosedContainer = styled.TouchableOpacity`
-  position: absolute;
-  right: 10px;
-  padding: 5px;
 `;

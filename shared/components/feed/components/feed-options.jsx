@@ -22,7 +22,7 @@ const FeedOptions= ({data}) => {
         <StyledText>{stats?.comments}</StyledText>
       </StyledSection>
       <StyledSection>
-        <ShareIcon height={28} />
+        <ShareIcon color={'transparent'} height={28} />
         <StyledText>{stats?.views}</StyledText>
       </StyledSection>
     </Container>
