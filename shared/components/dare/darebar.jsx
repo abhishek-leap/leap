@@ -15,7 +15,7 @@ const DareBar = ({height}) => {
       showsHorizontalScrollIndicator={false}
       style={Platform.OS === 'web' ? {
         width: '100%',
-        height: `${height + 10}'px`,
+        // height: `${height + 10}'px`,
         flexDirection: 'row',
         display: 'flex',
         paddingBottom: 65,
@@ -33,10 +33,10 @@ const DareBar = ({height}) => {
           </View>
           
         ) : (
-          <Group height={height} key={index} dare={item} />
+          <Group key={index} dare={item} />
         )
       )}
-      height={height + 10}
+      // height={height + 10}
       onEndReached={() => fetchNextPage()}
       onEndReachedThreshold={3}
     />

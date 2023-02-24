@@ -25,6 +25,7 @@ import SearchIconFilled from './shared/images/search-icon-filled.svg';
 import DareCenterIconFilled from './shared/images/dare-center-filled.svg';
 import ProfileIconFilled from './shared/images/profile-icon-filled.svg';
 import FeedScreen from './shared/screens/feed';
+import RealScreen from './shared/screens/reel';
 import SearchScreen from './shared/screens/search';
 import Header from './shared/components/header';
 // import DemoScreen from './shared/screens/demo';
@@ -46,6 +47,7 @@ import ProgressBar from './shared/components/common/progressBar';
 import Toaster from './shared/components/common/toaster';
 import DareBackDrawer from './shared/components/drawers/dare-back-drawer';
 import DareBackSecondStepDrawer from './shared/components/drawers/dare-back-second-step-drawer';
+import { useInfiniteFeeds } from './shared/hooks/useInfiniteFeeds';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();

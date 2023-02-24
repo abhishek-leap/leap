@@ -19,7 +19,7 @@ const Container = styled.View`
   height: 3px;
   width: 100%;
   background-color: rgba(255, 0, 172, 0.5);
-  top: ${props => props.OS == 'android' ? (props.windowHeight / 0.671)+'px' : null};
+  top: ${props => props.OS == 'android' ? null : null}; //(props.windowHeight / 0.671)+'px'
 `;
 
 const ProgressLine = styled.View`
@@ -28,7 +28,7 @@ const ProgressLine = styled.View`
   background-color: rgb(255, 0, 172);
   border-radius: 40px;
   text-align: right;
-  bottom: 1.3px;
+  bottom: 5px;
 `;
 
 const ProgressDot = styled.View`
@@ -38,5 +38,5 @@ const ProgressDot = styled.View`
   border-radius: 30px;
   position: absolute;
   left: ${props => (props.progress ? `${props.progress - 1}%` : 0)};
-  bottom: -1.0px;
+  bottom: 2px;
 `;
