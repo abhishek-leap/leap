@@ -13,23 +13,24 @@ const ReelsList = ({videoHeight}) => {
   const { status, data, error, isLoading, refetch, fetchNextPage } = useInfiniteFeeds();
 
   const handleChangeIndexValue = ({index}) => {
-    feedRecord.current = [...feedRecord.current, ...data?.feeds.slice(index+1, index+2)];
+    // console.log("index+2 ", feedRecord.current.length + ' ' + (feedRecord.current.length+2));
+    // feedRecord.current = [...feedRecord.current, ...data?.feeds.slice(feedRecord.current.length, feedRecord.current.length+2)];
     setCurrentIndex(index);
   };
 
-  useEffect(() => {
-    if(data?.feeds !== undefined) {
-      feedRecord.current = [...feedRecord.current, ...data?.feeds.slice(0, 2)];
-      setRefresh(!refresh)
-    }
-  }, [data?.feeds, currentIndex == undefined])
+  // useEffect(() => {
+  //   if(data?.feeds !== undefined && feedRecord.current.length === 0) {
+  //     feedRecord.current = [...feedRecord.current, ...data?.feeds.slice(0, 2)];
+  //     setRefresh(!refresh)
+  //   }
+  // }, [data?.feeds, currentIndex == undefined])
 
  
   return (
     <SwiperFlatList
       vertical={true}
       onChangeIndex={handleChangeIndexValue}
-      data={feedRecord.current}
+      data={data?.feeds}
       renderItem={({item, index}) => (
         <SingleFeed 
           item={item} 

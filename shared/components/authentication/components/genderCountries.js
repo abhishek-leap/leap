@@ -15,10 +15,12 @@ import {openGenderBottomDrawer, openCountryBottomDrawer} from '../../../redux-ui
 import ArrowIcon from '../../../images/arrowHeadDown.svg';
 import GetRecaptcha from './getRecaptcha';
 import Loader from '../../common/loader';
+import { useCountryList } from '../../../hooks/useMasterAPI';
 
 const GenderCountries = ({ optionChoose, value, isLoading, postGenderCountryToApi, action }) => {
     const {colors} = useTheme();
     const dispatch = useDispatch();
+    const { data } = useCountryList();
     const { genderName } = useSelector(state => state.authentication);
     const { countryName } = useSelector(state => state.authentication);
     

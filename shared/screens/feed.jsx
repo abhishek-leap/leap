@@ -1,6 +1,6 @@
 import React, {useEffect} from 'react';
 import {
-  Dimensions,
+  Dimensions, Platform,
 } from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import styled from '@emotion/native';
@@ -10,7 +10,7 @@ import DareBar from '../components/dare/darebar';
 import ReelsList from '../components/feed/components/reels-list';
 
 const windowHeight = Dimensions.get('window').height;
-const videoHeight = parseInt(windowHeight * 0.817);
+const videoHeight = Platform.OS == 'ios' ?  parseInt(windowHeight * 0.817) :  parseInt(windowHeight * 0.847);
 
 export default ({navigation}) => {
   const {colors} = useTheme();

@@ -31,7 +31,8 @@ import { openCompetitorBottomDrawer,
     progressBarUpdate,
     selectedCompetitor,
     progressBarDisplay,
-    progressBarStatus
+    progressBarStatus,
+    closeCreateDareBottomDrawer
  } from '../../redux-ui-state/slices/createDareSlice';
 import { createDare, createFeed, getSignedURL, lensGroup, postVideo, uploadVideoMediaAPI } from '../../apis';
 import { TEMP_CDN_VIDEO } from '../../apis/urls';
@@ -40,7 +41,7 @@ import CloseIcon from '../../images/close.svg';
 import { getFields } from '../../utils/helper';
 import Toaster from '../common/toaster';
 
-const CreateDare = ({ optionChoose, value, isLoading, onCloseIconClick}) => {
+const CreateDare = ({ optionChoose, value, isLoading}) => {
     const {colors} = useTheme();
     const dispatch = useDispatch();
     const { videoURI, sport, hashtags, skills, competitor, videoThumbnailImg } = useSelector(state => state.createDare);
@@ -55,6 +56,10 @@ const CreateDare = ({ optionChoose, value, isLoading, onCloseIconClick}) => {
         setTitle('')
         onCloseIconClick();
     }
+
+    const onCloseIconClick = () => {
+        dispatch(closeCreateDareBottomDrawer());
+    };
 
     const videoUploadStatusCallBack =  async (uploadResponse) => {
         if(uploadResponse == 204 && !isVideoUploadStatus.current.error && isVideoUploadStatus.current != '') {

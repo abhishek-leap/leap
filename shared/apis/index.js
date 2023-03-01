@@ -77,7 +77,7 @@ const post = async (url, param) => {
   if (token) {
     authHeader.authorization = isBearer(url) ? `Bearer ${token}` : token;
   }
-  console.log("Body params ", param);
+  // console.log("Body params ", param);
   const headers = {
     headers: {...{
       'Content-Type': 'application/json',

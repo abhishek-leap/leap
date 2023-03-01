@@ -26,9 +26,9 @@ const DareBar = ({height}) => {
         ((index === 0 && data?.dares[0]?.status !== 'public') || item?.status !== data?.dares[index - 1]?.status) ? (
           <View key={`${index}_${item?.id}`}>
             <DareHead status={item?.status}>
-              <DareHeadText status={item?.status}>
-                {item?.status === ACTIVE_DARE_STATUS ? <Text>{"new"}</Text>: <Text>{"closed"}</Text>}
-              </DareHeadText>
+              <DareHeadTextView status={item?.status}>
+                {item?.status === ACTIVE_DARE_STATUS ? <DareHeadText>{"new"}</DareHeadText>: <DareHeadText>{"closed"}</DareHeadText>}
+              </DareHeadTextView>
             </DareHead>
           </View>
           
@@ -51,13 +51,14 @@ export default DareBar;
 
 const DareHead = styled.View`
   border-left: 1px solid ${props => (props.status === ACTIVE_DARE_STATUS ? "#C947FF" : "#898989")};
-  height: 100%;
+  height: 74%;
   display: flex;
   align-items: center;
   justify-content: center;
+  background-color: rgba(122, 122, 122, 0.58); 
 `;
 
-const DareHeadText = styled.View`
+const DareHeadTextView = styled.View`
   padding-top: 4.2px;
   transform: rotate(-90deg);
   font-family: "Metropolis-Regular";
@@ -67,5 +68,8 @@ const DareHeadText = styled.View`
   text-align: center;
   letter-spacing: 0.13em;
   text-transform: uppercase;
+`;
+
+const DareHeadText = styled.Text`
   color: ${props => (props.status === ACTIVE_DARE_STATUS ? "#FEFBFF" : "#C7C7C7")};
 `;

@@ -9,9 +9,11 @@ import {useTheme} from '@react-navigation/native';
 import ProgressBar from './progress-bar';
 import RealInfo from './reel-info';
 import FeedOptions from './feed-options';
+import { useDispatch } from 'react-redux';
 
 const SingleFeed = ({item, index, currentIndex, playing, setPlaying, videoHeight}) => {
   const {colors} = useTheme();
+  const dispatch = useDispatch();
   const asset = item?.videos[0] || '';
   const uri =  asset?.reference || null; // item.video; //
   const poster = asset.imageLink; // item.image; //
@@ -22,6 +24,7 @@ const SingleFeed = ({item, index, currentIndex, playing, setPlaying, videoHeight
 
   const videoRef = useRef(null);
   const [mute, setMute] = useState(false);
+  const [isCover, setIsCover] = useState(false);
   const [progress, setProgress] = useState();
   const opacity = useRef(0);
 
@@ -32,7 +35,7 @@ const SingleFeed = ({item, index, currentIndex, playing, setPlaying, videoHeight
       dispatch(FullAuthentication(1));
       dispatch(openAuthenticationBottomDrawer());
     } else if (isBasicSignupCompleted == "true" || isExtendedSignupCompleted == "true") {
-      dispatch(selectedPost(data))
+      dispatch(selectedPost(item))
       dispatch(openDareBackBottomDrawer());
     }
   }
@@ -73,7 +76,7 @@ const SingleFeed = ({item, index, currentIndex, playing, setPlaying, videoHeight
           onError={onError}
           poster={poster}
           repeat={true}
-          resizeMode="contain"
+          resizeMode={isCover ? "cover" : "contain"}
           posterResizeMode='contain'
           paused={!activeVideo || !playing}
           source={{uri: uri}}
@@ -91,7 +94,10 @@ const SingleFeed = ({item, index, currentIndex, playing, setPlaying, videoHeight
           onLoadStart={() => {
             opacity.current = 1
           }}
-          onLoad={() => {
+          onLoad={response => {
+            const { width, height } = response.naturalSize;
+            const isVertical = height > width;
+            setIsCover(isVertical)
             opacity.current = 0;
           }}
         />

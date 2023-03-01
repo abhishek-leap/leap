@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
-  show: false,
+  darBackshow: false,
   secondStepShow: false,
   hashtagShow: false,
   selectedPostItem: '',
@@ -55,10 +55,10 @@ export const dareBackSlice = createSlice({
       }
     },
     openDareBackBottomDrawer: state => {
-      state.show = true;
+      state.darBackshow = true;
     },
     closeDareBackBottomDrawer: state => {
-      state.show = false;
+      state.darBackshow = false;
     },
     openDareBackSecondStepBottomDrawer: state => {
       state.secondStepShow = true;

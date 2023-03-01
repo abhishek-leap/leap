@@ -11,13 +11,13 @@ const ANIMATION_DURATION = 500; // 5 sec
 
 const DareBackDrawer = (props, { navigation }) => {
   const dispatch = useDispatch();
-  const {show, selectedPostItem} = useSelector(state => state.dareBack);
+  const {darBackshow, selectedPostItem} = useSelector(state => state.dareBack);
   const {colors} = useTheme();
   const slideAnimation = useRef(new Animated.Value(WINDOW_HEIGHT)).current;
 
   const toggleDrawer = () => {
     Animated.timing(slideAnimation, {
-      toValue: show ? WINDOW_HEIGHT / 6 : WINDOW_HEIGHT,
+      toValue: darBackshow ? WINDOW_HEIGHT / 6 : WINDOW_HEIGHT,
       duration: ANIMATION_DURATION,
       useNativeDriver: true,
     }).start();
@@ -29,7 +29,7 @@ const DareBackDrawer = (props, { navigation }) => {
 
   useEffect(() => {
     toggleDrawer();
-  }, [toggleDrawer, show]);
+  }, [toggleDrawer, darBackshow]);
 
 
   return (

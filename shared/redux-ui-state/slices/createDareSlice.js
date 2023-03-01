@@ -1,7 +1,7 @@
 import {createSlice} from '@reduxjs/toolkit';
 
 const initialState = {
-  show: false,
+  creatDareshow: false,
   sportsShow: false,
   skillsShow: false,
   competitorShow: false,
@@ -67,10 +67,10 @@ export const createDareSlice = createSlice({
       }
     },
     openCreateDareBottomDrawer: state => {
-      state.show = true;
+      state.creatDareshow = true;
     },
     closeCreateDareBottomDrawer: state => {
-      state.show = false;
+      state.creatDareshow = false;
     },
     openSportsBottomDrawer: state => {
       state.sportsShow = true;

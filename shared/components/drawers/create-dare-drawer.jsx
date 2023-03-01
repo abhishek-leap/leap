@@ -6,18 +6,27 @@ import {useSelector, useDispatch} from 'react-redux';
 import {WINDOW_HEIGHT} from '../../constants';
 import CreateDare from '../createDare';
 import { closeCreateDareBottomDrawer } from '../../redux-ui-state/slices/createDareSlice';
+import { useCompetitorsList, useHashtagList, useSkillsGroup, useSkillsList, useSportList, useSuggestionList } from '../../hooks/useMasterAPI';
 
 const ANIMATION_DURATION = 100; // 5 sec
 
 const CreateDareDrawer = (props, { navigation }) => {
   const dispatch = useDispatch();
-  const {show} = useSelector(state => state.createDare);
+  const {  } = useSportList();
+  const {  } = useHashtagList();
+  const skillsList = useSkillsList();
+  const connectionsList = useCompetitorsList();
+  const followersList = useCompetitorsList();
+  const followingList = useCompetitorsList();
+  const suggestionList = useSuggestionList();
+  const { } = useSkillsGroup()
+  const {creatDareshow} = useSelector(state => state.createDare);
   const {colors} = useTheme();
   const slideAnimation = useRef(new Animated.Value(WINDOW_HEIGHT)).current;
 
   const toggleDrawer = () => {
     Animated.timing(slideAnimation, {
-      toValue: show ? 0 : WINDOW_HEIGHT,
+      toValue: creatDareshow ? 0 : WINDOW_HEIGHT,
       duration: ANIMATION_DURATION,
       useNativeDriver: true,
     }).start();
@@ -29,7 +38,7 @@ const CreateDareDrawer = (props, { navigation }) => {
 
   useEffect(() => {
     toggleDrawer();
-  }, [toggleDrawer, show]);
+  }, [toggleDrawer, creatDareshow]);
 
 
   return (
@@ -57,18 +66,4 @@ export default CreateDareDrawer;
 
 const Body = styled.View`
   height: 100%;
-`;
-
-const ClosedContainer = styled.TouchableOpacity`
-  position: absolute;
-  right: 10px;
-  padding: 5px;
-`;
-
-const Title = styled.View`
-`;
-
-const TitleTxt = styled.Text`
-  color: white;
-  font-size: 16px;
 `;
