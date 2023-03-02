@@ -11,10 +11,10 @@ const Group = ({width = 115, height = 90, dare}) => {
       </ShieldWrapper>
       <SubContainer>
         <CardWrapper>
-          <Card src={dare?.assets[0]?.dareCover} isBlur={dare.status}/>
+          <Card src={dare?.assets[0]?.dareCover} isBlur={dare?.status}/>
         </CardWrapper>
         <CardWrapper>
-          <Card src={dare?.assets[0]?.dareCover} isBlur={dare.status}/>
+          <Card src={dare?.assets[0]?.dareCover} isBlur={dare?.status}/>
         </CardWrapper>
       </SubContainer>
     </Container>

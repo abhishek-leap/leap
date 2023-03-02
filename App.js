@@ -25,7 +25,6 @@ import SearchIconFilled from './shared/images/search-icon-filled.svg';
 import DareCenterIconFilled from './shared/images/dare-center-filled.svg';
 import ProfileIconFilled from './shared/images/profile-icon-filled.svg';
 import FeedScreen from './shared/screens/feed';
-// import RealScreen from './shared/screens/reel';
 import SearchScreen from './shared/screens/search';
 import Header from './shared/components/header';
 // import DemoScreen from './shared/screens/demo';
@@ -35,19 +34,9 @@ import {storage} from './shared/mmkv-store/store';
 import createDare from './shared/screens/createDare';
 import { SignInUp } from './shared/components/authentication';
 import AuthenticationDrawer from './shared/components/drawers/authentication';
-// import GenderDrawer from './shared/components/drawers/gender-drawer';
-// import CountryDrawer from './shared/components/drawers/bottom-common-drawer';
 import CreateDareDrawer from './shared/components/drawers/create-dare-drawer';
 import { getData, isUserMinor } from './shared/utils/helper';
-// import SkillsDrawer from './shared/components/drawers/skills-drawer';
-// import HashtagsDrawer from './shared/components/drawers/hashtag-drawer';
-// import SportsDrawer from './shared/components/drawers/sports-drawer';
-// import CompetitorDrawer from './shared/components/drawers/competitor-drawer';
 import ProgressBar from './shared/components/common/progressBar';
-// import Toaster from './shared/components/common/toaster';
-// import DareBackDrawer from './shared/components/drawers/dare-back-drawer';
-// import DareBackSecondStepDrawer from './shared/components/drawers/dare-back-second-step-drawer';
-// import { useInfiniteFeeds } from './shared/hooks/useInfiniteFeeds';
 import BottomCommonDrawer from './shared/components/drawers/bottom-common-drawer';
 
 const Tab = createBottomTabNavigator();
@@ -232,16 +221,8 @@ const App = () => {
         </Stack.Navigator>
         
         <AuthenticationDrawer />
-        {/* <DareBackDrawer /> */}
-        {/* <DareBackSecondStepDrawer /> */}
-        {/* <GenderDrawer /> */}
-        {/* <CountryDrawer /> */}
         <CreateDareDrawer />
         <BottomCommonDrawer />
-        {/* <SportsDrawer /> */}
-        {/* <SkillsDrawer /> */}
-        {/* <HashtagsDrawer /> */}
-        {/* <CompetitorDrawer /> */}
       </NavigationContainer>
     </Provider>
   );

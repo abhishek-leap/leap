@@ -63,6 +63,7 @@ const Picker = ({hr, placeholderTextColor, sectionList, displayTitleAsAlias, sea
                 <FlatList
                     data={data}
                     renderItem={(item) => _renderItem(item)}
+                    keyExtractor={(item, index) => item.id}
                 />
             }
         </Container>

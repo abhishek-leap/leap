@@ -49,10 +49,12 @@ export const postVideo = async (url, formData, videoUploadStatusCallBack, onUplo
     let xhr = new XMLHttpRequest();
     xhr.open("POST", url, true);
     xhr.upload.onprogress = function(e) {
+      console.log("post upload video onprogress ", e);
       onUploadProgress.apply(this,[e])
     };
     xhr.send(formData);
     xhr.onreadystatechange = e => {
+      console.log("post upload video ", e);
       if (xhr.readyState == 4 && xhr.status == 204) {
         returned_data = xhr.status;
         //fire your callback function
