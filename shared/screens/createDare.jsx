@@ -9,12 +9,21 @@ import { getBase64FromUrl, getData } from '../utils/helper';
 import { lensGroup } from '../apis';
 import { createThumbnail } from "react-native-create-thumbnail";
 import Toaster from '../components/common/toaster';
+import { useCompetitorsList, useHashtagList, useSkillsGroup, useSkillsList, useSportList, useSuggestionList } from '../hooks/useMasterAPI';
 
 
 const { VideoEditorModule } = NativeModules;
 
 const CreateDare = ({isBasicSignupCompleted, isExtendedSignupCompleted}) => {
   const dispatch = useDispatch();
+  const {  } = useSportList();
+  const {  } = useHashtagList();
+  const skillsList = useSkillsList();
+  const connectionsList = useCompetitorsList();
+  const followersList = useCompetitorsList();
+  const followingList = useCompetitorsList();
+  const suggestionList = useSuggestionList();
+  const { } = useSkillsGroup();
   const { progressBarSuccess } = useSelector(state => state.createDare);
   // const lensGroupInfo = useLensGroup();
 
@@ -23,11 +32,10 @@ const CreateDare = ({isBasicSignupCompleted, isExtendedSignupCompleted}) => {
     if (isBasicSignupCompleted != "true" || isExtendedSignupCompleted != "true") {
       dispatch(FullAuthentication(1));
       dispatch(openAuthenticationBottomDrawer());
-    } 
-    // else if (isBasicSignupCompleted == "true" || isExtendedSignupCompleted == "true") {
-    //   dispatch(openCreateDareBottomDrawer());
-    // }
-    openVideoEditor();
+    } else {
+      openVideoEditor();
+      // dispatch(openCreateDareBottomDrawer());
+    }
   }, [isBasicSignupCompleted, isExtendedSignupCompleted]);
 
   const openVideoEditor = async () => {
@@ -45,9 +53,10 @@ const CreateDare = ({isBasicSignupCompleted, isExtendedSignupCompleted}) => {
         if (isBasicSignupCompleted == "true" || isExtendedSignupCompleted == "true") {
           dispatch(openCreateDareBottomDrawer());
         }
-        dispatch(selectedVedioURI(videoUri));
+        const finalVideoURL = Platform.OS == "ios" ? videoUri : `file://${videoUri}`;
+        dispatch(selectedVedioURI(finalVideoURL));
         createThumbnail({
-          url: Platform.OS == "ios" ? videoUri : `file:/${videoUri}`,
+          url: finalVideoURL,
           timeStamp: 100,
         })
         .then(async (response) => {

@@ -1,5 +1,5 @@
 import React, {useRef, useState } from 'react';
-import { TouchableOpacity } from 'react-native';
+import { FlatList, TouchableOpacity } from 'react-native';
 import styled from '@emotion/native';
 import {useTheme} from '@react-navigation/native';
 import {useDispatch, useSelector} from 'react-redux';
@@ -122,7 +122,6 @@ const CreateDare = ({ optionChoose, value, isLoading}) => {
             uri: videoUri,
             type: 'video/mp4'
           });
-          
           await postVideo(url, formData, videoUploadStatusCallBack, onUploadProgress);
           const VideoMediaStatus = {
             reference: `${TEMP_CDN_VIDEO}${fields.key}`,
@@ -149,7 +148,8 @@ const CreateDare = ({ optionChoose, value, isLoading}) => {
     };
 
     const nextAPI = () => {
-        dispatch(progressBarDisplay(true))
+        dispatch(progressBarDisplay(true));
+        
         VideoUploadWithStatus(videoURI);
         handleBack();
     }
@@ -197,13 +197,27 @@ const CreateDare = ({ optionChoose, value, isLoading}) => {
                 hashtags.length == '' ? 
                     <Selected colors={colors}>{PLACEHOLDER_HASHTAGS}</Selected>
                     :
-                    hashtags.map((item) => (
-                    <HashTag colors={colors} currentWidth={WINDOW_WIDTH} hashtagLength={hashtags.length} >
-                        <HashTagItem>{item.value}</HashTagItem>
-                        <ClosedContainer colors={colors}  onPress={() => dispatch(selectedHashtags({name: item.value, value: item.value}))}>
-                            <CloseIcon color={colors.PLAYLEAP_DARK_PINK} width={25} height={25} />
-                        </ClosedContainer>
-                    </HashTag> ))
+                    <FlatList
+                        data={hashtags}
+                        renderItem={({item}) => {
+                            return (
+                                <HashTag colors={colors} currentWidth={WINDOW_WIDTH} hashtagLength={hashtags.length} >
+                                    <HashTagItem>{item.value}</HashTagItem>
+                                    <ClosedContainer colors={colors}  onPress={() => dispatch(selectedHashtags({name: item.value, value: item.value}))}>
+                                        <CloseIcon color={colors.PLAYLEAP_DARK_PINK} width={25} height={25} />
+                                    </ClosedContainer>
+                                </HashTag> 
+                            )
+                        }}
+                        keyExtractor={(item, index) => item.value}
+                    />
+                    // hashtags.map((item) => (
+                    // <HashTag colors={colors} currentWidth={WINDOW_WIDTH} hashtagLength={hashtags.length} >
+                    //     <HashTagItem>{item.value}</HashTagItem>
+                    //     <ClosedContainer colors={colors}  onPress={() => dispatch(selectedHashtags({name: item.value, value: item.value}))}>
+                    //         <CloseIcon color={colors.PLAYLEAP_DARK_PINK} width={25} height={25} />
+                    //     </ClosedContainer>
+                    // </HashTag> ))
             }
             <DownArrow color={colors.PLAYLEAP_WHITE} width={50}/>
         </Hashtag>

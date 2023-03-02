@@ -53,7 +53,7 @@ const Picker = ({hr, placeholderTextColor, sectionList, displayTitleAsAlias, sea
             {sectionList == true ?
                <SectionList
                 sections={data}
-                keyExtractor={(item, index) => item + index}
+                keyExtractor={(item, index) => item.id}
                 renderItem={(item) => _renderItem(item)}
                 renderSectionHeader={({section: {title, data}}) => (
                     data.length > 0 && <SubTitleTxt>{title}</SubTitleTxt>

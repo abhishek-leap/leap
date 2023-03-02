@@ -24,7 +24,7 @@ export const useInfiniteFeeds = () => {
 			}
 		},
 		getNextPageParam: lastPage => lastPage?.nextPage?.offset + OFFSET_LIMIT,
-		onError: (error) => console.log(error),
+		onError: (error) => console.log("useInfiniteFeeds ", error),
 		// staleTime: 1000 * 60 * 60,
 	})
 }
@@ -49,7 +49,7 @@ export const useDareBackInfiniteFeeds = () => {
 			}
 		},
 		getNextPageParam: lastPage => lastPage?.nextPage?.offset + OFFSET_LIMIT,
-		onError: (error) => console.log(error),
+		onError: (error) => console.log("useDareBackInfiniteFeeds ", error),
 		// staleTime: 1000 * 60 * 60,
 	})
 }

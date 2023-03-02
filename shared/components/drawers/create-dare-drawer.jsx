@@ -12,14 +12,14 @@ const ANIMATION_DURATION = 100; // 5 sec
 
 const CreateDareDrawer = (props, { navigation }) => {
   const dispatch = useDispatch();
-  const {  } = useSportList();
-  const {  } = useHashtagList();
-  const skillsList = useSkillsList();
-  const connectionsList = useCompetitorsList();
-  const followersList = useCompetitorsList();
-  const followingList = useCompetitorsList();
-  const suggestionList = useSuggestionList();
-  const { } = useSkillsGroup()
+  // const {  } = useSportList();
+  // const {  } = useHashtagList();
+  // const skillsList = useSkillsList();
+  // const connectionsList = useCompetitorsList();
+  // const followersList = useCompetitorsList();
+  // const followingList = useCompetitorsList();
+  // const suggestionList = useSuggestionList();
+  // const { } = useSkillsGroup()
   const {creatDareshow} = useSelector(state => state.createDare);
   const {colors} = useTheme();
   const slideAnimation = useRef(new Animated.Value(WINDOW_HEIGHT)).current;

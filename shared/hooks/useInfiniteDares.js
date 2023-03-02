@@ -39,7 +39,7 @@ export const useInfiniteDares = () => {
 			}
 		},
 		getNextPageParam: lastPage => lastPage?.nextPage?.offset + OFFSET_LIMIT,
-		onError: (error) => console.log(error),
+		onError: (error) => console.log("useInfiniteDares ", error),
 		// staleTime: 1000 * 60 * 60,
 	})
 }

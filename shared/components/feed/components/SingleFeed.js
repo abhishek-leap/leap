@@ -44,7 +44,7 @@ const SingleFeed = ({item, index, currentIndex, playing, setPlaying, videoHeight
     // console.log('buffring', buffer);
   };
   const onError = error => {
-    console.log('error', error);
+    console.log('single feed error', error);
   };
 
   const clickHandler = () => {

@@ -144,7 +144,7 @@ android {
         applicationId "io.playleap.rnative"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 6
+        versionCode 7
         versionName "0.6"
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
 
@@ -264,7 +264,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation 'io.playleap.videoeditor:video-editor-sdk:1.0.6'
+    implementation 'io.playleap.videoeditor:video-editor-sdk:1.0.7'
     implementation 'com.google.android.exoplayer:exoplayer:2.16.0'
     // compile project(':react-native-video')
     implementation "androidx.appcompat:appcompat:1.0.0"
