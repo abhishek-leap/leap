@@ -12,6 +12,16 @@ export const validatePhone = phone => (phone ? (/^\+?[0-9]+$/i.test(phone)) : tr
 
 export const getCurrentYear = () => new Date().getFullYear();
 
+export const getYearMonthAndDay = date => {
+    const dateObj = date ? new Date(date) : new Date();
+    return {
+      date: dateObj.getDate(),
+      month: dateObj.getMonth() + 1,
+      year: dateObj.getFullYear()
+    };
+};
+
+  
 export const isUserMinor = (date) => {
     let formatDate = new Date(date);
     return new Date(formatDate.getFullYear() + 13, formatDate.getMonth() - 1, formatDate.getDate()) <= new Date();
@@ -95,3 +105,11 @@ export const removeByAttr = function (arr, attr, value) {
     }
     return arr;
 }
+
+export const removeElementFromArray = (arr, func) =>
+  Array.isArray(arr)
+    ? arr.filter(func).reduce((acc, val) => {
+      arr.splice(arr.indexOf(val), 1);
+      return acc.concat(val);
+    }, [])
+    : [];

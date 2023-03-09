@@ -158,6 +158,7 @@ const Image = styled.Image`
 const StartBattleBtn = styled.View`
     height: 100%;
     flex-direction: row;
+    margin-top: 10%;
     justify-content: center;
 `;
 const CardLabel = styled.Text`

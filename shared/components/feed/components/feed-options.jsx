@@ -1,30 +1,98 @@
-import React from 'react';
-import HeartIcon from '../../../images/heart.svg';
-import CommentIcon from '../../../images/comment.svg';
-import ShareIcon from '../../../images/share.svg';
+import React, { useState } from 'react';
+// import ShareIcon from '../../../images/share.svg';
 import Profile from './profile';
 import styled from '@emotion/native';
+import { dislike, like } from '../../../apis';
+import Like from './like';
+import { useDispatch } from 'react-redux';
+import { FullAuthentication, openAuthenticationBottomDrawer } from '../../../redux-ui-state/slices/authenticationSlice';
+import Comments from './comments';
+
 
 const FeedOptions= ({data}) => {
-  const {stats, author} = data;
+  const {stats, author, id} = data;
+  const [likeClicked, setLikeClicked] = useState(data?.userReactions[0]?.id ? true : false);
+  const [totalLiked, setTotalLiked] = useState(data?.stats?.reactions);
+  const [likeAPIResponse, setLikeAPIResponse] = useState({});
+  const dispatch = useDispatch();
+
+  const onPressProfile = () => {
+    console.log("clicked onPressProfile");
+  }
+
+  const onPressLike = async (isBasicSignupCompleted, isExtendedSignupCompleted) => {
+    if (isBasicSignupCompleted != "true" || isExtendedSignupCompleted != "true") {
+      dispatch(FullAuthentication(1));
+      dispatch(openAuthenticationBottomDrawer());
+    } else if (isBasicSignupCompleted == "true" || isExtendedSignupCompleted == "true") {
+      setLikeClicked(likedStatus => !likedStatus);
+      if(data?.userReactions.length == 0 && !likeClicked) {
+        setTotalLiked(totalLike => totalLike + 1);
+        const params = { "reactionType": "like" };    
+        const likeAPIResponse = await like(id, params); 
+        setLikeAPIResponse(likeAPIResponse);
+        if(likeAPIResponse?.error) {
+          setLikeClicked(likeStatus => !likeStatus);
+          setTotalLiked(totalLike => totalLike - 1);
+        }
+      } else {
+        setTotalLiked(totalLike => totalLike - 1);
+        
+        const dislikeID = data?.userReactions[0]?.id || likeAPIResponse?.id;
+        const dislikeAPIResponse = await dislike(dislikeID); 
+        if(dislikeAPIResponse?.error) {
+          setLikeClicked(likeStatus => !likeStatus);
+          setTotalLiked(totalLike => totalLike + 1);
+        }
+      }
+    }
+  }
+
+  const onPressComments = async (isBasicSignupCompleted, isExtendedSignupCompleted) => {
+    if (isBasicSignupCompleted != "true" || isExtendedSignupCompleted != "true") {
+      dispatch(FullAuthentication(1));
+      dispatch(openAuthenticationBottomDrawer());
+    } else if (isBasicSignupCompleted == "true" || isExtendedSignupCompleted == "true") {
+      console.log("clicked onPressComments");
+    }
+  }
+
+  const onPressShare = () => {
+    console.log("clicked onPressShare");
+  }
 
   return (
     <Container>
-      <StyledSection>
+     
+      <StyledSection onPress={onPressProfile}>
         <Profile author={author}/>
       </StyledSection>
-      <StyledSection>
-        <HeartIcon height={28} />
-        <StyledText>{stats?.reactions}</StyledText>
-      </StyledSection>
-      <StyledSection>
+      <Like 
+        totalLikes={totalLiked}
+        onPress={onPressLike}
+        onClicked={likeClicked}
+        userReaction={data?.userReactions}
+      />
+      <Comments 
+        totalComments={data?.stats?.comments}
+        onPress={onPressComments}
+      />
+      {/* <StyledSection onPress={onPressLike}>
+        <HeartIcon height={28} style={[
+            likeClicked
+              ? {color: "#FF0000" }
+              : { color: "#4FCE5D" },
+          ]}/>
+        <StyledText>{data?.stats?.reactions}</StyledText>
+      </StyledSection> 
+      <StyledSection onPress={onPressComments}>
         <CommentIcon height={28} />
-        <StyledText>{stats?.comments}</StyledText>
-      </StyledSection>
-      <StyledSection>
+        <StyledText>{data?.stats?.comments}</StyledText>
+      </StyledSection> */}
+      {/* <StyledSection onPress={onPressShare}>
         <ShareIcon color={'transparent'} height={28} />
-        <StyledText>{stats?.views}</StyledText>
-      </StyledSection>
+        <StyledText>{data?.stats?.views}</StyledText>
+      </StyledSection> */}
     </Container>
   );
 };
@@ -38,7 +106,7 @@ const Container = styled.View`
   align-items: center;
 `;
 
-const StyledSection = styled.View`
+const StyledSection = styled.TouchableOpacity`
   margin-bottom: 6px;
   margin-top: 6px;
 `;
@@ -48,3 +116,4 @@ const StyledText = styled.Text`
   text-align: center;
   font-size: 12px;
 `;
+

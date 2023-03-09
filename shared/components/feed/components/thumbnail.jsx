@@ -9,7 +9,7 @@ import Editor from "./avatar-editor/editor/Editor";
 import { Link } from "react-router-dom";
 import * as API from "utils/webAPI";
 import { MEDIA } from "config/http";
-import defaultThumbnail from "images/defaultCover.png";
+import defaultThumbnail from "../../../images/defaultCover.png";
 import { setLocalStorageValue, getLocalStorageValue } from "../../ducks/user/saga";
 import { AVATAR_ID } from "utils/http";
 

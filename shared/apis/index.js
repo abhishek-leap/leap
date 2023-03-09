@@ -26,6 +26,16 @@ export const birthDateRegistration = (options) => post(`${BASE_URL_CORE_STG}/reg
 export const genderCountryRegistration = (options) => post(`${BASE_URL_CORE_STG}/registration/extended-signup-personalInfo`, options);
 export const countriesList = () => get(`${BASE_URL_CORE_STG}/Countries`);
 
+// Like Comment share APIs
+export const like = (id, params) => post(`${FEED_NEXT_STG}/feeds/${id}/reactions`, params);
+export const dislike = (id, params) => Delete(`${FEED_NEXT_STG}/feed-reactions/${id}`, params);
+
+//Report, Block, Delete POST
+export const reportFeed = (params) => post(`${BASE_URL_SIGNED_URL}/complaints/video`, params);
+export const deleteFeed = (id) => Delete(`${FEED_NEXT_STG}/feeds/${id}`);
+export const blockUnblockFeed = (params) => post(`${FEED_NEXT_STG}/feeds/block`, params);
+export const blockUser = (params) => post(`${BASE_URL_CORE_STG}/CustomerDetails/block`, params);
+
 // Create Dare APIs
 export const sportsList = (options) => get(`${BASE_URL_CORE_STG}/Hashtags?`, options);
 export const skillsGroups = () => get(`${BASE_URL_CORE_STG}/SkillGroups`);
@@ -127,6 +137,34 @@ const get = async (url, options = '') => {
   }
   catch (error) {
       console.log('get api error : ' + error);
+      return error;
+  }
+}
+
+const Delete = async (url, param) => {
+  let FetchURL = url;
+  const token = getData('token');
+  const authHeader = {};
+  if (token) {
+    authHeader.authorization = isBearer(url) ? `Bearer ${token}` : token;
+  }
+  // console.log("Body params ", param);
+  const headers = {
+    headers: {...{
+      'Content-Type': 'application/json',
+      fmsvisitorid: undefined,
+    }, ...authHeader},
+    method: 'DELETE',
+    body: JSON.stringify(param)
+  };
+
+  try {
+    // console.log("FetchURL, headers ", FetchURL + " "+ JSON.stringify(headers));
+    const response = await fetch(FetchURL, headers);
+    return await response.json();
+  }
+  catch (error) {
+      console.log('post api error : ' + error);
       return error;
   }
 }

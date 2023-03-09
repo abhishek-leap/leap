@@ -12,3 +12,6 @@ export const BASE_URL_CORE_STG = "https://corestg.playleap.io/v1";
 export const BASE_URL_SIGNED_URL = "https://media-nextstg.playleap.io";
 export const TEMP_CDN_VIDEO = "https://d344om1kzciot1.cloudfront.net/";
 export const BASE_URL_MEDIA_STG = "https://mediastg.playleap.io/v1";
+export const BASE_STG_URL_SITE = "https://appstg.playleap.io";
+export const BASE_PROD_URL_SITE = "https://app.playleap.io";
+export const BASE_URL_SITE = IsProductionAPIs ? BASE_PROD_URL_SITE : BASE_STG_URL_SITE;

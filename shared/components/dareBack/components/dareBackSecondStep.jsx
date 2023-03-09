@@ -275,6 +275,7 @@ const StartBattleBtn = styled.View`
     flex-direction: row;
     justify-content: center;
     bottom: 0px;
+    margin-top: 10%;
 `;
 
 const TwoImageViewer = styled.View`

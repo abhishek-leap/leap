@@ -1,14 +1,13 @@
-import React, { useEffect, useRef } from 'react';
-import {View, NativeModules, Platform, Text} from 'react-native';
+import React, { useEffect } from 'react';
+import {View, NativeModules, Platform} from 'react-native';
 import withAuthentication from '../hoc/withAuthentication';
-import {useDispatch, useSelector} from 'react-redux';
+import {useDispatch} from 'react-redux';
 import {FullAuthentication, openAuthenticationBottomDrawer} from '../redux-ui-state/slices/authenticationSlice';
 import { openCreateDareBottomDrawer, selectedVedioURI, vedioThumbnail } from '../redux-ui-state/slices/createDareSlice';
 // import { useLensGroup } from '../hooks/useQueryLens';
 import { getBase64FromUrl, getData } from '../utils/helper';
 import { lensGroup } from '../apis';
 import { createThumbnail } from "react-native-create-thumbnail";
-import Toaster from '../components/common/toaster';
 import { useCompetitorsList, useHashtagList, useSkillsGroup, useSkillsList, useSportList, useSuggestionList } from '../hooks/useMasterAPI';
 
 
@@ -24,7 +23,6 @@ const CreateDare = ({isBasicSignupCompleted, isExtendedSignupCompleted}) => {
   const followingList = useCompetitorsList();
   const suggestionList = useSuggestionList();
   const { } = useSkillsGroup();
-  const { progressBarSuccess } = useSelector(state => state.createDare);
   // const lensGroupInfo = useLensGroup();
 
   useEffect(() => {
@@ -71,11 +69,6 @@ const CreateDare = ({isBasicSignupCompleted, isExtendedSignupCompleted}) => {
 
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      {progressBarSuccess ? 
-        <Toaster successMessage={"Video Uploaded Successfully"}/>
-        :
-        <></>
-      }
     </View>
   );
 };

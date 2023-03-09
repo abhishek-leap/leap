@@ -33,11 +33,13 @@ import ProfileScreen from './shared/screens/profile';
 import {storage} from './shared/mmkv-store/store';
 import createDare from './shared/screens/createDare';
 import { SignInUp } from './shared/components/authentication';
+import PlayerProfile from './shared/screens/playerProfile';
 import AuthenticationDrawer from './shared/components/drawers/authentication';
 import CreateDareDrawer from './shared/components/drawers/create-dare-drawer';
 import { getData, isUserMinor } from './shared/utils/helper';
 import ProgressBar from './shared/components/common/progressBar';
 import BottomCommonDrawer from './shared/components/drawers/bottom-common-drawer';
+import Toaster from './shared/components/common/toaster';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -218,11 +220,17 @@ const App = () => {
               component={SignInUp}
               options={{ headerShown: false }}
             />
+            <Stack.Screen
+              name="PlayerProfile"
+              component={PlayerProfile}
+              options={{ headerShown: false }}
+            />
         </Stack.Navigator>
         
         <AuthenticationDrawer />
         <CreateDareDrawer />
         <BottomCommonDrawer />
+        <Toaster />
       </NavigationContainer>
     </Provider>
   );

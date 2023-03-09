@@ -40,6 +40,7 @@ import { UPLOAD_BROWSE_TYPE, USER_TYPE } from '../../constants';
 import CloseIcon from '../../images/close.svg';
 import { getFields } from '../../utils/helper';
 import Toaster from '../common/toaster';
+import { toasterDisplayStatus, toasterMessage } from '../../redux-ui-state/slices/feedsSlice';
 
 const CreateDare = ({ optionChoose, value, isLoading}) => {
     const {colors} = useTheme();
@@ -144,6 +145,8 @@ const CreateDare = ({ optionChoose, value, isLoading}) => {
             dispatch(progressBarDisplay(false));
             dispatch(progressBarStatus(true));
             dispatch(progressBarUpdate(0));
+            dispatch(toasterMessage('Video Uploaded Successfully'));
+            dispatch(toasterDisplayStatus(true));
         }
     };
 
@@ -226,7 +229,7 @@ const CreateDare = ({ optionChoose, value, isLoading}) => {
                 <NextBtnText>{!isLoading ? LETS_GO : <Loader />}</NextBtnText>
             </TouchableOpacity>
         </NextBtn>
-        <Toaster successMessage={"Video Uploaded Successfully"}/>
+        {/* <Toaster successMessage={"Video Uploaded Successfully"}/> */}
       </InnerView>
       </>
     )
