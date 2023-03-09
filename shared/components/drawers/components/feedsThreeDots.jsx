@@ -4,17 +4,21 @@ import { closeReportBottomDrawer, closeThreeDotsBottomDrawer, openBlockUsertBott
 import { useEffect, useState } from 'react';
 import { getData } from '../../../utils/helper';
 import { openAuthenticationBottomDrawer } from '../../../redux-ui-state/slices/authenticationSlice';
-import { blockUnblockFeed } from '../../../apis';
+import { blockUnblockFeed, blockUser } from '../../../apis';
 import Clipboard from '@react-native-clipboard/clipboard';
-import { handlePush } from '../../../navigation/navigationService';
+import { handlePush, handleSetRoot } from '../../../navigation/navigationService';
 import { BASE_URL_SITE } from '../../../apis/urls';
 import Loader from '../../common/loader';
 import styled from '@emotion/native';
+import Block from '../../../images/block.svg';
+import { useInfiniteFeeds } from '../../../hooks/useInfiniteFeeds';
 
 const FeedsThreeDots = (props) => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const {feedItem, blockedUsersList} = useSelector(state => state.feeds);
+  const { refetch, fetchNextPage } = useInfiniteFeeds();
+  const isPowerUser = feedItem?.communityBlockersCount > 0;
   const token =  getData('token');
   const userId =  getData('user_id');
   const [threeDotData, setThreeDotData] = useState([
@@ -25,7 +29,6 @@ const FeedsThreeDots = (props) => {
 
   useEffect(() => {
     const isAlreadyBlocked = blockedUsersList.indexOf(feedItem.id);
-    const isPowerUser = feedItem?.communityBlockersCount > 0;
     if(feedItem?.author?.entityId == userId) {
       setThreeDotData([ {name: "Post ID", code: "post", id: 0}, 
       {name: "View Profile", code: "profile", id: 1}, 
@@ -33,11 +36,11 @@ const FeedsThreeDots = (props) => {
       {name: "Delete Post", code: "DeletePost", id: 5}])
     } else if (token && isAlreadyBlocked == -1) {
       setThreeDotData([
-        {name: "Post ID", code: "post", id: 0}, 
+        {name: "Post ID", code: "post", id: 0, }, 
         {name: "View Profile", code: "profile", id: 1}, 
         {name: "Report", code: "report", id: 2},
-        {name: "Block Post", code: "BlockPost", id: 3, color: isPowerUser ? '#fff' : '#FF7474'},
-        {name: "Block User", code: "BlockUser", id: 4, color: isPowerUser ? '#fff' : '#FF7474'}
+        {name: "Block Post", code: "BlockPost", id: 3, color: isPowerUser ? '#fff' : '#FF7474', image:  <BlockBGView><BlockUpperView><Block /></BlockUpperView></BlockBGView>},
+        {name: "Block User", code: "BlockUser", id: 4, color: isPowerUser ? '#fff' : '#FF7474', image:  <BlockBGView><BlockUpperView><Block /></BlockUpperView></BlockBGView>}
       ])
     } else if (token && isAlreadyBlocked > -1) {
       setThreeDotData([
@@ -79,8 +82,11 @@ const FeedsThreeDots = (props) => {
       }
     } else if (item.id == 4) {
       onCloseIconClick();
-      dispatch(closeReportBottomDrawer());
-      dispatch(openBlockUsertBottomDrawer());
+      if (isPowerUser) {
+        handleSendButton();
+      } else {
+        dispatch(openBlockUsertBottomDrawer());
+      }
     } else if (item.id == 5) {
       onCloseIconClick();
       deletePost(feedItem.id);
@@ -108,6 +114,16 @@ const FeedsThreeDots = (props) => {
     onCloseIconClick();
   }
   
+  const handleSendButton = async () => {
+    onCloseIconClick();
+    const dicData = {
+      userId: feedItem.videos[0]?.userId,
+      actionType: 'block'
+    }
+    await blockUser(dicData);
+    refetch();
+  }
+
   return (
     <TopView>
       <Picker
@@ -116,6 +132,7 @@ const FeedsThreeDots = (props) => {
         data={threeDotData}
         onCloseIconClick={onCloseIconClick}
         handleSelectItem={handleSelectItem}
+        leftImageViewEnable={true}
       />
        {isLoading && <LoaderView>
         <Loader />
@@ -135,4 +152,19 @@ const LoaderView = styled.View`
   position: absolute;
   justify-content: center;
   align-items: center;
+`;
+
+const BlockUpperView = styled.View`
+  flex-direction: row;
+`;
+
+const BlockBGView = styled.TouchableOpacity`
+  padding: 4.67px 8.78px;
+  display: flex;
+  align-items: flex-start;
+  background-color: #b80000; 
+  border: 0.5px solid rgba(255, 255, 255, 0.53);
+  box-shadow: rgb(0 0 0 / 71%) 0px 2px 2px;
+  border-radius: 0px 0px 14px 14px;
+  top: 0px;
 `;

@@ -18,8 +18,7 @@ const Picker = ({
     handleSelectItem, 
     searchValue, 
     handleSearch, 
-    radioButton,
-    leftImageViewEnable
+    radioButton
 }) => {
     const {colors} = useTheme();
     const [selectedItem, setSelectedItem] = useState('');
@@ -34,7 +33,11 @@ const Picker = ({
                 
                 <Item>
                     {item.image}
-                    <ListItem color={'white'}>{item.userInfo ? item.userInfo[0]?.alias.toUpperCase() : item.userId}</ListItem>
+                    {sectionList === true ?
+                        <ListItem>{item.userInfo ? item.userInfo[0]?.alias.toUpperCase() : item.userId}</ListItem>
+                        :
+                        <ListItem>{displayTitleAsAlias === true ? item?.alias : item?.name || item.userId}</ListItem>
+                    }
                 </Item>
         </PickItem>
     );
@@ -42,9 +45,7 @@ const Picker = ({
     const _flatListRenderItem = ({item}) => (
             <PickItem onPress={() => _handleSelectedItem(item)}>
                 <Item>
-                    {leftImageViewEnable && <LeftImageView>
-                        {item.image}
-                    </LeftImageView> }
+                    {item.image}
                     <ListItem color={item?.color || 'white'}>{displayTitleAsAlias === true ? item?.alias : item?.name || item.userId}</ListItem>
                 </Item>
             </PickItem>
@@ -56,7 +57,7 @@ const Picker = ({
             <Item>
                 {item.image}
                 {radioButton && <RadioButton selected={item?.name} item={item}/> }
-                <ListItem color={'white'}>{displayTitleAsAlias === true ? item?.alias : item?.name || item.userId}</ListItem>
+                <ListItem>{displayTitleAsAlias === true ? item?.alias : item?.name || item.userId}</ListItem>
             </Item>
         </RadioItem>
     )
@@ -157,7 +158,7 @@ const SubTitleTxt = styled.Text`
 `;
 
 const ListItem = styled.Text`
-    color: ${props => props.color};
+    color: ${props => props.color}; //white;
     font-size: 14px;
     padding: 0px 0 5px 15px;
 `;
@@ -215,8 +216,4 @@ const RadioButtonSelectedView = styled.View`
     margin: 3px;
     border-color: ${props => props.colors.PLAYLEAP_DARK_BLUE};
     background-color: ${props => props.colors.PLAYLEAP_DARK_BLUE};
-`;
-
-const LeftImageView = styled.View`
-    width: 8%;
 `;

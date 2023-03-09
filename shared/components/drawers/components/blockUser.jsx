@@ -1,31 +1,19 @@
 import { useDispatch, useSelector} from 'react-redux';
-import Picker from '../../common/picker';
-import { closeBlockUsertBottomDrawer, closeReportBottomDrawer } from '../../../redux-ui-state/slices/feedsSlice';
+import { closeBlockUsertBottomDrawer } from '../../../redux-ui-state/slices/feedsSlice';
 import { useState, useRef } from 'react';
 import styled from '@emotion/native';
 import {useTheme} from '@react-navigation/native';
 import { AppButton } from '../../common/appButton';
-import { blockUnblockFeed, blockUser, reportFeed } from '../../../apis';
+import { blockUser } from '../../../apis';
 import CloseIcon from '../../../images/close.svg';
+import { useInfiniteFeeds } from '../../../hooks/useInfiniteFeeds';
 
 const BlockUser = (props) => {
   const dispatch = useDispatch();
   const {colors} = useTheme();
 
   const {feedItem} = useSelector(state => state.feeds);
-  const selectedItem = useRef('');
-  const selectedAttachmentId = useRef('');
-
-  const [abuseData, setAbuseData] = useState([
-    {name: "Its spam", id: 0}, 
-    {name: "Nudity or sexual activity", id: 1}, 
-    {name: "Hate Speech or symbols",  id: 2}, 
-    {name: "Harasment",  id: 3}, 
-    {name: "Sucide", id: 4}, 
-    {name: "Scam",  id: 5}, 
-    {name: "False information", id: 6}, 
-    {name: "I just don’t like it", id: 7}, 
-  ])
+  const { refetch } = useInfiniteFeeds();
 
   const onCloseIconClick = () => {
     dispatch(closeBlockUsertBottomDrawer());
@@ -37,7 +25,8 @@ const BlockUser = (props) => {
       userId: feedItem.videos[0]?.userId,
       actionType: 'block'
     }
-    await blockUser(dicData)
+    await blockUser(dicData);
+    refetch();
   }
   
   return (

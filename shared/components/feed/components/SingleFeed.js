@@ -15,7 +15,6 @@ import FeedOptions from './feed-options';
 import { useDispatch } from 'react-redux';
 import Dots from '../../../images/dots.svg';
 import Block from '../../../images/block.svg';
-import BlockItem from './blockItem';
 
 const SingleFeed = ({
   item, 
@@ -75,16 +74,13 @@ const SingleFeed = ({
 
   const handleOpenDrawer = () => {
     const isMatched = blockedUsersList.indexOf(item.id);
-    console.log("blockedUsersList.indexOf(item.id) === 1 ", isMatched + ' ' + blockedUsersList + ' ' + item.id);
     dispatch(openThreeDotsBottomDrawer())
     dispatch(selectedFeedItem(item))
-    console.log("handleOpenDrawer 3");
   }
 
   const onCloseThreeDotsClick = () => {
     dispatch(closeThreeDotsBottomDrawer());
   };
-  // console.log("item ", item);
 
   return (
     <View

@@ -9,18 +9,15 @@ import { setGlobalNavigation } from '../utils/helper';
 import DareBar from '../components/dare/darebar';
 import ReelsList from '../components/feed/components/reels-list';
 import { useSelector } from 'react-redux';
-import Toaster from '../components/common/toaster';
 
 const windowHeight = Dimensions.get('window').height;
 const videoHeight = Platform.OS == 'ios' ?  parseInt(windowHeight * 0.817) :  parseInt(windowHeight * 0.847);
 
 export default ({navigation}) => {
   const {colors} = useTheme();
-  const { toasterDisplay, toasterMessage } = useSelector(state => state.feeds);
 
   useEffect(() =>{ 
     setGlobalNavigation(navigation);
-    
   }, [])
 
   return (
@@ -33,11 +30,6 @@ export default ({navigation}) => {
           videoHeight={videoHeight}
         />
       </ReelView>
-      {/* {toasterDisplay == true ? 
-        <Toaster successMessage={toasterMessage}/>
-        :
-        <></>
-      } */}
   </Container>
   )
 };
