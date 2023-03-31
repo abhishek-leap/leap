@@ -1,7 +1,7 @@
 import * as React from 'react';
-import {AppState, Platform} from 'react-native';
+import { AppState, Platform } from 'react-native';
 import NetInfo from '@react-native-community/netinfo';
-import {Provider} from 'react-redux';
+import { Provider } from 'react-redux';
 import {
   QueryClient,
   QueryClientProvider,
@@ -9,13 +9,14 @@ import {
   focusManager,
 } from '@tanstack/react-query';
 import styled from '@emotion/native';
-import {useSelector} from 'react-redux';
-import {NavigationContainer, DefaultTheme} from '@react-navigation/native';
-import {createNativeStackNavigator} from '@react-navigation/native-stack';
-import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
-import {initializeMMKVFlipper} from 'react-native-mmkv-flipper-plugin';
+import { useSelector } from 'react-redux';
+import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { initializeMMKVFlipper } from 'react-native-mmkv-flipper-plugin';
+import * as Sentry from "@sentry/react-native";
 
-import {store} from './shared/redux-ui-state/store';
+import { store } from './shared/redux-ui-state/store';
 import HomeIcon from './shared/images/home-icon.svg';
 import SearchIcon from './shared/images/search-icon.svg';
 import DareCenterIcon from './shared/images/dare-center-icon.svg';
@@ -30,7 +31,7 @@ import Header from './shared/components/header';
 // import DemoScreen from './shared/screens/demo';
 import DareCenterScreen from './shared/screens/dareCenter';
 import ProfileScreen from './shared/screens/profile';
-import {storage} from './shared/mmkv-store/store';
+import { storage } from './shared/mmkv-store/store';
 import createDare from './shared/screens/createDare';
 import { SignInUp } from './shared/components/authentication';
 import PlayerProfile from './shared/screens/playerProfile';
@@ -40,6 +41,8 @@ import { getData, isUserMinor } from './shared/utils/helper';
 import ProgressBar from './shared/components/common/progressBar';
 import BottomCommonDrawer from './shared/components/drawers/bottom-common-drawer';
 import Toaster from './shared/components/common/toaster';
+import Notification from './shared/screens/notification';
+import Splash from './shared/screens/splash';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -51,6 +54,7 @@ const AppTheme = {
     primary: '#290C54', //rgb(41,12,84)
     secondary: '#ff00ac', //rgb(255,0,172)
     PLAYLEAP_DARK_BLUE: '#371270', //rgb(55, 18, 112);
+    PLAYLEAP_BLUE: '#1b0d3d', ////rgb(27, 13, 61)
     PLAYLEAP_WHITE: '#FFFFFF',
     PLAYLEAP_OFF_WHITE: 'rgba(255, 255, 255, 0.6)',
     PLAYLEAP_GREY: '#323232',
@@ -73,13 +77,21 @@ const queryClient = new QueryClient();
 
 // Devtool plugin for Flipper
 if (__DEV__) {
-  import('react-query-native-devtools').then(({addPlugin}) => {
-    addPlugin({queryClient});
+  import('react-query-native-devtools').then(({ addPlugin }) => {
+    addPlugin({ queryClient });
   });
 
   // console.log("Fliper storage ", storage);
   // register mmkv flipper plugin
-  initializeMMKVFlipper({default: storage});
+  initializeMMKVFlipper({ default: storage });
+} else {
+  Sentry.init({
+    dsn: "https://c7bc7dd56e84489eba5f5d7a463a88dd@o4504874966843392.ingest.sentry.io/4504874979557376",
+    autoSessionTracking: true,
+    // Set tracesSampleRate to 1.0 to capture 100% of transactions for performance monitoring.
+    // We recommend adjusting this value in production.
+    tracesSampleRate: 1.0,
+  });
 }
 
 const App = () => {
@@ -88,7 +100,7 @@ const App = () => {
 
   const updateTabBar = () => {
     let date = getData('user_dob');
-    if(date !== undefined && !isUserMinor(date)) {
+    if (date !== undefined && !isUserMinor(date)) {
       CreateStatus = false;
     } else if (date) {
       CreateStatus = true;
@@ -106,7 +118,7 @@ const App = () => {
   React.useEffect(() => {
     const subscription = AppState.addEventListener('change', onAppStateChange);
     return () => subscription.remove();
-    
+
   }, []);
 
   function Home() {
@@ -118,12 +130,13 @@ const App = () => {
             backgroundColor: AppTheme.colors.primary,
           },
           tabBarShowLabel: false,
-        }}>
+        }}
+      >
         <Tab.Screen
           name="Feed"
           component={FeedScreen}
           options={{
-            tabBarIcon: ({focused}) => {
+            tabBarIcon: ({ focused }) => {
               if (focused) {
                 updateTabBar();
                 return (
@@ -142,7 +155,7 @@ const App = () => {
           component={SearchScreen}
           options={{
             unmountOnBlur: true,
-            tabBarIcon: ({focused}) => {
+            tabBarIcon: ({ focused }) => {
               if (focused) {
                 updateTabBar();
                 return (
@@ -161,7 +174,7 @@ const App = () => {
             component={createDare}
             options={{
               unmountOnBlur: true,
-              tabBarIcon: ({focused}) => {
+              tabBarIcon: ({ focused }) => {
                 const { progressStatus, progressBarShow } = useSelector(state => state.createDare);
                 return <ProgressBar percent={progressStatus} progressBarShow={progressBarShow} />;
               },
@@ -172,7 +185,7 @@ const App = () => {
           name="Dare Center"
           component={DareCenterScreen}
           options={{
-            tabBarIcon: ({focused}) => {
+            tabBarIcon: ({ focused }) => {
               if (focused) {
                 updateTabBar();
                 return (
@@ -190,7 +203,7 @@ const App = () => {
           component={ProfileScreen}
           options={{
             unmountOnBlur: true,
-            tabBarIcon: ({focused}) => {
+            tabBarIcon: ({ focused }) => {
               if (focused) {
                 updateTabBar();
                 return (
@@ -209,24 +222,34 @@ const App = () => {
   return (
     <Provider store={store}>
       <NavigationContainer theme={AppTheme}>
-          <Stack.Navigator>
-            <Stack.Screen
-              name="Home"
-              component={Home}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="SignInUp"
-              component={SignInUp}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="PlayerProfile"
-              component={PlayerProfile}
-              options={{ headerShown: false }}
-            />
+        <Stack.Navigator>
+          <Stack.Screen
+            name="Splash"
+            component={Splash}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="SignInUp"
+            component={SignInUp}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="PlayerProfile"
+            component={PlayerProfile}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Notification"
+            component={Notification}
+            options={{ headerShown: false }}
+          />
         </Stack.Navigator>
-        
+
         <AuthenticationDrawer />
         <CreateDareDrawer />
         <BottomCommonDrawer />
@@ -244,7 +267,7 @@ const AppWithReactQuery = () => {
   );
 };
 
-export default AppWithReactQuery;
+export default Sentry.withTouchEventBoundary(AppWithReactQuery);
 
 const IconContainer = styled.View`
   border-bottom-width: 2px;

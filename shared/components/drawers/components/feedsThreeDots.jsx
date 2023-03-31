@@ -1,24 +1,30 @@
-import { useDispatch, useSelector} from 'react-redux';
-import Picker from '../../common/picker';
-import { closeReportBottomDrawer, closeThreeDotsBottomDrawer, openBlockUsertBottomDrawer, openReportBottomDrawer, removeBlockedUsers, selectedBlockedUsers, toasterDisplayStatus, toasterDisplayWithMessage, toasterMessage } from '../../../redux-ui-state/slices/feedsSlice';
 import { useEffect, useState } from 'react';
+import { useDispatch, useSelector} from 'react-redux';
+import styled from '@emotion/native';
+import Clipboard from '@react-native-clipboard/clipboard';
+import crashlytics from '@react-native-firebase/crashlytics';
+
+import Picker from '../../common/picker';
+import { closeThreeDotsBottomDrawer, 
+  openBlockUsertBottomDrawer, 
+  openReportBottomDrawer, removeBlockedUsers, 
+  selectedBlockedUsers, toasterDisplayStatus, 
+  toasterMessage } from '../../../redux-ui-state/slices/feedsSlice';
 import { getData } from '../../../utils/helper';
 import { openAuthenticationBottomDrawer } from '../../../redux-ui-state/slices/authenticationSlice';
 import { blockUnblockFeed, blockUser } from '../../../apis';
-import Clipboard from '@react-native-clipboard/clipboard';
-import { handlePush, handleSetRoot } from '../../../navigation/navigationService';
+import { handlePush } from '../../../navigation/navigationService';
 import { BASE_URL_SITE } from '../../../apis/urls';
 import Loader from '../../common/loader';
-import styled from '@emotion/native';
 import Block from '../../../images/block.svg';
 import { useInfiniteFeeds } from '../../../hooks/useInfiniteFeeds';
 
-const FeedsThreeDots = (props) => {
+const FeedsThreeDots = () => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const {feedItem, blockedUsersList} = useSelector(state => state.feeds);
-  const { refetch, fetchNextPage } = useInfiniteFeeds();
-  const isPowerUser = feedItem?.communityBlockersCount > 0;
+  // const { refetch } = useInfiniteFeeds();
+  const isPowerUser = getData('power_user');
   const token =  getData('token');
   const userId =  getData('user_id');
   const [threeDotData, setThreeDotData] = useState([
@@ -27,8 +33,11 @@ const FeedsThreeDots = (props) => {
     {name: "Report", code: "report", id: 2}
   ])
 
+  // console.log("isPowerUser ", isPowerUser);
+  
   useEffect(() => {
     const isAlreadyBlocked = blockedUsersList.indexOf(feedItem.id);
+
     if(feedItem?.author?.entityId == userId) {
       setThreeDotData([ {name: "Post ID", code: "post", id: 0}, 
       {name: "View Profile", code: "profile", id: 1}, 
@@ -39,8 +48,8 @@ const FeedsThreeDots = (props) => {
         {name: "Post ID", code: "post", id: 0, }, 
         {name: "View Profile", code: "profile", id: 1}, 
         {name: "Report", code: "report", id: 2},
-        {name: "Block Post", code: "BlockPost", id: 3, color: isPowerUser ? '#fff' : '#FF7474', image:  <BlockBGView><BlockUpperView><Block /></BlockUpperView></BlockBGView>},
-        {name: "Block User", code: "BlockUser", id: 4, color: isPowerUser ? '#fff' : '#FF7474', image:  <BlockBGView><BlockUpperView><Block /></BlockUpperView></BlockBGView>}
+        {name: "Block Post", code: "BlockPost", id: 3, color: isPowerUser === 'true' ? '#FF7474' : '#fff', image:  isPowerUser === 'true' ? <BlockBGView><BlockUpperView><Block /></BlockUpperView></BlockBGView> : null},
+        {name: "Block User", code: "BlockUser", id: 4, color: isPowerUser === 'true' ? '#FF7474' : '#fff', image:  isPowerUser === 'true' ? <BlockBGView><BlockUpperView><Block /></BlockUpperView></BlockBGView> : null}
       ])
     } else if (token && isAlreadyBlocked > -1) {
       setThreeDotData([
@@ -59,6 +68,7 @@ const FeedsThreeDots = (props) => {
 
   const handleSelectItem = (item) => {
     if(item.id == 0) {
+      // crashlytics().crash();
       onCloseIconClick();
       Clipboard.setString(BASE_URL_SITE+"/feed/" + feedItem.id);
       dispatch(toasterMessage('Linked copied to clipboard'));
@@ -121,7 +131,7 @@ const FeedsThreeDots = (props) => {
       actionType: 'block'
     }
     await blockUser(dicData);
-    refetch();
+    // refetch();
   }
 
   return (

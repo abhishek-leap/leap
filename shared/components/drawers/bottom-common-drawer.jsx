@@ -18,6 +18,7 @@ import FeedsThreeDots from './components/feedsThreeDots';
 import { getData } from '../../utils/helper';
 import ReportAbuse from './components/reportAbuse';
 import BlockUser from './components/blockUser';
+import CommentsBox from './components/comments';
 
 const ANIMATION_DURATION = 500; // 5 sec
 
@@ -26,7 +27,7 @@ const BottomCommonDrawer = (props) => {
   const {creatDareshow, sportsShow, skillsShow, hashtagShow, competitorShow} = useSelector(state => state.createDare);
   const {darBackshow} = useSelector(state => state.dareBack);
   const {secondStepShow} = useSelector(state => state.dareBack);
-  const { feedsThreeDotsShow, reportItemShow, blockUserShow } = useSelector(state => state.feeds);
+  const { feedsThreeDotsShow, reportItemShow, blockUserShow, commentUIShow } = useSelector(state => state.feeds);
 
   // const {show, authStatus} = useSelector(state => state.authentication);
   const {colors} = useTheme();
@@ -71,11 +72,17 @@ const BottomCommonDrawer = (props) => {
       } else {
         toValue = WINDOW_HEIGHT / 3;
       }
-    } else if(blockUserShow) {
+    } else if(blockUserShow || commentUIShow) {
       toValue = WINDOW_HEIGHT / 4;
-    }
+    } 
     toggleDrawer(toValue, animationDuration);
-  }, [toggleDrawer, countryShow, genderShow, sportsShow, skillsShow, hashtagShow, competitorShow, secondStepShow, darBackshow, feedsThreeDotsShow, reportItemShow, blockUserShow]);
+  }, [toggleDrawer, 
+    countryShow, genderShow, 
+    sportsShow, skillsShow, hashtagShow, 
+    competitorShow, secondStepShow, 
+    darBackshow, feedsThreeDotsShow, 
+    reportItemShow, blockUserShow, 
+    commentUIShow]);
   
   return (
     <>
@@ -129,7 +136,10 @@ const BottomCommonDrawer = (props) => {
                                 blockUserShow ?
                                   <BlockUser />
                                   :
-                                  <></>
+                                  commentUIShow ?
+                                    <CommentsBox /> 
+                                    :
+                                    <></>
           }
         </Body>
       </SafeAreaView>

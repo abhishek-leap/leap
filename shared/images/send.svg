@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>Buttons / Actions Bar@2x</title>
+    <g id="Feed" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Feed:-Comments-2-4.1" transform="translate(-274.000000, -667.000000)">
+            <g id="Add-a-comment" transform="translate(0.000000, 646.000000)">
+                <g id="Input" transform="translate(16.000000, 16.000000)">
+                    <g id="Buttons-/-Actions-Bar" transform="translate(258.000000, 5.000000)">
+                        <circle id="*-/-Elements-/-Avatar-/-Pic-Copy" fill="#C0C8D9" cx="15" cy="15" r="15"></circle>
+                        <g id="Group" transform="translate(6.000000, 6.000000)" stroke="#1B0D3D" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.6" stroke-width="1.125">
+                            <g id="Group-5" transform="translate(9.000041, 9.000041) rotate(-90.000000) translate(-9.000041, -9.000041) translate(2.624991, 3.000000)">
+                                <path d="M1.36697451,11.9085385 L12.1887245,6.8842885 C12.9372245,6.5370385 12.9372245,5.4615385 12.1887245,5.1142885 L1.36697451,0.0915385032 C0.590724512,-0.268461497 -0.230525488,0.495038503 0.0597245124,1.3072885 L1.73372451,5.9977885 L0.0597245124,10.6935385 C-0.230525488,11.5050385 0.590724512,12.2685385 1.36697451,11.9085385 Z" id="Stroke-1"></path>
+                                <line x1="1.73402451" y1="5.9977885" x2="12.7492745" y2="5.9977885" id="Stroke-3"></line>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

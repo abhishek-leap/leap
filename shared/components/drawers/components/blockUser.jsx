@@ -1,6 +1,5 @@
 import { useDispatch, useSelector} from 'react-redux';
 import { closeBlockUsertBottomDrawer } from '../../../redux-ui-state/slices/feedsSlice';
-import { useState, useRef } from 'react';
 import styled from '@emotion/native';
 import {useTheme} from '@react-navigation/native';
 import { AppButton } from '../../common/appButton';

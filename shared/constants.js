@@ -40,6 +40,7 @@ export const PLACEHOLDER_COMPETITOR = "Competitor";
 export const PLACEHOLDER_HASHTAGS = "Hashtags";
 export const PLACEHOLDER_DARE_TITLE = "Dare Title *";
 export const PLACEHOLDER_SEARCH = "Search";
+export const PLACEHOLDER_COMMENT = "Add a comment";
 export const SELECT_FROM_GALLERY = "You can select a frame from the video or an image from the gallery";
 export const UPLOAD_BROWSE_TYPE = {
     VIDEO: "video",

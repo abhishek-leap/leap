@@ -2,15 +2,26 @@ import React from 'react';
 import styled from '@emotion/native';
 import {useTheme} from '@react-navigation/native';
 
-export const AppButton = (props) => {
+export const AppButton = ({
+    onPress, 
+    title, 
+    isLoading, 
+    value, 
+    width, 
+    height, 
+    backgroundColor, 
+    borderRadius,
+    imageEnable,
+    imageURL
+}) => {
     const {colors} = useTheme();
-    const {onPress, title, style, isLoading, value, width, height, backgroundColor, borderRadius}  = props;
 
-    console.log("props?.backgroundColor ", props?.backgroundColor);
     return(
-        <View width={width} height={height} colors={colors} value={value} backgroundColor={backgroundColor} borderRadius={borderRadius}>
-            <ButtonPress
-                onPressIn={onPress} >
+        imageEnable == true ?
+         <ButtonPress onPressIn={onPress}>{imageURL}</ButtonPress> 
+         :
+         <View width={width} height={height} colors={colors} value={value} backgroundColor={backgroundColor} borderRadius={borderRadius}>
+            <ButtonPress onPressIn={onPress}>
                 <ButtonText>{!isLoading ? title : <Loader />}</ButtonText>
             </ButtonPress>
         </View>

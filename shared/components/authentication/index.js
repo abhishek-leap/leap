@@ -95,6 +95,13 @@ export const SignInUp = ({onCloseIconClick, isBasicSignupCompleted, authStatus})
       setData('isBasicSignupCompleted', JSON.stringify(storageUser?.isBasicSignupCompleted));
       setData('isExtendedSignupCompleted', JSON.stringify(storageUser?.isExtendedSignupCompleted));
       setData('user_role', storageUser?.role);
+      if(storageUser?.isPowerUser) {
+        setData('power_user', JSON.stringify(storageUser?.isPowerUser));
+      } else {
+        setData('power_user', JSON.stringify(false));
+      }
+      
+
       if(storageUser?.birthDate) {
         setData('user_dob', storageUser?.birthDate);
       }

@@ -5,7 +5,8 @@ import {
   BASE_URL_AUTHENTICATION, 
   BASE_URL_SIGNED_URL, 
   BASE_URL_MEDIA_STG, 
-  FEED_NEXT_STG} from './urls';
+  FEED_NEXT_STG,
+  NOTIFICATION} from './urls';
 
 export const isFeedNext = url => url.includes("://feed-next");
 export const isCommunication = url => url.includes("://communication");
@@ -16,6 +17,10 @@ export const isMediaNext = url => url.includes("://media-next");
 export const isBearer = url => [isFeedNext, isCommunication, isPartners, isDare, isMediaNext].some(fn => fn(url));
 
 export const loadFeeds = options => get(`${FEED_NEXT_STG}/feeds/feedsByUserId${queryString(options)}`);
+export const mockAPI = options => get(`https://6412d990b1ea7443031acf98.mockapi.io/feeds`);
+export const mockAPIPlayLeapFeeds = options => get(`https://6412d990b1ea7443031acf98.mockapi.io/playleapFeeds`);
+
+export const loadFeedbyID = id => get(`${FEED_NEXT_STG}/feeds/${id}`);
 export const loadDares = options => get(`${DARE_STG}/dares${queryString(options)}`);
 
 // Registration APIs
@@ -26,9 +31,14 @@ export const birthDateRegistration = (options) => post(`${BASE_URL_CORE_STG}/reg
 export const genderCountryRegistration = (options) => post(`${BASE_URL_CORE_STG}/registration/extended-signup-personalInfo`, options);
 export const countriesList = () => get(`${BASE_URL_CORE_STG}/Countries`);
 
+//Notification APIs
+export const loadNotifications = (id, options) => get(`${NOTIFICATION}/Notifications/findByUserId${queryString(options)}&userId=${id}`);
+
 // Like Comment share APIs
 export const like = (id, params) => post(`${FEED_NEXT_STG}/feeds/${id}/reactions`, params);
 export const dislike = (id, params) => Delete(`${FEED_NEXT_STG}/feed-reactions/${id}`, params);
+export const comments = (id, params) => post(`${FEED_NEXT_STG}/feeds/${id}/comments`, params);
+export const commentsReply = (id, params) => post(`${FEED_NEXT_STG}/comments/${id}/reply`, params);
 
 //Report, Block, Delete POST
 export const reportFeed = (params) => post(`${BASE_URL_SIGNED_URL}/complaints/video`, params);

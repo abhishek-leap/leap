@@ -5,6 +5,7 @@ platform :ios, '13.0'
 install! 'cocoapods', :deterministic_uuids => false
 
 target 'leap' do
+  # pod 'react-native-video/VideoCaching', :path => '../node_modules/react-native-video/react-native-video.podspec'
   config = use_native_modules!
 
   # Flags change depending on the env values.
@@ -24,10 +25,18 @@ target 'leap' do
     # An absolute path to your application root.
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
+  pod 'FirebaseCore', :modular_headers => true
+  pod 'FirebaseCoreExtension', :modular_headers => true
+  pod 'FirebaseInstallations', :modular_headers => true
+  pod 'GoogleDataTransport', :modular_headers => true
+  pod 'GoogleUtilities', :modular_headers => true
+  pod 'nanopb', :modular_headers => true
   pod 'react-native-webview', :path => '../node_modules/react-native-webview'
   pod 'MBProgressHUD', :modular_headers => true
   pod 'LeapVideoEditor', :git => 'git@github.com:redmatch/VideoEditorIOS.git', :branch => 'develop'
   
+  pod 'RNFS', :path => '../node_modules/react-native-fs'
+
   target 'leapTests' do
     inherit! :complete
     # Pods for testing

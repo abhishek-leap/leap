@@ -13,13 +13,13 @@ import { useDispatch } from 'react-redux';
 import { openDareBackBottomDrawer, selectedPost } from '../../redux-ui-state/slices/dareBackSlice';
 import {FullAuthentication, openAuthenticationBottomDrawer} from '../../redux-ui-state/slices/authenticationSlice';
 
-const FeedItem = ({data, isActive, muted, setIsMuted,index, height, width, currentIndex, playing, setPlaying, windowHeight}) => {
+const FeedItem = ({data, isActive, muted, setIsMuted,index, currentIndex, playing, setPlaying, videoHeight, windowWidth}) => {
   const { hashTags, body, author, skills, availableForDareBack } = data;
   const [progress, setProgress] = useState();
   const dispatch = useDispatch();
   const [showMoreHashtagsBtn, setShowMoreHashtagsBtn] = useState(hashTags > DEFAULT_HASH_TAGS_COUNTOSHOW);
-  const skillStr = skills?.[0]?.alias;
-  const [postTitle] = parsePostBody(body);
+  // const skillStr = skills?.[0]?.alias;
+  // const [postTitle] = parsePostBody(body);
 
   const clickHandler = () => {
     setIsMuted(prevState => !prevState);
@@ -51,13 +51,13 @@ const FeedItem = ({data, isActive, muted, setIsMuted,index, height, width, curre
         muted={muted}
         setProgress={setProgress}
         index={index}
-        height={height}
-        width={width}
+        height={videoHeight}
+        width={windowWidth}
         playing={playing}
         setPlaying={setPlaying}
       />
-      <ProgressBar data={progress} windowHeight={windowHeight}/>
-      <FeedOptionsContainer>
+      <ProgressBar data={progress} windowHeight={videoHeight}/>
+      {/* <FeedOptionsContainer>
         <FeedOptions data={data}/>
       </FeedOptionsContainer>
       <AudioIconContainer onPress={clickHandler}>
@@ -102,7 +102,7 @@ const FeedItem = ({data, isActive, muted, setIsMuted,index, height, width, curre
           </View>
         )}
         
-      </InfoContainer>
+      </InfoContainer> */}
     </Container>
   );
 };

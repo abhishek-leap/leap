@@ -3,7 +3,7 @@ import {
 	useMutation,
 	useQuery,
   } from '@tanstack/react-query';
-import { competitorList, countriesList, getEntityId, hashtagList, skillsGroups, skillsList, sportsList, suggestionList } from '../apis';
+import { competitorList, countriesList, getEntityId, hashtagList, mockAPI, mockAPIPlayLeapFeeds, skillsGroups, skillsList, sportsList, suggestionList } from '../apis';
 import { ENTITY, MAX_TOTAL_CONNECTIONS, ROLE_TYPE } from '../constants';
 import { getData } from '../utils/helper';
 
@@ -66,6 +66,18 @@ export const useHashtagList = () => {
 	return useQuery(['hashList'], async () => {
 		  return await hashtagList()
 	})
+}
+
+export const useMojAPI = () => {
+	return useQuery(['mojURls'], async () => {
+		  return await mockAPI()
+	}, {staleTime: 1000 * 60 * 60})
+}
+
+export const useLeapMockAPI = () => {
+	return useQuery(['leapMockURLS'], async () => {
+		  return await mockAPIPlayLeapFeeds()
+	}, {staleTime: 1000 * 60 * 60})
 }
 
 // const getCompetitorList = async ({ pageParam = 0 }) => {

@@ -7,6 +7,7 @@ import Like from './like';
 import { useDispatch } from 'react-redux';
 import { FullAuthentication, openAuthenticationBottomDrawer } from '../../../redux-ui-state/slices/authenticationSlice';
 import Comments from './comments';
+import { openCommentUItBottomDrawer, selectedFeedItem } from '../../../redux-ui-state/slices/feedsSlice';
 
 
 const FeedOptions= ({data}) => {
@@ -53,7 +54,8 @@ const FeedOptions= ({data}) => {
       dispatch(FullAuthentication(1));
       dispatch(openAuthenticationBottomDrawer());
     } else if (isBasicSignupCompleted == "true" || isExtendedSignupCompleted == "true") {
-      console.log("clicked onPressComments");
+      dispatch(openCommentUItBottomDrawer());
+      dispatch(selectedFeedItem(data))
     }
   }
 

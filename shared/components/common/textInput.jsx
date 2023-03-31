@@ -15,7 +15,8 @@ const TxtInput = (props) => {
             value,
             style,
             searchIcon,
-            bgcolor
+            bgcolor,
+            onFocus
     }  = props
 
     return(
@@ -33,6 +34,7 @@ const TxtInput = (props) => {
                 currentWidth={width}
                 style={style}
                 bgcolor={bgcolor}
+                onFocus={onFocus}
             />
         </TextView>
     );

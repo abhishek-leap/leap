@@ -39,8 +39,20 @@
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
 				<true/>
 			</dict>
+			<key>d344om1kzciot1.cloudfront.net</key>
+			<dict>
+				<key>NSExceptionAllowsInsecureHTTPLoads</key>
+				<true/>
+				<key>NSIncludesSubdomains</key>
+				<true/>
+			</dict>
 		</dict>
 	</dict>
+  <key>UIApplicationSceneManifest</key>
+  <dict>
+    <key>UISceneConfigurations</key>
+    <dict/>
+  </dict>
 	<key>NSCameraUsageDescription</key>
 	<string>Access gallery for uploading video.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>

@@ -45,7 +45,6 @@ const Toaster = () => {
   };
 
   const popOut = () => {
-    console.log("claling popout");
     setTimeout(() => {
       setModalVisible(false);
       // dispatch(toasterMessage(''));

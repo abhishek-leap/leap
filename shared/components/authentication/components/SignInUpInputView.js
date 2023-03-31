@@ -73,6 +73,7 @@ const SignInUpInputView = ({optionChoose, setOption, setScreen, error, setError,
                         placeholder={optionChoose == 'email' ? PLACEHOLDER_EMAIL_ADDRESS : PLACEHOLDER_PHONE_NUMBER}
                         onChangeText={(searchString) => Validation(searchString)}
                         underlineColorAndroid="transparent"
+                        keyboardType={optionChoose == 'email' ? 'default' : 'phone-pad'}
                     />
                 
                 </SearchSection>

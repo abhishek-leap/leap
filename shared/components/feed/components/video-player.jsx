@@ -9,9 +9,9 @@ const styles = StyleSheet.create({
   },
 });
 const VideoPlayer= ({data, muted, setProgress,index, height, width, currentIndex, playing, setPlaying}) => {
-  const asset = data.videos[0];
-  const uri = asset?.reference || null;
-  const poster = asset.imageLink;
+  const asset = data?.videos ? data?.videos[0] || '' : '';;
+  const uri = asset?.reference || data?.compressedVideoUrl || ''; 
+  const poster = asset?.imageLink || data?.audioMeta?.compressedThumbUrl || '';
   const opacity = useRef(0);
   const activeVideo = index === currentIndex;
 

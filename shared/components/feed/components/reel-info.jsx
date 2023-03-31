@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import styled from '@emotion/native';
 
-import ProgressBar from './progress-bar';
-import FeedOptions from './feed-options';
+// import ProgressBar from './progress-bar';
+// import FeedOptions from './feed-options';
 import Skill from './skill';
 import Battle from './battle';
 import { parsePostBody } from '../../../utils';
