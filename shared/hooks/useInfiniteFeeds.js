@@ -1,7 +1,7 @@
 import {
     useInfiniteQuery, useMutation
   } from '@tanstack/react-query';
-import {dareBackPreUploadedVideos, loadFeedbyID, loadFeeds, loadNotifications, mockAPI} from '../apis';
+import {dareBackPreUploadedVideos, loadFeedbyID, loadFeeds} from '../apis';
 import {OFFSET_LIMIT} from '../constants';
 import { getData } from '../utils/helper';
 
@@ -85,5 +85,13 @@ export const useInfiniteNotifications = () => {
 		getNextPageParam: lastPage => lastPage?.nextPage?.offset + OFFSET_LIMIT,
 		onError: (error) => console.log("useInfiniteNotifications ", error),
 		staleTime: 1000 * 60 * 60,
+	})
+}
+
+export const useCommentAPI = () => {
+	return useMutation({
+		mutationFn: async (id) => {
+		  return await loadFeedbyID(id);
+		},
 	})
 }

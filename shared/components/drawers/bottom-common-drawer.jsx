@@ -76,13 +76,7 @@ const BottomCommonDrawer = (props) => {
       toValue = WINDOW_HEIGHT / 4;
     } 
     toggleDrawer(toValue, animationDuration);
-  }, [toggleDrawer, 
-    countryShow, genderShow, 
-    sportsShow, skillsShow, hashtagShow, 
-    competitorShow, secondStepShow, 
-    darBackshow, feedsThreeDotsShow, 
-    reportItemShow, blockUserShow, 
-    commentUIShow]);
+  }, [toggleDrawer, countryShow, genderShow, sportsShow, skillsShow, hashtagShow, competitorShow, secondStepShow, darBackshow, feedsThreeDotsShow, reportItemShow, blockUserShow, commentUIShow]);
   
   return (
     <>

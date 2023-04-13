@@ -50,26 +50,26 @@ const ReelsList = ({parentViewHeight, colors}) => {
   // }, [data?.feeds, currentIndex == undefined])
 
   return (
-      <SwiperFlatList
-        vertical={true}
-        onChangeIndex={handleChangeIndexValue}
-        data={feedData}
-        renderItem={({item, index}) => (
-          <SingleFeed 
-            item={item} 
-            index={index} 
-            currentIndex={currentIndex} 
-            playing={playing} 
-            setPlaying={setPlaying}
-            parentViewHeight={parentViewHeight}
-            // videoHeight={videoHeight}
-          />
-        )}
-        keyExtractor={(item, index) => index}
-        // onEndReached={() => fetchNextPage()}
-        onEndReachedThreshold={6}
-        maxToRenderPerBatch={2}
-      />
+    <SwiperFlatList
+      vertical={true}
+      onChangeIndex={handleChangeIndexValue}
+      data={data?.feeds}
+      extraData={data?.feeds}
+      renderItem={({item, index}) => (
+        <SingleFeed 
+          item={item} 
+          index={index} 
+          currentIndex={currentIndex} 
+          playing={playing} 
+          setPlaying={setPlaying}
+          videoHeight={videoHeight}
+        />
+      )}
+      keyExtractor={(item, index) => index}
+      onEndReached={() => fetchNextPage()}
+      onEndReachedThreshold={1}
+      maxToRenderPerBatch={2}
+    />
   );
 };
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import styled from '@emotion/native';
 import {useTheme} from '@react-navigation/native';
-// import SingleComment from './singleComment';
+import SingleComment from './singleComment';
 
 const CommentsReplyListing = ({
     onPressProfile,
