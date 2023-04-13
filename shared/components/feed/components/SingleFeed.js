@@ -94,7 +94,6 @@ const SingleFeed = ({
         backgroundColor: colors.primary,
         blurRadius: 90,
       }}>
-        
         <TouchableOpacity
           activeOpacity={0.9}
           onPress={() => PlayAndMute()}

@@ -15,94 +15,18 @@ import { useDispatch, useSelector } from 'react-redux';
 import { dareBarView } from '../redux-ui-state/slices/feedsSlice';
 // import {videoData} from '../components/feed/components/Database';
 
-const WINDOW_HEIGHT = Dimensions.get('window').height;
+const windowHeight = Dimensions.get('window').height;
+const videoHeight = Platform.OS == 'ios' ?  parseInt(windowHeight * 0.850) :  parseInt(windowHeight * 0.847);
 
 const getItem = (data, index) => {
   return data[index]
 };
 
-const getItemCount = (data) => data?.length || 0;
-
-const isIphone = Platform.OS === 'ios' ? 0.3 : 0.88
-const iPhoneHeight = Platform.OS == 'ios' ? 85 : 52;
-
-export default ({ navigation }) => {
-  const { colors } = useTheme();
-  const dispatch = useDispatch();
-  const { dareBarHeight } = useSelector(state => state.feeds);
-
-  const { data, fetchNextPage } = useInfiniteFeeds();
-  // const { data } = useMojAPI();
-  // const { data } = useLeapMockAPI();
-  
-  // const feedRecord = useRef([]);
-  const videoRef = useRef(null);
-
-  const [playing, setPlaying] = useState(true);
-  // const [refresh, setRefresh] = useState(false)
-  const [activeVideoIndex, setActiveVideoIndex] = useState(0);
-
-  const bottomTabHeight = useBottomTabBarHeight();
-  const statusBarHeight = StatusBar.currentHeight || 0;
-  const TotalHeightMinus = bottomTabHeight + statusBarHeight + Math.floor(dareBarHeight) + iPhoneHeight;
-  const TotalhHeight = WINDOW_HEIGHT - TotalHeightMinus;
-  
-  // const handler = useCallback(debounce(async term => {
-  //   if(data.feeds?.length > feedRecord.current?.length) {
-  //     const intial = feedRecord.current.length;
-  //     const next = intial + 9;
-  //     const subArray = data.feeds.slice(intial, next);
-      
-  //     if(subArray.length > 0) {
-  //       feedRecord.current = [...feedRecord.current, ...subArray];
-  //       await downloadVideos(subArray);
-  //     }
-  //   }
-  // }, 500), []);
-
-  // async function downloadVideos (array) {
-  //   try {
-  //     await Promise.all(array.map(async (item) => {
-  //       await SaveVideo(item.compressedVideoUrl);
-  //     }));
-  //   } catch {
-  //     console.log("catch block downloadVideos");
-  //   }
-  // };
-
-  //  useEffect(() => {
-  //   if(data.feeds !== undefined && feedRecord.current?.length === 0) {
-  //     feedRecord.current = [...feedRecord.current, ...data.feeds.slice(0, 9)];
-  //     downloadVideos(feedRecord.current);
-  //     setRefresh(!refresh)
-  //   }
-  // }, [data.feeds !== undefined, activeVideoIndex == undefined])
-
-  /* Below useEffect and updateFeedRecord function code with Feed infinite API */
-
-  // useEffect(() => {
-  //   updateFeedRecord();
-  // }, [data])
-
-  // const updateFeedRecord = async () => {
-  //   if(data.feeds?.length > feedRecord.current?.length) {
-  //     const intial = feedRecord.current.length;
-  //     const next = intial + 10;
-  //     const subArray = data.feeds.slice(intial, next);
-      
-  //     if(subArray.length > 0) {
-  //       feedRecord.current = [...feedRecord.current, ...subArray];
-  //       // await downloadVideos(subArray);
-  //     }
-  //   }
-  // }
-
-  const onViewableItemsChanged = useCallback(({viewableItems}) => {
-    const item = viewableItems[0];
-    if(item?.index !== undefined) {
-      setActiveVideoIndex(item?.index);
-    }
-  }, []);
+  useEffect(() =>{ 
+    setGlobalNavigation(navigation);
+    let calculatedHeight = (windowHeight*15)/100;
+    console.log("videoHeight ", Math.round(calculatedHeight));
+  }, [])
 
   return (
     <Container colors={colors}>

@@ -42,7 +42,6 @@ import ProgressBar from './shared/components/common/progressBar';
 import BottomCommonDrawer from './shared/components/drawers/bottom-common-drawer';
 import Toaster from './shared/components/common/toaster';
 import Notification from './shared/screens/notification';
-import Splash from './shared/screens/splash';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -131,7 +130,7 @@ const App = () => {
           },
           tabBarShowLabel: false,
         }}
-      >
+        >
         <Tab.Screen
           name="Feed"
           component={FeedScreen}
@@ -222,32 +221,27 @@ const App = () => {
   return (
     <Provider store={store}>
       <NavigationContainer theme={AppTheme}>
-        <Stack.Navigator>
-          <Stack.Screen
-            name="Splash"
-            component={Splash}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Home"
-            component={Home}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="SignInUp"
-            component={SignInUp}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="PlayerProfile"
-            component={PlayerProfile}
-            options={{ headerShown: false }}
-          />
-          <Stack.Screen
-            name="Notification"
-            component={Notification}
-            options={{ headerShown: false }}
-          />
+          <Stack.Navigator>
+            <Stack.Screen
+              name="Home"
+              component={Home}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="SignInUp"
+              component={SignInUp}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="PlayerProfile"
+              component={PlayerProfile}
+              options={{ headerShown: false }}
+            />
+            <Stack.Screen
+              name="Notification"
+              component={Notification}
+              options={{ headerShown: false }}
+            />
         </Stack.Navigator>
 
         <AuthenticationDrawer />
