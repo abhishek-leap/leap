@@ -5,7 +5,6 @@ import { WebView } from 'react-native-webview';
 export default GetRecaptcha = (props) => {
     const onMessage = (data) => {
     
-        // console.log('recaptcha', data.nativeEvent.data)
         //here you can put your action to perform(check validation on your server or somthing)
         props.action(data.nativeEvent.data);
     

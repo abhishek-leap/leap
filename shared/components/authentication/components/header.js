@@ -13,7 +13,6 @@ const Header = ({backIcon, text, onCloseIconClick, handleBack, screenName, setSc
     const {colors} = useTheme();
 
     const closeScreen = () => {
-        console.log("clicked on close screen ");
         if(screenName == 'input' && currentScreen == 'ALIAS') {
             removeAllData();
         }

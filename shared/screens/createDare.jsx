@@ -3,7 +3,7 @@ import {View, NativeModules, Platform} from 'react-native';
 import withAuthentication from '../hoc/withAuthentication';
 import {useDispatch} from 'react-redux';
 import {FullAuthentication, openAuthenticationBottomDrawer} from '../redux-ui-state/slices/authenticationSlice';
-import { openCreateDareBottomDrawer, selectedVedioURI, vedioThumbnail } from '../redux-ui-state/slices/createDareSlice';
+import { openCreateDareBottomDrawer, selectedVedioHeight, selectedVedioURI, selectedVedioWidth, vedioThumbnail } from '../redux-ui-state/slices/createDareSlice';
 // import { useLensGroup } from '../hooks/useQueryLens';
 import { getBase64FromUrl, getData } from '../utils/helper';
 import { lensGroup } from '../apis';
@@ -47,12 +47,17 @@ const CreateDare = ({isBasicSignupCompleted, isExtendedSignupCompleted}) => {
         lenseGroup,
         false
       );
+      const PreVideoURL = JSON.parse(videoUri);
+      console.log("PreVideoURL ", PreVideoURL);
       if(videoUri) {
         if (isBasicSignupCompleted == "true" || isExtendedSignupCompleted == "true") {
           dispatch(openCreateDareBottomDrawer());
         }
-        const finalVideoURL = Platform.OS == "ios" ? videoUri : `file://${videoUri}`;
+        const finalVideoURL = Platform.OS == "ios" ? PreVideoURL.urlToString : `file://${PreVideoURL.urlToString}`;
         dispatch(selectedVedioURI(finalVideoURL));
+        dispatch(selectedVedioWidth(parseInt(PreVideoURL.width)));
+        dispatch(selectedVedioHeight(parseInt(PreVideoURL.height)));
+
         createThumbnail({
           url: finalVideoURL,
           timeStamp: 100,
@@ -62,8 +67,6 @@ const CreateDare = ({isBasicSignupCompleted, isExtendedSignupCompleted}) => {
           dispatch(vedioThumbnail(img));
         })
         .catch((err) => console.log({ err }));
-      } else {
-        console.log("Video not selected");
       }
   };
 

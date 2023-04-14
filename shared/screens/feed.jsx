@@ -1,6 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
-import { Dimensions, Platform, StatusBar, VirtualizedList, StyleSheet } from 'react-native';
-// import SwiperFlatList from 'react-native-swiper-flatlist';
+import { Platform, StatusBar, StyleSheet, Animated } from 'react-native';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useTheme } from '@react-navigation/native';
 import styled from '@emotion/native';
@@ -8,25 +7,96 @@ import styled from '@emotion/native';
 
 import DareBar from '../components/dare/darebar';
 import SingleFeed from '../components/feed/components/SingleFeed';
-// import { SaveVideo } from '../utils/helper';
-// import { useLeapMockAPI, useMojAPI } from '../hooks/useMasterAPI';
 import { useInfiniteFeeds } from '../hooks/useInfiniteFeeds';
 import { useDispatch, useSelector } from 'react-redux';
 import { dareBarView } from '../redux-ui-state/slices/feedsSlice';
-// import {videoData} from '../components/feed/components/Database';
+import { WINDOW_WIDTH, WINDOW_HEIGHT, INITIAL_LOAD_FEED} from '../constants';
 
-const windowHeight = Dimensions.get('window').height;
-const videoHeight = Platform.OS == 'ios' ?  parseInt(windowHeight * 0.850) :  parseInt(windowHeight * 0.847);
+const isIphone = Platform.OS === 'ios' ? 0.8 : 0.88
+const iPhoneHeight = Platform.OS == 'ios' ? 85 : 52;
 
-const getItem = (data, index) => {
-  return data[index]
-};
+export default ({ navigation }) => {
+  const { colors } = useTheme();
+  const dispatch = useDispatch();
+  const { dareBarHeight } = useSelector(state => state.feeds);
 
-  useEffect(() =>{ 
-    setGlobalNavigation(navigation);
-    let calculatedHeight = (windowHeight*15)/100;
-    console.log("videoHeight ", Math.round(calculatedHeight));
-  }, [])
+  const { data, fetchNextPage } = useInfiniteFeeds();
+  
+  const feedRecord = useRef([]);
+  const videoRef = useRef(null);
+  const virtualRef = useRef(null);
+
+  const [playing, setPlaying] = useState(true);
+  const [refresh, setRefresh] = useState(false)
+  const [activeVideoIndex, setActiveVideoIndex] = useState(0);
+  const Yscroll = React.useRef(new Animated.Value(0)).current;
+
+  const bottomTabHeight = useBottomTabBarHeight();
+  const statusBarHeight = StatusBar.currentHeight || 0;
+  const TotalHeightMinus = bottomTabHeight + statusBarHeight + Math.floor(dareBarHeight) + iPhoneHeight;
+  const TotalhHeight = WINDOW_HEIGHT - TotalHeightMinus;
+
+   useEffect(() => {
+    if(data?.feeds !== undefined && feedRecord.current?.length === 0) {
+      feedRecord.current = [...feedRecord.current, ...data?.feeds.slice(0, INITIAL_LOAD_FEED)];
+      setRefresh(!refresh)
+    }
+  }, [data?.feeds !== undefined, activeVideoIndex == undefined])
+
+  useEffect(() => {
+    if(activeVideoIndex > 0) {
+      if(data?.feeds?.length > feedRecord.current?.length) {
+        const intial = feedRecord.current.length;
+        const next = intial + 4;
+        const subArray = data.feeds.slice(intial, next);
+        
+        if(subArray.length > 0) {
+          feedRecord.current = [...feedRecord.current, ...subArray];
+          setRefresh(!refresh)
+        }
+      }
+    }
+  }, [data?.feeds, activeVideoIndex]);
+
+  const onViewableItemsChanged = useCallback(({viewableItems}) => {
+    const item = viewableItems[0];
+    if(item?.index !== undefined) {
+      setActiveVideoIndex(item?.index);
+    }
+  }, []);
+
+  const Slide = ({item, index}) => {
+    const scale = Yscroll.interpolate({
+      inputRange: [-1, 0, TotalhHeight * index, TotalhHeight * (index + 2)],
+      outputRange: [1, 1, 1, 1],
+    });
+    return (
+      <Animated.View
+        style={[
+          styles.slide,
+          {
+            transform: Platform.OS !== 'web' && [{scale}, {perspective: 1000}],
+          },
+        ]}>
+        <SingleFeed
+          item={item}
+          index={index}
+          videoRef={videoRef}
+          currentIndex={activeVideoIndex}
+          playing={playing}
+          setPlaying={setPlaying}
+          isActive={activeVideoIndex === index}
+          TotalhHeight={TotalhHeight}
+        />
+      </Animated.View>
+    );
+  };
+
+  function getItemLayout (item, index) { return ({
+    length: TotalhHeight,
+    offset: TotalhHeight * index,
+    index,
+  })}
 
   return (
     <Container colors={colors}>
@@ -35,76 +105,35 @@ const getItem = (data, index) => {
       }}>
         <DareBar />
       </DareView>
-      {/* <SwiperFlatList
-        vertical={true}
-        data={feedRecord.current}
-        renderItem={({ item, index }) => (
-          <SingleFeed
-            item={item}
-            index={index}
-            videoRef={videoRef}
-            currentIndex={activeVideoIndex}
-            playing={playing}
-            setPlaying={setPlaying}
-            parentViewHeight={dareBarHeight}
-            isActive={activeVideoIndex === index}
-            TotalHeightMinus={TotalHeightMinus}
-          />
-        )}
-        keyExtractor={(item, index) => `${index}_${item}`.toString()}
-        onEndReachedThreshold={0.5} // 0.1
-        // onEndReached={() => fetchNextPage()}
-
-        initialNumToRender={1}
-        scrollEventThrottle={1}
-        // removeClippedSubviews={true}
-        // maxToRenderPerBatch={7}
-        // windowSize={3}
-        onViewableItemsChanged={onViewableItemsChanged}
-        // onScroll={e => {
-        //   const index = Math.round(
-        //     e.nativeEvent.contentOffset.y / (WINDOW_HEIGHT - TotalHeightMinus),
-        //   );
-        //   console.log("index of scroll ", index);
-        //   if(index > 0) {
-        //     feedRecord.current = [...feedRecord.current, ...data.slice(feedRecord.current.length, feedRecord.current.length+8)];
-        //     const subArray = data.slice(feedRecord.current.length, feedRecord.current.length+8);
-        //     downloadVideos(subArray);
-        //     // feedRecord.current = [...feedRecord.current, ...data?.feeds.slice(feedRecord.current.length, feedRecord.current.length+2)];
-        //     setActiveVideoIndex(index);
-        //   }
-        // }}
-      /> */}
-        <VirtualizedList
-          data={data?.feeds}
-          renderItem={({ item, index }) => (
-            <SingleFeed
-              item={item}
-              index={index}
-              videoRef={videoRef}
-              currentIndex={activeVideoIndex}
-              playing={playing}
-              setPlaying={setPlaying}
-              isActive={activeVideoIndex === index}
-              TotalhHeight={TotalhHeight}
-            />
-          )}
+        <Animated.FlatList
+          ref={virtualRef}
+          data={feedRecord.current}
+          renderItem={Slide}
           keyExtractor={(item, index) => `${index}_${item}`.toString()}
-          getItem={getItem}
-          getItemCount={getItemCount}
           onEndReached={() => fetchNextPage()}
           onEndReachedThreshold={TotalhHeight}
+          onScroll={Animated.event(
+            [{nativeEvent: {contentOffset: {y: Yscroll}}}],
+            {useNativeDriver: true},
+          )}
+
+          // Below three settings stop free scrolling
           snapToInterval={TotalhHeight}
+          snapToAlignment={'start'}
           decelerationRate={isIphone}
+
+          //Performance settings
           removeClippedSubviews={true}
-          initialNumToRender={2}
-          maxToRenderPerBatch={2}
+          initialNumToRender={3}
+          maxToRenderPerBatch={1}
           windowSize={10}
-          getItemLayout={(item, index) => ({
-            length: TotalhHeight,
-            offset: TotalhHeight * index,
-            index,
-          })}
+          updateCellsBatchingPeriod={100} // Increase time between renders
+          
+          disableIntervalMomentum={true}
+          scrollEventThrottle={100}
+          // scrollEnabled={global.videoScrollIndex > activeVideoIndex && MAX_SCROLL_INDEX <= activeVideoIndex ? true : false}
+          getItemLayout={getItemLayout}
+          // disableVirtualization={false} // convert to true when make release build
           viewabilityConfig={{viewAreaCoveragePercentThreshold: 50}}
           onViewableItemsChanged={onViewableItemsChanged}
         />
@@ -139,5 +168,11 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 32,
+  },
+  slide: {
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: WINDOW_WIDTH,
   },
 });

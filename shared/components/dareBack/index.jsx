@@ -54,8 +54,6 @@ const DareBack = ({onCloseIconClick, selectedPostItem}) => {
             dispatch(openDareBackSecondStepBottomDrawer());
           })
           .catch((err) => console.log({ err }));
-        } else {
-          console.log("Video not selected");
         }
     };
 
@@ -70,7 +68,6 @@ const DareBack = ({onCloseIconClick, selectedPostItem}) => {
       }
       const options = {assets: [assets], feedId: selectedPostItem.id, hashTags: selectedPostItem.hashTags ,isFromUserFeed: true};
       const dareBackResponse = await dareBack(options);
-      console.log("dareBackResponse ", dareBackResponse);
     }
 
     const handleBack = () => {

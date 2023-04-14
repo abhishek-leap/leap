@@ -24,8 +24,6 @@ const SingleComment = ({
     const handleReply = () => {
         if(commentText !== '') {
             handleSendButton(item?.id);
-        } else {
-            console.log("not entered ", commentText);
         }
     }
 

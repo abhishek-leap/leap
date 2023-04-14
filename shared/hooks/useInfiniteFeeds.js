@@ -65,7 +65,6 @@ export const useCommentAPI = () => {
 const getInfiniteNotification = async ({ pageParam = 0 }) => {
     const queyParams = {options: {offset: pageParam, limit: 10}};
 	const USER_ID = getData("user_id");
-	console.log("USER_ID ", USER_ID + ' ' + queyParams);
     const {data: apiNotification, meta} = await loadNotifications(USER_ID, queyParams);
     return { response: apiNotification, nextPage: meta };
 }

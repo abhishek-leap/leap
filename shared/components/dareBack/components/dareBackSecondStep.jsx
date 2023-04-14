@@ -91,11 +91,7 @@ const DareBackSecondStep = ({ onCloseIconClick }) => {
             };
               
             const dareBackResponse = await dareBack(options);
-            console.log("dareBackResponse ", dareBackResponse);
-            
-        } else {
-          console.log("uploadResponse ", uploadResponse);
-        }
+        } 
     }
     
     //Show Progess bar of bottom tab
@@ -112,7 +108,6 @@ const DareBackSecondStep = ({ onCloseIconClick }) => {
 
     // Submit for API call methods
     const submitButton = () => {
-        console.log("submit button clicked 2");
         dispatch(closeDareBackSecondStepBottomDrawer());
         dispatch(progressBarDisplay(true));
         VideoUploadWithStatus(videoURI);

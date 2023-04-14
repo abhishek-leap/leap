@@ -27,7 +27,6 @@ const Notification = ({authStatus}) => {
     // } catch {
     //     message = item?.body;
     // }
-    console.log("called here ", data.length);
     return (
             <SingleRow>
               {item.body}

@@ -66,10 +66,19 @@ extension VideoEditorModule: VideoEditorDelegate {
         cameraController = nil
     }
     
-    func videoEditorDidCapture(videoURL: URL) {
+    func videoEditorDidCapture(videoURL: URL, videoFinalObject: [String: String]) {
 //        if success {
             // Result urls. You could interact with your own implementation.
-            currentResolve!(videoURL.absoluteString)
+            // currentResolve!(videoURL.absoluteString)
+
+             if let jsonData = try? JSONSerialization.data(withJSONObject: videoFinalObject, options: []) {
+                if let jsonString = String(data: jsonData, encoding: .utf8) {
+                  currentResolve!(jsonString)
+                }
+            } else {
+              currentResolve!(NSNull())
+            }
+            
 //            // remove strong reference to video editor sdk instance
 //            self?.videoEditorSDK = nil
 //        } else {

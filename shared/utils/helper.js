@@ -4,6 +4,7 @@ import * as RNFS from 'react-native-fs';
 
 export const setGlobalNavigation = (navigation) => {
     global.navRef = navigation
+    // global.videoScrollIndex = 0
     return true;
 }
 

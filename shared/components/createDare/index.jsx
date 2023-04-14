@@ -45,7 +45,7 @@ import { toasterDisplayStatus, toasterMessage } from '../../redux-ui-state/slice
 const CreateDare = ({ optionChoose, value, isLoading}) => {
     const {colors} = useTheme();
     const dispatch = useDispatch();
-    const { videoURI, sport, hashtags, skills, competitor, videoThumbnailImg } = useSelector(state => state.createDare);
+    const { videoURI, videoWidth, videoHeight, sport, hashtags, skills, competitor, videoThumbnailImg } = useSelector(state => state.createDare);
     const isVideoUploadStatus = useRef('');
     const [title, setTitle] = useState('');
 
@@ -86,7 +86,6 @@ const CreateDare = ({ optionChoose, value, isLoading}) => {
             }
             if(competitor?.value) {
                 const createDareResponse = await createDare(options);
-                console.log("createDareResponse ", createDareResponse);
             } else {
                 const assetsDare = [
                     {
@@ -101,11 +100,7 @@ const CreateDare = ({ optionChoose, value, isLoading}) => {
                     title: title,
                   }
                 const createFeedResponse = await createFeed(optionsDare);
-                console.log("createFeedResponse ", createFeedResponse);
             }
-            
-        } else {
-          console.log("uploadResponse ", uploadResponse);
         }
     }
 
@@ -133,8 +128,8 @@ const CreateDare = ({ optionChoose, value, isLoading}) => {
             videoStatus: USER_TYPE.CREATOR,
             dareId: null,
             metaData: {
-                width: 0,
-                height: 0,
+                width: videoWidth,
+                height: videoHeight,
                 orientaion: 'protrait'
             }
           };

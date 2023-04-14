@@ -18,7 +18,6 @@ const FeedOptions= ({data}) => {
   const dispatch = useDispatch();
 
   const onPressProfile = () => {
-    console.log("clicked onPressProfile");
   }
 
   const onPressLike = async (isBasicSignupCompleted, isExtendedSignupCompleted) => {
@@ -60,7 +59,6 @@ const FeedOptions= ({data}) => {
   }
 
   const onPressShare = () => {
-    console.log("clicked onPressShare");
   }
 
   return (

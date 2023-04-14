@@ -11,6 +11,8 @@ const initialState = {
   competitor: "",
   hashtags: [],
   videoURI: '',
+  videoWidth: 0,
+  videoHeight: 0,
   videoThumbnailImg: '',
   progressStatus: 0,
   progressBarShow: false,
@@ -40,6 +42,14 @@ export const createDareSlice = createSlice({
     selectedVedioURI: (state, param) => {
       const { payload } = param;
       state.videoURI = payload;
+    },
+    selectedVedioWidth: (state, param) => {
+      const { payload } = param;
+      state.videoWidth = payload;
+    },
+    selectedVedioHeight: (state, param) => {
+      const { payload } = param;
+      state.videoHeight = payload;
     },
     selectedSport: (state, param) => {
       const { payload } = param;
@@ -100,7 +110,7 @@ export const createDareSlice = createSlice({
 });
 
 // export action creators
-export const { progressBarStatus, progressBarDisplay, vedioThumbnail, progressBarUpdate, selectedVedioURI, selectedSport, selectedSkills, selectedCompetitor, selectedHashtags, openSportsBottomDrawer, closeSportsBottomDrawer, openCreateDareBottomDrawer, closeCreateDareBottomDrawer, openSkillsBottomDrawer, closeSkillsBottomDrawer, openCompetitorBottomDrawer, closeCompetitorBottomDrawer, openHastagBottomDrawer, closeHastagBottomDrawer} =
+export const { progressBarStatus, progressBarDisplay, vedioThumbnail, progressBarUpdate, selectedVedioURI, selectedSport, selectedSkills, selectedCompetitor, selectedHashtags, openSportsBottomDrawer, closeSportsBottomDrawer, openCreateDareBottomDrawer, closeCreateDareBottomDrawer, openSkillsBottomDrawer, closeSkillsBottomDrawer, openCompetitorBottomDrawer, closeCompetitorBottomDrawer, openHastagBottomDrawer, closeHastagBottomDrawer, selectedVedioWidth, selectedVedioHeight} =
 createDareSlice.actions;
 
 // export reducer

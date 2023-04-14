@@ -12,13 +12,18 @@ const initialState = {
   blockedUsersList: [],
   commentUIShow: false,
   notificationUIShow: false,
-  feeds: []
+  feeds: [],
+  feedScreen: 0,
 };
 
 export const feedsSlice = createSlice({
   name: 'feeds',
   initialState,
   reducers: {
+    feedScreenDisplay: (state, param) => {
+      const { payload } = param;
+      state.feedScreen = payload;
+    },
     selectedFeeds: (state, param) => {
       const { payload } = param;
       state.feeds = payload;
@@ -81,7 +86,7 @@ export const feedsSlice = createSlice({
 });
 
 // export action creators
-export const { dareBarView, selectedFeeds, openNotificationBottomDrawer, closeNotificationBottomDrawer, openCommentUItBottomDrawer, closeCommentUItBottomDrawer, selectedBlockedUsers, removeBlockedUsers, openBlockUsertBottomDrawer, closeBlockUsertBottomDrawer, toasterMessage, toasterDisplayStatus, openReportBottomDrawer, closeReportBottomDrawer, selectedFeedItem, openThreeDotsBottomDrawer, closeThreeDotsBottomDrawer } =
+export const { feedScreenDisplay, dareBarView, selectedFeeds, openNotificationBottomDrawer, closeNotificationBottomDrawer, openCommentUItBottomDrawer, closeCommentUItBottomDrawer, selectedBlockedUsers, removeBlockedUsers, openBlockUsertBottomDrawer, closeBlockUsertBottomDrawer, toasterMessage, toasterDisplayStatus, openReportBottomDrawer, closeReportBottomDrawer, selectedFeedItem, openThreeDotsBottomDrawer, closeThreeDotsBottomDrawer } =
 feedsSlice.actions;
 
 // export reducer

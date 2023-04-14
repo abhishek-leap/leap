@@ -5,6 +5,7 @@ import { useInfiniteFeeds } from '../hooks/useInfiniteFeeds';
 // import { useLeapMockAPI, useMojAPI } from '../hooks/useMasterAPI';
 import { handleSetRoot } from '../navigation/navigationService';
 import { setGlobalNavigation } from '../utils/helper';
+import Logo from '../images/logo.svg';
 
 const Splash = ({navigation}) => {
     const {data: daresData } = useInfiniteDares();
@@ -30,7 +31,8 @@ const Splash = ({navigation}) => {
   return (
    <SafeAreaView style={styles.container}>
       <View style={styles.uiView}>
-        <Text style={styles.txt}>{'Playleap'}</Text>
+        {/* <Text style={styles.txt}>{'Playleap'}</Text> */}
+        <Logo height={20} width={60} />
       </View>
    </SafeAreaView>
   );

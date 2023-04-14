@@ -51,9 +51,7 @@ export const SignInUp = ({onCloseIconClick, isBasicSignupCompleted, authStatus})
     if(data) {
       setIsLoading(false);
       setScreen('OTP');
-    } else {
-      console.log('User Authentication data not available')
-    }
+    } 
   }
 
   //Back button handle
@@ -148,8 +146,6 @@ export const SignInUp = ({onCloseIconClick, isBasicSignupCompleted, authStatus})
   const action=(token)=>{
     if(token){
       setReCaptchaCode(token)
-    }else{
-      console.log('token not available')
     }
   }
 
@@ -164,8 +160,6 @@ export const SignInUp = ({onCloseIconClick, isBasicSignupCompleted, authStatus})
     if(data) {
       setIsLoading(false)
       handleStorage(data)
-    } else {
-      console.log('data not available')
     }
   };
 
@@ -182,9 +176,7 @@ export const SignInUp = ({onCloseIconClick, isBasicSignupCompleted, authStatus})
     if(data) {
       setIsLoading(false);
       handleAliasResponse(data);
-    } else {
-      console.log('data not available');
-    } 
+    }
   };
 
   const postBirthdateToApi = async (date) => {
@@ -201,8 +193,6 @@ export const SignInUp = ({onCloseIconClick, isBasicSignupCompleted, authStatus})
         setData('user_dob', data?.details?.birthDate);
         // countriesList.mutate(tokenID);
         setScreen('Gender');
-      } else {
-        console.log('data not available')
       }
   }
 
@@ -224,8 +214,6 @@ export const SignInUp = ({onCloseIconClick, isBasicSignupCompleted, authStatus})
         dispatch(selectedGender(''));
         dispatch(selectedCountry(''));
         closeSignup();
-      } else {
-        console.log('data not available')
       }
   }
 

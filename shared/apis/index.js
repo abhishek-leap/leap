@@ -83,7 +83,6 @@ export const postVideo = async (url, formData, videoUploadStatusCallBack, onUplo
     };
   }
   catch (error) {
-      console.log('post video error : ' + error);
       return error;
   }
 };
@@ -97,7 +96,6 @@ const post = async (url, param) => {
   if (token) {
     authHeader.authorization = isBearer(url) ? `Bearer ${token}` : token;
   }
-  // console.log("Body params ", param);
   const headers = {
     headers: {...{
       'Content-Type': 'application/json',
@@ -108,12 +106,10 @@ const post = async (url, param) => {
   };
 
   try {
-    // console.log("FetchURL, headers ", FetchURL + " "+ JSON.stringify(headers));
     const response = await fetch(FetchURL, headers);
     return await response.json();
   }
   catch (error) {
-      console.log('post api error : ' + error);
       return error;
   }
 }
@@ -141,12 +137,10 @@ const get = async (url, options = '') => {
   };
 
   try {
-    // console.log('Fetch URL and Headers : ' + FetchURL + " " + JSON.stringify(headers));
     const response = await fetch(FetchURL, headers);
     return await response.json();
   }
   catch (error) {
-      console.log('get api error : ' + error);
       return error;
   }
 }
@@ -158,7 +152,6 @@ const Delete = async (url, param) => {
   if (token) {
     authHeader.authorization = isBearer(url) ? `Bearer ${token}` : token;
   }
-  // console.log("Body params ", param);
   const headers = {
     headers: {...{
       'Content-Type': 'application/json',
@@ -169,12 +162,10 @@ const Delete = async (url, param) => {
   };
 
   try {
-    // console.log("FetchURL, headers ", FetchURL + " "+ JSON.stringify(headers));
     const response = await fetch(FetchURL, headers);
     return await response.json();
   }
   catch (error) {
-      console.log('post api error : ' + error);
       return error;
   }
 }

@@ -26,8 +26,6 @@ const SingleComment = ({
             setCommentText('')
             setShowCommentBox(false);
             handleSendButton(item?.id , commentText);
-        } else {
-            console.log("not entered ", commentText);
         }
     }
 

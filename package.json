@@ -13,7 +13,8 @@
     "lint": "eslint .",
     "prebuild-android": "npx mkdirp android/app/src/main/assets/ && react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle",
     "build:web": "rm -rf dist/ && webpack --mode=production --config webpack.config.js",
-    "web": "webpack serve --mode=development --config webpack.config.js"
+    "web": "webpack serve --mode=development --config webpack.config.js",
+    "pod-install": "RCT_NEW_ARCH_ENABLED=1 bundle exec pod install"
   },
   "dependencies": {
     "@emotion/native": "^11.10.0",
@@ -44,7 +45,7 @@
     "react-native-svg": "^13.6.0",
     "react-native-swiper-flatlist": "^3.0.18",
     "react-native-vector-icons": "^9.2.0",
-    "react-native-video": "5.2.1",
+    "react-native-video": "^5.2.1",
     "react-native-web": "^0.18.10",
     "react-native-webview": "^11.26.1",
     "react-player": "^2.11.0",

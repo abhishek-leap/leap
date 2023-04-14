@@ -7,16 +7,16 @@ import { useTheme } from '@react-navigation/native';
 
 import Dots from '../../../images/dots.svg';
 import Block from '../../../images/block.svg';
-import { getData } from '../../../utils/helper';
 
 import { openDareBackBottomDrawer, selectedPost } from '../../../redux-ui-state/slices/dareBackSlice';
 import { FullAuthentication, openAuthenticationBottomDrawer } from '../../../redux-ui-state/slices/authenticationSlice';
-import { openThreeDotsBottomDrawer, selectedFeedItem } from '../../../redux-ui-state/slices/feedsSlice';
+import { feedScreenDisplay, openThreeDotsBottomDrawer, selectedFeedItem } from '../../../redux-ui-state/slices/feedsSlice';
 
 import ProgressBar from './progress-bar';
 import RealInfo from './reel-info';
 import FeedOptions from './feed-options';
 import { getData, getVideoUrl } from '../../../utils/helper';
+import { INITIAL_LOAD_FEED } from '../../../constants';
 
 const WINDOW_WIDTH = Dimensions.get('window').width;
 
@@ -27,35 +27,53 @@ const SingleFeed = ({
   playing,
   setPlaying,
   TotalhHeight,
-  videoRef
+  videoRef,
+  // onScrollHandler
 }) => {
   const { colors } = useTheme();
   const dispatch = useDispatch();
-  const { blockedUsersList } = useSelector(state => state.feeds);
+  const { blockedUsersList, feedScreen } = useSelector(state => state.feeds);
 
   const asset = item?.videos ? item?.videos[0] || '' : '';
   const uri = asset?.reference || item?.compressedVideoUrl || '';
   const poster = asset?.imageLink || item?.compressedThumbUrl || '';
   const activeVideo = currentIndex == undefined ? false : currentIndex == index;
 
-  const [videoUri, setVideoUri] = useState(uri);
-  const [opacity, setOpacity] = useState(0);
+  // const [videoUri, setVideoUri] = useState(uri);
+  // const [opacity, setOpacity] = useState(0);
   const [mute, setMute] = useState(false);
-  const [isCover, setIsCover] = useState(false);
+  // const [isCover, setIsCover] = useState(false);
   const [progress, setProgress] = useState();
   const [isBlockToggle, setIsBlockToggle] = useState(false);
 
-  const isBlocked = blockedUsersList.indexOf(item?.id) > -1;
-  const isPowerUser = getData('power_user');
-  const blockedByPowerUser = item?.blockPowerUserId ? true : false;
+  let isBlocked = false; //blockedUsersList.indexOf(item?.id) > -1;
+  let isPowerUser = false; //getData('power_user');
+  let blockedByPowerUser = false; //item?.blockPowerUserId ? true : false;
 
   let blockedText = '';
 
-  if (item?.communityBlockersCount && !item?.blockPowerUserId && !item?.blockedAt) {
-    blockedText = item?.communityBlockersCount;
-  } else if (!item?.blockPowerUserId && item?.blockedAt) {
-    blockedText = 'you blocked';
-  }
+  // if (item?.communityBlockersCount && !item?.blockPowerUserId && !item?.blockedAt) {
+  //   blockedText = item?.communityBlockersCount;
+  // } else if (!item?.blockPowerUserId && item?.blockedAt) {
+  //   blockedText = 'you blocked';
+  // }
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      isBlocked = blockedUsersList.indexOf(item?.id) > -1;
+      isPowerUser = getData('power_user');
+      blockedByPowerUser = item?.blockPowerUserId ? true : false;
+
+      let blockedText = '';
+
+      if (item?.communityBlockersCount && !item?.blockPowerUserId && !item?.blockedAt) {
+        blockedText = item?.communityBlockersCount;
+      } else if (!item?.blockPowerUserId && item?.blockedAt) {
+        blockedText = 'you blocked';
+      }
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
 
   // useEffect(() => {
   //   let fileName = uri.substring(uri.lastIndexOf("/") + 1, uri.length);
@@ -119,16 +137,19 @@ const SingleFeed = ({
           }}
         >
         <Video
-          videoRef={videoRef}
+          ref={videoRef}
           // onBuffer={onBuffer}
           // onError={onError}
+          hideShutterView={true}
+          removeClippedSubviews={true}
           repeat={true}
           poster={poster}
-          posterResizeMode={isCover ? "cover" : "contain"}
-          resizeMode={isCover ? "cover" : "contain"}
+          posterResizeMode={"contain"} // {isCover ? "cover" : "contain"}
+          resizeMode={"contain"} // {isCover ? "cover" : "contain"}
           paused={!activeVideo || !playing}
           source={{ 
-            uri: videoUri, 
+            isNetwork: true,
+            uri: uri, 
             type: 'm3u8',
             headers: {
               Range: 'bytes=0-'
@@ -154,17 +175,31 @@ const SingleFeed = ({
           progressUpdateInterval={50.0}
           onProgress={data => {
             setProgress(data);
+            // onScrollHandler(data);
+            // if(data.currentTime > 0.10 && !global.videoScroll) {
+            //   global.videoScroll = true
+            // } else if(global.videoScroll && data.currentTime < 0.50) {
+            //   global.videoScroll = false
+            // }
           }}
           onLoadStart={() => {
-            setOpacity(1)
-            console.log("onLoadStart ", new Date());
+            // setOpacity(1)
+            // console.log("onLoadStart ", new Date());
+           
           }}
           onLoad={response => {
-            setOpacity(0);
-            const { orientation } = response.naturalSize;
-            const isPortrait = orientation == 'portrait' ? true : false;
-            setIsCover(isPortrait);
-            console.log("onLoad ", new Date());
+            // global.videoScrollIndex = index
+            // setOpacity(0);
+
+            // const { orientation } = response.naturalSize;
+            // const isPortrait = orientation == 'portrait' ? true : false;
+             // setIsCover(isPortrait);
+             
+            if(feedScreen < INITIAL_LOAD_FEED) {
+              dispatch(feedScreenDisplay(feedScreen + 1))
+            }
+           
+            // console.log("onLoad ", new Date());
           }}
         />
         </Pressable>
@@ -178,7 +213,7 @@ const SingleFeed = ({
             left: WINDOW_WIDTH / 2,
             right: WINDOW_WIDTH / 2,
           },
-          { opacity: opacity }
+          { opacity: progress?.currentTime > 0 ? 0 : 1 }
           ]}
         />
         

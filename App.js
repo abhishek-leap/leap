@@ -36,12 +36,14 @@ import createDare from './shared/screens/createDare';
 import { SignInUp } from './shared/components/authentication';
 import PlayerProfile from './shared/screens/playerProfile';
 import AuthenticationDrawer from './shared/components/drawers/authentication';
+import SplashDrawer from './shared/components/drawers/splash';
 import CreateDareDrawer from './shared/components/drawers/create-dare-drawer';
 import { getData, isUserMinor } from './shared/utils/helper';
 import ProgressBar from './shared/components/common/progressBar';
 import BottomCommonDrawer from './shared/components/drawers/bottom-common-drawer';
 import Toaster from './shared/components/common/toaster';
 import Notification from './shared/screens/notification';
+import Splash from './shared/screens/splash';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -80,7 +82,6 @@ if (__DEV__) {
     addPlugin({ queryClient });
   });
 
-  // console.log("Fliper storage ", storage);
   // register mmkv flipper plugin
   initializeMMKVFlipper({ default: storage });
 } else {
@@ -130,7 +131,7 @@ const App = () => {
           },
           tabBarShowLabel: false,
         }}
-        >
+      >
         <Tab.Screen
           name="Feed"
           component={FeedScreen}
@@ -221,29 +222,35 @@ const App = () => {
   return (
     <Provider store={store}>
       <NavigationContainer theme={AppTheme}>
-          <Stack.Navigator>
-            <Stack.Screen
-              name="Home"
-              component={Home}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="SignInUp"
-              component={SignInUp}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="PlayerProfile"
-              component={PlayerProfile}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name="Notification"
-              component={Notification}
-              options={{ headerShown: false }}
-            />
+        <Stack.Navigator>
+          {/* <Stack.Screen
+            name="Splash"
+            component={Splash}
+            options={{ headerShown: false }}
+          /> */}
+          <Stack.Screen
+            name="Home"
+            component={Home}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="SignInUp"
+            component={SignInUp}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="PlayerProfile"
+            component={PlayerProfile}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="Notification"
+            component={Notification}
+            options={{ headerShown: false }}
+          />
         </Stack.Navigator>
 
+        <SplashDrawer />
         <AuthenticationDrawer />
         <CreateDareDrawer />
         <BottomCommonDrawer />

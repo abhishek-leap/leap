@@ -23,7 +23,6 @@ const CommentsBox = () => {
     }, [])
 
     const onFocus = () => {
-      console.log("clicked on onFocus");
       setIsFocused(true)
     }
 
@@ -45,14 +44,12 @@ const CommentsBox = () => {
         await comments(feedItem.id, dicData);
         getCommentAPI();
         setCommentText('');
-      } else {
-        console.log("not entered ", commentText);
       }
         
     }
 
     const onPressProfile = () => {
-      console.log("clicked onPressProfile");
+      // console.log("clicked onPressProfile");
     }
 
     return (
