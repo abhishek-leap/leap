@@ -1,8 +1,6 @@
 import { useState } from 'react';
 import styled from '@emotion/native';
 
-// import ProgressBar from './progress-bar';
-// import FeedOptions from './feed-options';
 import Skill from './skill';
 import Battle from './battle';
 import { parsePostBody } from '../../../utils';
@@ -10,25 +8,13 @@ import Content from './content';
 
 const { DEFAULT_HASH_TAGS_COUNTOSHOW } = require('../../../constants');
 
-const RealInfo = ({item, progress, clickHandler, windowHeight, mute, dareBackUI, closeModal}) => {
-    const { author, availableForDareBack, hashTags, skillStr, body } = item;
+const RealInfo = ({item, windowHeight, dareBackUI, closeModal}) => {
+    const { author, availableForDareBack, hashTags, body, skills } = item;
     const [showMoreHashtagsBtn, setShowMoreHashtagsBtn] = useState(hashTags > DEFAULT_HASH_TAGS_COUNTOSHOW);
     const [postTitle] = parsePostBody(body);
 
     return (
         <Container windowHeight={windowHeight}>
-            <AudioIconContainer onPress={clickHandler}>
-                <ImageContainer
-                source={
-                    mute
-                    ? require('../../../images/mutedwhite.png')
-                    : require('../../../images/unmutedwhite.png')
-                }
-                />
-            </AudioIconContainer>
-            {availableForDareBack ? <BattleIconContainer>
-                <Battle width={35} height={35} onCallBackFunc={dareBackUI}/>
-            </BattleIconContainer> : <></> }
             <InfoContainer>
                 {author.alias !== "" && (
                 <AliasText>{author.alias && author.alias !== author?.entityId ? author.alias : author?.name}</AliasText>
@@ -42,24 +28,29 @@ const RealInfo = ({item, progress, clickHandler, windowHeight, mute, dareBackUI,
                         );
                     })}
                     {hashTags.length > DEFAULT_HASH_TAGS_COUNTOSHOW && (
-                        <ContentMoreSpan onClick={() => setShowMoreHashtagsBtn(prev => !prev)}>
+                        <ContentMoreSpan onPress={() => setShowMoreHashtagsBtn(prev => !prev)}>
                         {
                             showMoreHashtagsBtn ? 
-                            <HashTagText style={{color: 'white'}}>{'More...'}</HashTagText> :
-                            <HashTagText style={{color: 'white'}}>{'...less'}</HashTagText>
+                            <HashTagText>{'More...'}</HashTagText> :
+                            <HashTagText>{'...less'}</HashTagText>
                         }
                         </ContentMoreSpan>
                     )}
                     </HashtagsContainer>
                 ) : <></>}
-                {skillStr && (
-                <View style={{flexDirection: 'row'}}>
-                    <Skill width={20} height={20} />
-                    <SkillText style={{color: 'white'}}>{skillStr}</SkillText>
-                </View>
-                )}
-                
+                {skills.length > 0 ? (
+                  <SkillView>
+                      <Skill width={24} height={24} />
+                      <SkillText>{skills[0]?.alias}</SkillText>
+                  </SkillView>
+                )
+                :
+                <></>
+              }
             </InfoContainer> 
+            {availableForDareBack ? <BattleIconContainer>
+                <Battle width={63} height={70} onCallBackFunc={dareBackUI}/>
+            </BattleIconContainer> : <></> }
          </Container>
     )
 }
@@ -67,34 +58,20 @@ const RealInfo = ({item, progress, clickHandler, windowHeight, mute, dareBackUI,
 export default RealInfo;
 
 const Container = styled.View`
-  height: ${props => props.windowHeight}
-`;
-
-const AudioIconContainer = styled.TouchableOpacity`
-  position: absolute;
-  bottom: 20px;
-  left: 8px;
-  padding:5px;
+  height: ${props => props.windowHeight};
 `;
 
 const BattleIconContainer = styled.TouchableOpacity`
   position: absolute;
-  bottom: 20px;
-  right: 15px;
-  padding:5px;
+  bottom: 10px;
+  right: 4px;
 `;
 
 const InfoContainer = styled.TouchableOpacity`
   position: absolute;
-  bottom: 50px;
-  left: 8px;
-  padding:0px;
+  bottom: 20px;
+  left: 10px;
   flex-direction: column;
-`;
-
-const ImageContainer = styled.Image`
-  height: 10px;
-  width: 15px;
 `;
 
 const HashtagsContainer = styled.View`
@@ -102,27 +79,48 @@ const HashtagsContainer = styled.View`
   flex-direction: row;
 `;
 
-const ContentMoreSpan = styled.View`
+const ContentMoreSpan = styled.TouchableOpacity`
   font-size: 12px;
   letter-spacing: 0.4px;
   opacity: 0.6;
   padding-left: 10px;
-  font-family: "Metropolis-Regular";
+  font-family: Metropolis-Medium;
   padding-top: 3px;
 `;
 
 const AliasText = styled.Text`
-  color: white;
+  color: rgb(255, 255, 255);
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 20px;
+  font-family: Metropolis-Medium;
 `;
 
 const PostTitleText = styled.Text`
-  color: white;
+  font-size: 12px;
+  letter-spacing: 0.4px;
+  color: rgb(255, 255, 255);
+  padding-right: 5px;
+  line-height: 18px;
+  font-family: Metropolis-Regular;
 `;
 
 const HashTagText = styled.Text`
-  color: white;
+    color: rgb(255, 255, 255);
+    font-family: Metropolis-Medium;
+`;
+
+const SkillView = styled.View`
+  flex-direction: row;
+  padding-top: 10px;
+  align-items: center;
 `;
 
 const SkillText = styled.Text`
-  color: white;
+  font-size: 12px;
+  letter-spacing: 0.4px;
+  color: rgb(255, 255, 255);
+  line-height: 18px;
+  padding-left: 10px;
+  font-family: Metropolis-Medium;
 `;

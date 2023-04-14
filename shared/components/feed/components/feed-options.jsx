@@ -1,16 +1,26 @@
 import React, { useState } from 'react';
-// import ShareIcon from '../../../images/share.svg';
-import Profile from './profile';
-import styled from '@emotion/native';
-import { dislike, like } from '../../../apis';
-import Like from './like';
 import { useDispatch } from 'react-redux';
-import { FullAuthentication, openAuthenticationBottomDrawer } from '../../../redux-ui-state/slices/authenticationSlice';
+import styled from '@emotion/native';
+
+// SVG Imports
+import ShareIcon from '../../../images/share.svg';
+import MuteIcon from '../../../images/mute.svg';
+import UnmuteIcon from '../../../images/unmute.svg';
+import ProfilePlusIcon from "../../../images/profile-plus.svg";
+
+import { dislike, like } from '../../../apis';
+
+// Components imports
+import Profile from './profile';
+import Like from './like';
 import Comments from './comments';
+
+//Redux imports
+import { FullAuthentication, openAuthenticationBottomDrawer } from '../../../redux-ui-state/slices/authenticationSlice';
 import { openCommentUItBottomDrawer, selectedFeedItem } from '../../../redux-ui-state/slices/feedsSlice';
 
 
-const FeedOptions= ({data}) => {
+const FeedOptions= ({data, clickHandler, mute}) => {
   const {stats, author, id} = data;
   const [likeClicked, setLikeClicked] = useState(data?.userReactions[0]?.id ? true : false);
   const [totalLiked, setTotalLiked] = useState(data?.stats?.reactions);
@@ -66,6 +76,10 @@ const FeedOptions= ({data}) => {
      
       <StyledSection onPress={onPressProfile}>
         <Profile author={author}/>
+        <PlusIcon>
+          <ProfilePlusIcon />
+        </PlusIcon>
+        
       </StyledSection>
       <Like 
         totalLikes={totalLiked}
@@ -77,22 +91,18 @@ const FeedOptions= ({data}) => {
         totalComments={data?.stats?.comments}
         onPress={onPressComments}
       />
-      {/* <StyledSection onPress={onPressLike}>
-        <HeartIcon height={28} style={[
-            likeClicked
-              ? {color: "#FF0000" }
-              : { color: "#4FCE5D" },
-          ]}/>
-        <StyledText>{data?.stats?.reactions}</StyledText>
-      </StyledSection> 
-      <StyledSection onPress={onPressComments}>
-        <CommentIcon height={28} />
-        <StyledText>{data?.stats?.comments}</StyledText>
-      </StyledSection> */}
-      {/* <StyledSection onPress={onPressShare}>
-        <ShareIcon color={'transparent'} height={28} />
+      <StyledSection onPress={onPressShare}>
+        <ShareIcon height={35} width={35} />
         <StyledText>{data?.stats?.views}</StyledText>
-      </StyledSection> */}
+      </StyledSection>
+      <AudioIconContainer onPress={clickHandler}>
+        {
+        mute ?
+            <MuteIcon height={35} width={35} />
+            :
+            <UnmuteIcon height={35} width={35} />
+        }
+        </AudioIconContainer>
     </Container>
   );
 };
@@ -107,8 +117,8 @@ const Container = styled.View`
 `;
 
 const StyledSection = styled.TouchableOpacity`
-  margin-bottom: 6px;
-  margin-top: 6px;
+  margin-bottom: 10px;
+  // margin-top: 6px;
 `;
 
 const StyledText = styled.Text`
@@ -117,3 +127,12 @@ const StyledText = styled.Text`
   font-size: 12px;
 `;
 
+const AudioIconContainer = styled.TouchableOpacity`
+  padding:5px;
+`;
+
+const PlusIcon = styled.View`
+  padding-left: 23px;
+  padding-top: 52px;
+  position: absolute;
+`;

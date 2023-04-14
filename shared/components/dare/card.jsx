@@ -1,16 +1,35 @@
 import React  from 'react';
 import styled from '@emotion/native';
+import {
+  Grayscale,
+} from 'react-native-color-matrix-image-filters';
 
-const Card = ({src, isBlur}) => {
+
+const Card = ({src, isBlur, isPortrait}) => {
   return (
     <Container>
-      <StyledImage
-        resizeMode="contain"
-        source={{
-          uri: src,
-        }}
-        isBlur={isBlur}
-      />
+      {isBlur ?
+      <Grayscale>
+        <StyledImage
+          resizeMode="contain"
+          source={{
+            uri: src,
+          }}
+          isBlur={isBlur}
+        />
+        </Grayscale>
+        :
+        <StyledImage
+          resizeMode="contain"
+          source={{
+            uri: src,
+          }}
+          isBlur={isBlur}
+          // width={WIDTH}
+          // height={HEIGHT}
+          portrait={isPortrait}
+        />
+      }
     </Container>
   );
 };
@@ -31,9 +50,8 @@ const Container = styled.View`
 `;
 
 const StyledImage = styled.Image`
-  width: 100%;
-  height: 100%;
-  // tint-color: ${props => props.isBlur ? 'light-grey' : null};
-  // opacity: ${props => props.isBlur ? '0.2' : null};
-  // background: ${props => props.isBlur ? 'rgba(61, 18, 125, 0.3)' : null};
+  width: ${props => `${props.portrait === true ? 150 : 50}px`};
+  height: ${props => `${props.portrait === true ? 80 : 40}px`};
+  margin-top: ${props => `${props.portrait === true ? 0 : 20}px`};
+  opacity: ${props => props.isBlur ? '0.8' : null};
 `;

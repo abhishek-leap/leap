@@ -1,8 +1,8 @@
 import React, {useEffect} from "react";
-import BattleIcon from "../../../images/battle-back.svg";
-
-import withAuthentication from '../../../hoc/withAuthentication';
 import styled from '@emotion/native';
+
+import BattleIcon from "../../../images/battle-back.svg";
+import withAuthentication from '../../../hoc/withAuthentication';
 
 const Battle = ({ width, height, isBasicSignupCompleted, isExtendedSignupCompleted, onCallBackFunc }) => {
 
@@ -16,5 +16,9 @@ const Battle = ({ width, height, isBasicSignupCompleted, isExtendedSignupComplet
 export default withAuthentication(Battle);
 
 const BattleIconContainer = styled.TouchableOpacity`
-
+  shadow-color: #000;
+  shadow-offset: 0px 5px;
+  shadow-opacity: 0.25;
+  shadow-radius: 3px;
+  elevation: 3
 `;

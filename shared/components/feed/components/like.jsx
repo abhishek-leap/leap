@@ -8,7 +8,7 @@ const Like = ({ width, height, isBasicSignupCompleted, isExtendedSignupCompleted
 
   return (
       <StyledSection onPress={() => onPress(isBasicSignupCompleted, isExtendedSignupCompleted)}>
-        <HeartIcon height={28} color={onClicked ? "rgba(233,104,158,1)" : "#290C54"}/>
+        <HeartIcon height={35} width={35} color={onClicked ? "rgba(233,104,158,1)" : "#290C54"}/>
         <StyledText>{totalLikes}</StyledText>
       </StyledSection>
   );

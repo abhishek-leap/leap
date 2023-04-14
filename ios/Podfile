@@ -33,6 +33,7 @@ target 'leap' do
   pod 'nanopb', :modular_headers => true
   pod 'react-native-webview', :path => '../node_modules/react-native-webview'
   pod 'MBProgressHUD', :modular_headers => true
+  pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
   # pod 'LeapVideoEditor', :git => 'git@github.com:redmatch/VideoEditorIOS.git', :branch => 'develop'
   pod 'LeapVideoEditor', :git => "git@github.com:redmatch/VideoEditorIOS.git", :branch => 'feature/objectReturn'
 

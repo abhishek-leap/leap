@@ -1,0 +1,13 @@
+{
+  "migIndex": 1,
+  "data": [
+    {
+      "path": "shared/assets/fonts/Metropolis-Medium.ttf",
+      "sha1": "7ddfa3ad2c43e36ff333159d24cf4c5162cb03cf"
+    },
+    {
+      "path": "shared/assets/fonts/Metropolis-Regular.ttf",
+      "sha1": "d0ff6fe6d16c57afbbe5c7c4317b488cfe4e76d7"
+    }
+  ]
+}

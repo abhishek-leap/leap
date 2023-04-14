@@ -4,9 +4,11 @@ import { Image, View } from 'react-native';
 import Svg, { Circle, ClipPath, Path, Polygon, Defs, G } from 'react-native-svg';
 
 import Shield from '../../../images/shield.svg';
+
 import { MEDIA, AVATAR_ID } from '../../../apis/urls';
 import defaultThumbnail from "../../../images/defaultCover.png";
 import {storage} from '../../../mmkv-store/store';
+import { WINDOW_WIDTH } from '../../../constants';
 
 
 function SvgComponent(props) {
@@ -21,17 +23,18 @@ function SvgComponent(props) {
   );
 }
 
-const Profile= ({size = 40, author}) => {
+const Profile= ({author}) => {
   const { entityId } = author;
   const [avatarId, setAvatarId] = useState(storage.getString(AVATAR_ID));
   const [srcImg, setSrcImg] = useState(
     entityId ? `${MEDIA}/Attachments/avatar/download/${entityId}_200x200.jpeg?v=${avatarId}` : defaultThumbnail
   );
   const points = "80,0.3 23.6,23.6 0.3,80 23.6,136.4 80,159.7 136.4,136.4 159.7,80 136.4,2 3.6";
-  // console.log(srcImg);
+
   return (
-    <Container size={size}>
+    <Container>
       <Shield width="100%" height="100%" />
+      
           {/* <SvgComponent width="100%" height="100%" strokeWidth={5} stroke="black" /> */}
           {/* <Svg width={160} height={160} viewBox={`0 0 160 160`}>
             <Defs>
@@ -66,18 +69,38 @@ const Profile= ({size = 40, author}) => {
               </Content>
         </ThumbnailContainer>
           </Svg> */}
-      {/* <Image
+
+        <Defs>
+            <ClipPath id="clipPath">
+            <Path fill="white" stroke="gray" strokeWidth="3"
+                d="M762.2,189.9c-17.4-27.1-38.1-52.2-61.3-74.5c-23.9-22.9-50.8-43.1-79.8-59.8C528.3,2,419.9-13.5,315.9,11.9 c-50.6,12.4-97.8,33.8-140.2,63.6C131.9,106.3,95,144.9,65.9,190.1c-0.1,0.2-0.2,0.3-0.3,0.5c-3.4,5.8-1.4,13,4.4,16.4l308.3,178 c8.4-10.4,21.3-17.1,35.8-17.1c14.4,0,27.2,6.6,35.6,16.9l308.4-178c1.9-1.1,3.4-2.6,4.5-4.4C764.8,198.5,764.7,193.7,762.2,189.9z"/>
+            </ClipPath>
+        </Defs>
+          <ProfileTopView>
+          <G clipPath="url(#clipPath)">
+              <Image 
+                  x="0" 
+                  y="0" 
+                  width="100%" 
+                  height="100%" 
+                  preserveAspectRatio="xMidYMid slice" 
+                  // href={{ uri: srcImg}} 
+                  // source={require('../../../images/dummyAvatar.jpeg')}
+              />
+          </G>
+              {/* <Image
                 source={require('../../../images/dummyAvatar.jpeg')}
-                width={size}
-                height={size}
+                width={`${(WINDOW_WIDTH / 6.25)}px`}
+                height={`${(WINDOW_WIDTH / 6.25)}px`}
                 preserveAspectRatio="xMidYMid slice"
-                clipPath='url(#clip)'
                 style={{
                   width: '100%',
                   height: '100%',
                   resizeMode: 'cover',
                 }}
               /> */}
+          </ProfileTopView>
+              
     </Container>
   );
 };
@@ -85,8 +108,17 @@ const Profile= ({size = 40, author}) => {
 export default Profile;
 
 const Container = styled.View`
-  width: ${props => `${props.size}px`};
-  height: ${props => `${props.size}px`}
+  width: ${props => `${(WINDOW_WIDTH / 6.25)}px`};
+  height: ${props => `${(WINDOW_WIDTH / 6.25)}px`}
+`;
+//0.85
+const ProfileTopView = styled.View`
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  // clip-path: ${props => require('../../../images/dummyAvatar.jpeg')};
+  transform: scale(0.85); 
+  
 `;
 
 const ThumbnailBgImage = styled.Image`

@@ -7,7 +7,7 @@ const Comments = ({ width, height, isBasicSignupCompleted, isExtendedSignupCompl
   
   return (
       <StyledSection onPress={() => onPress(isBasicSignupCompleted, isExtendedSignupCompleted)}>
-        <CommentIcon height={28} />
+        <CommentIcon height={35} width={35} />
         <StyledText>{totalComments}</StyledText>
       </StyledSection>
   );

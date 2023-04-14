@@ -9,24 +9,41 @@ const Content = ({ text, isHashTag, fontSize, id, closeModal }) => {
     if (closeModal) closeModal();
   };
   return (
-    <Wrapper fontSize={fontSize}>
+    // <Wrapper fontSize={fontSize}>
+      <AnchorTag onPress={() => console.log("text ", text)}>
       {/* <Link to={url} rel="noopener noreferrer" onClick={onClick}>
         {isHashTag && "#"}
         {text}
       </Link> */}
-      <Text style={{color: 'white'}}>{isHashTag && "#"}{text}</Text>
-    </Wrapper>
+        <HastTag>{isHashTag && "#"}{text}</HastTag>
+      </AnchorTag>
+    // </Wrapper>
   );
 };
 
 export default Content;
 
-const Wrapper = styled.View`
+// const Wrapper = styled.View`
+//   padding-right: 5px;
+//   a {
+//     color: white;
+//     ${props => props?.fontSize && `font-size:${props?.fontSize}px`};
+//     letter-spacing: 0.4px;
+//     font-family: "Metropolis-Regular";
+//   }
+// `;
+
+const AnchorTag = styled.TouchableOpacity`
+    color: rgb(255, 255, 255);
+    font-size: 14px;
+    font-weight: 500;
+`;
+
+const HastTag = styled.Text`
+  font-size: 11px;
+  letter-spacing: 0.4px;
+  color: rgb(255, 255, 255);
   padding-right: 5px;
-  a {
-    color: white;
-    ${props => props?.fontSize && `font-size:${props?.fontSize}px`};
-    letter-spacing: 0.4px;
-    font-family: "Metropolis-Regular";
-  }
+  line-height: 18px;
+  font-family: Metropolis-Medium;
 `;

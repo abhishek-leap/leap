@@ -1,31 +1,18 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="30px" height="30px" viewBox="0 0 30 30" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>657A7F38-59B7-42DE-9912-5F363A2161C0@1.5x</title>
-    <defs>
-        <filter color-interpolation-filters="auto" id="filter-1">
-            <feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 0 1.000000 0 0 0 1.000000 0"></feColorMatrix>
-        </filter>
-    </defs>
-    <g id="Feed" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <g id="Feed-1-1" transform="translate(-274.000000, -464.000000)">
-            <g id="Main-Area" transform="translate(0.000000, 138.000000)">
-                <g id="Bars-/-Social-Actions-/-2" transform="translate(271.000000, 152.000000)">
-                    <g id="Buttons-/-Actions-Bar" transform="translate(3.000000, 174.000000)">
-                        <circle id="*-/-Elements-/-Avatar-/-Pic-Copy" fill-opacity="0.6" fill="currentColor" cx="15" cy="15" r="15"></circle>
-                        <g id="Group" transform="translate(6.000000, 6.000000)" stroke-linecap="round" stroke-linejoin="round">
-                            <g id="Group-43" filter="url(#filter-1)">
-                                <g transform="translate(3.000000, 3.000000)">
-                                    <path d="M3.99975,6.00015 C3.99975,7.1049 3.10425,8.0004 1.9995,8.0004 C0.8955,8.0004 0,7.1049 0,6.00015 C0,4.8954 0.8955,3.9999 1.9995,3.9999 C3.10425,3.9999 3.99975,4.8954 3.99975,6.00015 Z" id="Stroke-5" stroke="#fff" stroke-width="1.125"></path>
-                                    <path d="M11.999625,2.00025 C11.999625,3.105 11.104125,4.0005 9.999375,4.0005 C8.895375,4.0005 7.999875,3.105 7.999875,2.00025 C7.999875,0.8955 8.895375,0 9.999375,0 C11.104125,0 11.999625,0.8955 11.999625,2.00025 Z" id="Stroke-7" stroke="#fff" stroke-width="1.125"></path>
-                                    <path d="M11.999625,10.0002 C11.999625,8.89545 11.104125,7.99995 9.999375,7.99995 C8.895375,7.99995 7.999875,8.89545 7.999875,10.0002 C7.999875,11.10495 8.895375,12.00045 9.999375,12.00045 C11.104125,12.00045 11.999625,11.10495 11.999625,10.0002 Z" id="Stroke-9" stroke="#fff" stroke-width="1.125"></path>
-                                    <line x1="3.7815" y1="5.1093" x2="8.2185" y2="2.8908" id="Stroke-11" stroke="#fff" stroke-width="1.125"></line>
-                                    <line x1="3.7815" y1="6.891075" x2="8.2185" y2="9.109575" id="Stroke-13" stroke="#fff" stroke-width="1.125"></line>
-                                </g>
-                            </g>
-                        </g>
-                    </g>
-                </g>
-            </g>
-        </g>
-    </g>
+<svg width="31" height="31" viewBox="0 0 31 31" fill="none" xmlns="http://www.w3.org/2000/svg">
+<g filter="url(#filter0_b_9139_5228)">
+<circle cx="15.1602" cy="15.4531" r="15" fill="#290C54" fill-opacity="0.6"/>
+</g>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M13.1599 15.4533C13.1599 16.558 12.2644 17.4535 11.1597 17.4535C10.0557 17.4535 9.16016 16.558 9.16016 15.4533C9.16016 14.3485 10.0557 13.453 11.1597 13.453C12.2644 13.453 13.1599 14.3485 13.1599 15.4533Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M21.1599 11.4534C21.1599 12.5581 20.2644 13.4536 19.1597 13.4536C18.0557 13.4536 17.1602 12.5581 17.1602 11.4534C17.1602 10.3486 18.0557 9.45312 19.1597 9.45312C20.2644 9.45312 21.1599 10.3486 21.1599 11.4534Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path fill-rule="evenodd" clip-rule="evenodd" d="M21.1599 19.4533C21.1599 18.3486 20.2644 17.4531 19.1597 17.4531C18.0557 17.4531 17.1602 18.3486 17.1602 19.4533C17.1602 20.5581 18.0557 21.4536 19.1597 21.4536C20.2644 21.4536 21.1599 20.5581 21.1599 19.4533Z" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M12.9414 14.5624L17.3784 12.3439" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<path d="M12.9414 16.3442L17.3784 18.5627" stroke="white" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+<defs>
+<filter id="filter0_b_9139_5228" x="-7.99469" y="-7.70172" width="46.3097" height="46.3097" filterUnits="userSpaceOnUse" color-interpolation-filters="sRGB">
+<feFlood flood-opacity="0" result="BackgroundImageFix"/>
+<feGaussianBlur in="BackgroundImageFix" stdDeviation="4.07742"/>
+<feComposite in2="SourceAlpha" operator="in" result="effect1_backgroundBlur_9139_5228"/>
+<feBlend mode="normal" in="SourceGraphic" in2="effect1_backgroundBlur_9139_5228" result="shape"/>
+</filter>
+</defs>
 </svg>

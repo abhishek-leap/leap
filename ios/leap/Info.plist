@@ -59,11 +59,11 @@
 			</dict>
 		</dict>
 	</dict>
-  <key>UIApplicationSceneManifest</key>
-  <dict>
-    <key>UISceneConfigurations</key>
-    <dict/>
-  </dict>
+	<key>UIAppFonts</key>
+	<array>
+		<string>Metropolis-Medium.ttf</string>
+		<string>Metropolis-Regular.ttf</string>
+	</array>
 	<key>NSCameraUsageDescription</key>
 	<string>Access gallery for uploading video.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>

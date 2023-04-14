@@ -13,7 +13,9 @@
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
 		7699B88040F8A987B510C191 /* libPods-leap-leapTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 19F6CBCC0A4E27FBF8BF4A61 /* libPods-leap-leapTests.a */; };
+		7B6973B8036E445B8C0510F9 /* Metropolis-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9B8BD3D26EA74C4AA4473CF4 /* Metropolis-Medium.ttf */; };
 		81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */; };
+		85EB9D9DA214491FB3EB857B /* Metropolis-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = D7F8A09C2AC24D70A5EDF375 /* Metropolis-Regular.ttf */; };
 		EB091B6B29925B9800B1101A /* VideoEditorModuleBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = EB091B6A29925B9800B1101A /* VideoEditorModuleBridge.m */; };
 		EB091B6E29925BF100B1101A /* VideoEditorModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB091B6D29925BF100B1101A /* VideoEditorModule.swift */; };
 		EB2A6C1A29756D6800E7E5BC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EB2A6C1929756D6800E7E5BC /* GoogleService-Info.plist */; };
@@ -47,6 +49,8 @@
 		5DCACB8F33CDC322A6C60F78 /* libPods-leap.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-leap.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = leap/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		89C6BE57DB24E9ADA2F236DE /* Pods-leap-leapTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-leap-leapTests.release.xcconfig"; path = "Target Support Files/Pods-leap-leapTests/Pods-leap-leapTests.release.xcconfig"; sourceTree = "<group>"; };
+		9B8BD3D26EA74C4AA4473CF4 /* Metropolis-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Metropolis-Medium.ttf"; path = "../shared/assets/fonts/Metropolis-Medium.ttf"; sourceTree = "<group>"; };
+		D7F8A09C2AC24D70A5EDF375 /* Metropolis-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "Metropolis-Regular.ttf"; path = "../shared/assets/fonts/Metropolis-Regular.ttf"; sourceTree = "<group>"; };
 		EB091B6A29925B9800B1101A /* VideoEditorModuleBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideoEditorModuleBridge.m; sourceTree = "<group>"; };
 		EB091B6C29925BF100B1101A /* leap-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "leap-Bridging-Header.h"; sourceTree = "<group>"; };
 		EB091B6D29925BF100B1101A /* VideoEditorModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoEditorModule.swift; sourceTree = "<group>"; };
@@ -122,6 +126,15 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		3187A280EE7F47958D0A3F6C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				9B8BD3D26EA74C4AA4473CF4 /* Metropolis-Medium.ttf */,
+				D7F8A09C2AC24D70A5EDF375 /* Metropolis-Regular.ttf */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
 			isa = PBXGroup;
 			children = (
@@ -138,6 +151,7 @@
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				BBD78D7AC51CEA395F1C20DB /* Pods */,
+				3187A280EE7F47958D0A3F6C /* Resources */,
 			);
 			indentWidth = 2;
 			sourceTree = "<group>";
@@ -263,6 +277,8 @@
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				EB2A6C1A29756D6800E7E5BC /* GoogleService-Info.plist in Resources */,
+				7B6973B8036E445B8C0510F9 /* Metropolis-Medium.ttf in Resources */,
+				85EB9D9DA214491FB3EB857B /* Metropolis-Regular.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -539,7 +555,7 @@
 				CODE_SIGN_ENTITLEMENTS = leap/leapDebug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 110;
+				CURRENT_PROJECT_VERSION = 113;
 				DEVELOPMENT_TEAM = J3S98DQ2KZ;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = leap/Info.plist;
@@ -574,7 +590,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 110;
+				CURRENT_PROJECT_VERSION = 113;
 				DEVELOPMENT_TEAM = J3S98DQ2KZ;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = leap/Info.plist;

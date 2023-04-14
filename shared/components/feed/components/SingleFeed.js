@@ -175,7 +175,6 @@ const SingleFeed = ({
           progressUpdateInterval={50.0}
           onProgress={data => {
             setProgress(data);
-            // onScrollHandler(data);
             // if(data.currentTime > 0.10 && !global.videoScroll) {
             //   global.videoScroll = true
             // } else if(global.videoScroll && data.currentTime < 0.50) {
@@ -185,21 +184,18 @@ const SingleFeed = ({
           onLoadStart={() => {
             // setOpacity(1)
             // console.log("onLoadStart ", new Date());
-           
           }}
           onLoad={response => {
             // global.videoScrollIndex = index
-            // setOpacity(0);
+            // console.log("onLoad ", new Date());
 
-            // const { orientation } = response.naturalSize;
-            // const isPortrait = orientation == 'portrait' ? true : false;
-             // setIsCover(isPortrait);
+            const { orientation } = response.naturalSize;
+            const isPortrait = orientation == 'portrait' ? true : false;
+            setIsCover(isPortrait);
              
             if(feedScreen < INITIAL_LOAD_FEED) {
               dispatch(feedScreenDisplay(feedScreen + 1))
             }
-           
-            // console.log("onLoad ", new Date());
           }}
         />
         </Pressable>
@@ -229,22 +225,24 @@ const SingleFeed = ({
           </BlockBGView>
           // <BlockItem />
         }
-      <ProgressBar data={progress} windowHeight={TotalhHeight} />
       <ThreeDots onPress={() => handleOpenDrawer()}>
         <Dots height={25} width={25} />
       </ThreeDots>
       <FeedOptionsContainer>
-          <FeedOptions data={item}/>
+          <FeedOptions 
+            data={item} 
+            clickHandler={clickHandler} 
+            mute={mute}
+          />
       </FeedOptionsContainer>
       <RealInfo 
         item={item} 
         progress={progress} 
-        clickHandler={clickHandler} 
         windowHeight={TotalhHeight}
-        mute={mute}
         dareBackUI={dareBackUI}
         closeModal={closeModal}
       />
+      <ProgressBar data={progress} windowHeight={TotalhHeight} />
     </View>
   );
 };
@@ -253,7 +251,7 @@ export default memo(SingleFeed);
 
 const FeedOptionsContainer = styled.View`
   position: absolute;
-  right: 20px;
+  right: 4px;
   height: 100%;
 `;
 
