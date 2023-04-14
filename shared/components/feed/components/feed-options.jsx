@@ -91,10 +91,10 @@ const FeedOptions= ({data, clickHandler, mute}) => {
         totalComments={data?.stats?.comments}
         onPress={onPressComments}
       />
-      <StyledSection onPress={onPressShare}>
+      <StyledShareSection onPress={onPressShare}>
         <ShareIcon height={35} width={35} />
         <StyledText>{data?.stats?.views}</StyledText>
-      </StyledSection>
+      </StyledShareSection>
       <AudioIconContainer onPress={clickHandler}>
         {
         mute ?
@@ -117,9 +117,13 @@ const Container = styled.View`
 `;
 
 const StyledSection = styled.TouchableOpacity`
-  margin-bottom: 10px;
-  // margin-top: 6px;
+  margin-bottom: 30px;
 `;
+
+const StyledShareSection = styled.TouchableOpacity`
+  margin-top: 6px;
+`;
+
 
 const StyledText = styled.Text`
   color: white;
@@ -129,10 +133,11 @@ const StyledText = styled.Text`
 
 const AudioIconContainer = styled.TouchableOpacity`
   padding:5px;
+  margin-top: 6px;
 `;
 
 const PlusIcon = styled.View`
-  padding-left: 23px;
-  padding-top: 52px;
+  padding-left: 30px;
+  padding-top: 62px;
   position: absolute;
 `;

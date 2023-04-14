@@ -64,7 +64,7 @@ const Container = styled.View`
 const BattleIconContainer = styled.TouchableOpacity`
   position: absolute;
   bottom: 10px;
-  right: 4px;
+  right: 10px;
 `;
 
 const InfoContainer = styled.TouchableOpacity`

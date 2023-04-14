@@ -75,6 +75,23 @@ const SingleFeed = ({
     return () => clearInterval(interval);
   }, []);
 
+  useEffect(() => {
+    const interval = setInterval(() => {
+      isBlocked = blockedUsersList.indexOf(item?.id) > -1;
+      isPowerUser = getData('power_user');
+      blockedByPowerUser = item?.blockPowerUserId ? true : false;
+
+      let blockedText = '';
+
+      if (item?.communityBlockersCount && !item?.blockPowerUserId && !item?.blockedAt) {
+        blockedText = item?.communityBlockersCount;
+      } else if (!item?.blockPowerUserId && item?.blockedAt) {
+        blockedText = 'you blocked';
+      }
+    }, 1000);
+    return () => clearInterval(interval);
+  }, []);
+
   // useEffect(() => {
   //   let fileName = uri.substring(uri.lastIndexOf("/") + 1, uri.length);
   //   if(currentIndex !== undefined) {
@@ -144,8 +161,8 @@ const SingleFeed = ({
           removeClippedSubviews={true}
           repeat={true}
           poster={poster}
-          posterResizeMode={"contain"} // {isCover ? "cover" : "contain"}
-          resizeMode={"contain"} // {isCover ? "cover" : "contain"}
+          posterResizeMode='contain' //{isCover ? "cover" : "contain"}
+          resizeMode='contain' //{isCover ? "cover" : "contain"}
           paused={!activeVideo || !playing}
           source={{ 
             isNetwork: true,
@@ -189,9 +206,9 @@ const SingleFeed = ({
             // global.videoScrollIndex = index
             // console.log("onLoad ", new Date());
 
-            const { orientation } = response.naturalSize;
-            const isPortrait = orientation == 'portrait' ? true : false;
-            setIsCover(isPortrait);
+            // const { orientation } = response.naturalSize;
+            // const isPortrait = orientation == 'portrait' ? true : false;
+            // setIsCover(isPortrait);
              
             if(feedScreen < INITIAL_LOAD_FEED) {
               dispatch(feedScreenDisplay(feedScreen + 1))

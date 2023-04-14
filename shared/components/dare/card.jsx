@@ -8,7 +8,7 @@ import {
 const Card = ({src, isBlur, isPortrait}) => {
   return (
     <Container>
-      {isBlur ?
+      {isBlur == 'completed'?
       <Grayscale>
         <StyledImage
           resizeMode="contain"

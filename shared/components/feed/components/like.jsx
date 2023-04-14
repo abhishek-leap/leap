@@ -18,7 +18,6 @@ export default withAuthentication(Like);
 
 const StyledSection = styled.TouchableOpacity`
   margin-bottom: 6px;
-  margin-top: 6px;
 `;
 
 const StyledText = styled.Text`

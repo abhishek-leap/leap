@@ -3,7 +3,6 @@ import { Platform, StatusBar, StyleSheet, Animated } from 'react-native';
 import { useBottomTabBarHeight } from '@react-navigation/bottom-tabs';
 import { useTheme } from '@react-navigation/native';
 import styled from '@emotion/native';
-// import { debounce } from 'lodash';
 
 import DareBar from '../components/dare/darebar';
 import SingleFeed from '../components/feed/components/SingleFeed';

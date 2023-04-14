@@ -31,7 +31,7 @@ const DareBar = ({height}) => {
       data={data?.dares}
       keyExtractor={(item, index) => `${index}_${item?.id}`}
       renderItem={({item, index}) => (
-        console.log("item?.status ", item?.status),
+        // console.log("item?.status ", item?.status),
         ((index === 0 && data?.dares[0]?.status !== 'public') || item?.status !== data?.dares[index - 1]?.status) ? (
           item?.status === ACTIVE_DARE_STATUS ? 
             <LinearGradient 
@@ -46,6 +46,7 @@ const DareBar = ({height}) => {
                       fontSize: 11,
                       fontFamily: 'Metropolis-Medium',
                       letterSpacing: 0.13,
+                      textAlign: 'center',
                       textTransform: 'uppercase',
                       transform: [
                         { rotate: "-90deg" }, 
@@ -62,10 +63,11 @@ const DareBar = ({height}) => {
             </LinearGradient>
             :
             <LinearGradient 
+              style={[styles.linearGradient, {borderLeftColor: "rgb(137, 137, 137)"}]}
               start={{x: 0, y: 0}} 
               end={{x: 0.9, y: 0}} 
               colors={['rgba(122, 122, 122, 0.80)', 'rgba(217, 217, 217, 0.25)', 'rgba(217, 217, 217, 0)']}
-              style={[styles.linearGradient, {borderLeftColor: "rgb(137, 137, 137)"}]} >
+               >
               {/* <DareHeadTextClosed offset={OFFSET}>{"closed"}</DareHeadTextClosed> */}
               <View style={{ width: TEXT_HEIGHT, height: TEXT_LENGTH }}>
               <Text style={{
@@ -173,16 +175,16 @@ var styles = StyleSheet.create({
   }
 });
 
-const DareHeadTextNew = styled.Text`
-  color: #FEFBFF;
-  font-family: Metropolis-Medium;
-  font-weight: 400;
-  font-size: 10px;
-  letter-spacing: 0.13px;
-  line-height: 10px;
-  text-transform: uppercase;
-  transform: rotate(-90deg);
-`;
+// const DareHeadTextNew = styled.Text`
+//   color: #FEFBFF;
+//   font-family: Metropolis-Medium;
+//   font-weight: 400;
+//   font-size: 10px;
+//   letter-spacing: 0.13px;
+//   line-height: 10px;
+//   text-transform: uppercase;
+//   transform: rotate(-90deg);
+// `;
 
 // const DareHeadTextClosed = styled.Text`
 //   font-family: Metropolis-Medium;
