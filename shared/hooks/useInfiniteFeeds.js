@@ -1,7 +1,7 @@
 import {
     useInfiniteQuery, useMutation
   } from '@tanstack/react-query';
-import {dareBackPreUploadedVideos, loadFeedbyID, loadFeeds, loadNotifications} from '../apis';
+import {dareBackPreUploadedVideos, loadFeedbyID, loadFeeds, loadNotifications, mockAPI} from '../apis';
 import {OFFSET_LIMIT} from '../constants';
 import { getData } from '../utils/helper';
 

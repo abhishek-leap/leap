@@ -131,7 +131,12 @@ const CreateDare = ({ optionChoose, value, isLoading}) => {
             providerVideoId: fields.key,
             type: UPLOAD_BROWSE_TYPE.VIDEO,
             videoStatus: USER_TYPE.CREATOR,
-            dareId: null
+            dareId: null,
+            metaData: {
+                width: 0,
+                height: 0,
+                orientaion: 'protrait'
+            }
           };
           const uploadVideoFields = await uploadVideoMediaAPI(VideoMediaStatus);
           isVideoUploadStatus.current = uploadVideoFields;

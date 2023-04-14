@@ -17,6 +17,9 @@ export const isMediaNext = url => url.includes("://media-next");
 export const isBearer = url => [isFeedNext, isCommunication, isPartners, isDare, isMediaNext].some(fn => fn(url));
 
 export const loadFeeds = options => get(`${FEED_NEXT_STG}/feeds/feedsByUserId${queryString(options)}`);
+export const mockAPI = options => get(`https://6412d990b1ea7443031acf98.mockapi.io/feeds`);
+export const mockAPIPlayLeapFeeds = options => get(`https://6412d990b1ea7443031acf98.mockapi.io/playleapFeeds`);
+
 export const loadFeedbyID = id => get(`${FEED_NEXT_STG}/feeds/${id}`);
 export const loadDares = options => get(`${DARE_STG}/dares${queryString(options)}`);
 

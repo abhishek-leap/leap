@@ -1,59 +1,77 @@
-import React, {useRef, useState} from 'react';
-import {View, Dimensions, TouchableOpacity, ActivityIndicator} from 'react-native';
+import React, { useEffect, useState, memo } from 'react';
+import { View, Dimensions, ActivityIndicator, Pressable, Image } from 'react-native';
 import Video from 'react-native-video';
 import styled from '@emotion/native';
-import { useSelector} from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { useTheme } from '@react-navigation/native';
 
-import { openDareBackBottomDrawer, selectedPost } from '../../../redux-ui-state/slices/dareBackSlice';
-import { FullAuthentication, openAuthenticationBottomDrawer } from '../../../redux-ui-state/slices/authenticationSlice';
-import { openThreeDotsBottomDrawer, closeThreeDotsBottomDrawer, selectedFeedItem } from '../../../redux-ui-state/slices/feedsSlice';
-
-import {useTheme} from '@react-navigation/native';
-import ProgressBar from './progress-bar';
-import RealInfo from './reel-info';
-import FeedOptions from './feed-options';
-import { useDispatch } from 'react-redux';
 import Dots from '../../../images/dots.svg';
 import Block from '../../../images/block.svg';
 import { getData } from '../../../utils/helper';
 
-const SingleFeed = ({
-  item, 
-  index, 
-  currentIndex, 
-  playing, 
-  setPlaying, 
-  videoHeight
-}) => {
-  const {colors} = useTheme();
-  const dispatch = useDispatch();
-  const asset = item?.videos[0] || '';
-  const uri =  asset?.reference || null; // item.video; //
-  const poster = asset.imageLink; // item.image; //
-  const activeVideo = currentIndex == index;
-  
-  const windowWidth = Dimensions.get('window').width;
-  const windowHeight = Dimensions.get('window').height;
+import { openDareBackBottomDrawer, selectedPost } from '../../../redux-ui-state/slices/dareBackSlice';
+import { FullAuthentication, openAuthenticationBottomDrawer } from '../../../redux-ui-state/slices/authenticationSlice';
+import { openThreeDotsBottomDrawer, selectedFeedItem } from '../../../redux-ui-state/slices/feedsSlice';
 
-  const videoRef = useRef(null);
+import ProgressBar from './progress-bar';
+import RealInfo from './reel-info';
+import FeedOptions from './feed-options';
+import { getData, getVideoUrl } from '../../../utils/helper';
+
+const WINDOW_WIDTH = Dimensions.get('window').width;
+
+const SingleFeed = ({
+  item,
+  index,
+  currentIndex,
+  playing,
+  setPlaying,
+  TotalhHeight,
+  videoRef
+}) => {
+  const { colors } = useTheme();
+  const dispatch = useDispatch();
+  const { blockedUsersList } = useSelector(state => state.feeds);
+
+  const asset = item?.videos ? item?.videos[0] || '' : '';
+  const uri = asset?.reference || item?.compressedVideoUrl || '';
+  const poster = asset?.imageLink || item?.compressedThumbUrl || '';
+  const activeVideo = currentIndex == undefined ? false : currentIndex == index;
+
+  const [videoUri, setVideoUri] = useState(uri);
+  const [opacity, setOpacity] = useState(0);
   const [mute, setMute] = useState(false);
   const [isCover, setIsCover] = useState(false);
   const [progress, setProgress] = useState();
-  const {blockedUsersList} = useSelector(state => state.feeds);
-  const isBlocked = blockedUsersList.indexOf(item.id) > -1;
+  const [isBlockToggle, setIsBlockToggle] = useState(false);
+
+  const isBlocked = blockedUsersList.indexOf(item?.id) > -1;
   const isPowerUser = getData('power_user');
   const blockedByPowerUser = item?.blockPowerUserId ? true : false;
-  const opacity = useRef(0);
-  const [isBlockToggle, setIsBlockToggle] = useState(false);
+
   let blockedText = '';
 
-  // console.log("blockedByPowerUser ", blockedByPowerUser);
   if (item?.communityBlockersCount && !item?.blockPowerUserId && !item?.blockedAt) {
     blockedText = item?.communityBlockersCount;
   } else if (!item?.blockPowerUserId && item?.blockedAt) {
     blockedText = 'you blocked';
   }
-  const closeModal = () => {}
+
+  // useEffect(() => {
+  //   let fileName = uri.substring(uri.lastIndexOf("/") + 1, uri.length);
+  //   if(currentIndex !== undefined) {
+  //     getVideoUrl(uri, fileName)
+  //     .then(res => {
+  //       setVideoUri(res);
+  //     })
+  //     .catch(url => {
+  //       setVideoUri(url);
+  //     });
+  //   }
+    
+  // },[])
+
+  const closeModal = () => { }
 
   const dareBackUI = (isBasicSignupCompleted, isExtendedSignupCompleted) => {
     if (isBasicSignupCompleted != "true" || isExtendedSignupCompleted != "true") {
@@ -65,12 +83,12 @@ const SingleFeed = ({
     }
   }
 
-  const onBuffer = buffer => {
-    // console.log('buffring', buffer);
-  };
-  const onError = error => {
-    console.log('single feed error', error);
-  };
+  // const onBuffer = buffer => {
+  //   // console.log('buffring', buffer);
+  // };
+  // const onError = error => {
+  //   console.log('single feed error', error);
+  // };
 
   const clickHandler = () => {
     setMute(!mute);
@@ -89,78 +107,96 @@ const SingleFeed = ({
   return (
     <View
       style={{
-        height: parseInt(videoHeight * 0.850), //videoHeight
-        width: '100%',
+        height: TotalhHeight, width: '100%',
         backgroundColor: colors.primary,
         blurRadius: 90,
-      }}>
-        <TouchableOpacity
-          activeOpacity={0.9}
+      }}
+    >
+        <Pressable activeOpacity={0.9}
           onPress={() => PlayAndMute()}
           style={{
-            height: '100%',
             opacity: isBlocked && isPowerUser == 'false' ? 0.2 : 1,
-          }}>
-          <Video
-            videoRef={videoRef}
-            onBuffer={onBuffer}
-            onError={onError}
-            poster={poster}
-            repeat={true}
-            resizeMode={isCover ? "cover" : "contain"}
-            posterResizeMode='contain'
-            paused={!activeVideo || !playing}
-            source={{uri: uri}}
-            muted={mute}
-            // maxBitRate={2000000} // 2 megabits
-            minLoadRetryCount={5} // retry 2 times
-            style={{
-              width: '100%',
-              height: '100%',
-              // position: 'absolute',
-            }}
-            onProgress={data => {
-              setProgress(data);
-            }}
-            onLoadStart={() => {
-              opacity.current = 1
-            }}
-            onLoad={response => {
-              const { width, height } = response.naturalSize;
-              const isVertical = height > width;
-              setIsCover(isVertical)
-              opacity.current = 0;
-            }}
-          />
-          <ActivityIndicator
-              animating
-              size="large"
-              color={"#9900D9"}
-              style={[{
-                position: 'absolute',
-                top: videoHeight / 2.2,
-                left: windowWidth / 2,
-                right: windowWidth / 2,
-                },
-                {opacity: opacity.current}
-              ]}
-          />
-          {(isBlocked || (item?.communityBlockersCount > 0 && isPowerUser == 'true')) && 
+          }}
+        >
+        <Video
+          videoRef={videoRef}
+          // onBuffer={onBuffer}
+          // onError={onError}
+          repeat={true}
+          poster={poster}
+          posterResizeMode={isCover ? "cover" : "contain"}
+          resizeMode={isCover ? "cover" : "contain"}
+          paused={!activeVideo || !playing}
+          source={{ 
+            uri: videoUri, 
+            type: 'm3u8',
+            headers: {
+              Range: 'bytes=0-'
+            }
+          }}
+          muted={mute}
+          playWhenInactive={true}
+          maxBitRate={1072437} // 97.65625
+          minLoadRetryCount={5}
+          bufferConfig={{
+            minBufferMs: 15000, //number
+            maxBufferMs: 50000, //number
+            bufferForPlaybackMs: 2500, //number
+            bufferForPlaybackAfterRebufferMs: 5000 //number
+          }}
+          automaticallyWaitsToMinimizeStalling={false}
+          allowsExternalPlayback={false}
+          isLooping
+          style={{
+            width: '100%',
+            height: '100%',
+          }}
+          progressUpdateInterval={50.0}
+          onProgress={data => {
+            setProgress(data);
+          }}
+          onLoadStart={() => {
+            setOpacity(1)
+            console.log("onLoadStart ", new Date());
+          }}
+          onLoad={response => {
+            setOpacity(0);
+            const { orientation } = response.naturalSize;
+            const isPortrait = orientation == 'portrait' ? true : false;
+            setIsCover(isPortrait);
+            console.log("onLoad ", new Date());
+          }}
+        />
+        </Pressable>
+        <ActivityIndicator
+          animating
+          size="large"
+          color={"#9900D9"}
+          style={[{
+            position: 'absolute',
+            top: TotalhHeight / 2.2,
+            left: WINDOW_WIDTH / 2,
+            right: WINDOW_WIDTH / 2,
+          },
+          { opacity: opacity }
+          ]}
+        />
+        
+        {(isBlocked || (item?.communityBlockersCount > 0 && isPowerUser == 'true')) &&
           <BlockBGView blockedByPowerUser={blockedByPowerUser} isBlockToggle={isBlockToggle} onPress={() => setIsBlockToggle(status => !status)}>
             <BlockUpperView>
               <Block />
               <BlockText>{'Blocked'}</BlockText>
             </BlockUpperView>
             {isBlockToggle && <BlockLowerView colors={colors}>
-                <BlockCountText>{blockedText}</BlockCountText>
-            </BlockLowerView> }
+              <BlockCountText>{blockedText}</BlockCountText>
+            </BlockLowerView>}
           </BlockBGView>
           // <BlockItem />
         }
-        </TouchableOpacity>
-      <ProgressBar data={progress} windowHeight={videoHeight}/>
+      <ProgressBar data={progress} windowHeight={TotalhHeight} />
       <ThreeDots onPress={() => handleOpenDrawer()}>
-        <Dots height={25} width={25}/>
+        <Dots height={25} width={25} />
       </ThreeDots>
       <FeedOptionsContainer>
           <FeedOptions data={item}/>
@@ -169,7 +205,7 @@ const SingleFeed = ({
         item={item} 
         progress={progress} 
         clickHandler={clickHandler} 
-        windowHeight={videoHeight}
+        windowHeight={TotalhHeight}
         mute={mute}
         dareBackUI={dareBackUI}
         closeModal={closeModal}
@@ -178,14 +214,7 @@ const SingleFeed = ({
   );
 };
 
-export default SingleFeed;
-
-
-const Container = styled.View`
-  height: ${props => props.videoHeight},
-  width: 100%,
-  background-color: ${props => props.colors.primary}
-`;
+export default memo(SingleFeed);
 
 const FeedOptionsContainer = styled.View`
   position: absolute;
@@ -212,7 +241,7 @@ const BlockBGView = styled.TouchableOpacity`
   border-radius: 0px 0px 14px 14px;
   position: absolute;
   top: 0px;
-  width: ${props => props.isBlockToggle ? '23%': '7%'};
+  width: ${props => props.isBlockToggle ? '23%' : '7%'};
   height: 4%;
 `;
 

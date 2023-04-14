@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 import { useDispatch, useSelector} from 'react-redux';
 import styled from '@emotion/native';
 import Clipboard from '@react-native-clipboard/clipboard';
+import crashlytics from '@react-native-firebase/crashlytics';
 
 import Picker from '../../common/picker';
 import { closeThreeDotsBottomDrawer, 

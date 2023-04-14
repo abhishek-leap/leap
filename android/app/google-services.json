@@ -1,34 +1,41 @@
 {
   "project_info": {
-    "project_number": "204515243759",
-    "project_id": "playleap-deb0b",
-    "storage_bucket": "playleap-deb0b.appspot.com"
+    "project_number": "991286465180",
+    "project_id": "playleap-nextjs",
+    "storage_bucket": "playleap-nextjs.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:204515243759:android:118d7783b630d118314d1a",
+        "mobilesdk_app_id": "1:991286465180:android:cc350cf58849c877561359",
         "android_client_info": {
           "package_name": "io.playleap.rnative"
         }
       },
       "oauth_client": [
         {
-          "client_id": "204515243759-ddm0u48nsme3jksfl5fi6m5bf69c8fr8.apps.googleusercontent.com",
+          "client_id": "991286465180-gvnivbs0marne6jqhmbtu35n9vib8r78.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyDKrgYM4rijXuJV30ccBwGSM5L1Np_rn6g"
+          "current_key": "AIzaSyAvmMFe2Rez541aaN2DDs_-eJ96GIVD970"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "204515243759-ddm0u48nsme3jksfl5fi6m5bf69c8fr8.apps.googleusercontent.com",
+              "client_id": "991286465180-gvnivbs0marne6jqhmbtu35n9vib8r78.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "991286465180-g62rt2ugje34vkd5ne7no2k8vke24noj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.playleap.rnative"
+              }
             }
           ]
         }

@@ -99,7 +99,7 @@ const getItem = (data, index) => {
           removeClippedSubviews={true}
           initialNumToRender={2}
           maxToRenderPerBatch={2}
-          windowSize={2}
+          windowSize={10}
           getItemLayout={(item, index) => ({
             length: TotalhHeight,
             offset: TotalhHeight * index,
