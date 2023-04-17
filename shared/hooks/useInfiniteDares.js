@@ -5,7 +5,8 @@ import {loadDares} from '../apis';
 import {OFFSET_LIMIT} from '../constants';
 
 const getInfiniteDares = async ({ pageParam = 0 }) => {
-    const queyParams = {options: JSON.stringify({filter: {offset: pageParam, limit: 10}, q: {source: 'bar'}})};
+    // const queyParams = {options: JSON.stringify({filter: {offset: pageParam, limit: 10}, q: {source: 'bar'}})};
+	const queyParams = {filter: {offset: pageParam, limit: 10}, q: {source: 'bar'}};
     const {dares: apiDares, meta} = await loadDares(queyParams);
 	// const data = apiDares.reduce((group, arr) => {
 	// 	const { status } = arr;
@@ -40,6 +41,6 @@ export const useInfiniteDares = () => {
 		},
 		getNextPageParam: lastPage => lastPage?.nextPage?.offset + OFFSET_LIMIT,
 		onError: (error) => console.log("useInfiniteDares ", error),
-		// staleTime: 1000 * 60 * 60,
+		staleTime: 1000 * 60 * 60,
 	})
 }

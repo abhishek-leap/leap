@@ -1,11 +1,13 @@
 import React from 'react';
 import styled from '@emotion/native';
-import Svg, { ClipPath, Path, Defs, Image } from 'react-native-svg';
+import Svg, { ClipPath, Path, Defs, Image, G } from 'react-native-svg';
 
 import Shield from '../../../images/shield.svg';
+import DefaultProfileAvatar from '../../../images/default-avatar.svg';
 
 import { MEDIA, AVATAR_ID } from '../../../apis/urls';
 import { WINDOW_WIDTH } from '../../../constants';
+import { handlePush } from '../../../navigation/navigationService';
 
 const Profile= ({author}) => {
   const { entityId } = author;
@@ -24,22 +26,19 @@ const Profile= ({author}) => {
       </Defs>
       <Shield width="80%" height="75%" />
       <>
-       <Image
-        width="35%"
-        height="40%"
-        preserveAspectRatio="xMidYMid slice"
-        transform={[{scale: 0.90}, {translateX: 1.5}, {translateY: 1.5}]}
-        href={require('../../../images/defaultCover.png')}
-        clipPath="url(#clip)"
-      />
-      <Image
-        width="35%"
-        height="40%"
-        preserveAspectRatio="xMidYMid slice"
-        transform={[{scale: 0.90}, {translateX: 1.5}, {translateY: 1.5}]}
-        href={{uri: srcImg}}
-        clipPath="url(#clip)"
-      />
+      <G clipPath="url(#clip)" transform={[{scale: 0.85}, {translateX: 2.9}, {translateY: 2.9}]}>
+        <DefaultProfileAvatar width="120%" height="120%"/>
+      </G>
+      <ProfileBtn onPress={() => handlePush({name: 'Profile', params: {auth: false} })}>
+        <Image
+          width="35%"
+          height="40%"
+          preserveAspectRatio="xMidYMid slice"
+          transform={[{scale: 0.85}, {translateX: 2.9}, {translateY: 2.9}]}
+          href={{uri: srcImg}}
+          clipPath="url(#clip)"
+        />
+      </ProfileBtn>
       </>
     </Svg>
     </Container>
@@ -48,7 +47,10 @@ const Profile= ({author}) => {
 
 export default Profile;
 
-const Container = styled.View`
+const Container = styled.TouchableOpacity`
   width: ${props => `${(WINDOW_WIDTH / 5.25)}px`};
   height: ${props => `${(WINDOW_WIDTH / 6.25)}px`}
+`;
+
+const ProfileBtn = styled.TouchableOpacity`
 `;

@@ -6,7 +6,6 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { useInfiniteDares } from '../../hooks/useInfiniteDares';
 import { useInfiniteFeeds } from '../../hooks/useInfiniteFeeds';
-import { setGlobalNavigation } from '../../utils/helper';
 import {INITIAL_LOAD_FEED, WINDOW_HEIGHT} from '../../constants';
 import Logo from '../../images/logo.svg';
 
@@ -37,7 +36,6 @@ const SplashDrawer = (props, { navigation }) => {
   };
 
   useEffect(() => {
-    setGlobalNavigation(navigation);
     if(feedData?.feeds && daresData?.dares.length > 0) {
      
     }

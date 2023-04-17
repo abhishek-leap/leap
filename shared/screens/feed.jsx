@@ -10,6 +10,7 @@ import { useInfiniteFeeds } from '../hooks/useInfiniteFeeds';
 import { useDispatch, useSelector } from 'react-redux';
 import { dareBarView } from '../redux-ui-state/slices/feedsSlice';
 import { WINDOW_WIDTH, WINDOW_HEIGHT, INITIAL_LOAD_FEED} from '../constants';
+import { setGlobalNavigation } from '../utils/helper';
 
 const isIphone = Platform.OS === 'ios' ? 0.8 : 0.88
 const iPhoneHeight = Platform.OS == 'ios' ? 85 : 52;
@@ -34,6 +35,10 @@ export default ({ navigation }) => {
   const statusBarHeight = StatusBar.currentHeight || 0;
   const TotalHeightMinus = bottomTabHeight + statusBarHeight + Math.floor(dareBarHeight) + iPhoneHeight;
   const TotalhHeight = WINDOW_HEIGHT - TotalHeightMinus;
+
+  useEffect(() => {
+    setGlobalNavigation(navigation);
+  }, []);
 
    useEffect(() => {
     if(data?.feeds !== undefined && feedRecord.current?.length === 0) {

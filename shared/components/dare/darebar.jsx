@@ -12,7 +12,7 @@ const OFFSET = TEXT_LENGTH / 2 - TEXT_HEIGHT / 2
 
 const DareBar = ({height}) => {
   const { status, data, error, isLoading, refetch, fetchNextPage } = useInfiniteDares();
-
+  // console.log("data?.dares ", data?.dares);
   return (
     <FlatList
       horizontal
@@ -31,8 +31,8 @@ const DareBar = ({height}) => {
       data={data?.dares}
       keyExtractor={(item, index) => `${index}_${item?.id}`}
       renderItem={({item, index}) => (
-        // console.log("item?.status ", item?.status),
-        ((index === 0 && data?.dares[0]?.status !== 'public') || item?.status !== data?.dares[index - 1]?.status) ? (
+        // console.log("item?.status ", item?.status), //|| item?.status !== data?.dares[index - 1]?.status
+        ((index === 0 && data?.dares[0]?.status !== 'public' || item?.status !== data?.dares[index - 1]?.status) ) ? (
           item?.status === ACTIVE_DARE_STATUS ? 
             <LinearGradient 
                 style={[styles.linearGradient, {borderLeftColor: "#c947ff"}]} 
@@ -66,7 +66,7 @@ const DareBar = ({height}) => {
               style={[styles.linearGradient, {borderLeftColor: "rgb(137, 137, 137)"}]}
               start={{x: 0, y: 0}} 
               end={{x: 0.9, y: 0}} 
-              colors={['rgba(122, 122, 122, 0.80)', 'rgba(217, 217, 217, 0.25)', 'rgba(217, 217, 217, 0)']}
+              colors={['rgba(122, 122, 122, 0.58)', 'rgba(217, 217, 217, 0.15)', 'rgba(217, 217, 217, 0)']}
                >
               {/* <DareHeadTextClosed offset={OFFSET}>{"closed"}</DareHeadTextClosed> */}
               <View style={{ width: TEXT_HEIGHT, height: TEXT_LENGTH }}>

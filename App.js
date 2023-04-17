@@ -31,6 +31,7 @@ import Header from './shared/components/header';
 // import DemoScreen from './shared/screens/demo';
 import DareCenterScreen from './shared/screens/dareCenter';
 import ProfileScreen from './shared/screens/profile';
+import ProfileTab from './shared/components/profile';
 import { storage } from './shared/mmkv-store/store';
 import createDare from './shared/screens/createDare';
 import { SignInUp } from './shared/components/authentication';
@@ -43,10 +44,12 @@ import ProgressBar from './shared/components/common/progressBar';
 import BottomCommonDrawer from './shared/components/drawers/bottom-common-drawer';
 import Toaster from './shared/components/common/toaster';
 import Notification from './shared/screens/notification';
-import Splash from './shared/screens/splash';
+import SkillAndHashtag from './shared/screens/skillAndHashtag';
+
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
+const FeedStack = createNativeStackNavigator();
 
 const AppTheme = {
   ...DefaultTheme,
@@ -121,6 +124,16 @@ const App = () => {
 
   }, []);
 
+  const FeedStackScreen = () => {
+    return (
+        <FeedStack.Navigator initialRouteName="Feed" >
+                <FeedStack.Screen name="Feed" component={FeedScreen} options={{ headerShown: false }} />
+                <FeedStack.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }} />
+                <FeedStack.Screen name="SkillAndHashtag" component={SkillAndHashtag} options={{ headerShown: false }} />
+        </FeedStack.Navigator>
+    );   
+  }
+
   function Home() {
     return (
       <Tab.Navigator
@@ -133,8 +146,8 @@ const App = () => {
         }}
       >
         <Tab.Screen
-          name="Feed"
-          component={FeedScreen}
+          name="Feeds"
+          component={FeedStackScreen}
           options={{
             tabBarIcon: ({ focused }) => {
               if (focused) {
@@ -200,7 +213,7 @@ const App = () => {
         />
         <Tab.Screen
           name="Profile"
-          component={ProfileScreen}
+          component={ProfileTab}
           options={{
             unmountOnBlur: true,
             tabBarIcon: ({ focused }) => {

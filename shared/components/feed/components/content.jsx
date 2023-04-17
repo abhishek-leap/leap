@@ -2,6 +2,7 @@
 import React from "react";
 import styled from "@emotion/native";
 import {Text} from 'react-native';
+import { handlePush } from "../../../navigation/navigationService";
 
 const Content = ({ text, isHashTag, fontSize, id, closeModal }) => {
   const url = isHashTag ? `/hashtag/${text}` : `/skill/${id}`;
@@ -10,7 +11,7 @@ const Content = ({ text, isHashTag, fontSize, id, closeModal }) => {
   };
   return (
     // <Wrapper fontSize={fontSize}>
-      <AnchorTag onPress={() => console.log("text ", text)}>
+      <AnchorTag onPress={() => handlePush({name: 'SkillAndHashtag', params: {screen: 'hashtag'}})}>
       {/* <Link to={url} rel="noopener noreferrer" onClick={onClick}>
         {isHashTag && "#"}
         {text}

@@ -1,25 +1,11 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from '@emotion/native';
 import Card from './card';
 import Shield from './shield';
 import FilterShield from './filter.shield';
-import { Image } from 'react-native';
+import { handlePush } from '../../navigation/navigationService';
 
 const Group = ({index, width = 115, height = 90, dare}) => {
-  // console.log("item?.status ", dare?.status);
-  let isFirstPortrait = true;
-  let isSecondPortrait = true;
-
-  useEffect(() => {
-    Image.getSize(dare?.assets[0]?.dareCover, (width, height) => {
-      isFirstPortrait = height > width;
-    })
-    Image.getSize(dare?.assets[1]?.dareCover, (width, height) => {
-      isSecondPortrait = height > width;
-    })
-  }, [])
-  
-
   return (
     <Container height={height} width={width} key={index}>
       <ShieldWrapper>
@@ -30,11 +16,11 @@ const Group = ({index, width = 115, height = 90, dare}) => {
         }
       </ShieldWrapper>
       <SubContainer>
-        <CardWrapper>
-            <Card src={dare?.assets[0]?.dareCover} isPortrait={isFirstPortrait} isBlur={dare?.status}/>
+        <CardWrapper onPress={() => handlePush({name: 'DareCardSerialVideo'})}>
+            <Card src={dare?.assets[0]?.dareCover} isBlur={dare?.status}/>
         </CardWrapper>
         <CardWrapper>
-          <Card src={dare?.assets[1]?.dareCover} isPortrait={isSecondPortrait} isBlur={dare?.status}/>
+          <Card src={dare?.assets[1]?.dareCover} isBlur={dare?.status}/>
         </CardWrapper>
       </SubContainer>
     </Container>
@@ -56,7 +42,7 @@ const SubContainer = styled.View`
   height:100%;
 `;
 
-const CardWrapper = styled.View`
+const CardWrapper = styled.TouchableOpacity`
   flex-direction: row;
   width: 48%;
 `;

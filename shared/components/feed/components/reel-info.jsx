@@ -5,6 +5,7 @@ import Skill from './skill';
 import Battle from './battle';
 import { parsePostBody } from '../../../utils';
 import Content from './content';
+import { handlePush } from '../../../navigation/navigationService';
 
 const { DEFAULT_HASH_TAGS_COUNTOSHOW } = require('../../../constants');
 
@@ -17,20 +18,28 @@ const RealInfo = ({item, windowHeight, dareBackUI, closeModal}) => {
         <Container windowHeight={windowHeight}>
             <InfoContainer>
                 {author.alias !== "" && (
-                <AliasText>{author.alias && author.alias !== author?.entityId ? author.alias : author?.name}</AliasText>
+                <AliasBtn onPress={() => handlePush({name: 'Profile', params: {auth: false} })}>
+                 <AliasText>{author.alias && author.alias !== author?.entityId ? author.alias : author?.name}</AliasText>
+                </AliasBtn>
                 )}
                 {postTitle && <PostTitleText>{postTitle}</PostTitleText> }
                 {hashTags ? (
                     <HashtagsContainer>
                     {hashTags?.map((item, idx) => {
                         return (
-                        <Content key={`${idx}-${item}`} text={item} isHashTag={true} fontSize={11} closeModal={closeModal} />
+                          (!showMoreHashtagsBtn && idx < 2) ?
+                          <Content key={`${idx}-${item}`} text={item} isHashTag={true} fontSize={11} closeModal={closeModal} />
+                          :
+                          showMoreHashtagsBtn ?
+                          <Content key={`${idx}-${item}`} text={item} isHashTag={true} fontSize={11} closeModal={closeModal} />
+                          :
+                          null
                         );
                     })}
                     {hashTags.length > DEFAULT_HASH_TAGS_COUNTOSHOW && (
                         <ContentMoreSpan onPress={() => setShowMoreHashtagsBtn(prev => !prev)}>
                         {
-                            showMoreHashtagsBtn ? 
+                            !showMoreHashtagsBtn ? 
                             <HashTagText>{'More...'}</HashTagText> :
                             <HashTagText>{'...less'}</HashTagText>
                         }
@@ -41,7 +50,7 @@ const RealInfo = ({item, windowHeight, dareBackUI, closeModal}) => {
                 {skills.length > 0 ? (
                   <SkillView>
                       <Skill width={24} height={24} />
-                      <SkillText>{skills[0]?.alias}</SkillText>
+                      <SkillBtn onPress={() => handlePush({name: 'SkillAndHashtag', params: {screen: 'skill'}})}><SkillText>{skills[0]?.alias}</SkillText></SkillBtn>
                   </SkillView>
                 )
                 :
@@ -96,6 +105,9 @@ const AliasText = styled.Text`
   font-family: Metropolis-Medium;
 `;
 
+const AliasBtn = styled.TouchableOpacity`
+`;
+
 const PostTitleText = styled.Text`
   font-size: 12px;
   letter-spacing: 0.4px;
@@ -123,4 +135,7 @@ const SkillText = styled.Text`
   line-height: 18px;
   padding-left: 10px;
   font-family: Metropolis-Medium;
+`;
+
+const SkillBtn = styled.TouchableOpacity`
 `;

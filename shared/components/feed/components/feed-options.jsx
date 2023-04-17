@@ -4,8 +4,7 @@ import styled from '@emotion/native';
 
 // SVG Imports
 import ShareIcon from '../../../images/share.svg';
-import MuteIcon from '../../../images/mute.svg';
-import UnmuteIcon from '../../../images/unmute.svg';
+import UnmuteMuteIcon from '../../../images/unmuteMute.svg';
 import ProfilePlusIcon from "../../../images/profile-plus.svg";
 
 import { dislike, like } from '../../../apis';
@@ -96,12 +95,12 @@ const FeedOptions= ({data, clickHandler, mute}) => {
         <StyledText>{data?.stats?.views}</StyledText>
       </StyledShareSection>
       <AudioIconContainer onPress={clickHandler}>
-        {
-        mute ?
-            <MuteIcon height={35} width={35} />
-            :
-            <UnmuteIcon height={35} width={35} />
-        }
+      <UnmuteMuteIcon 
+        height={35} 
+        width={35} 
+        fill={mute ? 'transparent' : 'white'}
+        color={mute ? 'white' : 'transparent'}
+      />
         </AudioIconContainer>
     </Container>
   );

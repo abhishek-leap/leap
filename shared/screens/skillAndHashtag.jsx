@@ -1,12 +1,14 @@
 import React from 'react';
 import {Text, View} from 'react-native';
 
-const Profile = () => {
+const SkillAndHashtag = (props) => {
+  const { screen } = props.route.params
+
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text>Profile</Text>
+      <Text>{screen}</Text>
     </View>
   );
 };
 
-export default Profile;
+export default SkillAndHashtag;
