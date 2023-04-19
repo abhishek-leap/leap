@@ -12,11 +12,12 @@ import { openDareBackBottomDrawer, selectedPost } from '../../../redux-ui-state/
 import { FullAuthentication, openAuthenticationBottomDrawer } from '../../../redux-ui-state/slices/authenticationSlice';
 import { feedScreenDisplay, openThreeDotsBottomDrawer, selectedFeedItem } from '../../../redux-ui-state/slices/feedsSlice';
 
-import ProgressBar from './progress-bar';
+// import ProgressBar from './progress-bar';
 import RealInfo from './reel-info';
 import FeedOptions from './feed-options';
 import { getData, getVideoUrl } from '../../../utils/helper';
 import { INITIAL_LOAD_FEED } from '../../../constants';
+import LinearProgress from "../../common/linearProgressBar";
 
 const WINDOW_WIDTH = Dimensions.get('window').width;
 
@@ -259,7 +260,13 @@ const SingleFeed = ({
         dareBackUI={dareBackUI}
         closeModal={closeModal}
       />
-      <ProgressBar data={progress} windowHeight={TotalhHeight} />
+      <LinearProgress 
+            backgroundColor={colors.PLAYLEAP_PROGRESS_BG_COLOR}
+            completedColor={colors.PLAYLEAP_PROGRESS_COLOR}
+            data={progress}
+            percentage={false}
+      />
+      {/* <ProgressBar data={progress} windowHeight={TotalhHeight} /> */}
     </View>
   );
 };

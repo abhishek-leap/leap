@@ -27,6 +27,7 @@ export const SEND_AGAIN = "Send again";
 export const SIGN_IN_UP = "Sign in/up";
 export const DEFAULT_HASH_TAGS_COUNTOSHOW= 2;
 export const ACTIVE_DARE_STATUS = "active";
+export const CLOSED_STATUS = "completed";
 export const KNOW_YOU_BETTER = "Let's get to know you better";
 export const NICKNAME = "Nickname";
 export const ERROR_EMAIL_FORMAT = "Please provide a valid email address eg. user@server.com";
@@ -68,6 +69,15 @@ export const LIST_TYPE = {
   FOLLOWING: "following",
   FOLLOWERS: "followers"
 }
+
+export const DARE_STATE = {
+  PREVIEW: "preview",
+  PLAY_MODE: "play-mode",
+  FIRST_ASSET: "video1",
+  SECOND_ASSET: "video2",
+  VOTE: "vote",
+  RESULT: "result",
+};
 
 export const HEADER_DARE_BACK_SUBTITLE = "Head to Head Battle";
 export const HEADER_DARE_BACK_DETAILS = "Choose from your uploaded battle";

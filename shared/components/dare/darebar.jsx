@@ -91,7 +91,7 @@ const DareBar = ({height}) => {
         ) : (
           <></>
         )}
-        <Group key={index} dare={item} index={index} />
+        <Group key={index} dare={item} index={index} allDares={data?.dares}/>
         </>
       )}
       // height={height + 10}

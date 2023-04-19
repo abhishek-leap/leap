@@ -5,7 +5,7 @@ import Shield from './shield';
 import FilterShield from './filter.shield';
 import { handlePush } from '../../navigation/navigationService';
 
-const Group = ({index, width = 115, height = 90, dare}) => {
+const Group = ({index, width = 115, height = 90, dare, allDares}) => {
   return (
     <Container height={height} width={width} key={index}>
       <ShieldWrapper>
@@ -16,7 +16,7 @@ const Group = ({index, width = 115, height = 90, dare}) => {
         }
       </ShieldWrapper>
       <SubContainer>
-        <CardWrapper onPress={() => handlePush({name: 'DareCardSerialVideo'})}>
+        <CardWrapper onPress={() => handlePush({name: 'DarePreview', params: {dare, source: 'bar'}})}>
             <Card src={dare?.assets[0]?.dareCover} isBlur={dare?.status}/>
         </CardWrapper>
         <CardWrapper>

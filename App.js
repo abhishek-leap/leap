@@ -45,7 +45,7 @@ import BottomCommonDrawer from './shared/components/drawers/bottom-common-drawer
 import Toaster from './shared/components/common/toaster';
 import Notification from './shared/screens/notification';
 import SkillAndHashtag from './shared/screens/skillAndHashtag';
-
+import DarePreviewScreen from './shared/screens/darePreview';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -66,6 +66,8 @@ const AppTheme = {
     PLAYLEAP_SILVER: '#a0b5c7',
     PLAYLEAP_DARK_PINK: 'rgba(153, 0, 217, 0.5)',
     PLAYLEAP_PINK: '#9900d9',
+    PLAYLEAP_PROGRESS_BG_COLOR: '#4f0e6c',
+    PLAYLEAP_PROGRESS_COLOR: '#f400b0'
   },
 };
 
@@ -259,6 +261,11 @@ const App = () => {
           <Stack.Screen
             name="Notification"
             component={Notification}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="DarePreview"
+            component={DarePreviewScreen}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>
