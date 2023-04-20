@@ -5,14 +5,23 @@ import { useInfiniteDares } from '../../hooks/useInfiniteDares';
 import { ACTIVE_DARE_STATUS } from '../../constants';
 import styled from '@emotion/native';
 import LinearGradient from 'react-native-linear-gradient';
+import { useDispatch } from 'react-redux';
+import { setAudioOff } from '../../redux-ui-state/slices/feedsSlice';
+import { handlePush } from '../../navigation/navigationService';
 
 const TEXT_LENGTH = 45
 const TEXT_HEIGHT = 35
 const OFFSET = TEXT_LENGTH / 2 - TEXT_HEIGHT / 2
 
 const DareBar = ({height}) => {
+  const dispatch = useDispatch();
   const { status, data, error, isLoading, refetch, fetchNextPage } = useInfiniteDares();
   
+  const onClickHandle = (dare) => {
+    dispatch(setAudioOff());
+    handlePush({name: 'DarePreview', params: {dare, source: 'bar'}})
+  }
+
   return (
     <FlatList
       horizontal
@@ -91,7 +100,7 @@ const DareBar = ({height}) => {
         ) : (
           <></>
         )}
-        <Group key={index} dare={item} index={index} allDares={data?.dares}/>
+        <Group key={index} dare={item} index={index} allDares={data?.dares} onClick={onClickHandle} />
         </>
       )}
       // height={height + 10}

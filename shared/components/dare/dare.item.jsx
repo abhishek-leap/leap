@@ -4,7 +4,7 @@ import { DARE_STATE } from '../../constants';
 import withAuthentication from '../../hoc/withAuthentication';
 import Preview from "./dare.preview";
 import DareSeparator from "./dare.separator";
-import { handleGoBack } from "../../navigation/navigationService";
+import { handlePush } from "../../navigation/navigationService";
 
 const DareItem = ({
   dare,
@@ -17,11 +17,10 @@ const DareItem = ({
   useEffect(() => {
     if (dare) {
       setTimeout(() => {
-        let state = DARE_STATE.FIRST_ASSET;
+        const state = DARE_STATE.FIRST_ASSET;
         if (dareState === DARE_STATE.PREVIEW)
           if (source === "bar") {
-            handleGoBack();
-            // router.push(`/dare/${dare.id}?source=bar&stage=${state}`);
+            handlePush({name: 'DareVideo', params: {dare, dareState, source, stage: state}})
           } else {
             // router.push(`/dare/${dare.id}?stage=${state}`);
           }

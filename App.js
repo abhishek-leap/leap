@@ -46,6 +46,7 @@ import Toaster from './shared/components/common/toaster';
 import Notification from './shared/screens/notification';
 import SkillAndHashtag from './shared/screens/skillAndHashtag';
 import DarePreviewScreen from './shared/screens/darePreview';
+import DareVideoScreen from './shared/screens/dareVideo';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -266,6 +267,11 @@ const App = () => {
           <Stack.Screen
             name="DarePreview"
             component={DarePreviewScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="DareVideo"
+            component={DareVideoScreen}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

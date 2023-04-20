@@ -11,7 +11,7 @@ const DareFooter = ({ firstLoaderProgress, secondLoaderProgress, bgColor, progre
               data={firstLoaderProgress} 
               backgroundColor={bgColor}
               completedColor={progressColor}
-              percentage={true}
+              percentage={false}
               bgHeight={'2px'}
               />
     </ProgressBar>
@@ -21,7 +21,7 @@ const DareFooter = ({ firstLoaderProgress, secondLoaderProgress, bgColor, progre
             data={secondLoaderProgress}
             backgroundColor={bgColor}
             completedColor={progressColor}
-            percentage={true}
+            percentage={false}
             bgHeight={'2px'}
         />
     </ProgressBar>

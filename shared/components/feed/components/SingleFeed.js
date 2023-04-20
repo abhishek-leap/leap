@@ -10,7 +10,7 @@ import Block from '../../../images/block.svg';
 
 import { openDareBackBottomDrawer, selectedPost } from '../../../redux-ui-state/slices/dareBackSlice';
 import { FullAuthentication, openAuthenticationBottomDrawer } from '../../../redux-ui-state/slices/authenticationSlice';
-import { feedScreenDisplay, openThreeDotsBottomDrawer, selectedFeedItem } from '../../../redux-ui-state/slices/feedsSlice';
+import { feedScreenDisplay, openThreeDotsBottomDrawer, selectedFeedItem, setAudioOff, setAudioOn } from '../../../redux-ui-state/slices/feedsSlice';
 
 // import ProgressBar from './progress-bar';
 import RealInfo from './reel-info';
@@ -33,7 +33,7 @@ const SingleFeed = ({
 }) => {
   const { colors } = useTheme();
   const dispatch = useDispatch();
-  const { blockedUsersList, feedScreen } = useSelector(state => state.feeds);
+  const { blockedUsersList, feedScreen, audioOn } = useSelector(state => state.feeds);
 
   const asset = item?.videos ? item?.videos[0] || '' : '';
   const uri = asset?.reference || item?.compressedVideoUrl || '';
@@ -127,7 +127,12 @@ const SingleFeed = ({
   // };
 
   const clickHandler = () => {
-    setMute(!mute);
+    // setMute(!mute);
+    if (audioOn) {
+      dispatch(setAudioOff());
+    } else {
+      dispatch(setAudioOn());
+    }
   };
 
   const PlayAndMute = () => {
@@ -173,7 +178,7 @@ const SingleFeed = ({
               Range: 'bytes=0-'
             }
           }}
-          muted={mute}
+          muted={!audioOn}
           playWhenInactive={true}
           maxBitRate={1072437} // 97.65625
           minLoadRetryCount={5}
@@ -250,7 +255,7 @@ const SingleFeed = ({
           <FeedOptions 
             data={item} 
             clickHandler={clickHandler} 
-            mute={mute}
+            mute={!audioOn}
           />
       </FeedOptionsContainer>
       <RealInfo 

@@ -1,22 +1,24 @@
 import React from 'react';
 import styled from '@emotion/native';
+import { useSelector } from "react-redux";
+
 import Card from './card';
 import Shield from './shield';
 import FilterShield from './filter.shield';
-import { handlePush } from '../../navigation/navigationService';
 
-const Group = ({index, width = 115, height = 90, dare, allDares}) => {
+const Group = ({index, width = 115, height = 90, dare, onClick}) => {
+
   return (
     <Container height={height} width={width} key={index}>
       <ShieldWrapper>
         {dare?.status == "completed"?
           <FilterShield width={55} height={40}/>
           :
-          <Shield />
+          <Shield width={53} height={34}/>
         }
       </ShieldWrapper>
       <SubContainer>
-        <CardWrapper onPress={() => handlePush({name: 'DarePreview', params: {dare, source: 'bar'}})}>
+        <CardWrapper onPress={() => onClick(dare)}>
             <Card src={dare?.assets[0]?.dareCover} isBlur={dare?.status}/>
         </CardWrapper>
         <CardWrapper>

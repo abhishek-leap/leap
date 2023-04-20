@@ -14,12 +14,19 @@ const initialState = {
   notificationUIShow: false,
   feeds: [],
   feedScreen: 0,
+  audioOn: true,
 };
 
 export const feedsSlice = createSlice({
   name: 'feeds',
   initialState,
   reducers: {
+    setAudioOn: (state) => {
+      state.audioOn = true;
+    },
+    setAudioOff: (state) => {
+      state.audioOn = false;
+    },
     feedScreenDisplay: (state, param) => {
       const { payload } = param;
       state.feedScreen = payload;
@@ -86,7 +93,15 @@ export const feedsSlice = createSlice({
 });
 
 // export action creators
-export const { feedScreenDisplay, dareBarView, selectedFeeds, openNotificationBottomDrawer, closeNotificationBottomDrawer, openCommentUItBottomDrawer, closeCommentUItBottomDrawer, selectedBlockedUsers, removeBlockedUsers, openBlockUsertBottomDrawer, closeBlockUsertBottomDrawer, toasterMessage, toasterDisplayStatus, openReportBottomDrawer, closeReportBottomDrawer, selectedFeedItem, openThreeDotsBottomDrawer, closeThreeDotsBottomDrawer } =
+export const { 
+  setAudioOn, setAudioOff,
+  feedScreenDisplay, 
+  dareBarView, 
+  selectedFeeds, openNotificationBottomDrawer, closeNotificationBottomDrawer, 
+  openCommentUItBottomDrawer, closeCommentUItBottomDrawer, selectedBlockedUsers, 
+  removeBlockedUsers, openBlockUsertBottomDrawer, closeBlockUsertBottomDrawer, toasterMessage, 
+  toasterDisplayStatus, openReportBottomDrawer, closeReportBottomDrawer, selectedFeedItem, 
+  openThreeDotsBottomDrawer, closeThreeDotsBottomDrawer } =
 feedsSlice.actions;
 
 // export reducer
