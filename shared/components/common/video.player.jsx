@@ -19,14 +19,14 @@ const VideoPlayer= ({
         poster={assetPoster}
         posterResizeMode='contain' //{isCover ? "cover" : "contain"}
         resizeMode='contain' //{isCover ? "cover" : "contain"}
-        paused={playing} //!activeVideo || !playing
+        paused={!playing} //!activeVideo || !playing
         source={{ 
-        isNetwork: true,
-        uri: assetReference, 
-        type: 'm3u8',
-        headers: {
-              Range: 'bytes=0-'
-          }
+          isNetwork: true,
+          uri: assetReference, 
+          type: 'm3u8',
+          headers: {
+                Range: 'bytes=0-'
+            }
         }}
         muted={muted} // mute
         playWhenInactive={true}
@@ -40,12 +40,11 @@ const VideoPlayer= ({
         }}
         automaticallyWaitsToMinimizeStalling={false}
         allowsExternalPlayback={false}
-        isLooping={loop}
         style={{
           width: '100%',
           height: '100%',
         }}
-        progressUpdateInterval={50.0}
+        progressUpdateInterval={100.0}
         onProgress={handleProgress}
         onEnd={handleEnd}
         onLoadStart={() => {

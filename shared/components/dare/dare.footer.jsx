@@ -34,7 +34,7 @@ const DareFooterWrapper = styled.View`
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  background: #290c54;
+  // background: #290c54;
   padding: 10px 20px;
 `;
 
