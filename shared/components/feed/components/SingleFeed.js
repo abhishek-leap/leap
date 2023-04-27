@@ -8,8 +8,8 @@ import { useTheme } from '@react-navigation/native';
 import Dots from '../../../images/dots.svg';
 import Block from '../../../images/block.svg';
 
-import { openDareBackBottomDrawer, selectedPost } from '../../../redux-ui-state/slices/dareBackSlice';
-import { FullAuthentication, openAuthenticationBottomDrawer } from '../../../redux-ui-state/slices/authenticationSlice';
+// import { openDareBackBottomDrawer, selectedPost } from '../../../redux-ui-state/slices/dareBackSlice';
+// import { FullAuthentication, openAuthenticationBottomDrawer } from '../../../redux-ui-state/slices/authenticationSlice';
 import { feedScreenDisplay, openThreeDotsBottomDrawer, selectedFeedItem, setAudioOff, setAudioOn } from '../../../redux-ui-state/slices/feedsSlice';
 
 // import ProgressBar from './progress-bar';
@@ -76,22 +76,22 @@ const SingleFeed = ({
     return () => clearInterval(interval);
   }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      isBlocked = blockedUsersList.indexOf(item?.id) > -1;
-      isPowerUser = getData('power_user');
-      blockedByPowerUser = item?.blockPowerUserId ? true : false;
+  // useEffect(() => {
+  //   const interval = setInterval(() => {
+  //     isBlocked = blockedUsersList.indexOf(item?.id) > -1;
+  //     isPowerUser = getData('power_user');
+  //     blockedByPowerUser = item?.blockPowerUserId ? true : false;
 
-      let blockedText = '';
+  //     let blockedText = '';
 
-      if (item?.communityBlockersCount && !item?.blockPowerUserId && !item?.blockedAt) {
-        blockedText = item?.communityBlockersCount;
-      } else if (!item?.blockPowerUserId && item?.blockedAt) {
-        blockedText = 'you blocked';
-      }
-    }, 1000);
-    return () => clearInterval(interval);
-  }, []);
+  //     if (item?.communityBlockersCount && !item?.blockPowerUserId && !item?.blockedAt) {
+  //       blockedText = item?.communityBlockersCount;
+  //     } else if (!item?.blockPowerUserId && item?.blockedAt) {
+  //       blockedText = 'you blocked';
+  //     }
+  //   }, 1000);
+  //   return () => clearInterval(interval);
+  // }, []);
 
   // useEffect(() => {
   //   let fileName = uri.substring(uri.lastIndexOf("/") + 1, uri.length);
@@ -109,15 +109,15 @@ const SingleFeed = ({
 
   const closeModal = () => { }
 
-  const dareBackUI = (isBasicSignupCompleted, isExtendedSignupCompleted) => {
-    if (isBasicSignupCompleted != "true" || isExtendedSignupCompleted != "true") {
-      dispatch(FullAuthentication(1));
-      dispatch(openAuthenticationBottomDrawer());
-    } else if (isBasicSignupCompleted == "true" || isExtendedSignupCompleted == "true") {
-      dispatch(selectedPost(item))
-      dispatch(openDareBackBottomDrawer());
-    }
-  }
+  // const dareBackUI = (isBasicSignupCompleted, isExtendedSignupCompleted) => {
+  //   if (isBasicSignupCompleted != "true" || isExtendedSignupCompleted != "true") {
+  //     dispatch(FullAuthentication(1));
+  //     dispatch(openAuthenticationBottomDrawer());
+  //   } else if (isBasicSignupCompleted == "true" || isExtendedSignupCompleted == "true") {
+  //     dispatch(selectedPost(item))
+  //     dispatch(openDareBackBottomDrawer());
+  //   }
+  // }
 
   // const onBuffer = buffer => {
   //   // console.log('buffring', buffer);
@@ -198,6 +198,7 @@ const SingleFeed = ({
           progressUpdateInterval={50.0}
           onProgress={data => {
             setProgress(data);
+            
             // if(data.currentTime > 0.10 && !global.videoScroll) {
             //   global.videoScroll = true
             // } else if(global.videoScroll && data.currentTime < 0.50) {
@@ -262,7 +263,7 @@ const SingleFeed = ({
         item={item} 
         progress={progress} 
         windowHeight={TotalhHeight}
-        dareBackUI={dareBackUI}
+        // dareBackUI={dareBackUI}
         closeModal={closeModal}
       />
       <LinearProgress 

@@ -19,7 +19,7 @@ const DareBar = ({height}) => {
   
   const onClickHandle = (dare) => {
     dispatch(setAudioOff());
-    handlePush({name: 'DarePreview', params: {dare, source: 'bar'}})
+    handlePush({name: 'DarePreview', params: {dare, source: 'bar', allDares: data?.dares}})
   }
 
   return (

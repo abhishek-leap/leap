@@ -158,3 +158,30 @@ export const getVideoUrl = (url, filename) => {
         });
     });
   };
+
+  export const getVotingsPercentages = (votesA = 0, votesB = 0) => {
+    let resultedVotesA = 0;
+    let resultedVotesB = 0;
+    if (votesA === votesB) {
+      resultedVotesA = 0.5;
+      resultedVotesB = 0.5;
+    } else {
+      const totalVotes = votesA + votesB;
+      if (totalVotes > 10) {
+        resultedVotesA = votesA / totalVotes;
+        resultedVotesB = votesB / totalVotes;
+      } else {
+        if (votesA > votesB) {
+          resultedVotesA = 0.5 + votesA * 0.05;
+          resultedVotesB = 0.5 - votesA * 0.05;
+        } else {
+          resultedVotesA = 0.5 - votesB * 0.05;
+          resultedVotesB = 0.5 + votesB * 0.05;
+        }
+      }
+    }
+    resultedVotesA = (resultedVotesA * 100).toFixed(1);
+    resultedVotesB = (resultedVotesB * 100).toFixed(1);
+    return { resultedVotesA, resultedVotesB };
+  };
+  

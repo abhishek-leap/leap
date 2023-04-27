@@ -61,6 +61,9 @@ export const createFeed = params => post(`${FEED_NEXT_STG}/feeds`, params);
 export const dareBack = params => post(`${DARE_STG}/dares`, params);
 export const dareBackPreUploadedVideos = options => get(`${FEED_NEXT_STG}/feeds/feedsByUserId?${queryString(options)}`);
 
+// Vote on Dare result
+export const voteAsset = params => post(`${DARE_STG}/votes`, params);
+
 //Upload Video APIs with create dare
 export const lensGroup = () => get(`${BASE_URL_CORE_STG}/LensGroups/findGroup`);
 export const getSignedURL = () => get(`${BASE_URL_SIGNED_URL}/videos/get-signed-url`);

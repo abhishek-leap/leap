@@ -9,7 +9,7 @@ import { handlePush } from '../../../navigation/navigationService';
 
 const { DEFAULT_HASH_TAGS_COUNTOSHOW } = require('../../../constants');
 
-const RealInfo = ({item, windowHeight, dareBackUI, closeModal}) => {
+const RealInfo = ({item, windowHeight, closeModal}) => {
     const { author, availableForDareBack, hashTags, body, skills } = item;
     const [showMoreHashtagsBtn, setShowMoreHashtagsBtn] = useState(hashTags > DEFAULT_HASH_TAGS_COUNTOSHOW);
     const [postTitle] = parsePostBody(body);
@@ -58,7 +58,8 @@ const RealInfo = ({item, windowHeight, dareBackUI, closeModal}) => {
               }
             </InfoContainer> 
             {availableForDareBack ? <BattleIconContainer>
-                <Battle width={63} height={70} onCallBackFunc={dareBackUI}/>
+                <Battle width={63} height={70} item={item}/>
+                {/* onCallBackFunc={dareBackUI} */}
             </BattleIconContainer> : <></> }
          </Container>
     )

@@ -9,7 +9,7 @@ import DareItem from "../components/dare/dare.item";
 
 
 const DarePreview = ({stage, route}) => {
-  const { dare, source } = route.params;
+  const { dare, source, allDares } = route.params;
   const dareState = stage || DARE_STATE.PREVIEW;
   const {colors} = useTheme();
   const [firstVideoProgress, setFirstVideoProgress] = useState(0);
@@ -21,6 +21,7 @@ const DarePreview = ({stage, route}) => {
         <Wrapper>
           <DareItem
             dare={dare}
+            allDares={allDares}
             setFirstVideoProgress={setFirstVideoProgress}
             setSecondVideoProgress={setSecondVideoProgress}
             dareState={dareState}

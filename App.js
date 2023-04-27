@@ -47,6 +47,7 @@ import Notification from './shared/screens/notification';
 import SkillAndHashtag from './shared/screens/skillAndHashtag';
 import DarePreviewScreen from './shared/screens/darePreview';
 import DareVideoScreen from './shared/screens/dareVideo';
+import DareResultScreen from './shared/screens/dareResult';
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -272,6 +273,11 @@ const App = () => {
           <Stack.Screen
             name="DareVideo"
             component={DareVideoScreen}
+            options={{ headerShown: false }}
+          />
+          <Stack.Screen
+            name="DareResult"
+            component={DareResultScreen}
             options={{ headerShown: false }}
           />
         </Stack.Navigator>

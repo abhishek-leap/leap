@@ -1,13 +1,27 @@
-import React, {useEffect} from "react";
+import React from "react";
 import styled from '@emotion/native';
 
 import BattleIcon from "../../../images/battle-back.svg";
 import withAuthentication from '../../../hoc/withAuthentication';
+import { useDispatch } from "react-redux";
+import { FullAuthentication, openAuthenticationBottomDrawer } from "../../../redux-ui-state/slices/authenticationSlice";
+import { openDareBackBottomDrawer, selectedPost } from "../../../redux-ui-state/slices/dareBackSlice";
 
-const Battle = ({ width, height, isBasicSignupCompleted, isExtendedSignupCompleted, onCallBackFunc }) => {
+const Battle = ({ width, height, isBasicSignupCompleted, isExtendedSignupCompleted, item }) => {
+  const dispatch = useDispatch();
+
+  const dareBackUI = (isBasicSignupCompleted, isExtendedSignupCompleted) => {
+    if (isBasicSignupCompleted != "true" || isExtendedSignupCompleted != "true") {
+      dispatch(FullAuthentication(1));
+      dispatch(openAuthenticationBottomDrawer());
+    } else if (isBasicSignupCompleted == "true" || isExtendedSignupCompleted == "true") {
+      dispatch(selectedPost(item))
+      dispatch(openDareBackBottomDrawer());
+    }
+  }
 
   return (
-      <BattleIconContainer onPress={() => onCallBackFunc(isBasicSignupCompleted, isExtendedSignupCompleted)} >
+      <BattleIconContainer onPress={() => dareBackUI(isBasicSignupCompleted, isExtendedSignupCompleted)} >
         <BattleIcon width={width} height={height} />
       </BattleIconContainer>
   );

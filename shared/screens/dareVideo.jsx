@@ -7,9 +7,10 @@ import DareFooter from '../components/dare/dare.footer';
 import { useTheme } from '@react-navigation/native';
 import OneTapToaster from '../components/dare/oneTap.toaster';
 import { View } from 'react-native';
+import { handlePush } from '../navigation/navigationService';
 
-const DareVideo = ({stage, route}) => {
-  const { dare, source } = route.params;
+const DareVideo = ({route}) => {
+  const { dare, allDares, source, stage } = route.params;
   const dareState = stage || DARE_STATE.PREVIEW;
   const {colors} = useTheme();
   const [firstVideoProgress, setFirstVideoProgress] = useState(0);
@@ -17,6 +18,16 @@ const DareVideo = ({stage, route}) => {
   const [rotateAngle, setRotateAngle] = useState(0);
 
   const onFinishPlaying = async () => {
+    const state = DARE_STATE.RESULT;
+    handlePush({name: "DareResult", params: {
+      dare, 
+      allDares,
+      dareState, 
+      source, 
+      stage: state, 
+      firstVideoProgress: firstVideoProgress, 
+      secondVideoProgress: secondVideoProgress,
+    }})
   };
 
   return (

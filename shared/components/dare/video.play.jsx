@@ -25,6 +25,7 @@ const VideoPlayMode = ({
   const { audioOn } = useSelector(state => state.feeds);
   const dispatch = useDispatch();
   const [VideoPlayStatus, setVideoPlayStatus] = useState(true);
+  const [onCurrentScreen, setOnCurrentScreen] = useState(true);
   const move = useState(new Animated.Value(600));
   const cube = useRef();
 
@@ -50,6 +51,7 @@ const VideoPlayMode = ({
 
   const handleSecondVideoFinish = () => {
     secondVideoProgress(100);
+    setOnCurrentScreen(false);
     onEnd();
   };
 
@@ -96,7 +98,7 @@ const VideoPlayMode = ({
               } }
               handleEnd={handleFirstVideoFinish}
               muted={audioOn}
-              playing={VideoPlayStatus}
+              playing={VideoPlayStatus && onCurrentScreen}
               loop={true} 
             />
           </TapView>
@@ -121,7 +123,7 @@ const VideoPlayMode = ({
         }}
         handleEnd={handleSecondVideoFinish}
         muted={audioOn}
-        playing={!VideoPlayStatus} // !VideoPlayStatus
+        playing={!VideoPlayStatus && onCurrentScreen} // !VideoPlayStatus
         loop={false}
       />
       </TapView>

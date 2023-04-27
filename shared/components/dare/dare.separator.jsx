@@ -1,48 +1,81 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from '@emotion/native';
-import { StyleSheet } from "react-native";
+import Draggable from 'react-native-draggable';
 
-import { DARE_STATE } from '../../constants';
+//Import SVG
+import Like from '../../images/like.svg';
+
+import { DARE_STATE, WINDOW_WIDTH } from '../../constants';
 import PinkBorderLine from "../common/pinkBorderLine";
 import FadeInView from "../common/fadeIn.animate";
+import Blink from '../common/blink';
 
 const previewHeight = 190;
 const previewBorderHeight = 3.5;
+const draggableYPosition = -165;
 export const previewRotateDegs = "6.5deg";
 
 
-const DareSeparator = ({ title, subTitle, dareState }) => {
+const DareSeparator = ({ title, subTitle, dareState, onVote }) => {
+  const [dragPosition, setDragPosition] = useState({ x: WINDOW_WIDTH / 5, y: draggableYPosition });
+
   return (
-    <Wrapper dareState={dareState}>
-      <FadeInView duration={600}>
-      {dareState === DARE_STATE.PREVIEW ? (
-        <>
+    <Wrapper dareState={dareState} previewRotateDegs={previewRotateDegs}>
+       {dareState === DARE_STATE.PREVIEW ? (
+        <FadeInView duration={600}>
           <PinkBorderLine height={previewBorderHeight} top={true}/>
           <Content>
             <Title>{title}</Title>
             <SubTitle>{subTitle}</SubTitle>
           </Content>
-        </>
+          <PinkBorderLine height={previewBorderHeight} top={false}/>
+        </FadeInView>
       ) : null}
-      <PinkBorderLine height={previewBorderHeight} top={false}/>
-      </FadeInView>
+      {dareState === DARE_STATE.VOTE ? (
+        <IconsWrapper>
+          <ArrowImage 
+            source={require('../../images/ArrowsUp.gif')}
+            alt="arrows-up"
+          />
+          <VoteIconWrapper>
+            <Draggable 
+              x={dragPosition.x}
+              y={draggableYPosition} 
+              maxX={dragPosition.x}
+              minX={dragPosition.x}
+              shouldReverse={true}
+              bounds={{left: 0, top: 0, right: 0, bottom: 500}}
+              enableDrag={true}
+              onDragRelease={(e, data) => {
+                 if (data.dy > 80) {
+                  onVote("down");
+                } else if(Math.abs(data.dy) > 80) {
+                  onVote("up");
+                }
+              }}
+             >
+              <Blink duration={1000}>
+                <Like 
+                  width={180 - Math.abs(dragPosition.y) / 2} 
+                  height={150} 
+                  // strokeWidth={2} 
+                  stroke="white" 
+                />
+              </Blink>
+            </Draggable>
+          </VoteIconWrapper>
+          <ArrowImage 
+            source={require('../../images/ArrowsDown.gif')}
+            alt="arrows-up"
+          />
+        </IconsWrapper>
+      ) : null}
+      <PinkBorderLine height={previewBorderHeight} top={dareState === DARE_STATE.VOTE && "true"} />
     </Wrapper>
   );
 };
 
 export default DareSeparator;
-
-const styles = StyleSheet.create({
-  linearGradient: {
-    width: '200%',
-    height: previewBorderHeight,
-    position: 'absolute',
-    border: 0,
-    margin: 0,
-    top: 188,
-    bottom: 0
-  }
-});
 
 const Wrapper = styled.View`
   ${(props) =>
@@ -56,8 +89,17 @@ const Wrapper = styled.View`
   position: absolute;
   right: 0;
   left: 0;
-  bottom: 0;
-  transform: skewY(-${previewRotateDegs});
+  bottom: ${(props) =>
+    props.dareState === DARE_STATE.PREVIEW
+      ?  ''
+      : props.dareState === DARE_STATE.VOTE 
+      ? '-30px' 
+      :
+      '155px'};
+  transform: ${(props) =>
+    props.dareState === DARE_STATE.PREVIEW
+      ? `skewY(-${previewRotateDegs})`
+      : ''};
   flex: 1;
   flex-direction: column;
   align-items: center;
@@ -85,4 +127,30 @@ const SubTitle = styled.Text`
   margin-top: 5px;
   font-weight: 400;
   text-align: center;
+`;
+
+const IconsWrapper = styled.View`
+    flex: 1;
+  transform: skewY(${previewRotateDegs});
+  text-align: center;
+  height: 320px;
+  width: 130px;
+  top: 50%;
+  right: 50%;
+  position: absolute;
+  z-index: 1101;
+  flex-direction: column;
+`;
+
+const VoteIconWrapper = styled.View`
+  paddingVertical: 100px;
+`;
+
+const ArrowImage = styled.Image`
+  width: 40px;
+  height: 80px;
+  align-self: center;
+  justify-content: center;
+  bottom: 63%;
+  left: 55%;
 `;

@@ -8,6 +8,7 @@ import { handlePush } from "../../navigation/navigationService";
 
 const DareItem = ({
   dare,
+  allDares,
   dareState,
   source,
 }) => {
@@ -20,9 +21,9 @@ const DareItem = ({
         const state = DARE_STATE.FIRST_ASSET;
         if (dareState === DARE_STATE.PREVIEW)
           if (source === "bar") {
-            handlePush({name: 'DareVideo', params: {dare, dareState, source, stage: state}})
+            handlePush({name: 'DareVideo', params: {dare, allDares, dareState, source, stage: state, skill}})
           } else {
-            // router.push(`/dare/${dare.id}?stage=${state}`);
+              // router.push(`/dare/${dare.id}?stage=${state}`);
           }
       }, 3000);
     }
