@@ -1,5 +1,5 @@
 import React from 'react';
-import { TouchableOpacity, Text, View } from 'react-native';
+import { TouchableOpacity, Text, View, KeyboardAvoidingView } from 'react-native';
 import styled from '@emotion/native';
 import {useTheme} from '@react-navigation/native';
 
@@ -47,56 +47,55 @@ const SignInUpInputView = ({optionChoose, setOption, setScreen, error, setError,
     }
 
     return (
-        <Container colors={colors}>
-            <Header 
-                onCloseIconClick={onCloseIconClick}
-                backIcon={optionChoose != '' ? true : false}
-                handleBack={handleBack}
-                screenName={''}
-                setScreen={setScreen}
-                setOption={setOption}
-                setValue={setValue}
-            />
-            <InnerView currentWidth={WINDOW_HEIGHT}>
-                <Title>{optionChoose == 'email' ? WHAT_IS_EMAIL_ADDRESS : WHAT_IS_PHONE_NUMBER}</Title>
-                <SearchSection currentWidth={WINDOW_WIDTH} colors={colors} searchValue={value}>
-                    {optionChoose == 'email' ?
-                        <EmailIcon color={colors.PLAYLEAP_WHITE}/>
-                        :
-                        <PhoneIcon color={colors.PLAYLEAP_WHITE}/>
-                    }
+        <KeyboardAvoidingView
+                behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+                style={{backgroundColor: colors.primary, flex: 1}}>
+                <Header 
+                    onCloseIconClick={onCloseIconClick}
+                    backIcon={optionChoose != '' ? true : false}
+                    handleBack={handleBack}
+                    screenName={''}
+                    setScreen={setScreen}
+                    setOption={setOption}
+                    setValue={setValue}
+                />
+                <InnerView currentWidth={WINDOW_HEIGHT}>
+                    <Title>{optionChoose == 'email' ? WHAT_IS_EMAIL_ADDRESS : WHAT_IS_PHONE_NUMBER}</Title>
+                    <SearchSection currentWidth={WINDOW_WIDTH} colors={colors} searchValue={value}>
+                        {optionChoose == 'email' ?
+                            <EmailIcon color={colors.PLAYLEAP_WHITE}/>
+                            :
+                            <PhoneIcon color={colors.PLAYLEAP_WHITE}/>
+                        }
+                        
+                        <Input
+                            value={value}
+                            colors={colors}
+                            placeholderTextColor={colors.PLAYLEAP_WHITE}
+                            placeholder={optionChoose == 'email' ? PLACEHOLDER_EMAIL_ADDRESS : PLACEHOLDER_PHONE_NUMBER}
+                            onChangeText={(searchString) => Validation(searchString)}
+                            underlineColorAndroid="transparent"
+                            returnKeyType="done"
+                            keyboardType={optionChoose == 'email' ? 'default' : 'phone-pad'}
+                        />
                     
-                    <Input
-                        value={value}
-                        colors={colors}
-                        placeholderTextColor={colors.PLAYLEAP_WHITE}
-                        placeholder={optionChoose == 'email' ? PLACEHOLDER_EMAIL_ADDRESS : PLACEHOLDER_PHONE_NUMBER}
-                        onChangeText={(searchString) => Validation(searchString)}
-                        underlineColorAndroid="transparent"
-                        keyboardType={optionChoose == 'email' ? 'default' : 'phone-pad'}
-                    />
+                    </SearchSection>
+                    {error != '' ? <View style={{width: WINDOW_WIDTH / 1.7}}><Text style={{color: color.PLAYLEAP_PINK}}>{error}</Text></View> : null}
+                    {(value == '' && isSubmit)? <Text style={{color: colors.secondary}}>{'Required'}</Text> : null}
+                    <NextBtn optionChoose={optionChoose} colors={colors} searchValue={value}>
+                        <TouchableOpacity onPress={() => nextAPI()}>
+                            <NextBtnText>{!isLoading ? NEXT : <Loader />}</NextBtnText>
+                        </TouchableOpacity>
+                    </NextBtn>
+                </InnerView>
                 
-                </SearchSection>
-                {error != '' ? <View style={{width: WINDOW_WIDTH / 1.7}}><Text style={{color: color.PLAYLEAP_PINK}}>{error}</Text></View> : null}
-                {(value == '' && isSubmit)? <Text style={{color: colors.secondary}}>{'Required'}</Text> : null}
-                <NextBtn optionChoose={optionChoose} colors={colors} searchValue={value}>
-                    <TouchableOpacity onPress={() => nextAPI()}>
-                        <NextBtnText>{!isLoading ? NEXT : <Loader />}</NextBtnText>
-                    </TouchableOpacity>
-                </NextBtn>
-            </InnerView>
-            <GetRecaptcha
-                action={action}/>
-      </Container>
+                <GetRecaptcha
+                    action={action}/>
+        </KeyboardAvoidingView>
     )
 }
 
 export default SignInUpInputView;
-
-const Container = styled.View`
-    flex: 1;
-    background-color: ${props => props.colors.primary};
-`;
 
 const InnerView = styled.View`
     flex: 1;
