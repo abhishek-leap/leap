@@ -138,7 +138,11 @@ export default ({ navigation }) => {
           // scrollEnabled={global.videoScrollIndex > activeVideoIndex && MAX_SCROLL_INDEX <= activeVideoIndex ? true : false}
           getItemLayout={getItemLayout}
           // disableVirtualization={false} // convert to true when make release build
-          viewabilityConfig={{viewAreaCoveragePercentThreshold: 50}}
+          viewabilityConfig={{
+            // waitForInteraction: false,
+            // minimumViewTime: 250,
+            viewAreaCoveragePercentThreshold: 50
+          }}
           onViewableItemsChanged={onViewableItemsChanged}
         />
     </Container>
@@ -147,7 +151,7 @@ export default ({ navigation }) => {
 
 const Container = styled.SafeAreaView`
   flex: 1;
-  height: 100%;
+  height: ${Platform.OS === 'ios' ? '100%' : '110%'};
   background-color: ${props => props.colors.primary};
 `;
 

@@ -8,7 +8,9 @@ import DefaultProfileAvatar from '../../../images/default-avatar.svg';
 import { MEDIA, AVATAR_ID } from '../../../apis/urls';
 import { WINDOW_WIDTH } from '../../../constants';
 import { handlePush } from '../../../navigation/navigationService';
+import { Platform } from 'react-native';
 
+const DefaultAvatarWidth = Platform.OS == 'ios' ? '120%' : '105%';
 const Profile= ({author}) => {
   const { entityId } = author;
   // const [avatarId, setAvatarId] = useState(storage.getString(AVATAR_ID));
@@ -27,7 +29,7 @@ const Profile= ({author}) => {
       <Shield width="80%" height="75%" />
       <>
       <G clipPath="url(#clip)" transform={[{scale: 0.85}, {translateX: 2.9}, {translateY: 2.9}]}>
-        <DefaultProfileAvatar width="120%" height="120%"/>
+        <DefaultProfileAvatar width={DefaultAvatarWidth} height="120%"/>
       </G>
       <ProfileBtn onPress={() => handlePush({name: 'Profile', params: {auth: false} })}>
         <Image

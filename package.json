@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "android": "npx react-native run-android",
-    "build": "cd android && bundle exec fastlane android distribute",
+    "build": "cd android && bundle exec fastlane",
     "iosbuild": "cd ios && bundle exec fastlane ios build",
     "ios": "react-native run-ios",
     "iosDevice": "react-native run-ios --device `BigStep’s iPhone`",

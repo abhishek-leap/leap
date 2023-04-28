@@ -11,32 +11,31 @@ const DarePreview = ({
 }) => {
   return (
     <Wrapper>
-    <PreviewScreens>
-      <Slide left={false} duration={1500} leftP={-WINDOW_WIDTH}>
+      <PreviewScreens>
+        <Slide left={false} duration={1500} leftP={-WINDOW_WIDTH}>
+            <PreviewImage
+                source={{uri: firstVideoDareCover}}
+                defaultSource={require("../../images/defaultCover.png")}
+                width={320}
+                height={100}
+                priority={true}
+                alt="cover"
+            />
+        </Slide>
+      </PreviewScreens>
+      <Middle>{seprator}</Middle>
+      <PreviewScreens>
+        <Slide left={true} duration={1500} leftP={WINDOW_WIDTH}>
           <PreviewImage
-              source={{uri: firstVideoDareCover}}
+              source={{uri: secondVideoDareCover}}
               defaultSource={require("../../images/defaultCover.png")}
-              top
               width={320}
-              height={100}
+              height={330}
               priority={true}
               alt="cover"
           />
-      </Slide>
-    </PreviewScreens>
-    <Middle>{seprator}</Middle>
-    <PreviewScreens>
-      <Slide left={true} duration={1500} leftP={WINDOW_WIDTH}>
-        <PreviewImage
-            source={{uri: secondVideoDareCover}}
-            defaultSource={require("../../images/defaultCover.png")}
-            width={320}
-            height={330}
-            priority={true}
-            alt="cover"
-        />
-        </Slide>
-    </PreviewScreens>
+          </Slide>
+      </PreviewScreens>
     </Wrapper>
   );
 };

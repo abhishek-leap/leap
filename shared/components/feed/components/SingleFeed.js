@@ -144,7 +144,7 @@ const SingleFeed = ({
     dispatch(openThreeDotsBottomDrawer())
     dispatch(selectedFeedItem(item))
   }
-
+  
   return (
     <View
       style={{

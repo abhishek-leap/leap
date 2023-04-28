@@ -9,9 +9,11 @@ import { useDispatch } from 'react-redux';
 import { setAudioOff } from '../../redux-ui-state/slices/feedsSlice';
 import { handlePush } from '../../navigation/navigationService';
 
-const TEXT_LENGTH = 45
+const TEXT_LENGTH = 47
 const TEXT_HEIGHT = 35
 const OFFSET = TEXT_LENGTH / 2 - TEXT_HEIGHT / 2
+
+const paddingBottom = Platform.OS == 'ios' ? 15 : 8;
 
 const DareBar = ({height}) => {
   const dispatch = useDispatch();
@@ -34,7 +36,7 @@ const DareBar = ({height}) => {
         paddingBottom: 65,
       } : {
         // height: 200
-        paddingBottom: 15,
+        paddingBottom: paddingBottom,
         paddingLeft: 15
       }}
       data={data?.dares}
