@@ -48,7 +48,7 @@ const DareBar = ({height}) => {
                   start={{x: 0, y: 0}} 
                   end={{x: 0.9, y: 0}} 
                   colors={['rgba(153, 0, 216, 0.58)', 'rgba(153, 0, 216, 0.25)', 'rgba(217, 217, 217, 0)']}>
-                    <View style={{ width: 20, height: TEXT_LENGTH }}>
+                    <View style={{ width: 25, height: TEXT_LENGTH }}>
                       <Text 
                         allowFontScaling={false}
                         style={{
@@ -78,7 +78,7 @@ const DareBar = ({height}) => {
                 end={{x: 0.9, y: 0}} 
                 colors={['rgba(122, 122, 122, 0.58)', 'rgba(217, 217, 217, 0.15)', 'rgba(217, 217, 217, 0)']}
                 >
-                <View style={{ width: 20, height: TEXT_LENGTH }}>
+                <View style={{ width: 25, height: TEXT_LENGTH }}>
                 <Text 
                 allowFontScaling={false}
                 style={{

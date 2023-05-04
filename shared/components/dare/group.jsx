@@ -9,7 +9,7 @@ import FilterShield from './filter.shield';
 const Group = ({index, width = 115, height = 90, dare, onClick}) => {
 
   return (
-    <Container height={height} width={width} key={index}>
+    <Container height={height} width={width} key={index} onPress={() => onClick(dare)}>
       <ShieldWrapper>
         {dare?.status == "completed"?
           <FilterShield width={55} height={40}/>
@@ -18,7 +18,7 @@ const Group = ({index, width = 115, height = 90, dare, onClick}) => {
         }
       </ShieldWrapper>
       <SubContainer>
-        <CardWrapper onPress={() => onClick(dare)}>
+        <CardWrapper>
             <Card src={dare?.assets[0]?.dareCover} isBlur={dare?.status}/>
         </CardWrapper>
         <CardWrapper>
@@ -31,7 +31,7 @@ const Group = ({index, width = 115, height = 90, dare, onClick}) => {
 
 export default Group;
 
-const Container = styled.View`
+const Container = styled.TouchableOpacity`
   width: ${props => `${props.width - 10}px`};
   height:${props => `${props.height - 10}px`};
   margin-left: ${props => `${props.key == 1 ? 0 : 6}px`};
@@ -44,7 +44,7 @@ const SubContainer = styled.View`
   height:100%;
 `;
 
-const CardWrapper = styled.TouchableOpacity`
+const CardWrapper = styled.View`
   flex-direction: row;
   width: 48%;
 `;
