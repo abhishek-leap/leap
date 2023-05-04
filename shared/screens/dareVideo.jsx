@@ -40,7 +40,7 @@ const DareVideo = ({route}) => {
           />
           <OneTapToaster toasterMessage={'One Tap to Skip'}/>
           <View style={{alignItems: 'center',opacity: 0.7, height: '10%'}}>
-              <View style={{
+              {/* <View style={{
                 height: 0,
                 borderBottomWidth: 100,
                 width: '80%',
@@ -59,7 +59,7 @@ const DareVideo = ({route}) => {
                 backgroundColor : "#0000", // invisible color
 
 
-              }}></View>
+              }}></View> */}
           </View>
            
            <VideoPlayMode
