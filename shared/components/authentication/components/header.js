@@ -6,7 +6,7 @@ import {useTheme} from '@react-navigation/native';
 // Images 
 import BackArrow from '../../../images/backArrow.svg';
 import CloseIcon from '../../../images/close.svg';
-import { handleGoBack, handlePop, handleSetRoot } from '../../../navigation/navigationService';
+import { handleGoBack, handlePop, handlePush, handleSetRoot } from '../../../navigation/navigationService';
 import { removeAllData } from '../../../utils/helper';
 
 const Header = ({backIcon, text, onCloseIconClick, handleBack, screenName, setScreen, setValue, currentScreen, isBasicSignupCompleted}) => {
@@ -16,7 +16,7 @@ const Header = ({backIcon, text, onCloseIconClick, handleBack, screenName, setSc
         if(screenName == 'input' && currentScreen == 'ALIAS') {
             removeAllData();
         }
-        // handleSetRoot({name: 'Feed'});
+        handlePush({name: 'Feed'})
         onCloseIconClick(); 
         onCloseIconClick(); 
         setValue('')
