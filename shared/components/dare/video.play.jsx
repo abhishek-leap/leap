@@ -8,6 +8,7 @@ import { setAudioOff, setAudioOn } from '../../redux-ui-state/slices/feedsSlice'
 import UnmuteMuteIcon from '../../images/unmuteMute.svg';
 import CubeNavigationHorizontal from "./horizontal.cubeAnimate";
 import { StyleSheet } from "react-native";
+import OneTapToaster from "./oneTap.toaster";
 
 const { width, height } = Dimensions.get("window");
 
@@ -108,6 +109,10 @@ const VideoPlayMode = ({
               fill={audioOn ? 'transparent' : 'white'}
               color={audioOn ? 'white' : 'transparent'} />
           </VolumeBtnWrapper>
+          <OneTapToaster 
+            toasterMessage={'One Tap to Skip'} 
+            handleFirstVideoFinish={handleFirstVideoFinish}
+          />
           </> )}
     </View>
     <View style={styles.container}>

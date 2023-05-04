@@ -9,7 +9,8 @@ import {
 import OneTap from '../../images/oneTapHand.svg';
 
 const OneTapToaster = ({
-    toasterMessage
+    toasterMessage,
+    handleFirstVideoFinish
 }) => {
   const {colors} = useTheme();
   const [modalVisible, setModalVisible] = useState(false);
@@ -25,12 +26,16 @@ const OneTapToaster = ({
     }
   }, [])
 
+  const onHandle = () => {
+    setModalVisible(false);
+    handleFirstVideoFinish();
+  }
 
   return (
     <Modal
         transparent={true}
         visible={modalVisible}>
-      <ToastContainer colors={colors}>
+      <ToastContainer colors={colors} onPressOut={() => onHandle()}>
         <View style={styles.modalView}>
           <OneTap width={15} height={15}/>
           <Text style={styles.modalText}>{toasterMessage}</Text>
@@ -66,8 +71,8 @@ const styles = StyleSheet.create({
   },
 });
 
-const ToastContainer = styled.View`
-    flex: 1;
+const ToastContainer = styled.TouchableOpacity`
+    flex: 2;
     flex-direction: column;
     justifyContent: flex-end;
     alignItems: center;

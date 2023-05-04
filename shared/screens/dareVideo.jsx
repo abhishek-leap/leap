@@ -5,7 +5,6 @@ import { DARE_STATE } from '../constants';
 import VideoPlayMode from '../components/dare/video.play';
 import DareFooter from '../components/dare/dare.footer';
 import { useTheme } from '@react-navigation/native';
-import OneTapToaster from '../components/dare/oneTap.toaster';
 import { View } from 'react-native';
 import { handlePush } from '../navigation/navigationService';
 
@@ -38,7 +37,6 @@ const DareVideo = ({route}) => {
             bgColor={colors.PLAYLEAP_PROGRESS_BG_COLOR}
             progressColor={colors.PLAYLEAP_PROGRESS_COLOR}
           />
-          <OneTapToaster toasterMessage={'One Tap to Skip'}/>
           <View style={{alignItems: 'center',opacity: 0.7, height: '10%'}}>
               {/* <View style={{
                 height: 0,
