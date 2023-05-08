@@ -128,5 +128,5 @@ var styles = StyleSheet.create({
 
 const TopView = styled.View`
   flex: 1;
-  padding-bottom: 8px;
+  padding-bottom: 0px;
 `;

@@ -157,7 +157,7 @@ const Container = styled.SafeAreaView`
 
 const DareView = styled.View`
   flex: 1,
-  height: 13%;
+  height: 14%;
 `;
 
 
