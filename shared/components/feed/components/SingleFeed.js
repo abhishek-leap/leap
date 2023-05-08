@@ -216,7 +216,6 @@ const SingleFeed = ({
             // const { orientation } = response.naturalSize;
             // const isPortrait = orientation == 'portrait' ? true : false;
             // setIsCover(isPortrait);
-             
             if(feedScreen < INITIAL_LOAD_FEED) {
               dispatch(feedScreenDisplay(feedScreen + 1))
             }

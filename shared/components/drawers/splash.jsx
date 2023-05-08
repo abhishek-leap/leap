@@ -8,6 +8,7 @@ import { useInfiniteDares } from '../../hooks/useInfiniteDares';
 import { useInfiniteFeeds } from '../../hooks/useInfiniteFeeds';
 import {INITIAL_LOAD_FEED, WINDOW_HEIGHT} from '../../constants';
 import Logo from '../../images/logo.svg';
+import { feedScreenDisplay } from '../../redux-ui-state/slices/feedsSlice';
 
 const ANIMATION_DURATION = 1; // 5 sec
 // const DURATION = 2000;
@@ -39,6 +40,10 @@ const SplashDrawer = (props, { navigation }) => {
     if(feedData?.feeds && daresData?.dares.length > 0) {
      
     }
+    const splashTimeout = setTimeout(() => {
+      dispatch(feedScreenDisplay(4))
+    }, 7000);
+    return () => clearInterval(splashTimeout);
   }, [])
 
   useEffect(() => {
