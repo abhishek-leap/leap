@@ -17,6 +17,8 @@ import Comments from './comments';
 //Redux imports
 import { FullAuthentication, openAuthenticationBottomDrawer } from '../../../redux-ui-state/slices/authenticationSlice';
 import { openCommentUItBottomDrawer, selectedFeedItem } from '../../../redux-ui-state/slices/feedsSlice';
+import ShareItem from '../../common/share';
+import { BASE_URL_SITE } from '../../../apis/urls';
 
 
 const FeedOptions= ({data, clickHandler, mute}) => {
@@ -91,8 +93,12 @@ const FeedOptions= ({data, clickHandler, mute}) => {
         onPress={onPressComments}
       />
       <StyledShareSection onPress={onPressShare}>
-        <ShareIcon height={35} width={35} />
-        <StyledText>{data?.stats?.views}</StyledText>
+        {/* <ShareIcon height={35} width={35} /> */}
+        {/* <StyledText>{data?.stats?.views}</StyledText> */}
+        <ShareItem 
+          component={<ShareIcon height={35} width={35} />}
+          copyText={BASE_URL_SITE + "/?feedId=" + id}
+        />
       </StyledShareSection>
       <AudioIconContainer onPress={clickHandler}>
       <UnmuteMuteIcon 
@@ -120,7 +126,7 @@ const StyledSection = styled.TouchableOpacity`
 `;
 
 const StyledShareSection = styled.TouchableOpacity`
-  margin-top: 6px;
+  margin-vertical: 6px;
 `;
 
 
