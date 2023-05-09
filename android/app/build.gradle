@@ -146,8 +146,9 @@ android {
         applicationId "io.playleap.rnative"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 12
+        versionCode 15
         versionName "0.7"
+        multiDexEnabled true
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
 
         if (isNewArchitectureEnabled()) {
@@ -266,10 +267,13 @@ android {
 
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation 'io.playleap.videoeditor:video-editor-sdk:1.0.7'
-    implementation 'com.google.android.exoplayer:exoplayer:2.16.0'
-    // compile project(':react-native-video')
+    implementation project(':react-native-video')
     implementation "androidx.appcompat:appcompat:1.0.0"
+    implementation ("io.playleap.videoeditor:video-editor-sdk:1.0.9") {
+        exclude group:'com.google.android.exoplayer'
+    }
+    // implementation 'io.playleap.videoeditor:video-editor-sdk:1.0.7'
+    // implementation 'com.google.android.exoplayer:exoplayer:2.16.0'
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
 

@@ -1,5 +1,5 @@
-import React, { useEffect, useState, memo } from 'react';
-import { View, Dimensions, ActivityIndicator, Pressable, Image } from 'react-native';
+import React, { useEffect, useState, memo, useMemo } from 'react';
+import { View, Dimensions, ActivityIndicator, Pressable } from 'react-native';
 import Video from 'react-native-video';
 import styled from '@emotion/native';
 import { useSelector, useDispatch } from 'react-redux';
@@ -7,15 +7,11 @@ import { useTheme } from '@react-navigation/native';
 
 import Dots from '../../../images/dots.svg';
 import Block from '../../../images/block.svg';
-
-// import { openDareBackBottomDrawer, selectedPost } from '../../../redux-ui-state/slices/dareBackSlice';
-// import { FullAuthentication, openAuthenticationBottomDrawer } from '../../../redux-ui-state/slices/authenticationSlice';
 import { feedScreenDisplay, openThreeDotsBottomDrawer, selectedFeedItem, setAudioOff, setAudioOn } from '../../../redux-ui-state/slices/feedsSlice';
 
-// import ProgressBar from './progress-bar';
 import RealInfo from './reel-info';
 import FeedOptions from './feed-options';
-import { getData, getVideoUrl } from '../../../utils/helper';
+import { getData } from '../../../utils/helper';
 import { INITIAL_LOAD_FEED } from '../../../constants';
 import LinearProgress from "../../common/linearProgressBar";
 
@@ -28,8 +24,7 @@ const SingleFeed = ({
   playing,
   setPlaying,
   TotalhHeight,
-  videoRef,
-  // onScrollHandler
+  videoRef
 }) => {
   const { colors } = useTheme();
   const dispatch = useDispatch();
@@ -39,11 +34,7 @@ const SingleFeed = ({
   const uri = asset?.reference || item?.compressedVideoUrl || '';
   const poster = asset?.imageLink || item?.compressedThumbUrl || '';
   const activeVideo = currentIndex == undefined ? false : currentIndex == index;
-
-  // const [videoUri, setVideoUri] = useState(uri);
-  // const [opacity, setOpacity] = useState(0);
-  const [mute, setMute] = useState(false);
-  // const [isCover, setIsCover] = useState(false);
+ 
   const [progress, setProgress] = useState();
   const [isBlockToggle, setIsBlockToggle] = useState(false);
 
@@ -53,14 +44,8 @@ const SingleFeed = ({
 
   let blockedText = '';
 
-  // if (item?.communityBlockersCount && !item?.blockPowerUserId && !item?.blockedAt) {
-  //   blockedText = item?.communityBlockersCount;
-  // } else if (!item?.blockPowerUserId && item?.blockedAt) {
-  //   blockedText = 'you blocked';
-  // }
-
   useEffect(() => {
-    const interval = setInterval(() => {
+    const timeout = setTimeout(() => {
       isBlocked = blockedUsersList.indexOf(item?.id) > -1;
       isPowerUser = getData('power_user');
       blockedByPowerUser = item?.blockPowerUserId ? true : false;
@@ -73,61 +58,12 @@ const SingleFeed = ({
         blockedText = 'you blocked';
       }
     }, 1000);
-    return () => clearInterval(interval);
+    return () => clearTimeout(timeout);
   }, []);
-
-  // useEffect(() => {
-  //   const interval = setInterval(() => {
-  //     isBlocked = blockedUsersList.indexOf(item?.id) > -1;
-  //     isPowerUser = getData('power_user');
-  //     blockedByPowerUser = item?.blockPowerUserId ? true : false;
-
-  //     let blockedText = '';
-
-  //     if (item?.communityBlockersCount && !item?.blockPowerUserId && !item?.blockedAt) {
-  //       blockedText = item?.communityBlockersCount;
-  //     } else if (!item?.blockPowerUserId && item?.blockedAt) {
-  //       blockedText = 'you blocked';
-  //     }
-  //   }, 1000);
-  //   return () => clearInterval(interval);
-  // }, []);
-
-  // useEffect(() => {
-  //   let fileName = uri.substring(uri.lastIndexOf("/") + 1, uri.length);
-  //   if(currentIndex !== undefined) {
-  //     getVideoUrl(uri, fileName)
-  //     .then(res => {
-  //       setVideoUri(res);
-  //     })
-  //     .catch(url => {
-  //       setVideoUri(url);
-  //     });
-  //   }
-    
-  // },[])
 
   const closeModal = () => { }
 
-  // const dareBackUI = (isBasicSignupCompleted, isExtendedSignupCompleted) => {
-  //   if (isBasicSignupCompleted != "true" || isExtendedSignupCompleted != "true") {
-  //     dispatch(FullAuthentication(1));
-  //     dispatch(openAuthenticationBottomDrawer());
-  //   } else if (isBasicSignupCompleted == "true" || isExtendedSignupCompleted == "true") {
-  //     dispatch(selectedPost(item))
-  //     dispatch(openDareBackBottomDrawer());
-  //   }
-  // }
-
-  // const onBuffer = buffer => {
-  //   // console.log('buffring', buffer);
-  // };
-  // const onError = error => {
-  //   console.log('single feed error', error);
-  // };
-
   const clickHandler = () => {
-    // setMute(!mute);
     if (audioOn) {
       dispatch(setAudioOff());
     } else {
@@ -144,7 +80,48 @@ const SingleFeed = ({
     dispatch(openThreeDotsBottomDrawer())
     dispatch(selectedFeedItem(item))
   }
-  
+
+  const FeedContent = useMemo(() => {
+    return <>
+        {(isBlocked || (item?.communityBlockersCount > 0 && isPowerUser == 'true')) &&
+          <BlockBGView blockedByPowerUser={blockedByPowerUser} isBlockToggle={isBlockToggle} onPress={() => setIsBlockToggle(status => !status)}>
+            <BlockUpperView>
+              <Block />
+              <BlockText>{'Blocked'}</BlockText>
+            </BlockUpperView>
+            {isBlockToggle && <BlockLowerView colors={colors}>
+              <BlockCountText>{blockedText}</BlockCountText>
+            </BlockLowerView>}
+          </BlockBGView>
+          // <BlockItem />
+        }
+      <ThreeDots onPress={() => handleOpenDrawer()}>
+        <Dots height={25} width={25} />
+      </ThreeDots>
+      <FeedOptionsContainer>
+          <FeedOptions 
+            data={item} 
+            clickHandler={clickHandler} 
+            mute={!audioOn}
+          />
+      </FeedOptionsContainer>
+      <RealInfo 
+        item={item}
+        windowHeight={TotalhHeight}
+        closeModal={closeModal}
+      />
+    </>
+  }, [index, audioOn])
+
+  const source = useMemo(() => ({
+    isNetwork: true,
+    uri: uri, 
+    type: 'm3u8',
+    headers: {
+      Range: 'bytes=0-'
+    }
+  }), [uri]);
+
   return (
     <View
       style={{
@@ -170,23 +147,16 @@ const SingleFeed = ({
           posterResizeMode='contain' //{isCover ? "cover" : "contain"}
           resizeMode='contain' //{isCover ? "cover" : "contain"}
           paused={!activeVideo || !playing}
-          source={{ 
-            isNetwork: true,
-            uri: uri, 
-            type: 'm3u8',
-            headers: {
-              Range: 'bytes=0-'
-            }
-          }}
+          source={source}
           muted={!audioOn}
           playWhenInactive={true}
           maxBitRate={1072437} // 97.65625
           minLoadRetryCount={5}
           bufferConfig={{
-            minBufferMs: 15000, //number
-            maxBufferMs: 50000, //number
+            minBufferMs: 2500, //number
+            maxBufferMs: 5000, //number
             bufferForPlaybackMs: 2500, //number
-            bufferForPlaybackAfterRebufferMs: 5000 //number
+            bufferForPlaybackAfterRebufferMs: 2500 //number
           }}
           automaticallyWaitsToMinimizeStalling={false}
           allowsExternalPlayback={false}
@@ -198,19 +168,9 @@ const SingleFeed = ({
           progressUpdateInterval={50.0}
           onProgress={data => {
             setProgress(data);
-            
-            // if(data.currentTime > 0.10 && !global.videoScroll) {
-            //   global.videoScroll = true
-            // } else if(global.videoScroll && data.currentTime < 0.50) {
-            //   global.videoScroll = false
-            // }
-          }}
-          onLoadStart={() => {
-            // setOpacity(1)
-            // console.log("onLoadStart ", new Date());
           }}
           onLoad={response => {
-            // global.videoScrollIndex = index
+             // global.videoScrollIndex = index
             // console.log("onLoad ", new Date());
 
             // const { orientation } = response.naturalSize;
@@ -222,7 +182,7 @@ const SingleFeed = ({
           }}
         />
         </Pressable>
-        <ActivityIndicator
+        {progress?.currentTime === 0 ? <ActivityIndicator
           animating
           size="large"
           color={"#9900D9"}
@@ -232,46 +192,16 @@ const SingleFeed = ({
             left: WINDOW_WIDTH / 2,
             right: WINDOW_WIDTH / 2,
           },
-          { opacity: progress?.currentTime > 0 ? 0 : 1 }
+          { opacity: 1 }
           ]}
+        /> : null}
+        {FeedContent}
+        <LinearProgress 
+              backgroundColor={colors.PLAYLEAP_PROGRESS_BG_COLOR}
+              completedColor={colors.PLAYLEAP_PROGRESS_COLOR}
+              data={progress}
+              percentage={false}
         />
-        
-        {(isBlocked || (item?.communityBlockersCount > 0 && isPowerUser == 'true')) &&
-          <BlockBGView blockedByPowerUser={blockedByPowerUser} isBlockToggle={isBlockToggle} onPress={() => setIsBlockToggle(status => !status)}>
-            <BlockUpperView>
-              <Block />
-              <BlockText>{'Blocked'}</BlockText>
-            </BlockUpperView>
-            {isBlockToggle && <BlockLowerView colors={colors}>
-              <BlockCountText>{blockedText}</BlockCountText>
-            </BlockLowerView>}
-          </BlockBGView>
-          // <BlockItem />
-        }
-      <ThreeDots onPress={() => handleOpenDrawer()}>
-        <Dots height={25} width={25} />
-      </ThreeDots>
-      <FeedOptionsContainer>
-          <FeedOptions 
-            data={item} 
-            clickHandler={clickHandler} 
-            mute={!audioOn}
-          />
-      </FeedOptionsContainer>
-      <RealInfo 
-        item={item} 
-        progress={progress} 
-        windowHeight={TotalhHeight}
-        // dareBackUI={dareBackUI}
-        closeModal={closeModal}
-      />
-      <LinearProgress 
-            backgroundColor={colors.PLAYLEAP_PROGRESS_BG_COLOR}
-            completedColor={colors.PLAYLEAP_PROGRESS_COLOR}
-            data={progress}
-            percentage={false}
-      />
-      {/* <ProgressBar data={progress} windowHeight={TotalhHeight} /> */}
     </View>
   );
 };
