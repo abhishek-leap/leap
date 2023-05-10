@@ -142,7 +142,7 @@ const AudioIconContainer = styled.TouchableOpacity`
 `;
 
 const PlusIcon = styled.View`
-  padding-left: 30px;
+  padding-left: ${Platform.OS === 'ios' ? '44%' : '42%'};
   padding-top: 62px;
   position: absolute;
 `;

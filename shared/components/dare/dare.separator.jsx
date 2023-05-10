@@ -88,7 +88,7 @@ const Wrapper = styled.View`
       : ``};
   position: absolute;
   right: 0;
-  left: 0;
+  left: -10px;
   bottom: ${(props) =>
     props.dareState === DARE_STATE.PREVIEW
       ?  ''
@@ -98,7 +98,8 @@ const Wrapper = styled.View`
       '155px'};
   transform: ${(props) =>
     props.dareState === DARE_STATE.PREVIEW
-      ? `skewY(-${previewRotateDegs})`
+      ? `skewY(-${previewRotateDegs});
+      `
       : ''};
   flex: 1;
   flex-direction: column;

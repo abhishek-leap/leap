@@ -51,6 +51,7 @@ const Wrapper = styled.View`
 
 const Middle = styled.View`
   position: relative;
+  width: 110%;
   z-index: 10;
 `;
 

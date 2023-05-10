@@ -147,7 +147,7 @@ android {
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 15
-        versionName "0.7"
+        versionName "0.8"
         multiDexEnabled true
         buildConfigField "boolean", "IS_NEW_ARCHITECTURE_ENABLED", isNewArchitectureEnabled().toString()
 
@@ -272,8 +272,7 @@ dependencies {
     implementation ("io.playleap.videoeditor:video-editor-sdk:1.0.9") {
         exclude group:'com.google.android.exoplayer'
     }
-    // implementation 'io.playleap.videoeditor:video-editor-sdk:1.0.7'
-    // implementation 'com.google.android.exoplayer:exoplayer:2.16.0'
+
     //noinspection GradleDynamicVersion
     implementation "com.facebook.react:react-native:+"  // From node_modules
 

@@ -32,10 +32,16 @@ export default ({ navigation }) => {
   const Yscroll = React.useRef(new Animated.Value(0)).current;
 
   const bottomTabHeight = useBottomTabBarHeight();
-  const statusBarHeight = StatusBar.currentHeight || 0;
+  let statuBarHeight = StatusBar.currentHeight;
+  if (Platform.OS === 'ios') {
+    statuBarHeight = StatusBar.currentHeight || 0;
+   } else {
+    statuBarHeight = 0;
+   }
+  const statusBarHeight = statuBarHeight;
   const TotalHeightMinus = bottomTabHeight + statusBarHeight + Math.floor(dareBarHeight) + iPhoneHeight;
   const TotalhHeight = WINDOW_HEIGHT - TotalHeightMinus;
-
+  
   useEffect(() => {
     setGlobalNavigation(navigation);
   }, []);
@@ -151,7 +157,7 @@ export default ({ navigation }) => {
 
 const Container = styled.SafeAreaView`
   flex: 1;
-  height: ${Platform.OS === 'ios' ? '100%' : '110%'};
+  height: ${Platform.OS === 'ios' ? '100%' : '100%'};
   background-color: ${props => props.colors.primary};
 `;
 

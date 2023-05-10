@@ -37,7 +37,7 @@ const DareVideo = ({route}) => {
             bgColor={colors.PLAYLEAP_PROGRESS_BG_COLOR}
             progressColor={colors.PLAYLEAP_PROGRESS_COLOR}
           />
-          <View style={{alignItems: 'center',opacity: 0.7, height: '10%'}}>
+          <View style={{alignItems: 'center',opacity: 0.7, height: Platform.OS === 'ios' ? '10%' : '15%'}}>
               {/* <View style={{
                 height: 0,
                 borderBottomWidth: 100,

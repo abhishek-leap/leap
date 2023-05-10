@@ -26,7 +26,7 @@ const Profile= ({author}) => {
         />
         </ClipPath>
       </Defs>
-      <Shield width="80%" height="75%" />
+      <Shield width={Platform.OS === 'ios' ? '70%' : '60%'} height="75%" />
       <>
       <G clipPath="url(#clip)" transform={[{scale: 0.85}, {translateX: 2.9}, {translateY: 2.9}]}>
         <DefaultProfileAvatar width={DefaultAvatarWidth} height="120%"/>
