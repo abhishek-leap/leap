@@ -26,7 +26,7 @@ export default ({ navigation }) => {
   const videoRef = useRef(null);
   const virtualRef = useRef(null);
 
-  const [playing, setPlaying] = useState(true);
+  // const [playing, setPlaying] = useState(true);
   const [refresh, setRefresh] = useState(false)
   const [activeVideoIndex, setActiveVideoIndex] = useState(0);
   const Yscroll = React.useRef(new Animated.Value(0)).current;
@@ -93,8 +93,8 @@ export default ({ navigation }) => {
           index={index}
           videoRef={videoRef}
           currentIndex={activeVideoIndex}
-          playing={playing}
-          setPlaying={setPlaying}
+          // playing={playing}
+          // setPlaying={setPlaying}
           isActive={activeVideoIndex === index}
           TotalhHeight={TotalhHeight}
         />

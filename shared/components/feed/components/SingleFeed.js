@@ -21,8 +21,8 @@ const SingleFeed = ({
   item,
   index,
   currentIndex,
-  playing,
-  setPlaying,
+  // playing,
+  // setPlaying,
   TotalhHeight,
   videoRef
 }) => {
@@ -37,6 +37,7 @@ const SingleFeed = ({
  
   const [progress, setProgress] = useState();
   const [isBlockToggle, setIsBlockToggle] = useState(false);
+  const [playing, setPlaying] = useState(true);
 
   let isBlocked = false; //blockedUsersList.indexOf(item?.id) > -1;
   let isPowerUser = false; //getData('power_user');
