@@ -51,7 +51,6 @@ export default () => {
 
   LogBox.ignoreLogs(["Sending `onAnimatedValueUpdate` with no listeners registered.",]);
 
-  console.log("index ", index);
   return (
     <>
     <TextInputOuterView>
