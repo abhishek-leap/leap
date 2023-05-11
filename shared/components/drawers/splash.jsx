@@ -1,7 +1,7 @@
 import React,{useEffect, useRef} from 'react';
 import styled from '@emotion/native';
 import {useTheme} from '@react-navigation/native';
-import {SafeAreaView, View, Text, Animated, StyleSheet } from 'react-native';
+import {SafeAreaView, View, Animated, StyleSheet } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { useInfiniteDares } from '../../hooks/useInfiniteDares';
@@ -10,8 +10,7 @@ import {INITIAL_LOAD_FEED, WINDOW_HEIGHT} from '../../constants';
 import Logo from '../../images/logo.svg';
 import { feedScreenDisplay } from '../../redux-ui-state/slices/feedsSlice';
 
-const ANIMATION_DURATION = 1; // 5 sec
-// const DURATION = 2000;
+const ANIMATION_DURATION = 1;
 
 const SplashDrawer = (props, { navigation }) => {
   const {data: daresData } = useInfiniteDares();
@@ -22,7 +21,6 @@ const SplashDrawer = (props, { navigation }) => {
 
   const {colors} = useTheme();
   const slideAnimation = useRef(new Animated.Value(WINDOW_HEIGHT)).current;
-  // const opacity = useRef(new Animated.Value(0)).current;
 
   const toggleDrawer = () => {
     Animated.timing(slideAnimation, {
@@ -50,17 +48,6 @@ const SplashDrawer = (props, { navigation }) => {
     toggleDrawer();
   }, [toggleDrawer, feedScreen]);
 
-  // const fadeIn = () => {
-  //   Animated.timing(opacity, {
-  //     toValue: 1,
-  //     DURATION
-  //   }).start();
-  // };
-  
-  // useEffect(() => {
-  //   fadeIn();
-  // }, [ opacity ]);
-
   return (
     <Animated.View
       style={{
@@ -74,17 +61,7 @@ const SplashDrawer = (props, { navigation }) => {
       <SafeAreaView>
         <Body>
            <View style={styles.uiView}>
-              {/* <Text style={styles.txt}>{'Playleap'}</Text> */}
-              
-              {/* <Animated.View
-                style={
-                  {
-                    opacity
-                  }
-                }
-              > */}
                 <Logo height={40} width={120} />
-              {/* </Animated.View> */}
             </View>
         </Body>
       </SafeAreaView>

@@ -39,7 +39,9 @@ const ProgressBar = ({percent, progressBarShow}) => {
             {renderThirdLayer(percent)}
         </Container>
         :
-        <CreateDareIcon style={{marginBottom: 4}} />
+        <MiddleDareIcon>
+          <CreateDareIcon style={{marginBottom: 4}} />
+        </MiddleDareIcon>
 
   );
 }
@@ -93,4 +95,10 @@ const OffsetLayer = styled.View`
     border-right-color: grey;
     border-top-color: grey;
     transform: rotate(-135deg);
+`;
+
+const MiddleDareIcon = styled.View`
+    margin-bottom: 10px;
+    justify-content: center;
+    left: -15px;
 `;

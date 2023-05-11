@@ -16,7 +16,7 @@ const Header = ({backIcon, text, onCloseIconClick, handleBack, screenName, setSc
         if(screenName == 'input' && currentScreen == 'ALIAS') {
             removeAllData();
         }
-        handlePush({name: 'Feed'})
+        // handlePush({name: 'Feed'})
         onCloseIconClick(); 
         onCloseIconClick(); 
         setValue('')

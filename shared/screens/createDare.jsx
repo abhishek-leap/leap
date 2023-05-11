@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import {View, NativeModules, Platform} from 'react-native';
+import { useIsFocused } from '@react-navigation/native';
 import withAuthentication from '../hoc/withAuthentication';
 import {useDispatch} from 'react-redux';
 import {FullAuthentication, openAuthenticationBottomDrawer} from '../redux-ui-state/slices/authenticationSlice';
@@ -17,6 +18,7 @@ const CreateDare = ({isBasicSignupCompleted, isExtendedSignupCompleted}) => {
   const dispatch = useDispatch();
   const {  } = useSportList();
   const {  } = useHashtagList();
+  const isFocused = useIsFocused();
   const skillsList = useSkillsList();
   const connectionsList = useCompetitorsList();
   const followersList = useCompetitorsList();
@@ -26,15 +28,16 @@ const CreateDare = ({isBasicSignupCompleted, isExtendedSignupCompleted}) => {
   // const lensGroupInfo = useLensGroup();
 
   useEffect(() => {
-    
-    if (isBasicSignupCompleted != "true" || isExtendedSignupCompleted != "true") {
-      dispatch(FullAuthentication(1));
-      dispatch(openAuthenticationBottomDrawer());
-    } else {
-      openVideoEditor();
-      // dispatch(openCreateDareBottomDrawer());
+    if(isFocused == true) {
+      if (isBasicSignupCompleted != "true" || isExtendedSignupCompleted != "true") {
+        dispatch(FullAuthentication(1));
+        dispatch(openAuthenticationBottomDrawer());
+      } else {
+        openVideoEditor();
+        // dispatch(openCreateDareBottomDrawer());
+      }
     }
-  }, [isBasicSignupCompleted, isExtendedSignupCompleted]);
+  }, [isBasicSignupCompleted, isExtendedSignupCompleted, isFocused]);
 
   const openVideoEditor = async () => {
     const token = getData('token');

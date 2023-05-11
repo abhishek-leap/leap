@@ -14,7 +14,9 @@ import { NavigationContainer, DefaultTheme } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { initializeMMKVFlipper } from 'react-native-mmkv-flipper-plugin';
+import { createMaterialTopTabNavigator } from '@react-navigation/material-top-tabs';
 import * as Sentry from "@sentry/react-native";
+
 
 import { store } from './shared/redux-ui-state/store';
 import HomeIcon from './shared/images/home-icon.svg';
@@ -48,8 +50,9 @@ import SkillAndHashtag from './shared/screens/skillAndHashtag';
 import DarePreviewScreen from './shared/screens/darePreview';
 import DareVideoScreen from './shared/screens/dareVideo';
 import DareResultScreen from './shared/screens/dareResult';
+import { BOTTOM_BAR_HEIGHT } from './shared/constants';
 
-const Tab = createBottomTabNavigator();
+const Tab = createMaterialTopTabNavigator(); //createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 const FeedStack = createNativeStackNavigator();
 
@@ -128,36 +131,38 @@ const App = () => {
 
   }, []);
 
-  const FeedStackScreen = () => {
-    return (
-        <FeedStack.Navigator initialRouteName="Feed" >
-                <FeedStack.Screen name="Feed" component={FeedScreen} options={{ headerShown: false }} />
-                <FeedStack.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }} />
-                <FeedStack.Screen name="SkillAndHashtag" component={SkillAndHashtag} options={{ headerShown: false }} />
-        </FeedStack.Navigator>
-    );   
-  }
+  // const FeedStackScreen = () => {
+  //   return (
+  //       <FeedStack.Navigator initialRouteName="Feed" >
+  //               <FeedStack.Screen name="Feed" component={FeedScreen} options={{ headerShown: false }} />
+  //               <FeedStack.Screen name="Profile" component={ProfileScreen} options={{ headerShown: false }} />
+  //               <FeedStack.Screen name="SkillAndHashtag" component={SkillAndHashtag} options={{ headerShown: false }} />
+  //       </FeedStack.Navigator>
+  //   );   
+  // }
 
   function Home() {
     return (
       <Tab.Navigator
         screenOptions={{
-          header: Header,
           tabBarStyle: {
+            height: BOTTOM_BAR_HEIGHT,
             backgroundColor: AppTheme.colors.primary,
           },
           tabBarShowLabel: false,
+          lazy: true,
         }}
+        tabBarPosition='bottom'
       >
         <Tab.Screen
           name="Feeds"
-          component={FeedStackScreen}
+          component={FeedScreen}
           options={{
             tabBarIcon: ({ focused }) => {
               if (focused) {
                 updateTabBar();
                 return (
-                  <IconContainer>
+                  <IconContainer focused={focused}>
                     <HomeIconFilled />
                   </IconContainer>
                 );
@@ -239,6 +244,7 @@ const App = () => {
   return (
     <Provider store={store}>
       <NavigationContainer theme={AppTheme}>
+        <Header />
         <Stack.Navigator>
           {/* <Stack.Screen
             name="Splash"
@@ -249,6 +255,21 @@ const App = () => {
             name="Home"
             component={Home}
             options={{ headerShown: false }}
+          />
+          <Stack.Screen 
+              name="Feed" 
+              component={FeedScreen} 
+              options={{ headerShown: false }} 
+          />
+          <Stack.Screen 
+            name="Profile" 
+            component={ProfileScreen} 
+            options={{ headerShown: false }} 
+          />
+          <Stack.Screen 
+            name="SkillAndHashtag" 
+            component={SkillAndHashtag} 
+            options={{ headerShown: false }} 
           />
           <Stack.Screen
             name="SignInUp"
@@ -304,7 +325,7 @@ export default Sentry.withTouchEventBoundary(AppWithReactQuery);
 
 const IconContainer = styled.View`
   border-bottom-width: 2px;
-  padding-vertical: 12px;
-  padding-horizontal: 5px;
+  // padding-vertical: 5px;
+  // padding-horizontal: 5px;
   border-color: white;
 `;

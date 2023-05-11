@@ -9,7 +9,7 @@ import SingleFeed from '../components/feed/components/SingleFeed';
 import { useInfiniteFeeds } from '../hooks/useInfiniteFeeds';
 import { useDispatch, useSelector } from 'react-redux';
 import { dareBarView } from '../redux-ui-state/slices/feedsSlice';
-import { WINDOW_WIDTH, WINDOW_HEIGHT, INITIAL_LOAD_FEED} from '../constants';
+import { WINDOW_WIDTH, WINDOW_HEIGHT, INITIAL_LOAD_FEED, BOTTOM_BAR_HEIGHT} from '../constants';
 import { setGlobalNavigation } from '../utils/helper';
 
 const isIphone = Platform.OS === 'ios' ? 0.8 : 0.88
@@ -31,7 +31,7 @@ export default ({ navigation }) => {
   const [activeVideoIndex, setActiveVideoIndex] = useState(0);
   const Yscroll = React.useRef(new Animated.Value(0)).current;
 
-  const bottomTabHeight = useBottomTabBarHeight();
+  // const bottomTabHeight = useBottomTabBarHeight();
   let statuBarHeight = StatusBar.currentHeight;
   if (Platform.OS === 'ios') {
     statuBarHeight = StatusBar.currentHeight || 0;
@@ -39,7 +39,7 @@ export default ({ navigation }) => {
     statuBarHeight = 0;
    }
   const statusBarHeight = statuBarHeight;
-  const TotalHeightMinus = bottomTabHeight + statusBarHeight + Math.floor(dareBarHeight) + iPhoneHeight;
+  const TotalHeightMinus = BOTTOM_BAR_HEIGHT + statusBarHeight + Math.floor(dareBarHeight) + iPhoneHeight;
   const TotalhHeight = WINDOW_HEIGHT - TotalHeightMinus;
   
   useEffect(() => {

@@ -8,6 +8,7 @@ export const SITE_KEY = '6Ld-JYkfAAAAAHDOOVWS4iWciHjsubtVVmEHIKxq';
 export const OFFSET_LIMIT = 10;
 export const MAX_TOTAL_CONNECTIONS = 50;
 export const INITIAL_LOAD_FEED= 4;
+export const BOTTOM_BAR_HEIGHT= 70;
 
 export const SIGN_IN_UP_FOR = "Sign in/up for";
 export const USE_EMAIL = "USE EMAIL";
