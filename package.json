@@ -14,7 +14,8 @@
     "prebuild-android": "npx mkdirp android/app/src/main/assets/ && react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle",
     "build:web": "rm -rf dist/ && webpack --mode=production --config webpack.config.js",
     "web": "webpack serve --mode=development --config webpack.config.js",
-    "pod-install": "RCT_NEW_ARCH_ENABLED=1 bundle exec pod install"
+    "pod-install": "RCT_NEW_ARCH_ENABLED=1 bundle exec pod install",
+    "postinstall": "patch-package"
   },
   "dependencies": {
     "@emotion/native": "^11.10.0",
@@ -30,6 +31,7 @@
     "@sentry/react-native": "^5.1.1",
     "@tanstack/react-query": "^4.20.4",
     "lodash": "^4.17.21",
+    "patch-package": "^7.0.0",
     "react": "18.1.0",
     "react-native": "0.70.6",
     "react-native-calendars": "^1.1293.0",
