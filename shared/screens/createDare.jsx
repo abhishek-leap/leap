@@ -47,16 +47,22 @@ const CreateDare = ({isBasicSignupCompleted, isExtendedSignupCompleted}) => {
         lenseGroup,
         false
       );
-      const PreVideoURL = JSON.parse(videoUri);
-      console.log("PreVideoURL ", PreVideoURL);
+      const PreVideoURL = videoUri
+      if(Platform.os === 'ios') {
+        PreVideoURL = JSON.parse(previousURL);
+      }
+
       if(videoUri) {
         if (isBasicSignupCompleted == "true" || isExtendedSignupCompleted == "true") {
           dispatch(openCreateDareBottomDrawer());
         }
-        const finalVideoURL = Platform.OS == "ios" ? PreVideoURL.urlToString : `file://${PreVideoURL.urlToString}`;
+        const finalVideoURL = Platform.OS == "ios" ? PreVideoURL.urlToString : `file://${PreVideoURL}`;
         dispatch(selectedVedioURI(finalVideoURL));
-        dispatch(selectedVedioWidth(parseInt(PreVideoURL.width)));
-        dispatch(selectedVedioHeight(parseInt(PreVideoURL.height)));
+
+        if(Platform.os === 'ios') {
+          dispatch(selectedVedioWidth(parseInt(PreVideoURL.width)));
+          dispatch(selectedVedioHeight(parseInt(PreVideoURL.height)));
+        }
 
         createThumbnail({
           url: finalVideoURL,
