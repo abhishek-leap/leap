@@ -94,6 +94,7 @@ export default ({navigation}) => {
     });
     return (
       <Animated.View
+        key={item?.id}
         style={[
           styles.slide,
           {
@@ -107,7 +108,7 @@ export default ({navigation}) => {
           currentIndex={activeVideoIndex}
           // playing={playing}
           // setPlaying={setPlaying}
-          isActive={activeVideoIndex === index}
+          // isActive={activeVideoIndex === index}
           TotalhHeight={TotalhHeight}
         />
       </Animated.View>
@@ -134,8 +135,9 @@ export default ({navigation}) => {
       <Animated.FlatList
         ref={virtualRef}
         data={feedRecord.current}
+        // extraData={feedRecord.current}
         renderItem={Slide}
-        keyExtractor={(item, index) => `${index}_${item}`.toString()}
+        keyExtractor={(item) => `${item.id}`.toString()}
         onEndReached={() => fetchNextPage()}
         onEndReachedThreshold={TotalhHeight}
         onScroll={Animated.event(
@@ -154,12 +156,8 @@ export default ({navigation}) => {
         updateCellsBatchingPeriod={100} // Increase time between renders
         disableIntervalMomentum={true}
         scrollEventThrottle={100}
-        // scrollEnabled={global.videoScrollIndex > activeVideoIndex && MAX_SCROLL_INDEX <= activeVideoIndex ? true : false}
         getItemLayout={getItemLayout}
-        // disableVirtualization={false} // convert to true when make release build
         viewabilityConfig={{
-          // waitForInteraction: false,
-          // minimumViewTime: 250,
           viewAreaCoveragePercentThreshold: 50,
         }}
         onViewableItemsChanged={onViewableItemsChanged}

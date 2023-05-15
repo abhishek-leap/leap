@@ -1,6 +1,6 @@
 import React, {useEffect, useState, memo, useMemo} from 'react';
-import {View, Dimensions, ActivityIndicator, Pressable} from 'react-native';
-import Video from 'react-native-video';
+import {View, Dimensions, ActivityIndicator, Pressable, AppState} from 'react-native';
+// import Video from 'react-native-video';
 import styled from '@emotion/native';
 import {useSelector, useDispatch} from 'react-redux';
 import {useTheme} from '@react-navigation/native';
@@ -8,7 +8,7 @@ import {useTheme} from '@react-navigation/native';
 import Dots from '../../../images/dots.svg';
 import Block from '../../../images/block.svg';
 import {
-  feedScreenDisplay,
+  // feedScreenDisplay,
   openThreeDotsBottomDrawer,
   selectedFeedItem,
   setAudioOff,
@@ -18,10 +18,23 @@ import {
 import RealInfo from './reel-info';
 import FeedOptions from './feed-options';
 import {getData} from '../../../utils/helper';
-import {INITIAL_LOAD_FEED} from '../../../constants';
+// import {INITIAL_LOAD_FEED} from '../../../constants';
 import LinearProgress from '../../common/linearProgressBar';
+import FeedPlayer from './Feed-Player';
+// import { Image } from 'react-native';
 
 const WINDOW_WIDTH = Dimensions.get('window').width;
+
+const areEqualFeed = (prevProps, nextProps) => {
+  const { item: prevItem, currentIndex: prevCurrentInex, index: prevIndex } = prevProps;
+  const { item: nextItem, currentIndex: nextCurrentInex, index: nextIndex } = nextProps;
+  // console.log("prevCurrentInex nextCurrentInex prevIndex nextIndex ", prevCurrentInex + ' ' + nextCurrentInex + ' ' + prevIndex + ' ' + nextIndex);
+  if (
+    prevCurrentInex === nextCurrentInex
+  )
+    return true;
+  return false;
+};
 
 const SingleFeed = ({
   item,
@@ -31,6 +44,7 @@ const SingleFeed = ({
   // setPlaying,
   TotalhHeight,
   videoRef,
+  // Video
 }) => {
   const {colors} = useTheme();
   const dispatch = useDispatch();
@@ -46,6 +60,7 @@ const SingleFeed = ({
   const [progress, setProgress] = useState();
   const [isBlockToggle, setIsBlockToggle] = useState(false);
   const [playing, setPlaying] = useState(true);
+  const [isImageDisplay, setIsImageDisplay] = useState(true);
 
   let isBlocked = false; //blockedUsersList.indexOf(item?.id) > -1;
   let isPowerUser = false; //getData('power_user');
@@ -66,6 +81,7 @@ const SingleFeed = ({
   }, [global.navRef]);
 
   useEffect(() => {
+    AppState.addEventListener('change', _handleAppStateChange);
     const timeout = setTimeout(() => {
       isBlocked = blockedUsersList.indexOf(item?.id) > -1;
       isPowerUser = getData('power_user');
@@ -85,6 +101,12 @@ const SingleFeed = ({
     }, 1000);
     return () => clearTimeout(timeout);
   }, []);
+
+  const _handleAppStateChange = (nextAppState) => {
+    if(nextAppState === 'background') {
+      setPlaying(false);
+    }
+  }
 
   const closeModal = () => {};
 
@@ -148,20 +170,22 @@ const SingleFeed = ({
     );
   }, [index, audioOn]);
 
-  const source = useMemo(
-    () => ({
-      isNetwork: true,
-      uri: uri,
-      type: 'm3u8',
-      headers: {
-        Range: 'bytes=0-',
-      },
-    }),
-    [uri],
-  );
+  // const source = useMemo(
+  //   () => ({
+  //     isNetwork: true,
+  //     uri: uri,
+  //     type: 'm3u8',
+  //     headers: {
+  //       Range: 'bytes=0-',
+  //     },
+  //   }),
+  //   [uri],
+  // );
 
+  console.log("single feed index ", index);
   return (
     <View
+      key={item?.id}
       style={{
         height: TotalhHeight,
         width: '100%',
@@ -174,50 +198,17 @@ const SingleFeed = ({
         style={{
           opacity: isBlocked && isPowerUser == 'false' ? 0.2 : 1,
         }}>
-        <Video
-          ref={videoRef}
-          // onBuffer={onBuffer}
-          // onError={onError}
-          hideShutterView={true}
-          removeClippedSubviews={true}
-          repeat={true}
-          poster={poster}
-          posterResizeMode="contain" //{isCover ? "cover" : "contain"}
-          resizeMode="contain" //{isCover ? "cover" : "contain"}
-          paused={!activeVideo || !playing}
-          source={source}
+        <FeedPlayer
+          loop={true}
+          assetPoster={poster}
+          pausedStatus={!activeVideo || !playing}
+          assetReference={uri}
           muted={!audioOn}
-          playWhenInactive={true}
-          maxBitRate={1072437} // 97.65625
-          minLoadRetryCount={5}
-          bufferConfig={{
-            minBufferMs: 2500, //number
-            maxBufferMs: 5000, //number
-            bufferForPlaybackMs: 2500, //number
-            bufferForPlaybackAfterRebufferMs: 2500, //number
+          handleProgress={(data) => {
+            setProgress(data)
           }}
-          automaticallyWaitsToMinimizeStalling={false}
-          allowsExternalPlayback={false}
-          isLooping
-          style={{
-            width: '100%',
-            height: '100%',
-          }}
-          progressUpdateInterval={50.0}
-          onProgress={data => {
-            setProgress(data);
-          }}
-          onLoad={response => {
-            // global.videoScrollIndex = index
-            // console.log("onLoad ", new Date());
-
-            // const { orientation } = response.naturalSize;
-            // const isPortrait = orientation == 'portrait' ? true : false;
-            // setIsCover(isPortrait);
-            if (feedScreen < INITIAL_LOAD_FEED) {
-              dispatch(feedScreenDisplay(feedScreen + 1));
-            }
-          }}
+          feedScreen={feedScreen}
+          videoRef={videoRef}
         />
       </Pressable>
       {progress?.currentTime === 0 ? (
@@ -247,7 +238,7 @@ const SingleFeed = ({
   );
 };
 
-export default memo(SingleFeed);
+export default memo(SingleFeed, areEqualFeed);
 
 const FeedOptionsContainer = styled.View`
   position: absolute;
