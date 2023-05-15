@@ -1,6 +1,6 @@
 import { useTheme } from '@react-navigation/native';
-import React from 'react';
-import {Text, View, useWindowDimensions, LogBox} from 'react-native';
+import React, { useRef } from 'react';
+import {Text, View, useWindowDimensions, LogBox, Platform} from 'react-native';
 import { TabView, SceneMap, TabBar } from 'react-native-tab-view';
 import styled from '@emotion/native';
 import TxtInput from '../components/common/textInput';
@@ -38,16 +38,27 @@ const renderTabBar = props => (
   />
 );
 
-export default () => {
+export default ({ navigation }) => {
   const layout = useWindowDimensions();
   const { colors } = useTheme();
   
   const [index, setIndex] = React.useState(0);
+  const preIndex = useRef(-1);
   const [routes] = React.useState([
     { key: 'first', title: 'Talent', param: colors },
     { key: 'second', title: 'Skills' },
     { key: 'third', title: 'Tags' },
   ]);
+
+ const handleSwipe = () => {
+  if(index == 0 && preIndex.current === 0) {
+    preIndex.current = index
+    navigation.jumpTo('Feeds');
+  } else if (index == 2 && preIndex.current == 2) {
+    navigation.jumpTo('Create Dare');
+  }
+  preIndex.current = index;
+ }
 
   LogBox.ignoreLogs(["Sending `onAnimatedValueUpdate` with no listeners registered.",]);
 
@@ -64,11 +75,11 @@ export default () => {
       />
     </TextInputOuterView>
     <TabView
-      // swipeEnabled={index == 0 || 2 ? false : true}
       navigationState={{ index, routes }}
       renderScene={renderScene}
       renderTabBar={renderTabBar}
       onIndexChange={setIndex}
+      onSwipeEnd={() => Platform.OS === 'ios' ? handleSwipe(index) : null}
       initialLayout={{ width: layout.width }}
     />
     </>

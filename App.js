@@ -162,7 +162,7 @@ const App = () => {
               if (focused) {
                 updateTabBar();
                 return (
-                  <IconContainer focused={focused}>
+                  <IconContainer>
                     <HomeIconFilled />
                   </IconContainer>
                 );
@@ -325,7 +325,7 @@ export default Sentry.withTouchEventBoundary(AppWithReactQuery);
 
 const IconContainer = styled.View`
   border-bottom-width: 2px;
-  // padding-vertical: 5px;
+  padding-bottom: 8px;
   // padding-horizontal: 5px;
   border-color: white;
 `;

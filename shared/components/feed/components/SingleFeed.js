@@ -182,7 +182,7 @@ const SingleFeed = ({
   //   [uri],
   // );
 
-  console.log("single feed index ", index);
+  // console.log("single feed index ", index);
   return (
     <View
       key={item?.id}
