@@ -43,6 +43,7 @@ export default TxtInput;
 
 const TextView = styled.View`
     flex-direction: row;
+    align-item: center;
     width: ${props => props.currentWidth};
     border-width: 1px;
     border-color: ${props => props.colors.PLAYLEAP_DARK_PINK};

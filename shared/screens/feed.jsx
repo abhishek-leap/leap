@@ -16,6 +16,11 @@ import {
   BOTTOM_BAR_HEIGHT,
 } from '../constants';
 import {setGlobalNavigation} from '../utils/helper';
+import {
+  useHashtagList,
+  useSkillsGroup,
+  useSkillsList,
+} from '../hooks/useMasterAPI';
 
 const isIphone = Platform.OS === 'ios' ? 0.8 : 0.88;
 const iPhoneHeight = Platform.OS == 'ios' ? 85 : 52;
@@ -26,7 +31,9 @@ export default ({navigation}) => {
   const {dareBarHeight} = useSelector(state => state.feeds);
 
   const {data, fetchNextPage} = useInfiniteFeeds();
-
+  const skillsList = useSkillsList();
+  const {} = useSkillsGroup();
+  const {data: HashTagData} = useHashtagList();
   const feedRecord = useRef([]);
   const videoRef = useRef(null);
   const virtualRef = useRef(null);
@@ -137,7 +144,7 @@ export default ({navigation}) => {
         data={feedRecord.current}
         // extraData={feedRecord.current}
         renderItem={Slide}
-        keyExtractor={(item) => `${item.id}`.toString()}
+        keyExtractor={item => `${item?.id}`.toString()}
         onEndReached={() => fetchNextPage()}
         onEndReachedThreshold={TotalhHeight}
         onScroll={Animated.event(

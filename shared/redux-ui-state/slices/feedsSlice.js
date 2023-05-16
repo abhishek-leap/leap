@@ -15,41 +15,49 @@ const initialState = {
   feeds: [],
   feedScreen: 0,
   audioOn: true,
+  searchText: '',
 };
 
 export const feedsSlice = createSlice({
   name: 'feeds',
   initialState,
   reducers: {
-    setAudioOn: (state) => {
+    setAudioOn: state => {
       state.audioOn = true;
     },
-    setAudioOff: (state) => {
+    setAudioOff: state => {
       state.audioOn = false;
     },
     feedScreenDisplay: (state, param) => {
-      const { payload } = param;
+      const {payload} = param;
       state.feedScreen = payload;
     },
     selectedFeeds: (state, param) => {
-      const { payload } = param;
+      const {payload} = param;
       state.feeds = payload;
     },
     selectedFeedItem: (state, param) => {
-      const { payload } = param;
+      const {payload} = param;
       state.feedItem = payload;
     },
     selectedBlockedUsers: (state, param) => {
-      const { payload } = param;
+      const {payload} = param;
       state.blockedUsersList.push(payload);
     },
     removeBlockedUsers: (state, param) => {
-      const { payload } = param;
-      state.blockedUsersList = removeElementFromArray(state.blockedUsersList, n => n === payload);
+      const {payload} = param;
+      state.blockedUsersList = removeElementFromArray(
+        state.blockedUsersList,
+        n => n === payload,
+      );
     },
     dareBarView: (state, param) => {
-      const { payload } = param;
+      const {payload} = param;
       state.dareBarHeight = payload;
+    },
+    searchScreenText: (state, param) => {
+      const {payload} = param;
+      state.searchText = payload;
     },
     openThreeDotsBottomDrawer: state => {
       state.feedsThreeDotsShow = true;
@@ -70,11 +78,11 @@ export const feedsSlice = createSlice({
       state.blockUserShow = false;
     },
     toasterMessage: (state, param) => {
-      const { payload } = param;
+      const {payload} = param;
       state.toasterMessage = payload;
     },
     toasterDisplayStatus: (state, param) => {
-      const { payload } = param;
+      const {payload} = param;
       state.toasterDisplay = payload;
     },
     openCommentUItBottomDrawer: state => {
@@ -93,16 +101,29 @@ export const feedsSlice = createSlice({
 });
 
 // export action creators
-export const { 
-  setAudioOn, setAudioOff,
-  feedScreenDisplay, 
-  dareBarView, 
-  selectedFeeds, openNotificationBottomDrawer, closeNotificationBottomDrawer, 
-  openCommentUItBottomDrawer, closeCommentUItBottomDrawer, selectedBlockedUsers, 
-  removeBlockedUsers, openBlockUsertBottomDrawer, closeBlockUsertBottomDrawer, toasterMessage, 
-  toasterDisplayStatus, openReportBottomDrawer, closeReportBottomDrawer, selectedFeedItem, 
-  openThreeDotsBottomDrawer, closeThreeDotsBottomDrawer } =
-feedsSlice.actions;
+export const {
+  searchScreenText,
+  setAudioOn,
+  setAudioOff,
+  feedScreenDisplay,
+  dareBarView,
+  selectedFeeds,
+  openNotificationBottomDrawer,
+  closeNotificationBottomDrawer,
+  openCommentUItBottomDrawer,
+  closeCommentUItBottomDrawer,
+  selectedBlockedUsers,
+  removeBlockedUsers,
+  openBlockUsertBottomDrawer,
+  closeBlockUsertBottomDrawer,
+  toasterMessage,
+  toasterDisplayStatus,
+  openReportBottomDrawer,
+  closeReportBottomDrawer,
+  selectedFeedItem,
+  openThreeDotsBottomDrawer,
+  closeThreeDotsBottomDrawer,
+} = feedsSlice.actions;
 
 // export reducer
 export default feedsSlice.reducer;
