@@ -56,6 +56,13 @@ export const loadNotifications = (id, options) =>
     )}&userId=${id}`,
   );
 
+// Follow
+export const startFollow = ({id, data}) =>
+  post(`${CORE}/CustomerDetails/${id}/follow`, data);
+
+export const loadProfile = (options) =>
+  get(`${CORE}/Profiles/detailsByUserAlias${queryString(options)}`);
+
 // Like Comment share APIs
 export const like = (id, params) =>
   post(`${FEED_NEXT_STG}/feeds/${id}/reactions`, params);
