@@ -244,29 +244,29 @@ const App = () => {
   return (
     <Provider store={store}>
       <NavigationContainer theme={AppTheme}>
-        <Header />
+        {/* <Header /> */}
         <Stack.Navigator>
           {/* <Stack.Screen
             name="Splash"
             component={Splash}
             options={{ headerShown: false }}
           /> */}
-          <Stack.Screen
+          {/* <Stack.Screen
             name="Home"
             component={Home}
             options={{ headerShown: false }}
-          />
+          /> */}
           <Stack.Screen 
               name="Feed" 
               component={FeedScreen} 
               options={{ headerShown: false }} 
           />
-          <Stack.Screen 
+          {/* <Stack.Screen 
             name="Profile" 
             component={ProfileScreen} 
             options={{ headerShown: false }} 
-          />
-          <Stack.Screen 
+          /> */}
+          {/* <Stack.Screen 
             name="SkillAndHashtag" 
             component={SkillAndHashtag} 
             options={{ headerShown: false }} 
@@ -300,14 +300,14 @@ const App = () => {
             name="DareResult"
             component={DareResultScreen}
             options={{ headerShown: false }}
-          />
+          /> */}
         </Stack.Navigator>
 
-        <SplashDrawer />
-        <AuthenticationDrawer />
+        {/* <SplashDrawer /> */}
+        {/* <AuthenticationDrawer />
         <CreateDareDrawer />
         <BottomCommonDrawer />
-        <Toaster />
+        <Toaster /> */}
       </NavigationContainer>
     </Provider>
   );

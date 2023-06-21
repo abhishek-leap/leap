@@ -21,6 +21,7 @@ import {
   useSkillsGroup,
   useSkillsList,
 } from '../hooks/useMasterAPI';
+import Loader from '../components/common/loader';
 
 const isIphone = Platform.OS === 'ios' ? 0.8 : 0.88;
 const iPhoneHeight = Platform.OS == 'ios' ? 85 : 52;
@@ -39,10 +40,10 @@ export default ({navigation}) => {
   const virtualRef = useRef(null);
 
   // const [playing, setPlaying] = useState(true);
+  const [scrollEnabled, setScrollEnabled] = useState(false);
   const [refresh, setRefresh] = useState(false);
   const [activeVideoIndex, setActiveVideoIndex] = useState(0);
   const Yscroll = React.useRef(new Animated.Value(0)).current;
-
   // const bottomTabHeight = useBottomTabBarHeight();
   let statuBarHeight = StatusBar.currentHeight;
   if (Platform.OS === 'ios') {
@@ -52,9 +53,9 @@ export default ({navigation}) => {
   }
   const statusBarHeight = statuBarHeight;
   const TotalHeightMinus =
-    BOTTOM_BAR_HEIGHT +
-    statusBarHeight +
-    Math.floor(dareBarHeight) +
+    // BOTTOM_BAR_HEIGHT +
+    // statusBarHeight +
+    // Math.floor(dareBarHeight) +
     iPhoneHeight;
   const TotalhHeight = WINDOW_HEIGHT - TotalHeightMinus;
 
@@ -62,35 +63,36 @@ export default ({navigation}) => {
     setGlobalNavigation(navigation);
   }, []);
 
-  useEffect(() => {
-    if (data?.feeds !== undefined && feedRecord.current?.length === 0) {
-      feedRecord.current = [
-        ...feedRecord.current,
-        ...data?.feeds.slice(0, INITIAL_LOAD_FEED),
-      ];
-      setRefresh(!refresh);
-    }
-  }, [data?.feeds !== undefined, activeVideoIndex == undefined]);
+  // useEffect(() => {
+  //   if (data?.feeds !== undefined && feedRecord.current?.length === 0) {
+  //     feedRecord.current = [
+  //       ...feedRecord.current,
+  //       ...data?.feeds.slice(0, INITIAL_LOAD_FEED),
+  //     ];
+  //     setRefresh(!refresh);
+  //   }
+  // }, [data?.feeds !== undefined, activeVideoIndex == undefined]);
 
-  useEffect(() => {
-    if (activeVideoIndex > 0) {
-      if (data?.feeds?.length > feedRecord.current?.length) {
-        const intial = feedRecord.current.length;
-        const next = intial + 4;
-        const subArray = data.feeds.slice(intial, next);
+  // useEffect(() => {
+  //   if (activeVideoIndex > 0) {
+  //     if (data?.feeds?.length > feedRecord.current?.length) {
+  //       const intial = feedRecord.current.length;
+  //       const next = intial + 4;
+  //       const subArray = data.feeds.slice(intial, next);
 
-        if (subArray.length > 0) {
-          feedRecord.current = [...feedRecord.current, ...subArray];
-          setRefresh(!refresh);
-        }
-      }
-    }
-  }, [data?.feeds, activeVideoIndex]);
+  //       if (subArray.length > 0) {
+  //         feedRecord.current = [...feedRecord.current, ...subArray];
+  //         setRefresh(!refresh);
+  //       }
+  //     }
+  //   }
+  // }, [data?.feeds, activeVideoIndex]);
 
   const onViewableItemsChanged = useCallback(({viewableItems}) => {
     const item = viewableItems[0];
     if (item?.index !== undefined) {
       setActiveVideoIndex(item?.index);
+      setScrollEnabled(false);
     }
   }, []);
 
@@ -117,58 +119,70 @@ export default ({navigation}) => {
           // setPlaying={setPlaying}
           // isActive={activeVideoIndex === index}
           TotalhHeight={TotalhHeight}
+          setScrollEnabled={setScrollEnabled}
+          scrollEnabled={scrollEnabled}
         />
       </Animated.View>
     );
   };
 
-  function getItemLayout(item, index) {
-    return {
+  const getItemLayout = useCallback(
+    (item, index) => ({
       length: TotalhHeight,
       offset: TotalhHeight * index,
       index,
-    };
-  }
+    }),
+    [],
+  );
 
+  const keyExtractor = useCallback((item, index) => {
+    return item?.id.toString() + index;
+  }, []);
   return (
     <Container colors={colors}>
-      <DareView
+      {/* <DareView
         colors={colors}
         onLayout={event => {
           dispatch(dareBarView(event.nativeEvent.layout.height));
         }}>
         <DareBar />
-      </DareView>
-      <Animated.FlatList
-        ref={virtualRef}
-        data={feedRecord.current}
-        // extraData={feedRecord.current}
-        renderItem={Slide}
-        keyExtractor={item => `${item?.id}`.toString()}
-        onEndReached={() => fetchNextPage()}
-        onEndReachedThreshold={TotalhHeight}
-        onScroll={Animated.event(
-          [{nativeEvent: {contentOffset: {y: Yscroll}}}],
-          {useNativeDriver: true},
-        )}
-        // Below three settings stop free scrolling
-        snapToInterval={TotalhHeight}
-        snapToAlignment={'start'}
-        decelerationRate={isIphone}
-        //Performance settings
-        removeClippedSubviews={true}
-        initialNumToRender={3}
-        maxToRenderPerBatch={1}
-        windowSize={10}
-        updateCellsBatchingPeriod={100} // Increase time between renders
-        disableIntervalMomentum={true}
-        scrollEventThrottle={100}
-        getItemLayout={getItemLayout}
-        viewabilityConfig={{
-          viewAreaCoveragePercentThreshold: 50,
-        }}
-        onViewableItemsChanged={onViewableItemsChanged}
-      />
+      </DareView> */}
+      {data?.feeds?.length > 0 ? (
+        <Animated.FlatList
+          ref={virtualRef}
+          data={data?.feeds}
+          // extraData={feedRecord.current}
+          renderItem={Slide}
+          keyExtractor={keyExtractor}
+          onEndReached={fetchNextPage}
+          onEndReachedThreshold={TotalhHeight}
+          onScroll={Animated.event(
+            [{nativeEvent: {contentOffset: {y: Yscroll}}}],
+            {useNativeDriver: true},
+          )}
+          // Below three settings stop free scrolling
+          snapToInterval={TotalhHeight}
+          snapToAlignment={'start'}
+          decelerationRate={'fast'}
+          //Performance settings
+          removeClippedSubviews={true}
+          maxToRenderPerBatch={8}
+          windowSize={15}
+          // updateCellsBatchingPeriod={100} // Increase time between renders
+          disableIntervalMomentum={true}
+          scrollEventThrottle={100}
+          getItemLayout={getItemLayout}
+          viewabilityConfig={{
+            viewAreaCoveragePercentThreshold: 50,
+          }}
+          scrollEnabled={scrollEnabled}
+          onViewableItemsChanged={onViewableItemsChanged}
+        />
+      ) : (
+        <LoaderContainer>
+          <Loader />
+        </LoaderContainer>
+      )}
     </Container>
   );
 };
@@ -207,3 +221,10 @@ const styles = StyleSheet.create({
     width: WINDOW_WIDTH,
   },
 });
+
+const LoaderContainer = styled.View`
+  height: 100%;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+`;

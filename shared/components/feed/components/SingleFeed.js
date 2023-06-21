@@ -1,5 +1,11 @@
 import React, {useEffect, useState, memo, useMemo} from 'react';
-import {View, Dimensions, ActivityIndicator, Pressable, AppState} from 'react-native';
+import {
+  View,
+  Dimensions,
+  ActivityIndicator,
+  Pressable,
+  AppState,
+} from 'react-native';
 // import Video from 'react-native-video';
 import styled from '@emotion/native';
 import {useSelector, useDispatch} from 'react-redux';
@@ -21,18 +27,24 @@ import {getData} from '../../../utils/helper';
 // import {INITIAL_LOAD_FEED} from '../../../constants';
 import LinearProgress from '../../common/linearProgressBar';
 import FeedPlayer from './Feed-Player';
+import Loader from '../../common/loader';
 // import { Image } from 'react-native';
 
 const WINDOW_WIDTH = Dimensions.get('window').width;
 
 const areEqualFeed = (prevProps, nextProps) => {
-  const { item: prevItem, currentIndex: prevCurrentInex, index: prevIndex } = prevProps;
-  const { item: nextItem, currentIndex: nextCurrentInex, index: nextIndex } = nextProps;
+  const {
+    item: prevItem,
+    currentIndex: prevCurrentInex,
+    index: prevIndex,
+  } = prevProps;
+  const {
+    item: nextItem,
+    currentIndex: nextCurrentInex,
+    index: nextIndex,
+  } = nextProps;
   // console.log("prevCurrentInex nextCurrentInex prevIndex nextIndex ", prevCurrentInex + ' ' + nextCurrentInex + ' ' + prevIndex + ' ' + nextIndex);
-  if (
-    prevCurrentInex === nextCurrentInex
-  )
-    return true;
+  if (prevCurrentInex === nextCurrentInex) return true;
   return false;
 };
 
@@ -44,6 +56,8 @@ const SingleFeed = ({
   // setPlaying,
   TotalhHeight,
   videoRef,
+  setScrollEnabled,
+  scrollEnabled,
   // Video
 }) => {
   const {colors} = useTheme();
@@ -55,13 +69,14 @@ const SingleFeed = ({
   const asset = item?.videos ? item?.videos[0] || '' : '';
   const uri = asset?.reference || item?.compressedVideoUrl || '';
   const poster = asset?.imageLink || item?.compressedThumbUrl || '';
-  const activeVideo = currentIndex == undefined ? false : currentIndex == index;
+  const activeVideo =
+    currentIndex === undefined ? false : currentIndex === index;
 
   const [progress, setProgress] = useState();
   const [isBlockToggle, setIsBlockToggle] = useState(false);
   const [playing, setPlaying] = useState(true);
   const [isImageDisplay, setIsImageDisplay] = useState(true);
-
+  const [showLoader, setShowLoader] = useState(true);
   let isBlocked = false; //blockedUsersList.indexOf(item?.id) > -1;
   let isPowerUser = false; //getData('power_user');
   let blockedByPowerUser = false; //item?.blockPowerUserId ? true : false;
@@ -102,11 +117,11 @@ const SingleFeed = ({
     return () => clearTimeout(timeout);
   }, []);
 
-  const _handleAppStateChange = (nextAppState) => {
-    if(nextAppState === 'background') {
+  const _handleAppStateChange = nextAppState => {
+    if (nextAppState === 'background') {
       setPlaying(false);
     }
-  }
+  };
 
   const closeModal = () => {};
 
@@ -170,6 +185,13 @@ const SingleFeed = ({
     );
   }, [index, audioOn]);
 
+  const handleProgress = data => {
+    if (activeVideo) {
+      setProgress(data);
+      if (!scrollEnabled) setScrollEnabled(true);
+    }
+  };
+
   // const source = useMemo(
   //   () => ({
   //     isNetwork: true,
@@ -194,7 +216,7 @@ const SingleFeed = ({
       }}>
       <Pressable
         activeOpacity={0.9}
-        onPress={() => PlayAndMute()}
+        onPress={PlayAndMute}
         style={{
           opacity: isBlocked && isPowerUser == 'false' ? 0.2 : 1,
         }}>
@@ -204,14 +226,18 @@ const SingleFeed = ({
           pausedStatus={!activeVideo || !playing}
           assetReference={uri}
           muted={!audioOn}
-          handleProgress={(data) => {
-            setProgress(data)
-          }}
+          handleProgress={handleProgress}
           feedScreen={feedScreen}
           videoRef={videoRef}
+          setShowLoader={setShowLoader}
         />
       </Pressable>
-      {progress?.currentTime === 0 ? (
+      {showLoader && (
+        <LoaderContainer height={TotalhHeight}>
+          <Loader />
+        </LoaderContainer>
+      )}
+      {/* {progress?.currentTime === 0 ? (
         <ActivityIndicator
           animating
           size="large"
@@ -233,7 +259,7 @@ const SingleFeed = ({
         completedColor={colors.PLAYLEAP_PROGRESS_COLOR}
         data={progress}
         percentage={false}
-      />
+      /> */}
     </View>
   );
 };
@@ -294,4 +320,13 @@ const BlockLowerView = styled.View`
 const BlockCountText = styled.Text`
   color: #000;
   text-align: center;
+`;
+
+const LoaderContainer = styled.View`
+  position: absolute;
+  height: ${props => (props.height ? props.height : '100%')};
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
 `;
