@@ -63,30 +63,30 @@ export default ({navigation}) => {
     setGlobalNavigation(navigation);
   }, []);
 
-  // useEffect(() => {
-  //   if (data?.feeds !== undefined && feedRecord.current?.length === 0) {
-  //     feedRecord.current = [
-  //       ...feedRecord.current,
-  //       ...data?.feeds.slice(0, INITIAL_LOAD_FEED),
-  //     ];
-  //     setRefresh(!refresh);
-  //   }
-  // }, [data?.feeds !== undefined, activeVideoIndex == undefined]);
+  useEffect(() => {
+    if (data?.feeds !== undefined && feedRecord.current?.length === 0) {
+      feedRecord.current = [
+        ...feedRecord.current,
+        ...data?.feeds.slice(0, INITIAL_LOAD_FEED),
+      ];
+      setRefresh(!refresh);
+    }
+  }, [data?.feeds !== undefined, activeVideoIndex == undefined]);
 
-  // useEffect(() => {
-  //   if (activeVideoIndex > 0) {
-  //     if (data?.feeds?.length > feedRecord.current?.length) {
-  //       const intial = feedRecord.current.length;
-  //       const next = intial + 4;
-  //       const subArray = data.feeds.slice(intial, next);
+  useEffect(() => {
+    if (activeVideoIndex > 0) {
+      if (data?.feeds?.length > feedRecord.current?.length) {
+        const intial = feedRecord.current.length;
+        const next = intial + 4;
+        const subArray = data.feeds.slice(intial, next);
 
-  //       if (subArray.length > 0) {
-  //         feedRecord.current = [...feedRecord.current, ...subArray];
-  //         setRefresh(!refresh);
-  //       }
-  //     }
-  //   }
-  // }, [data?.feeds, activeVideoIndex]);
+        if (subArray.length > 0) {
+          feedRecord.current = [...feedRecord.current, ...subArray];
+          setRefresh(!refresh);
+        }
+      }
+    }
+  }, [data?.feeds, activeVideoIndex]);
 
   const onViewableItemsChanged = useCallback(({viewableItems}) => {
     const item = viewableItems[0];
@@ -147,10 +147,10 @@ export default ({navigation}) => {
         }}>
         <DareBar />
       </DareView> */}
-      {data?.feeds?.length > 0 ? (
+      {feedRecord?.current?.length > 0 ? (
         <Animated.FlatList
           ref={virtualRef}
-          data={data?.feeds}
+          data={feedRecord?.current}
           // extraData={feedRecord.current}
           renderItem={Slide}
           keyExtractor={keyExtractor}
@@ -166,8 +166,9 @@ export default ({navigation}) => {
           decelerationRate={'fast'}
           //Performance settings
           removeClippedSubviews={true}
-          maxToRenderPerBatch={8}
-          windowSize={15}
+          initialNumToRender={3}
+          maxToRenderPerBatch={5}
+          windowSize={10}
           // updateCellsBatchingPeriod={100} // Increase time between renders
           disableIntervalMomentum={true}
           scrollEventThrottle={100}

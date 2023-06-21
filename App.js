@@ -303,7 +303,7 @@ const App = () => {
           /> */}
         </Stack.Navigator>
 
-        {/* <SplashDrawer /> */}
+        <SplashDrawer />
         {/* <AuthenticationDrawer />
         <CreateDareDrawer />
         <BottomCommonDrawer />
