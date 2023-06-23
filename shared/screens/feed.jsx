@@ -57,7 +57,8 @@ export default ({navigation}) => {
     // statusBarHeight +
     // Math.floor(dareBarHeight) +
     iPhoneHeight;
-  const TotalhHeight = WINDOW_HEIGHT - TotalHeightMinus;
+  const TotalhHeight =
+    WINDOW_HEIGHT - (Platform.OS === 'ios' ? TotalHeightMinus : 0);
 
   useEffect(() => {
     setGlobalNavigation(navigation);

@@ -230,6 +230,7 @@ const SingleFeed = ({
           feedScreen={feedScreen}
           videoRef={videoRef}
           setShowLoader={setShowLoader}
+          setScrollEnabled={setScrollEnabled}
         />
       </Pressable>
       {showLoader && (

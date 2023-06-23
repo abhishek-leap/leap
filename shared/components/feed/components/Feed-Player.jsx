@@ -38,6 +38,7 @@ const FeedPlayer = ({
   setShowLoader,
   handleProgress = val => {},
   handleEnd = () => {},
+  setScrollEnabled
 }) => {
   const dispatch = useDispatch();
   const onReadyForDisplay = () => {
@@ -49,7 +50,6 @@ const FeedPlayer = ({
     }
     setShowLoader(false);
   };
-
 
   return (
     <MemoisedReactNativePlayer
@@ -101,6 +101,9 @@ const FeedPlayer = ({
       onEnd={handleEnd}
       onReadyForDisplay={onReadyForDisplay}
       onLoad={onLoad}
+      onError={() => {
+        setScrollEnabled(true);
+      }}
     />
   );
 };
