@@ -38,7 +38,7 @@ const FeedPlayer = ({
   setShowLoader,
   handleProgress = val => {},
   handleEnd = () => {},
-  setScrollEnabled
+  virtualRef,
 }) => {
   const dispatch = useDispatch();
   const onReadyForDisplay = () => {
@@ -102,7 +102,11 @@ const FeedPlayer = ({
       onReadyForDisplay={onReadyForDisplay}
       onLoad={onLoad}
       onError={() => {
-        setScrollEnabled(true);
+        if (virtualRef.current) {
+          virtualRef.current.setNativeProps({
+            scrollEnabled: true,
+          });
+        }
       }}
     />
   );

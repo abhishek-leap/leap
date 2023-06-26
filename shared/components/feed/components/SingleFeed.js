@@ -1,4 +1,4 @@
-import React, {useEffect, useState, memo, useMemo} from 'react';
+import React, {useEffect, useState, memo, useMemo, useCallback} from 'react';
 import {
   View,
   Dimensions,
@@ -52,13 +52,9 @@ const SingleFeed = ({
   item,
   index,
   currentIndex,
-  // playing,
-  // setPlaying,
   TotalhHeight,
   videoRef,
-  setScrollEnabled,
-  scrollEnabled,
-  // Video
+  virtualRef,
 }) => {
   const {colors} = useTheme();
   const dispatch = useDispatch();
@@ -75,7 +71,6 @@ const SingleFeed = ({
   const [progress, setProgress] = useState();
   const [isBlockToggle, setIsBlockToggle] = useState(false);
   const [playing, setPlaying] = useState(true);
-  const [isImageDisplay, setIsImageDisplay] = useState(true);
   const [showLoader, setShowLoader] = useState(true);
   let isBlocked = false; //blockedUsersList.indexOf(item?.id) > -1;
   let isPowerUser = false; //getData('power_user');
@@ -92,7 +87,7 @@ const SingleFeed = ({
       setPlaying(true);
     });
 
-    return blur, focus;
+    // return blur,remove
   }, [global.navRef]);
 
   useEffect(() => {
@@ -125,23 +120,23 @@ const SingleFeed = ({
 
   const closeModal = () => {};
 
-  const clickHandler = () => {
+  const clickHandler = useCallback(() => {
     if (audioOn) {
       dispatch(setAudioOff());
     } else {
       dispatch(setAudioOn());
     }
-  };
+  }, [audioOn]);
 
-  const PlayAndMute = () => {
-    setPlaying(prevState => !prevState);
-  };
+  const PlayAndMute = useCallback(() => {
+    setPlaying(prevPlaying => !prevPlaying);
+  }, []);
 
-  const handleOpenDrawer = () => {
+  const handleOpenDrawer = useCallback(() => {
     const isMatched = blockedUsersList.indexOf(item.id);
     dispatch(openThreeDotsBottomDrawer());
     dispatch(selectedFeedItem(item));
-  };
+  }, [blockedUsersList, item]);
 
   const FeedContent = useMemo(() => {
     return (
@@ -166,7 +161,7 @@ const SingleFeed = ({
           )
           // <BlockItem />
         }
-        <ThreeDots onPress={() => handleOpenDrawer()}>
+        <ThreeDots onPress={handleOpenDrawer}>
           <Dots height={25} width={25} />
         </ThreeDots>
         <FeedOptionsContainer>
@@ -188,7 +183,11 @@ const SingleFeed = ({
   const handleProgress = data => {
     if (activeVideo) {
       setProgress(data);
-      if (!scrollEnabled) setScrollEnabled(true);
+      if (virtualRef.current) {
+        virtualRef.current.setNativeProps({
+          scrollEnabled: true,
+        });
+      }
     }
   };
 
@@ -230,7 +229,7 @@ const SingleFeed = ({
           feedScreen={feedScreen}
           videoRef={videoRef}
           setShowLoader={setShowLoader}
-          setScrollEnabled={setScrollEnabled}
+          virtualRef={virtualRef}
         />
       </Pressable>
       {showLoader && (
@@ -238,7 +237,7 @@ const SingleFeed = ({
           <Loader />
         </LoaderContainer>
       )}
-      {/* {progress?.currentTime === 0 ? (
+      {progress?.currentTime === 0 ? (
         <ActivityIndicator
           animating
           size="large"
@@ -255,12 +254,14 @@ const SingleFeed = ({
         />
       ) : null}
       {FeedContent}
-      <LinearProgress
-        backgroundColor={colors.PLAYLEAP_PROGRESS_BG_COLOR}
-        completedColor={colors.PLAYLEAP_PROGRESS_COLOR}
-        data={progress}
-        percentage={false}
-      /> */}
+      {activeVideo && (
+        <LinearProgress
+          backgroundColor={colors.PLAYLEAP_PROGRESS_BG_COLOR}
+          completedColor={colors.PLAYLEAP_PROGRESS_COLOR}
+          data={progress}
+          percentage={false}
+        />
+      )}
     </View>
   );
 };

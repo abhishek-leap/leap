@@ -23,27 +23,23 @@ import {
 } from '../hooks/useMasterAPI';
 import Loader from '../components/common/loader';
 
-const isIphone = Platform.OS === 'ios' ? 0.8 : 0.88;
+// const isIphone = Platform.OS === 'ios' ? 0.8 : 0.88;
 const iPhoneHeight = Platform.OS == 'ios' ? 85 : 52;
 
 export default ({navigation}) => {
   const {colors} = useTheme();
-  const dispatch = useDispatch();
-  const {dareBarHeight} = useSelector(state => state.feeds);
+  // const dispatch = useDispatch();
+  // const {dareBarHeight} = useSelector(state => state.feeds);
 
   const {data, fetchNextPage} = useInfiniteFeeds();
-  const skillsList = useSkillsList();
-  const {} = useSkillsGroup();
-  const {data: HashTagData} = useHashtagList();
-  const feedRecord = useRef([]);
+  // const skillsList = useSkillsList();
+  // const {} = useSkillsGroup();
+  // const {data: HashTagData} = useHashtagList();
   const videoRef = useRef(null);
   const virtualRef = useRef(null);
 
-  // const [playing, setPlaying] = useState(true);
-  const [scrollEnabled, setScrollEnabled] = useState(false);
-  const [refresh, setRefresh] = useState(false);
-  const [activeVideoIndex, setActiveVideoIndex] = useState(0);
   const Yscroll = React.useRef(new Animated.Value(0)).current;
+  const activeIndex = React.useRef(0);
   // const bottomTabHeight = useBottomTabBarHeight();
   let statuBarHeight = StatusBar.currentHeight;
   if (Platform.OS === 'ios') {
@@ -51,7 +47,7 @@ export default ({navigation}) => {
   } else {
     statuBarHeight = 0;
   }
-  const statusBarHeight = statuBarHeight;
+  // const statusBarHeight = statuBarHeight;
   const TotalHeightMinus =
     // BOTTOM_BAR_HEIGHT +
     // statusBarHeight +
@@ -64,36 +60,15 @@ export default ({navigation}) => {
     setGlobalNavigation(navigation);
   }, []);
 
-  useEffect(() => {
-    if (data?.feeds !== undefined && feedRecord.current?.length === 0) {
-      feedRecord.current = [
-        ...feedRecord.current,
-        ...data?.feeds.slice(0, INITIAL_LOAD_FEED),
-      ];
-      setRefresh(!refresh);
-    }
-  }, [data?.feeds !== undefined, activeVideoIndex == undefined]);
-
-  useEffect(() => {
-    if (activeVideoIndex > 0) {
-      if (data?.feeds?.length > feedRecord.current?.length) {
-        const intial = feedRecord.current.length;
-        const next = intial + 4;
-        const subArray = data.feeds.slice(intial, next);
-
-        if (subArray.length > 0) {
-          feedRecord.current = [...feedRecord.current, ...subArray];
-          setRefresh(!refresh);
-        }
-      }
-    }
-  }, [data?.feeds, activeVideoIndex]);
-
   const onViewableItemsChanged = useCallback(({viewableItems}) => {
     const item = viewableItems[0];
     if (item?.index !== undefined) {
-      setActiveVideoIndex(item?.index);
-      setScrollEnabled(false);
+      activeIndex.current = item?.index;
+      if (virtualRef.current) {
+        virtualRef.current.setNativeProps({
+          scrollEnabled: false,
+        });
+      }
     }
   }, []);
 
@@ -102,6 +77,7 @@ export default ({navigation}) => {
       inputRange: [-1, 0, TotalhHeight * index, TotalhHeight * (index + 2)],
       outputRange: [1, 1, 1, 1],
     });
+    console.log('slide', index);
     return (
       <Animated.View
         key={item?.id}
@@ -115,13 +91,9 @@ export default ({navigation}) => {
           item={item}
           index={index}
           videoRef={videoRef}
-          currentIndex={activeVideoIndex}
-          // playing={playing}
-          // setPlaying={setPlaying}
-          // isActive={activeVideoIndex === index}
+          currentIndex={activeIndex?.current}
           TotalhHeight={TotalhHeight}
-          setScrollEnabled={setScrollEnabled}
-          scrollEnabled={scrollEnabled}
+          virtualRef={virtualRef}
         />
       </Animated.View>
     );
@@ -139,6 +111,14 @@ export default ({navigation}) => {
   const keyExtractor = useCallback((item, index) => {
     return item?.id.toString() + index;
   }, []);
+
+  const handleScroll = Animated.event(
+    [{nativeEvent: {contentOffset: {y: Yscroll}}}],
+    {
+      useNativeDriver: true,
+    },
+  );
+
   return (
     <Container colors={colors}>
       {/* <DareView
@@ -148,28 +128,26 @@ export default ({navigation}) => {
         }}>
         <DareBar />
       </DareView> */}
-      {feedRecord?.current?.length > 0 ? (
+      {data?.feeds?.length > 0 ? (
         <Animated.FlatList
           ref={virtualRef}
-          data={feedRecord?.current}
+          data={data?.feeds}
+          key={'flatlist'}
           // extraData={feedRecord.current}
           renderItem={Slide}
           keyExtractor={keyExtractor}
           onEndReached={fetchNextPage}
           onEndReachedThreshold={TotalhHeight}
-          onScroll={Animated.event(
-            [{nativeEvent: {contentOffset: {y: Yscroll}}}],
-            {useNativeDriver: true},
-          )}
+          onScroll={handleScroll}
           // Below three settings stop free scrolling
           snapToInterval={TotalhHeight}
           snapToAlignment={'start'}
           decelerationRate={'fast'}
           //Performance settings
           removeClippedSubviews={true}
-          initialNumToRender={3}
+          initialNumToRender={0}
           maxToRenderPerBatch={5}
-          windowSize={10}
+          windowSize={8}
           // updateCellsBatchingPeriod={100} // Increase time between renders
           disableIntervalMomentum={true}
           scrollEventThrottle={100}
@@ -177,7 +155,6 @@ export default ({navigation}) => {
           viewabilityConfig={{
             viewAreaCoveragePercentThreshold: 50,
           }}
-          scrollEnabled={scrollEnabled}
           onViewableItemsChanged={onViewableItemsChanged}
         />
       ) : (
