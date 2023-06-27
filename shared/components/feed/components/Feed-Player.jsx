@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect, useRef} from 'react';
 import Video from 'react-native-video';
 import {INITIAL_LOAD_FEED} from '../../../constants';
 import {useDispatch} from 'react-redux';
@@ -37,12 +37,19 @@ const FeedPlayer = ({
   loop,
   setShowLoader,
   handleProgress = val => {},
-  handleEnd = () => {},
   virtualRef,
+  activeVideo,
 }) => {
+  const isReady = useRef(false);
   const dispatch = useDispatch();
   const onReadyForDisplay = () => {
     setShowLoader(false);
+    isReady.current = true;
+    if (activeVideo && virtualRef.current && isReady.current) {
+      virtualRef.current.setNativeProps({
+        scrollEnabled: true,
+      });
+    }
   };
   const onLoad = () => {
     if (feedScreen < INITIAL_LOAD_FEED) {
@@ -50,6 +57,14 @@ const FeedPlayer = ({
     }
     setShowLoader(false);
   };
+
+  useEffect(() => {
+    if (activeVideo && virtualRef.current && isReady.current) {
+      virtualRef.current.setNativeProps({
+        scrollEnabled: true,
+      });
+    }
+  }, [activeVideo]);
 
   return (
     <MemoisedReactNativePlayer
@@ -98,7 +113,6 @@ const FeedPlayer = ({
       }}
       progressUpdateInterval={50.0}
       onProgress={handleProgress}
-      onEnd={handleEnd}
       onReadyForDisplay={onReadyForDisplay}
       onLoad={onLoad}
       onError={() => {

@@ -77,7 +77,6 @@ export default ({navigation}) => {
       inputRange: [-1, 0, TotalhHeight * index, TotalhHeight * (index + 2)],
       outputRange: [1, 1, 1, 1],
     });
-    console.log('slide', index);
     return (
       <Animated.View
         key={item?.id}

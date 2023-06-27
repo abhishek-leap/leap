@@ -62,31 +62,32 @@ const SingleFeed = ({
     state => state.feeds,
   );
 
+  const [progress, setProgress] = useState();
+  const [isBlockToggle, setIsBlockToggle] = useState(false);
+  const [playing, setPlaying] = useState(true);
+  const [showLoader, setShowLoader] = useState(true);
+
   const asset = item?.videos ? item?.videos[0] || '' : '';
   const uri = asset?.reference || item?.compressedVideoUrl || '';
   const poster = asset?.imageLink || item?.compressedThumbUrl || '';
   const activeVideo =
     currentIndex === undefined ? false : currentIndex === index;
 
-  const [progress, setProgress] = useState();
-  const [isBlockToggle, setIsBlockToggle] = useState(false);
-  const [playing, setPlaying] = useState(true);
-  const [showLoader, setShowLoader] = useState(true);
+  const isPrevVideo = currentIndex === index + 1;
+  const isNextVideo = currentIndex === index - 1;
+
   let isBlocked = false; //blockedUsersList.indexOf(item?.id) > -1;
   let isPowerUser = false; //getData('power_user');
   let blockedByPowerUser = false; //item?.blockPowerUserId ? true : false;
-
   let blockedText = '';
 
   useEffect(() => {
     const blur = global.navRef.addListener('blur', () => {
       setPlaying(false);
     });
-
     const focus = global.navRef.addListener('focus', () => {
       setPlaying(true);
     });
-
     // return blur,remove
   }, [global.navRef]);
 
@@ -96,9 +97,7 @@ const SingleFeed = ({
       isBlocked = blockedUsersList.indexOf(item?.id) > -1;
       isPowerUser = getData('power_user');
       blockedByPowerUser = item?.blockPowerUserId ? true : false;
-
       let blockedText = '';
-
       if (
         item?.communityBlockersCount &&
         !item?.blockPowerUserId &&
@@ -128,82 +127,67 @@ const SingleFeed = ({
     }
   }, [audioOn]);
 
-  const PlayAndMute = useCallback(() => {
+  const playAndPause = useCallback(() => {
     setPlaying(prevPlaying => !prevPlaying);
   }, []);
 
   const handleOpenDrawer = useCallback(() => {
-    const isMatched = blockedUsersList.indexOf(item.id);
     dispatch(openThreeDotsBottomDrawer());
     dispatch(selectedFeedItem(item));
   }, [blockedUsersList, item]);
 
   const FeedContent = useMemo(() => {
-    return (
-      <>
-        {
-          (isBlocked ||
-            (item?.communityBlockersCount > 0 && isPowerUser == 'true')) && (
-            <BlockBGView
-              blockedByPowerUser={blockedByPowerUser}
-              isBlockToggle={isBlockToggle}
-              onPress={() => setIsBlockToggle(status => !status)}>
-              <BlockUpperView>
-                <Block />
-                <BlockText>{'Blocked'}</BlockText>
-              </BlockUpperView>
-              {isBlockToggle && (
-                <BlockLowerView colors={colors}>
-                  <BlockCountText>{blockedText}</BlockCountText>
-                </BlockLowerView>
-              )}
-            </BlockBGView>
-          )
-          // <BlockItem />
-        }
-        <ThreeDots onPress={handleOpenDrawer}>
-          <Dots height={25} width={25} />
-        </ThreeDots>
-        <FeedOptionsContainer>
-          <FeedOptions
-            data={item}
-            clickHandler={clickHandler}
-            mute={!audioOn}
+    if (isPrevVideo || activeVideo || isNextVideo) {
+      return (
+        <>
+          {
+            (isBlocked ||
+              (item?.communityBlockersCount > 0 && isPowerUser == 'true')) && (
+              <BlockBGView
+                blockedByPowerUser={blockedByPowerUser}
+                isBlockToggle={isBlockToggle}
+                onPress={() => setIsBlockToggle(status => !status)}>
+                <BlockUpperView>
+                  <Block />
+                  <BlockText>{'Blocked'}</BlockText>
+                </BlockUpperView>
+                {isBlockToggle && (
+                  <BlockLowerView colors={colors}>
+                    <BlockCountText>{blockedText}</BlockCountText>
+                  </BlockLowerView>
+                )}
+              </BlockBGView>
+            )
+            // <BlockItem />
+          }
+          <ThreeDots onPress={handleOpenDrawer}>
+            <Dots height={25} width={25} />
+          </ThreeDots>
+          <FeedOptionsContainer>
+            <FeedOptions
+              data={item}
+              clickHandler={clickHandler}
+              mute={!audioOn}
+            />
+          </FeedOptionsContainer>
+          <RealInfo
+            item={item}
+            windowHeight={TotalhHeight}
+            closeModal={closeModal}
           />
-        </FeedOptionsContainer>
-        <RealInfo
-          item={item}
-          windowHeight={TotalhHeight}
-          closeModal={closeModal}
-        />
-      </>
-    );
-  }, [index, audioOn]);
+        </>
+      );
+    } else {
+      return <></>;
+    }
+  }, [index, audioOn, activeVideo, isPrevVideo, isNextVideo]);
 
   const handleProgress = data => {
     if (activeVideo) {
       setProgress(data);
-      if (virtualRef.current) {
-        virtualRef.current.setNativeProps({
-          scrollEnabled: true,
-        });
-      }
     }
   };
 
-  // const source = useMemo(
-  //   () => ({
-  //     isNetwork: true,
-  //     uri: uri,
-  //     type: 'm3u8',
-  //     headers: {
-  //       Range: 'bytes=0-',
-  //     },
-  //   }),
-  //   [uri],
-  // );
-
-  // console.log("single feed index ", index);
   return (
     <View
       key={item?.id}
@@ -214,8 +198,8 @@ const SingleFeed = ({
         blurRadius: 90,
       }}>
       <Pressable
-        activeOpacity={0.9}
-        onPress={PlayAndMute}
+        activeOpacity={0.7}
+        onPress={playAndPause}
         style={{
           opacity: isBlocked && isPowerUser == 'false' ? 0.2 : 1,
         }}>
@@ -230,6 +214,7 @@ const SingleFeed = ({
           videoRef={videoRef}
           setShowLoader={setShowLoader}
           virtualRef={virtualRef}
+          activeVideo={activeVideo}
         />
       </Pressable>
       {showLoader && (
