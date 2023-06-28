@@ -28,6 +28,7 @@ import {getData} from '../../../utils/helper';
 import LinearProgress from '../../common/linearProgressBar';
 import FeedPlayer from './Feed-Player';
 import Loader from '../../common/loader';
+
 // import { Image } from 'react-native';
 
 const WINDOW_WIDTH = Dimensions.get('window').width;
@@ -187,6 +188,8 @@ const SingleFeed = ({
       setProgress(data);
     }
   };
+
+
 
   return (
     <View

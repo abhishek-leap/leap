@@ -1,7 +1,5 @@
 import React from 'react';
 import styled from '@emotion/native';
-import { useSelector } from "react-redux";
-
 import Card from './card';
 import Shield from './shield';
 import FilterShield from './filter.shield';

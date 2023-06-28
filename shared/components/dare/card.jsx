@@ -55,7 +55,7 @@ const Container = styled.View`
 `;
 
 const StyledImage = styled.Image`
-  width: ${props => `${props.portrait == true ? 200 : 50}px`};
+  width: ${props => `${props.portrait == true ? 100 : 50}px`};
   height: ${props => `${props.portrait == true ? 80 : 40}px`};
   margin-top: ${props => `${props.portrait === true ? 0 : 20}px`};
   opacity: ${props => props.isBlur ? '0.8' : null};

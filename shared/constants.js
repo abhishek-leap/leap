@@ -9,8 +9,12 @@ export const OFFSET_LIMIT = 10;
 export const MAX_TOTAL_CONNECTIONS = 50;
 export const INITIAL_LOAD_FEED = 4;
 export const BOTTOM_BAR_HEIGHT = 70;
+export const HEADER_HEIGHT = 40;
+export const DARE_BAR_HEIGHT = 90;
 export const TALENTS_PER_PAGE = 10;
 
+export const CLOSED = 'closed';
+export const NEW = 'new';
 export const SIGN_IN_UP_FOR = 'Sign in/up for';
 export const USE_EMAIL = 'USE EMAIL';
 export const USE_PHONE = 'USE PHONE';
