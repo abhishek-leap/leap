@@ -204,7 +204,7 @@ export default class CubeNavigationHorizontal extends React.Component {
   _renderChild = (child, i) => {
     let expandStyle = this.props.expandView
       ? { paddingTop: 100, paddingBottom: 100, height: height + 200 }
-      : { width, height: height , marginTop: '40%'};
+      : { width, height:"100%"};
     let style = [child.props.style, expandStyle];
     let props = {
       i,
@@ -216,7 +216,7 @@ export default class CubeNavigationHorizontal extends React.Component {
       <Animated.View
         style={[
           StyleSheet.absoluteFill,
-          { backgroundColor: 'transparent' },
+          { backgroundColor: 'transparent' ,width:width, height:"100%" },
           this._getTransformsFor(i, false)
         ]}
         key={`child- ${i}`}
@@ -249,7 +249,7 @@ export default class CubeNavigationHorizontal extends React.Component {
 
     return (
       <Animated.View
-        style={[{ position: 'absolute'}]}
+        style={[{ position: 'absolute',height:"100%"}]}
         ref={view => {
           this._scrollView = view;
         }}
@@ -257,8 +257,7 @@ export default class CubeNavigationHorizontal extends React.Component {
       >
         <Animated.View
           style={[
-            { backgroundColor: '#290c54', position: 'absolute', width, height },
-            expandStyle
+            { backgroundColor: '#290c54', position: 'absolute', width:width, height:"100%" }         
           ]}
         >
           {this.props.children.map(this._renderChild)}

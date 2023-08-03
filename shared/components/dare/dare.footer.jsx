@@ -1,32 +1,39 @@
-import React from "react";
+import React from 'react';
 import styled from '@emotion/native';
 
-import LinearProgress from "../common/linearProgressBar";
+import LinearProgress from '../common/linearProgressBar';
 import Shield from './shield';
 
-const DareFooter = ({ firstLoaderProgress, secondLoaderProgress, bgColor, progressColor }) => (
-  <DareFooterWrapper>
-    <ProgressBar>
-      <LinearProgress 
-              data={firstLoaderProgress} 
-              backgroundColor={bgColor}
-              completedColor={progressColor}
-              percentage={false}
-              bgHeight={'2px'}
-              />
-    </ProgressBar>
-    <Shield height={42} width={70} />
-    <ProgressBar>
-    <LinearProgress 
-            data={secondLoaderProgress}
-            backgroundColor={bgColor}
-            completedColor={progressColor}
-            percentage={false}
-            bgHeight={'2px'}
+const DareFooter = ({
+  firstVideoProgress,
+  secondVideoProgress,
+  bgColor,
+  progressColor,
+}) => {
+  return (
+    <DareFooterWrapper>
+      <ProgressBar>
+        <LinearProgress
+          data={firstVideoProgress}
+          backgroundColor={bgColor}
+          completedColor={progressColor}
+          percentage={true}
+          bgHeight={'2px'}
         />
-    </ProgressBar>
-  </DareFooterWrapper>
-);
+      </ProgressBar>
+      <Shield height={42} width={70} />
+      <ProgressBar>
+        <LinearProgress
+          data={secondVideoProgress}
+          backgroundColor={bgColor}
+          completedColor={progressColor}
+          percentage={true}
+          bgHeight={'2px'}
+        />
+      </ProgressBar>
+    </DareFooterWrapper>
+  );
+};
 
 export default DareFooter;
 

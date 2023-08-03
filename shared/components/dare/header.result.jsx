@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from '@emotion/native';
-
+import { Platform } from 'react-native';
 import { CLOSED_STATUS } from '../../constants';
 import NextIcon from '../../images/arrowright.svg';
 import HomeIcon from '../../images/home.svg';
@@ -11,7 +11,7 @@ import { useTheme } from '@react-navigation/native';
 const DareResultHeader = ({ dare, allDares, nextDare, source }) => {
   const {colors} = useTheme();
   return (
-    <Icons>
+    <Icons platform={Platform.OS} >
         <HomeImage onPress={() => handleSetRoot({name: 'Home'})}>
             {source === 'bar' ? 
               <HomeIcon width={28} height={28} />
@@ -43,7 +43,7 @@ const Icons = styled.View`
   padding: 20px;
   padding-left: 30px;
   flex-direction: row;
-  marginTop: 15px;
+  padding-top:${(props) => (props.platform==="ios" ? "32px" : "24px")};
 `;
 
 const Head = styled.View`

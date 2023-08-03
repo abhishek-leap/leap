@@ -1,16 +1,16 @@
-import React, { useState, useRef } from "react";
+import React, {useState, useRef} from 'react';
 import styled from '@emotion/native';
-import { useDispatch, useSelector } from "react-redux";
-import { Animated, Dimensions, View, Text } from "react-native";
+import {useDispatch, useSelector} from 'react-redux';
+import {Animated, Dimensions, View, Text} from 'react-native';
 
-import VideoPlayer from "../common/video.player";
-import { setAudioOff, setAudioOn } from '../../redux-ui-state/slices/feedsSlice';
+import VideoPlayer from '../common/video.player';
+import {setAudioOff, setAudioOn} from '../../redux-ui-state/slices/feedsSlice';
 import UnmuteMuteIcon from '../../images/unmuteMute.svg';
-import CubeNavigationHorizontal from "./horizontal.cubeAnimate";
-import { StyleSheet } from "react-native";
-import OneTapToaster from "./oneTap.toaster";
+import CubeNavigationHorizontal from './horizontal.cubeAnimate';
+import {StyleSheet} from 'react-native';
+import OneTapToaster from './oneTap.toaster';
 
-const { width, height } = Dimensions.get("window");
+const {width, height} = Dimensions.get('window');
 
 const VideoPlayMode = ({
   firstVideoUrl,
@@ -21,9 +21,9 @@ const VideoPlayMode = ({
   firstVideoProgress,
   onEnd,
   source,
-  rotateAngleX
+  rotateAngleX,
 }) => {
-  const { audioOn } = useSelector(state => state.feeds);
+  const {audioOn} = useSelector(state => state.feeds);
   const dispatch = useDispatch();
   const [VideoPlayStatus, setVideoPlayStatus] = useState(true);
   const [onCurrentScreen, setOnCurrentScreen] = useState(true);
@@ -38,14 +38,16 @@ const VideoPlayMode = ({
     }
   };
 
-  const handleFirstVideoFinish = () => {
+  const handleFirstVideoFinish = (skipped=false) => {
     if (secondVideoUrl) {
-      firstVideoProgress(100);
-      if (source === "bar") {
-          goToNext();
+      if(!skipped){
+        firstVideoProgress(100);
+      }
+      if (source === 'bar') {
+        goToNext();
       } else {
       }
-    }else {
+    } else {
       onEnd();
     }
   };
@@ -57,94 +59,109 @@ const VideoPlayMode = ({
   };
 
   goToNext = () => {
-    setVideoPlayStatus(false)
+    setVideoPlayStatus(false);
     cube.current.scrollTo(1);
   };
 
-  callBackAfterSwipe = (pos) => {
+  callBackAfterSwipe = pos => {
     let abs_pos = Math.abs(pos);
-    rotateAngleX(abs_pos/4.6);
-    if(abs_pos < 200 && !VideoPlayStatus) {
-      setVideoPlayStatus(true)
-    } else if(abs_pos > 200 && VideoPlayStatus) {
-      setVideoPlayStatus(false)
+    rotateAngleX(abs_pos / 4.6);
+    if (abs_pos < 200 && !VideoPlayStatus) {
+      setVideoPlayStatus(true);
+    } else if (abs_pos > 200 && VideoPlayStatus) {
+      setVideoPlayStatus(false);
     }
-    
+
     if (abs_pos === width * 2) {
       Animated.timing(move, {
         toValue: 0,
         duration: 1000,
         useNativeDriver: true,
-        delay: 0
+        delay: 0,
       }).start();
     }
   };
 
   return (
     <Wrapper>
-    <CubeNavigationHorizontal ref={(view) => {
-      cube.current = view;
-    }} callBackAfterSwipe={callBackAfterSwipe}>
-    <View style={styles.container}>
-    {firstVideoUrl && (
-      <>
-          <TapView onPress={() => goToNext()}>
-            <VideoPlayer
-              assetPoster={firstCover}
-              assetReference={firstVideoUrl}
-              handleProgress={(playedObj) => {
-                // if (isActive) {
-                firstVideoProgress(playedObj);
-                // }
-              } }
-              handleEnd={handleFirstVideoFinish}
-              muted={audioOn}
-              playing={VideoPlayStatus && onCurrentScreen}
-              loop={true} 
-            />
-          </TapView>
-          <VolumeBtnWrapper onPress={() => handleAudio()}><UnmuteMuteIcon
-              height={35}
-              width={35}
-              fill={audioOn ? 'transparent' : 'white'}
-              color={audioOn ? 'white' : 'transparent'} />
-          </VolumeBtnWrapper>
-          <OneTapToaster 
-            toasterMessage={'One Tap to Skip'} 
-            handleFirstVideoFinish={handleFirstVideoFinish}
-          />
-          </> )}
-    </View>
-    <View style={styles.container}>
-    {secondVideoUrl && ( <>
-      <TapView onPress={() => handleSecondVideoFinish()}>
-      <VideoPlayer
-        assetPoster={secondCover}
-        assetReference={secondVideoUrl}
-        handleProgress={(playedObj) => {
-          // if (isActive) {
-            secondVideoProgress(playedObj);
-          // }
+      <CubeNavigationHorizontal
+        ref={view => {
+          cube.current = view;
         }}
-        handleEnd={handleSecondVideoFinish}
-        muted={audioOn}
-        playing={!VideoPlayStatus && onCurrentScreen} // !VideoPlayStatus
-        loop={false}
-      />
-      </TapView>
-      <VolumeBtnWrapper onPress={() => handleAudio()}>
-        <UnmuteMuteIcon 
-          height={35} 
-          width={35} 
-          fill={audioOn ? 'transparent' : 'white'}
-          color={audioOn ? 'white' : 'transparent'}
-        />
-      </VolumeBtnWrapper>
-    </> )}
-    </View>
-  </CubeNavigationHorizontal>
-  
-  </Wrapper>
+        callBackAfterSwipe={callBackAfterSwipe}>
+        <View style={styles.container}>
+          {firstVideoUrl && (
+            <>
+              <TapView onPress={() => goToNext()}>
+                <VideoPlayer
+                  assetPoster={firstCover}
+                  assetReference={firstVideoUrl}
+                  handleProgress={playedObj => {
+                    // if (isActive) {
+                    if (playedObj.currentTime > 0)
+                      firstVideoProgress(
+                        (playedObj.currentTime * 100) /
+                          playedObj.seekableDuration,
+                      );
+                    // }
+                  }}
+                  handleEnd={handleFirstVideoFinish}
+                  muted={audioOn}
+                  playing={VideoPlayStatus && onCurrentScreen}
+                  loop={false}
+                />
+              </TapView>
+              <VolumeBtnWrapper onPress={() => handleAudio()}>
+                <UnmuteMuteIcon
+                  height={35}
+                  width={35}
+                  fill={audioOn ? 'transparent' : 'white'}
+                  color={audioOn ? 'white' : 'transparent'}
+                />
+              </VolumeBtnWrapper>
+              <OneTapToaster
+                toasterMessage={'One Tap to Skip'}
+                handleFirstVideoFinish={()=>{handleFirstVideoFinish(true)}}
+              />
+            </>
+          )}
+        </View>
+        <View >
+          {secondVideoUrl && (
+            <>
+              <TapView onPress={() => handleSecondVideoFinish()}>
+                <VideoPlayer
+                  assetPoster={secondCover}
+                  assetReference={secondVideoUrl}
+                  handleProgress={playedObj => {
+                    // if (isActive) {
+                    // console.log(playedObj)
+                    if (playedObj.currentTime > 0)
+                      secondVideoProgress(
+                        (playedObj.currentTime * 100) /
+                          playedObj.seekableDuration,
+                      );
+                    // }
+                  }}
+                  handleEnd={handleSecondVideoFinish}
+                  muted={audioOn}
+                  playing={!VideoPlayStatus && onCurrentScreen} // !VideoPlayStatus
+                  loop={false}
+                />
+              </TapView>
+              <VolumeBtnWrapper onPress={() => handleAudio()}>
+                <UnmuteMuteIcon
+                  height={35}
+                  width={35}
+                  fill={audioOn ? 'transparent' : 'white'}
+                  color={audioOn ? 'white' : 'transparent'}
+                />
+              </VolumeBtnWrapper>
+            </>
+          )}
+        </View>
+      </CubeNavigationHorizontal>
+    </Wrapper>
   );
 };
 
@@ -152,7 +169,6 @@ export default VideoPlayMode;
 
 const Wrapper = styled.View`
   height: 100%;
-  
 `;
 
 const VolumeBtnWrapper = styled.TouchableOpacity`
@@ -161,8 +177,7 @@ const VolumeBtnWrapper = styled.TouchableOpacity`
   bottom: 25%;
 `;
 
-const TapView = styled.TouchableOpacity`
-`;
+const TapView = styled.TouchableOpacity``;
 
 const styles = StyleSheet.create({
   container: {

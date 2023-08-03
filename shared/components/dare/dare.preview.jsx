@@ -45,7 +45,7 @@ export default DarePreview;
 
 const Wrapper = styled.View`
   position: relative;
-  height: 90%;
+  height: 100%;
   overflow: hidden;
 `;
 

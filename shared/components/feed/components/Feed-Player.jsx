@@ -75,6 +75,7 @@ const FeedPlayer = ({
       hideShutterView={true}
       removeClippedSubviews={true}
       repeat={loop}
+      decelerationRate={"normal"}
       poster={assetPoster}
       posterResizeMode="contain" //{isCover ? "cover" : "contain"}
       resizeMode="contain" //{isCover ? "cover" : "contain"}

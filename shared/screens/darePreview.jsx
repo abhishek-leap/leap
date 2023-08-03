@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import styled from '@emotion/native';
 import { useTheme } from '@react-navigation/native';
-
+import { View } from 'react-native';
 import { DARE_STATE } from '../constants';
 import Loader from '../components/common/loader';
 import DareFooter from '../components/dare/dare.footer';
@@ -19,6 +19,9 @@ const DarePreview = ({stage, route}) => {
     <Container>
       {dare ? (
         <Wrapper>
+          <View style={{
+            height:"93%"
+          }}>
           <DareItem
             dare={dare}
             allDares={allDares}
@@ -27,12 +30,17 @@ const DarePreview = ({stage, route}) => {
             dareState={dareState}
             source={source}
           />
+          </View>
+          <View style={{
+            height:"7%"
+          }}>
           <DareFooter
             firstLoaderProgress={firstVideoProgress}
             secondLoaderProgress={secondVideoProgress}
             bgColor={colors.PLAYLEAP_PROGRESS_BG_COLOR}
             progressColor={colors.PLAYLEAP_PROGRESS_COLOR}
           />
+          </View>
         </Wrapper>
       ) : (
         <LoaderView>

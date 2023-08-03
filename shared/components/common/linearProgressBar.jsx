@@ -11,7 +11,6 @@ const LinearProgress = ({
   const progress = percentage
     ? data
     : (data?.currentTime * 100) / data?.seekableDuration || 0;
-
   return (
     <Container backgroundColor={backgroundColor}>
       <TopView>
@@ -33,6 +32,7 @@ export default LinearProgress;
 const Container = styled.View`
   width: 100%;
   height: 2px;
+  bottom:4px;
 `;
 
 const TopView = styled.View`
@@ -41,7 +41,6 @@ const TopView = styled.View`
 
 const ProgressBarHeight = styled.View`
   width: 100%;
-  bottom: 4px;
   height: 100%;
   border-radius: 5px;
   border-color: ${props =>
@@ -56,6 +55,6 @@ const ProgressBarFillingColorView = styled.View`
   background-color: ${props =>
     props.completedColor ? props.completedColor : '#f400b0'};
   position: absolute;
-  bottom: 0px;
+
   height: 100%;
 `;

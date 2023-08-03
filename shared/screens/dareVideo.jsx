@@ -18,6 +18,7 @@ const DareVideo = ({route}) => {
 
   const onFinishPlaying = async () => {
     const state = DARE_STATE.RESULT;
+    console.log('pushing');
     handlePush({
       name: 'DareResult',
       params: {
@@ -34,19 +35,13 @@ const DareVideo = ({route}) => {
 
   return (
     <Container>
-      <DareFooter
-        firstLoaderProgress={firstVideoProgress}
-        secondLoaderProgress={secondVideoProgress}
-        bgColor={colors.PLAYLEAP_PROGRESS_BG_COLOR}
-        progressColor={colors.PLAYLEAP_PROGRESS_COLOR}
-      />
-      <View
+      {/* <View
         style={{
           alignItems: 'center',
           opacity: 0.7,
           height: Platform.OS === 'ios' ? '10%' : '15%',
-        }}>
-        {/* <View style={{
+        }}> */}
+      {/* <View style={{
                 height: 0,
                 borderBottomWidth: 100,
                 width: '80%',
@@ -66,21 +61,43 @@ const DareVideo = ({route}) => {
 
 
               }}></View> */}
-      </View>
+      {/* </View> */}
 
-      <VideoPlayMode
-        firstVideoUrl={dare?.assets?.[0]?.reference}
-        firstCover={dare?.assets?.[0]?.dareCover}
-        secondVideoUrl={dare?.assets?.[1]?.reference}
-        secondCover={dare?.assets?.[1]?.dareCover}
-        onEnd={onFinishPlaying}
-        firstVideoProgress={progress => setFirstVideoProgress(progress)}
-        secondVideoProgress={progress => setSecondVideoProgress(progress)}
-        rotateAngleX={rotate => setRotateAngle(rotate)}
-        dareState={dareState}
-        dareId={dare.id}
-        source={source}
-      />
+      <View
+        style={{
+          height: '93%',
+        }}>
+        <VideoPlayMode
+          firstVideoUrl={dare?.assets?.[0]?.reference}
+          firstCover={dare?.assets?.[0]?.dareCover}
+          secondVideoUrl={dare?.assets?.[1]?.reference}
+          secondCover={dare?.assets?.[1]?.dareCover}
+          onEnd={onFinishPlaying}
+          firstVideoProgress={progress => {
+            console.log('prog1', progress);
+            setFirstVideoProgress(progress);
+          }}
+          secondVideoProgress={progress => {
+            console.log('prog2', progress);
+            setSecondVideoProgress(progress);
+          }}
+          rotateAngleX={rotate => setRotateAngle(rotate)}
+          dareState={dareState}
+          dareId={dare.id}
+          source={source}
+        />
+      </View>
+      <View
+        style={{
+          height: '7%',
+        }}>
+        <DareFooter
+          firstVideoProgress={firstVideoProgress}
+          secondVideoProgress={secondVideoProgress}
+          bgColor={colors.PLAYLEAP_PROGRESS_BG_COLOR}
+          progressColor={colors.PLAYLEAP_PROGRESS_COLOR}
+        />
+      </View>
     </Container>
   );
 };
@@ -89,7 +106,6 @@ export default DareVideo;
 
 const Container = styled.View`
   display: flex;
-  flex-direction: column-reverse;
   height: 100%;
   background-color: #290c54;
 `;

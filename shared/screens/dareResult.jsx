@@ -3,7 +3,7 @@ import styled from '@emotion/native';
 import { useTheme } from '@react-navigation/native';
 import Svg, { ClipPath, Defs, Image, Polygon } from 'react-native-svg';
 import { useDispatch } from 'react-redux';
-
+import { View ,Platform, Dimensions} from 'react-native';
 import { DARE_STATE } from '../constants';
 import DareFooter from '../components/dare/dare.footer';
 import { CLOSED_STATUS } from '../constants';
@@ -88,14 +88,19 @@ const DareResult = ({
     }
   }
 
+const height=Dimensions.get('window').height;
+
   return (
     <Container>
       <DareResultHeader dare={dare} allDares={allDares} source={source} nextDare={nextDare}/>
         <Wrapper>
-          <PreviewScreens>
+        <View style={{
+            height:"93%",
+          }}>
+          <PreviewScreens lower={false}  >
               {dareStatus === CLOSED_STATUS ? 
               <>
-                  <Svg height="500" width="410">
+                  <Svg height="110%" width="100%">
                     <Defs>
                       <ClipPath id="clip">
                         <Polygon 
@@ -105,13 +110,13 @@ const DareResult = ({
                     </Defs>
                       <Image
                         width="100%"
-                        height="100%"
+                        height="110%"
                         preserveAspectRatio="xMidYMid slice"
                         href={{uri: dare?.assets?.[0]?.dareCover}}
                         clipPath="url(#clip)"
                       />
                   </Svg>
-                <GrayscaleOverlay top></GrayscaleOverlay>
+                <GrayscaleOverlay upper={true} platform={Platform.OS} ></GrayscaleOverlay>
                 <PercentWrapper>
                   <Percentage>
                     <VoteFigure moreVotes={votesA > 50}>{Math.round(votesA) || 0}{'%'}</VoteFigure>
@@ -124,11 +129,11 @@ const DareResult = ({
                     <ToastMessage message={"You voted for"} />
                   )}
               </PercentWrapper>
-              <BattelBackWrapper top>
+              <BattelBackWrapper upper={true}>
                   <Battle width={63} height={70} item={dare}/>
               </BattelBackWrapper>
               </>
-                :  <Svg height="500" width="410">
+                :  <Svg height="110%" width="100%">
                   <Defs>
                     <ClipPath id="clip">
                       <Polygon 
@@ -138,7 +143,7 @@ const DareResult = ({
                   </Defs>
                   <Image
                     width="100%"
-                    height="100%"
+                    height="110%"
                     preserveAspectRatio="xMidYMid slice"
                     href={{uri: dare?.assets?.[0]?.dareCover}}
                     clipPath="url(#clip)"
@@ -146,35 +151,36 @@ const DareResult = ({
                 </Svg>}
                
           </PreviewScreens>
-          <Middle>
+         
+          <Middle platform={Platform.OS} >
             <DareSeparator
               dareState={dareStatus !== CLOSED_STATUS ? DARE_STATE.VOTE : ''}
               onVote={onVote}
             />
           </Middle>
-          <PreviewScreens>
+          <PreviewScreens lower={true}>
           {dareStatus === CLOSED_STATUS ? 
               <>
-                  <Svg height="500" width="410">
+                  <Svg height="110%" width="100%">
                     <Defs>
                       <ClipPath id="clip">
                         <Polygon 
-                          points="0,65 0,430 500,420, 420, 0"
+                          points={`0,65 0,${height/2+7} ${height/2+7},${height/2+7}, ${height/2+7}, 0`}
                         />
                       </ClipPath>
                     </Defs>
                     <Image
                       width="100%"
-                      height="100%"
+                      height="110%"
                       preserveAspectRatio="xMidYMid slice"
                       href={{uri: dare?.assets?.[1]?.dareCover}}
                       clipPath="url(#clip)"
                     />
                   </Svg>
-                  <GrayscaleOverlay></GrayscaleOverlay>
+                  <GrayscaleOverlay upper={false} platform={Platform.OS} ></GrayscaleOverlay>
                 <PercentWrapper>
                     <Percentage>
-                    <VoteFigure moreVotes={votesB > 50}>{Math.round(votesA) || 0}{'%'}</VoteFigure>
+                    <VoteFigure moreVotes={votesB > 50}>{Math.round(votesB) || 0}{'%'}</VoteFigure>
                     </Percentage>
                     <MiddleProfile>
                       <Profile author={{entityId: asset2?.userId}}/>
@@ -184,22 +190,22 @@ const DareResult = ({
                         <ToastMessage message={"You voted for"} />
                     )}
                 </PercentWrapper>
-                <BattelBackWrapper >
+                <BattelBackWrapper  upper={false}>
                     <Battle width={63} height={70} item={dare}/>
                 </BattelBackWrapper>
               </>
               : 
-              <Svg height="500" width="410">
+              <Svg height="110%" width="100%">
               <Defs>
                 <ClipPath id="clip">
                   <Polygon 
-                    points="0,65 0,430 500,420, 420, 0"
+                    points={`0,65 0,${height/2+7} ${height/2+7},${height/2+7}, ${height/2+7}, 0`}
                   />
                 </ClipPath>
               </Defs>
               <Image
                 width="100%"
-                height="100%"
+                height="110%"
                 preserveAspectRatio="xMidYMid slice"
                 href={{uri: dare?.assets?.[1]?.dareCover}}
                 clipPath="url(#clip)"
@@ -207,6 +213,7 @@ const DareResult = ({
             </Svg>
             }
           </PreviewScreens>
+          </View>
           <Footer>
             <DareFooter
               firstLoaderProgress={firstVideoProgress}
@@ -230,23 +237,32 @@ const Container = styled.View`
 const Wrapper = styled.View`
   display: flex;
   flex-direction: column;
-  height: 90%;
+  height: 100%;
 `;
 
 const PreviewScreens = styled.View`
   width: 100%;
-  height: 48%;
+  height: 55%;
+  overflow:hidden;
+  ${(props) =>
+    props.lower ?
+    ` position:relative;
+    top:-10%;
+`:``
+}
 `;
 const Middle = styled.View`
   z-index: 2;
   width: 100%;
-  transform: skewY(-8.5deg);
+  transform:${(props) => (props.platform==="ios" ? "skewY(-8.5deg)" : "skewY(-9.5deg)")};
   justify-content: center;
   align-item: center;
+  position : absolute;
+  top:45%;
 `;
 
 const Footer = styled.View`
-  margin-vertical: 13%;  
+  height:7%;
 `;
 
 const PercentWrapper = styled.View`
@@ -283,7 +299,6 @@ const VoteFigure = styled.Text`
   font-weight: 600;
   color: white;
   letter-spacing: 0.4px;
-  padding-left: 8%;
 `;
 
 const MiddleProfile = styled.View`
@@ -293,14 +308,17 @@ const MiddleProfile = styled.View`
 const BattelBackWrapper = styled.View`
   position: absolute;
   right: 16px;
-  top: ${({ top }) => (top ? '80' : '90')}%;
+  top: ${(props) => (props.upper ? "65" : "80")}%;
 `;
 
 const GrayscaleOverlay = styled.View`
-      width: 100%;
-      height: ${({ top }) => (top ? '100' : '115')}%;
+      width: 120%;
+      height: ${(props) => (props.upper ? props.platform==="ios" ? "125" : "120" : props.platform==="ios" ? "110": "110")}%;
       position: absolute;
-      top: 0px;
+      top: ${(props) => (props.upper ? props.platform==="ios" ? "-10" : "-10" : props.platform==="ios" ? "8" : "9")}%;
       background: rgba(38, 42, 82, 0.4);
+      left:-10%;
       filter: grayscale(100%);
+      transform:${(props) => (props.platform==="ios" ? "skewY(-8deg)" : "skewY(-9.7deg)")};
+      overflow:hidden;
 `;

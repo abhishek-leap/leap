@@ -19,7 +19,7 @@ import {getStatusBarHeight} from 'react-native-status-bar-height';
 
 const otherHeight =
   BOTTOM_BAR_HEIGHT + (Platform.OS === 'ios' ? getStatusBarHeight() + 2 : 0);
-const totalhHeight = WINDOW_HEIGHT - otherHeight;
+const totalhHeight = WINDOW_HEIGHT-otherHeight - DARE_BAR_HEIGHT - HEADER_HEIGHT;
 
 export default ({navigation}) => {
   const {colors} = useTheme();
@@ -93,10 +93,10 @@ export default ({navigation}) => {
 
   return (
     <Container colors={colors}>
-      {/* <Header />
+      <Header />
       <DareView colors={colors} height={DARE_BAR_HEIGHT}>
         <DareBar />
-      </DareView> */}
+      </DareView>
       {data?.feeds?.length > 0 ? (
         <Animated.FlatList
           ref={virtualRef}
@@ -111,7 +111,7 @@ export default ({navigation}) => {
           // Below three settings stop free scrolling
           snapToInterval={totalhHeight}
           snapToAlignment={'start'}
-          decelerationRate={'fast'}
+          decelerationRate={0.980}
           //Performance settings
           removeClippedSubviews={true}
           initialNumToRender={0}

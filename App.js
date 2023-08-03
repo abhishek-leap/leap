@@ -230,7 +230,7 @@ const App = () => {
             component={FeedScreen} 
             options={{ headerShown: false }} 
           /> */}
-          {/* <Stack.Screen 
+          <Stack.Screen 
             name="SkillAndHashtag" 
             component={SkillAndHashtag} 
             options={{ headerShown: false }} 
@@ -264,7 +264,7 @@ const App = () => {
             name="DareResult"
             component={DareResultScreen}
             options={{ headerShown: false }}
-          /> */}
+          />
           </Stack.Navigator>
         <SplashDrawer />
         {/* <AuthenticationDrawer />

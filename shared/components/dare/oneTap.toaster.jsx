@@ -50,14 +50,14 @@ export default OneTapToaster;
 const styles = StyleSheet.create({
 
   modalView: {
-    bottom: '11%',
+    bottom: '13%',
     height: '5%',
     width: '75%',
     borderColor: '#000',
     borderWidth: 2,
     backgroundColor: '#fff',
     borderRadius: 10,
-    padding: 10,
+    padding: 5,
     alignItems: 'center',
     justifyContent: 'center',
     flexDirection: 'row'
