@@ -1,21 +1,21 @@
-import React,{useEffect, useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import styled from '@emotion/native';
 import {useTheme} from '@react-navigation/native';
-import {SafeAreaView, View, Animated, StyleSheet } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-
-import { useInfiniteDares } from '../../hooks/useInfiniteDares';
-import { useInfiniteFeeds } from '../../hooks/useInfiniteFeeds';
+import {
+  SafeAreaView,
+  View,
+  Animated,
+  StyleSheet,
+  ActivityIndicator,
+} from 'react-native';
+import {useDispatch, useSelector} from 'react-redux';
 import {INITIAL_LOAD_FEED, WINDOW_HEIGHT} from '../../constants';
 import Logo from '../../images/logo.svg';
-import { feedScreenDisplay } from '../../redux-ui-state/slices/feedsSlice';
+import {feedScreenDisplay} from '../../redux-ui-state/slices/feedsSlice';
 
 const ANIMATION_DURATION = 1;
 
-const SplashDrawer = (props, { navigation }) => {
-  const {data: daresData } = useInfiniteDares();
-  const {data: feedData } = useInfiniteFeeds();
-
+const SplashDrawer = props => {
   const dispatch = useDispatch();
   const {feedScreen} = useSelector(state => state.feeds);
 
@@ -30,19 +30,12 @@ const SplashDrawer = (props, { navigation }) => {
     }).start();
   };
 
-  const onCloseIconClick = () => {
-    dispatch(closeAuthenticationBottomDrawer());
-  };
-
   useEffect(() => {
-    if(feedData?.feeds && daresData?.dares.length > 0) {
-     
-    }
     const splashTimeout = setTimeout(() => {
-      dispatch(feedScreenDisplay(4))
-    }, 7000);
+      dispatch(feedScreenDisplay(4));
+    }, 2000);
     return () => clearInterval(splashTimeout);
-  }, [])
+  }, []);
 
   useEffect(() => {
     toggleDrawer();
@@ -60,9 +53,14 @@ const SplashDrawer = (props, { navigation }) => {
       }}>
       <SafeAreaView>
         <Body>
-           <View style={styles.uiView}>
-                <Logo height={40} width={120} />
-            </View>
+          <View style={styles.uiView}>
+            <Logo height={40} width={120} />
+            <ActivityIndicator
+              color={'white'}
+              size={'large'}
+              style={{marginTop: 30}}
+            />
+          </View>
         </Body>
       </SafeAreaView>
     </Animated.View>
@@ -77,12 +75,12 @@ const Body = styled.View`
 
 const styles = StyleSheet.create({
   uiView: {
-      flex: 1,
-      justifyContent: 'center',
-      alignItems: 'center'
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   txt: {
-      fontSize: 24,
-      color: "#ffffff"
+    fontSize: 24,
+    color: '#ffffff',
   },
 });

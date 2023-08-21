@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef,useState} from 'react';
 import Video from 'react-native-video';
 import {INITIAL_LOAD_FEED} from '../../../constants';
 import {useDispatch} from 'react-redux';
@@ -41,6 +41,7 @@ const FeedPlayer = ({
   activeVideo,
 }) => {
   const isReady = useRef(false);
+  const [isHorizontal,setIsHorizontal]=useState(true);
   const dispatch = useDispatch();
   const onReadyForDisplay = () => {
     setShowLoader(false);
@@ -51,9 +52,12 @@ const FeedPlayer = ({
       });
     }
   };
-  const onLoad = () => {
+  const onLoad = ({ naturalSize }) => {
     if (feedScreen < INITIAL_LOAD_FEED) {
       dispatch(feedScreenDisplay(feedScreen + 1));
+    }
+    if(naturalSize.height>naturalSize.width){
+      setIsHorizontal(false);
     }
     setShowLoader(false);
   };
@@ -78,7 +82,7 @@ const FeedPlayer = ({
       decelerationRate={"normal"}
       poster={assetPoster}
       posterResizeMode="contain" //{isCover ? "cover" : "contain"}
-      resizeMode="contain" //{isCover ? "cover" : "contain"}
+      resizeMode={isHorizontal ? "contain" : "cover"} //{isCover ? "cover" : "contain"}
       paused={pausedStatus} //!activeVideo || !playing
       source={{
         isNetwork: true,

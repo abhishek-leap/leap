@@ -295,10 +295,11 @@ const Alias = styled.Text`
 `;
 
 const VoteFigure = styled.Text`
-  font-size: ${(props) => (props.moreVotes ? "32px" : "24px")};
+  font-size: ${(props) => (props.moreVotes ? "24px" : "20px")};
   font-weight: 600;
-  color: white;
+  color:${(props) => (props.moreVotes ? "#f5e342" : "white")};
   letter-spacing: 0.4px;
+  textShadow: 0px  3px  3px  black;
 `;
 
 const MiddleProfile = styled.View`

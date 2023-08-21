@@ -115,6 +115,8 @@ const SingleFeed = ({
   const _handleAppStateChange = nextAppState => {
     if (nextAppState === 'background') {
       setPlaying(false);
+    } else if (nextAppState === 'active') {
+      setPlaying(true);
     }
   };
 
@@ -189,8 +191,6 @@ const SingleFeed = ({
     }
   };
 
-
-
   return (
     <View
       key={item?.id}
@@ -241,7 +241,7 @@ const SingleFeed = ({
           ]}
         />
       ) : null}
-      {/* {FeedContent} */}
+      {FeedContent}
       {activeVideo && (
         <LinearProgress
           backgroundColor={colors.PLAYLEAP_PROGRESS_BG_COLOR}

@@ -36,8 +36,7 @@ export const ACTIVE_DARE_STATUS = 'active';
 export const CLOSED_STATUS = 'completed';
 export const KNOW_YOU_BETTER = "Let's get to know you better";
 export const NICKNAME = 'Nickname';
-export const ERROR_EMAIL_FORMAT =
-  'Please provide a valid email address eg. user@server.com';
+export const ERROR_EMAIL_FORMAT = 'Please provide a valid email address';
 export const ERROR_PHONE_FORMAT = 'Please provide a valid phone number';
 export const WHAT_IS_YOUR_BIRTHDAY = 'What is your birthday?';
 export const WE_ARE_ALMOST_DONE = "We're almost done";

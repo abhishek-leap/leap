@@ -23,7 +23,7 @@ const totalhHeight = WINDOW_HEIGHT-otherHeight - DARE_BAR_HEIGHT - HEADER_HEIGHT
 
 export default ({navigation}) => {
   const {colors} = useTheme();
-  const {data, fetchNextPage} = useInfiniteFeeds();
+  const {data, fetchNextPage,refetch,isRefetching} = useInfiniteFeeds();
   const videoRef = useRef(null);
   const virtualRef = useRef(null);
   const Yscroll = React.useRef(new Animated.Value(0)).current;
@@ -125,6 +125,8 @@ export default ({navigation}) => {
             viewAreaCoveragePercentThreshold: 50,
           }}
           onViewableItemsChanged={onViewableItemsChanged}
+          onRefresh={refetch}
+          refreshing={isRefetching}
         />
       ) : (
         <LoaderContainer>

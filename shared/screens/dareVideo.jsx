@@ -18,7 +18,6 @@ const DareVideo = ({route}) => {
 
   const onFinishPlaying = async () => {
     const state = DARE_STATE.RESULT;
-    console.log('pushing');
     handlePush({
       name: 'DareResult',
       params: {
@@ -74,11 +73,9 @@ const DareVideo = ({route}) => {
           secondCover={dare?.assets?.[1]?.dareCover}
           onEnd={onFinishPlaying}
           firstVideoProgress={progress => {
-            console.log('prog1', progress);
             setFirstVideoProgress(progress);
           }}
           secondVideoProgress={progress => {
-            console.log('prog2', progress);
             setSecondVideoProgress(progress);
           }}
           rotateAngleX={rotate => setRotateAngle(rotate)}

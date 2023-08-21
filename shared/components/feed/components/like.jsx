@@ -1,16 +1,33 @@
-import React from "react";
+import React from 'react';
 import HeartIcon from '../../../images/heart.svg';
+import FilledHeartIcon from '../../../images/filledHeartIcon.svg';
 
 import withAuthentication from '../../../hoc/withAuthentication';
 import styled from '@emotion/native';
 
-const Like = ({ width, height, isBasicSignupCompleted, isExtendedSignupCompleted, onPress, totalLikes, onClicked, userReaction }) => {
-
+const Like = ({
+  width,
+  height,
+  isBasicSignupCompleted,
+  isExtendedSignupCompleted,
+  onPress,
+  totalLikes,
+  onClicked,
+  userReaction,
+}) => {
   return (
-      <StyledSection onPress={() => onPress(isBasicSignupCompleted, isExtendedSignupCompleted)}>
-        <HeartIcon height={35} width={35} color={onClicked ? "rgba(233,104,158,1)" : "#290C54"}/>
-        <StyledText>{totalLikes}</StyledText>
-      </StyledSection>
+    <StyledSection
+      onPress={() =>
+        onPress(isBasicSignupCompleted, isExtendedSignupCompleted)
+      }>
+      {onClicked ? (
+        <FilledHeartIcon height={35} width={35} />
+      ) : (
+        <HeartIcon height={35} width={35} />
+      )}
+
+      <StyledText>{totalLikes}</StyledText>
+    </StyledSection>
   );
 };
 

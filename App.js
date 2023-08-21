@@ -16,7 +16,6 @@ import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import {initializeMMKVFlipper} from 'react-native-mmkv-flipper-plugin';
 import {createMaterialTopTabNavigator} from '@react-navigation/material-top-tabs';
 import * as Sentry from '@sentry/react-native';
-
 import {store} from './shared/redux-ui-state/store';
 import HomeIcon from './shared/images/home-icon.svg';
 import SearchIcon from './shared/images/search-icon.svg';
@@ -225,52 +224,47 @@ const App = () => {
             component={Home}
             options={{headerShown: false}}
           />
-          {/* <Stack.Screen 
-            name="Feed" 
-            component={FeedScreen} 
-            options={{ headerShown: false }} 
-          /> */}
-          <Stack.Screen 
-            name="SkillAndHashtag" 
-            component={SkillAndHashtag} 
-            options={{ headerShown: false }} 
-          />
           <Stack.Screen
+            name="SkillAndHashtag"
+            component={SkillAndHashtag}
+            options={{headerShown: false}}
+          />
+          {/* <Stack.Screen
             name="SignInUp"
             component={SignInUp}
-            options={{ headerShown: false }}
-          />
+            options={{headerShown: false}}
+          /> */}
           <Stack.Screen
             name="PlayerProfile"
             component={PlayerProfile}
-            options={{ headerShown: false }}
+            options={{headerShown: false}}
           />
           <Stack.Screen
             name="Notification"
             component={Notification}
-            options={{ headerShown: false }}
+            options={{headerShown: false}}
           />
           <Stack.Screen
             name="DarePreview"
             component={DarePreviewScreen}
-            options={{ headerShown: false }}
+            options={{headerShown: false}}
           />
           <Stack.Screen
             name="DareVideo"
             component={DareVideoScreen}
-            options={{ headerShown: false }}
+            options={{headerShown: false}}
           />
           <Stack.Screen
             name="DareResult"
             component={DareResultScreen}
-            options={{ headerShown: false }}
+            options={{headerShown: false}}
           />
-          </Stack.Navigator>
+        </Stack.Navigator>
         <SplashDrawer />
-        {/* <AuthenticationDrawer />
+        <AuthenticationDrawer />
         <CreateDareDrawer />
         <BottomCommonDrawer />
-        <Toaster /> */}
+        <Toaster />
       </NavigationContainer>
     </Provider>
   );

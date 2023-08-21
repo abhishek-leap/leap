@@ -5,7 +5,6 @@ import Shield from './shield';
 import FilterShield from './filter.shield';
 
 const Group = ({index, width = 115, height = 90, dare, onClick}) => {
-
   return (
     <Container height={height} width={width} key={index} onPress={() => onClick(dare)}>
       <ShieldWrapper>
@@ -17,10 +16,10 @@ const Group = ({index, width = 115, height = 90, dare, onClick}) => {
       </ShieldWrapper>
       <SubContainer>
         <CardWrapper>
-            <Card src={dare?.assets[0]?.dareCover} isBlur={dare?.status}/>
+            <Card src={dare?.assets[0]?.dareCover} isBlur={dare?.status} isWinner={dare?.winnerId && (dare?.winnerId == dare?.assets?.[0]?.userId)}  />
         </CardWrapper>
         <CardWrapper>
-          <Card src={dare?.assets[1]?.dareCover} isBlur={dare?.status}/>
+          <Card src={dare?.assets[1]?.dareCover} isBlur={dare?.status} isWinner={dare?.winnerId && (dare?.winnerId == dare?.assets?.[1]?.userId)}/>
         </CardWrapper>
       </SubContainer>
     </Container>
