@@ -2,7 +2,6 @@ import React, {useEffect, useRef,useState} from 'react';
 import Video from 'react-native-video';
 import {INITIAL_LOAD_FEED} from '../../../constants';
 import {useDispatch} from 'react-redux';
-import {feedScreenDisplay} from '../../../redux-ui-state/slices/feedsSlice';
 
 const areEqual = (prevProps, nextProps) => {
   const {
@@ -29,7 +28,6 @@ const MemoisedReactNativePlayer = React.memo(Video, areEqual);
 
 const FeedPlayer = ({
   videoRef,
-  feedScreen,
   pausedStatus,
   assetPoster,
   assetReference,
@@ -53,9 +51,6 @@ const FeedPlayer = ({
     }
   };
   const onLoad = ({ naturalSize }) => {
-    if (feedScreen < INITIAL_LOAD_FEED) {
-      dispatch(feedScreenDisplay(feedScreen + 1));
-    }
     if(naturalSize.height>naturalSize.width){
       setIsHorizontal(false);
     }
@@ -80,7 +75,7 @@ const FeedPlayer = ({
       removeClippedSubviews={true}
       repeat={loop}
       decelerationRate={"normal"}
-      poster={assetPoster}
+      poster={assetPoster.replace("d1hus0nx0ytxoz.cloudfront", "playleap-img.imgix")+"?max-w=350&auto=compress"}
       posterResizeMode="contain" //{isCover ? "cover" : "contain"}
       resizeMode={isHorizontal ? "contain" : "cover"} //{isCover ? "cover" : "contain"}
       paused={pausedStatus} //!activeVideo || !playing

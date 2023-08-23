@@ -1,69 +1,66 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useState,useRef} from 'react';
 import styled from '@emotion/native';
 import {useTheme} from '@react-navigation/native';
-import {
-  SafeAreaView,
-  View,
-  Animated,
-  StyleSheet,
-  ActivityIndicator,
-} from 'react-native';
-import {useDispatch, useSelector} from 'react-redux';
-import {INITIAL_LOAD_FEED, WINDOW_HEIGHT} from '../../constants';
+import {SafeAreaView,Text} from 'react-native';
 import Logo from '../../images/logo.svg';
-import {feedScreenDisplay} from '../../redux-ui-state/slices/feedsSlice';
-
-const ANIMATION_DURATION = 1;
+import {useInfiniteFeeds} from '../../hooks/useInfiniteFeeds';
+import {useInfiniteDares} from '../../hooks/useInfiniteDares';
+import LinearProgress from '../common/linearProgressBar';
 
 const SplashDrawer = props => {
-  const dispatch = useDispatch();
-  const {feedScreen} = useSelector(state => state.feeds);
-
+  const [show, setShow] = useState(true);
   const {colors} = useTheme();
-  const slideAnimation = useRef(new Animated.Value(WINDOW_HEIGHT)).current;
-
-  const toggleDrawer = () => {
-    Animated.timing(slideAnimation, {
-      toValue: feedScreen == INITIAL_LOAD_FEED ? WINDOW_HEIGHT : 0,
-      duration: ANIMATION_DURATION,
-      useNativeDriver: true,
-    }).start();
-  };
+  const {data: feedsData} = useInfiniteFeeds();
+  const {data: daresData} = useInfiniteDares();
+  const [progress, setProgress] = useState(0);
+  const progressInterval = useRef();
 
   useEffect(() => {
-    const splashTimeout = setTimeout(() => {
-      dispatch(feedScreenDisplay(4));
-    }, 2000);
-    return () => clearInterval(splashTimeout);
+    if (feedsData && daresData) {
+      setProgress(100);
+      setTimeout(() => {
+        setShow(false);
+      }, 200);
+    }
+  }, [feedsData, daresData]);
+
+  useEffect(() => {
+    progressInterval.current = setInterval(() => {
+      setProgress(prevProgress => prevProgress + 4);
+    }, 40);
   }, []);
 
+
   useEffect(() => {
-    toggleDrawer();
-  }, [toggleDrawer, feedScreen]);
+    if(progress>92 && progressInterval.current){
+      clearInterval(progressInterval.current);
+      progressInterval.current=null
+    }
+  }, [progress]);
+
+
+  if (!show) return <></>;
 
   return (
-    <Animated.View
-      style={{
-        ...props.style,
-        position: 'absolute',
-        backgroundColor: colors.primary,
-        width: '100%',
-        height: '100%',
-        transform: [{translateY: slideAnimation}],
-      }}>
+    <StyledView bgColor={colors.primary}>
       <SafeAreaView>
         <Body>
-          <View style={styles.uiView}>
+          <Container>
             <Logo height={40} width={120} />
-            <ActivityIndicator
-              color={'white'}
-              size={'large'}
-              style={{marginTop: 30}}
-            />
-          </View>
+            <ProgressContainer>
+              <LinearProgress
+                data={progress}
+                percentage={true}
+                bgHeight={'4px'}
+                bgColor={colors.PLAYLEAP_PROGRESS_BG_COLOR}
+                progressColor={colors.PLAYLEAP_PROGRESS_COLOR}
+              />
+            </ProgressContainer>
+            <StyledText>{progress}%</StyledText>
+          </Container>
         </Body>
       </SafeAreaView>
-    </Animated.View>
+    </StyledView>
   );
 };
 
@@ -73,14 +70,27 @@ const Body = styled.View`
   height: 100%;
 `;
 
-const styles = StyleSheet.create({
-  uiView: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  txt: {
-    fontSize: 24,
-    color: '#ffffff',
-  },
-});
+const Container = styled.View`
+  flex: 1;
+  justify-content: center;
+  align-items: center;
+`;
+
+const ProgressContainer = styled.View`
+  width: 30%;
+  margin-top: 30px;
+`;
+
+const StyledView = styled.View`
+  position: absolute;
+  background-color: ${props => props.bgColor};
+  width: 100%;
+  height: 100%;
+`;
+
+
+const StyledText=styled.Text`
+  color:white;
+  fontSize:12px;
+  margin-top:5px;
+`

@@ -14,7 +14,6 @@ import {useTheme} from '@react-navigation/native';
 import Dots from '../../../images/dots.svg';
 import Block from '../../../images/block.svg';
 import {
-  // feedScreenDisplay,
   openThreeDotsBottomDrawer,
   selectedFeedItem,
   setAudioOff,
@@ -59,9 +58,7 @@ const SingleFeed = ({
 }) => {
   const {colors} = useTheme();
   const dispatch = useDispatch();
-  const {blockedUsersList, feedScreen, audioOn} = useSelector(
-    state => state.feeds,
-  );
+  const {blockedUsersList, audioOn} = useSelector(state => state.feeds);
 
   const [progress, setProgress] = useState();
   const [isBlockToggle, setIsBlockToggle] = useState(false);
@@ -213,7 +210,6 @@ const SingleFeed = ({
           assetReference={uri}
           muted={!audioOn}
           handleProgress={handleProgress}
-          feedScreen={feedScreen}
           videoRef={videoRef}
           setShowLoader={setShowLoader}
           virtualRef={virtualRef}
@@ -225,22 +221,6 @@ const SingleFeed = ({
           <Loader />
         </LoaderContainer>
       )}
-      {progress?.currentTime === 0 ? (
-        <ActivityIndicator
-          animating
-          size="large"
-          color={'#9900D9'}
-          style={[
-            {
-              position: 'absolute',
-              top: TotalhHeight / 2.2,
-              left: WINDOW_WIDTH / 2,
-              right: WINDOW_WIDTH / 2,
-            },
-            {opacity: 1},
-          ]}
-        />
-      ) : null}
       {FeedContent}
       {activeVideo && (
         <LinearProgress
