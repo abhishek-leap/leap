@@ -86,13 +86,13 @@ const FeedPlayer = ({
       }}
       muted={muted} // mute
       playWhenInactive={false}
-      playInBackground={false}
+      playInBackground={true}
       maxBitRate={10724378} // 1072437
       reportBandwidth={true}
       minLoadRetryCount={3}
       selectedVideoTrack={{
         type: 'resolution',
-        value: 240,
+        value: 480,
       }}
       useTextureView={false}
       disableFocus={true}
