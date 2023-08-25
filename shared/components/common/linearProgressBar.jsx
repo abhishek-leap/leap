@@ -1,5 +1,6 @@
 import React, {useState} from 'react';
 import styled from '@emotion/native';
+import { Platform } from 'react-native';
 
 const LinearProgress = ({
   data,
@@ -12,7 +13,7 @@ const LinearProgress = ({
     ? data
     : (data?.currentTime * 100) / data?.seekableDuration || 0;
   return (
-    <Container backgroundColor={backgroundColor}>
+    <Container backgroundColor={backgroundColor} bottom={Platform.OS==="ios" ? "2px": "4px"} >
       <TopView>
         <ProgressBarHeight
           backgroundColor={backgroundColor}
@@ -32,7 +33,7 @@ export default LinearProgress;
 const Container = styled.View`
   width: 100%;
   height: 2px;
-  bottom:4px;
+  bottom:${props => (props.bottom ? props.bottom : '0px')};
 `;
 
 const TopView = styled.View`
