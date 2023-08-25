@@ -1,6 +1,5 @@
 import React, {useEffect, useRef,useState} from 'react';
 import Video from 'react-native-video';
-import {useDispatch} from 'react-redux';
 
 const areEqual = (prevProps, nextProps) => {
   const {
