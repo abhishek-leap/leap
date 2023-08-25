@@ -1,10 +1,10 @@
-import React, {useCallback, useEffect, useRef} from 'react';
-import {Platform, StyleSheet, Animated, Dimensions} from 'react-native';
+import React, {useCallback, useEffect, useRef,useState} from 'react';
+import {Platform, StyleSheet, Animated} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import styled from '@emotion/native';
 import Header from '../components/header';
 import DareBar from '../components/dare/darebar';
-import SingleFeed from '../components/feed/components/SingleFeed';
+import SingleFeed from '../components/feed/components/singleFeed';
 import {useInfiniteFeeds} from '../hooks/useInfiniteFeeds';
 import {
   WINDOW_WIDTH,
@@ -27,12 +27,14 @@ export default ({navigation}) => {
   const videoRef = useRef(null);
   const virtualRef = useRef(null);
   const Yscroll = React.useRef(new Animated.Value(0)).current;
-  const activeIndex = React.useRef(0);
+  // const activeIndex = React.useRef(0);
+  const [activeIndex,setActiveIndex]=useState(0);
 
   const onViewableItemsChanged = useCallback(({viewableItems}) => {
     const item = viewableItems[0];
     if (item?.index !== undefined) {
-      activeIndex.current = item?.index;
+      // activeIndex.current = item?.index;
+      setActiveIndex(item?.index);
       if (virtualRef.current) {
         virtualRef.current.setNativeProps({
           scrollEnabled: false,
@@ -79,8 +81,8 @@ export default ({navigation}) => {
           item={item}
           index={index}
           videoRef={videoRef}
-          currentIndex={activeIndex?.current}
-          TotalhHeight={totalhHeight}
+          currentIndex={activeIndex}
+          totalhHeight={totalhHeight}
           virtualRef={virtualRef}
         />
       </Animated.View>

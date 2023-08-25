@@ -9,7 +9,7 @@ import { handlePush } from '../../../navigation/navigationService';
 
 const { DEFAULT_HASH_TAGS_COUNTOSHOW } = require('../../../constants');
 
-const RealInfo = ({item, windowHeight, closeModal}) => {
+const Info = ({item, windowHeight, closeModal}) => {
     const { author, availableForDareBack, hashTags, body, skills } = item;
     const [showMoreHashtagsBtn, setShowMoreHashtagsBtn] = useState(hashTags > DEFAULT_HASH_TAGS_COUNTOSHOW);
     const [postTitle] = parsePostBody(body);
@@ -65,7 +65,7 @@ const RealInfo = ({item, windowHeight, closeModal}) => {
     )
 }
 
-export default RealInfo;
+export default Info;
 
 const Container = styled.View`
   height: ${props => props.windowHeight};

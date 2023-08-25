@@ -1,16 +1,9 @@
 import React, {useEffect, useState, memo, useMemo, useCallback} from 'react';
-import {
-  View,
-  Dimensions,
-  ActivityIndicator,
-  Pressable,
-  AppState,
-} from 'react-native';
+import {Pressable, AppState} from 'react-native';
 // import Video from 'react-native-video';
 import styled from '@emotion/native';
 import {useSelector, useDispatch} from 'react-redux';
 import {useTheme} from '@react-navigation/native';
-
 import Dots from '../../../images/dots.svg';
 import Block from '../../../images/block.svg';
 import {
@@ -19,47 +12,24 @@ import {
   setAudioOff,
   setAudioOn,
 } from '../../../redux-ui-state/slices/feedsSlice';
-
-import RealInfo from './reel-info';
-import FeedOptions from './feed-options';
+import Info from './info';
+import FeedOptions from './feedOptions';
 import {getData} from '../../../utils/helper';
-// import {INITIAL_LOAD_FEED} from '../../../constants';
 import LinearProgress from '../../common/linearProgressBar';
-import FeedPlayer from './Feed-Player';
+import FeedPlayer from './feedPlayer';
 import Loader from '../../common/loader';
 
-// import { Image } from 'react-native';
-
-const WINDOW_WIDTH = Dimensions.get('window').width;
-
 const areEqualFeed = (prevProps, nextProps) => {
-  const {
-    item: prevItem,
-    currentIndex: prevCurrentInex,
-    index: prevIndex,
-  } = prevProps;
-  const {
-    item: nextItem,
-    currentIndex: nextCurrentInex,
-    index: nextIndex,
-  } = nextProps;
-  // console.log("prevCurrentInex nextCurrentInex prevIndex nextIndex ", prevCurrentInex + ' ' + nextCurrentInex + ' ' + prevIndex + ' ' + nextIndex);
-  if (prevCurrentInex === nextCurrentInex) return true;
+  const {currentIndex: prevCurrentIndex} = prevProps;
+  const {currentIndex: nextCurrentIndex} = nextProps;
+  if (prevCurrentIndex === nextCurrentIndex) return true;
   return false;
 };
 
-const SingleFeed = ({
-  item,
-  index,
-  currentIndex,
-  TotalhHeight,
-  videoRef,
-  virtualRef,
-}) => {
+const SingleFeed = ({item, index, currentIndex, totalhHeight, virtualRef,videoRef}) => {
   const {colors} = useTheme();
   const dispatch = useDispatch();
   const {blockedUsersList, audioOn} = useSelector(state => state.feeds);
-
   const [progress, setProgress] = useState();
   const [isBlockToggle, setIsBlockToggle] = useState(false);
   const [playing, setPlaying] = useState(true);
@@ -170,9 +140,9 @@ const SingleFeed = ({
               mute={!audioOn}
             />
           </FeedOptionsContainer>
-          <RealInfo
+          <Info
             item={item}
-            windowHeight={TotalhHeight}
+            windowHeight={totalhHeight}
             closeModal={closeModal}
           />
         </>
@@ -180,7 +150,7 @@ const SingleFeed = ({
     } else {
       return <></>;
     }
-  }, [index, audioOn, activeVideo, isPrevVideo, isNextVideo]);
+  }, [audioOn, activeVideo, isPrevVideo, isNextVideo]);
 
   const handleProgress = data => {
     if (activeVideo) {
@@ -189,14 +159,7 @@ const SingleFeed = ({
   };
 
   return (
-    <View
-      key={item?.id}
-      style={{
-        height: TotalhHeight,
-        width: '100%',
-        backgroundColor: colors.primary,
-        blurRadius: 90,
-      }}>
+    <StyledView key={item?.id} height={totalhHeight} bgColor={colors.primary}>
       <Pressable
         activeOpacity={0.7}
         onPress={playAndPause}
@@ -210,14 +173,14 @@ const SingleFeed = ({
           assetReference={uri}
           muted={!audioOn}
           handleProgress={handleProgress}
-          videoRef={videoRef}
           setShowLoader={setShowLoader}
           virtualRef={virtualRef}
           activeVideo={activeVideo}
+          videoRef={videoRef}
         />
       </Pressable>
       {showLoader && (
-        <LoaderContainer height={TotalhHeight}>
+        <LoaderContainer height={totalhHeight}>
           <Loader />
         </LoaderContainer>
       )}
@@ -230,11 +193,18 @@ const SingleFeed = ({
           percentage={false}
         />
       )}
-    </View>
+    </StyledView>
   );
 };
 
 export default memo(SingleFeed, areEqualFeed);
+
+const StyledView = styled.View`
+  height: ${props => props.height};
+  width: 100%;
+  background-color: ${props => props.bgColor};
+  blur-radius: 90px;
+`;
 
 const FeedOptionsContainer = styled.View`
   position: absolute;

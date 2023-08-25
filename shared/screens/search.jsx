@@ -12,7 +12,7 @@ import {
 import SkillsList from '../components/search/skills';
 import TxtInput from '../components/common/textInput';
 import {PLACEHOLDER_SEARCH, WINDOW_WIDTH} from '../constants';
-import HashtagsList from '../components/search/hashtaglist';
+import HashtagsList from '../components/search/hashtagList';
 import {searchScreenText} from '../redux-ui-state/slices/feedsSlice';
 import TalentList from '../components/search/talent';
 

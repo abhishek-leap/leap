@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Video from 'react-native-video';
 
 const VideoPlayer= ({
@@ -11,14 +11,21 @@ const VideoPlayer= ({
   handleEnd = () => {},
 }) => {
 
+  const [isHorizontal,setIsHorizontal]=useState(true);
+  const onLoad = ({ naturalSize }) => {
+    if(naturalSize.height>naturalSize.width){
+      setIsHorizontal(false);
+    }
+  };
+
   return (
     <Video
         hideShutterView={true}
         removeClippedSubviews={true}
         repeat={loop}
-        poster={assetPoster}
-        posterResizeMode='contain' //{isCover ? "cover" : "contain"}
-        resizeMode='contain' //{isCover ? "cover" : "contain"}
+        poster={assetPoster.replace("d1hus0nx0ytxoz.cloudfront", "playleap-img.imgix")+"?max-w=350&auto=compress"}
+        posterResizeMode="contain" //{isCover ? "cover" : "contain"}
+        resizeMode={isHorizontal ? "contain" : "cover"} //{isCover ? "cover" : "contain"}
         paused={!playing} //!activeVideo || !playing
         source={{ 
           isNetwork: true,
@@ -49,8 +56,7 @@ const VideoPlayer= ({
         onEnd={handleEnd}
         onLoadStart={() => {
         }}
-        onLoad={response => {
-        }}
+        onLoad={onLoad}
     />
   );
 };

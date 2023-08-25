@@ -1,7 +1,7 @@
 import React, {useState, useRef} from 'react';
 import styled from '@emotion/native';
 import {useDispatch, useSelector} from 'react-redux';
-import {Animated, Dimensions, View, Text} from 'react-native';
+import {Animated, Dimensions, View} from 'react-native';
 
 import VideoPlayer from '../common/video.player';
 import {setAudioOff, setAudioOn} from '../../redux-ui-state/slices/feedsSlice';

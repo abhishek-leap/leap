@@ -1,6 +1,5 @@
 import React, {useEffect, useRef,useState} from 'react';
 import Video from 'react-native-video';
-import {INITIAL_LOAD_FEED} from '../../../constants';
 import {useDispatch} from 'react-redux';
 
 const areEqual = (prevProps, nextProps) => {
@@ -40,7 +39,6 @@ const FeedPlayer = ({
 }) => {
   const isReady = useRef(false);
   const [isHorizontal,setIsHorizontal]=useState(true);
-  const dispatch = useDispatch();
   const onReadyForDisplay = () => {
     setShowLoader(false);
     isReady.current = true;
@@ -95,7 +93,7 @@ const FeedPlayer = ({
       minLoadRetryCount={3}
       selectedVideoTrack={{
         type: 'resolution',
-        value: 480,
+        value: 240,
       }}
       useTextureView={false}
       disableFocus={true}
