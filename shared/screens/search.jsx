@@ -12,7 +12,7 @@ import {
 import SkillsList from '../components/search/skills';
 import TxtInput from '../components/common/textInput';
 import {PLACEHOLDER_SEARCH, WINDOW_WIDTH} from '../constants';
-import HashtagsList from '../components/search/hashtagList';
+import HashtagsList from '../components/search/hashtagsList';
 import {searchScreenText} from '../redux-ui-state/slices/feedsSlice';
 import TalentList from '../components/search/talent';
 
@@ -124,7 +124,7 @@ export default ({navigation}) => {
   const _handleClearSearchText = () => {
     setSearchValue('');
     dispatch(searchScreenText(''));
-  }
+  };
 
   LogBox.ignoreLogs([
     'Sending `onAnimatedValueUpdate` with no listeners registered.',
@@ -153,7 +153,9 @@ export default ({navigation}) => {
         renderScene={renderScene}
         renderTabBar={renderTabBar}
         onIndexChange={setIndex}
-        onSwipeEnd={() => (Platform.OS === 'ios' ? handleSwipe(index) : _handleClearSearchText())}
+        onSwipeEnd={() =>
+          Platform.OS === 'ios' ? handleSwipe(index) : _handleClearSearchText()
+        }
         initialLayout={{width: layout.width}}
       />
     </>
