@@ -68,12 +68,10 @@ const FeedPlayer = ({
         videoRef.current = ref;
       }}
       key={assetReference}
-      hideShutterView={true}
-      removeClippedSubviews={true}
       repeat={loop}
       decelerationRate={"normal"}
       poster={assetPoster.replace("d1hus0nx0ytxoz.cloudfront", "playleap-img.imgix")+"?max-w=350&auto=compress"}
-      posterResizeMode="contain" //{isCover ? "cover" : "contain"}
+      posterResizeMode={isHorizontal ? "contain" : "cover"} //{isCover ? "cover" : "contain"}
       resizeMode={isHorizontal ? "contain" : "cover"} //{isCover ? "cover" : "contain"}
       paused={pausedStatus} //!activeVideo || !playing
       source={{
@@ -84,25 +82,26 @@ const FeedPlayer = ({
           Range: 'bytes=0-',
         },
       }}
+      useSecureView={true}
+      shutterColor='transparent'
       muted={muted} // mute
-      playWhenInactive={false}
+      playWhenInactive={true}
       playInBackground={true}
-      maxBitRate={10724378} // 1072437
-      reportBandwidth={true}
-      minLoadRetryCount={3}
+      // maxBitRate={10724378} // 1072437
+      minLoadRetryCount={5}
       selectedVideoTrack={{
         type: 'resolution',
-        value: 480,
+        value: 240,
       }}
-      useTextureView={false}
-      disableFocus={true}
+    
       bufferConfig={{
-        minBufferMs: 2500, //number
-        maxBufferMs: 5000, //number
-        bufferForPlaybackMs: 2500, //number
-        bufferForPlaybackAfterRebufferMs: 2500, //number
+        minBufferMs: 1500, //number
+        maxBufferMs: 3000, //number
+        bufferForPlaybackMs: 1500, //number
+        bufferForPlaybackAfterRebufferMs: 1500, //number
       }}
       automaticallyWaitsToMinimizeStalling={false}
+      useTextureView={true}
       allowsExternalPlayback={false}
       style={{
         width: '100%',

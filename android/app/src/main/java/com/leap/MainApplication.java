@@ -9,7 +9,7 @@ import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.react.config.ReactFeatureFlags;
 import com.facebook.soloader.SoLoader;
-import com.brentvatne.react.ReactVideoPackage;
+// import com.brentvatne.react.ReactVideoPackage;
 import io.playleap.rnative.MyAppPackage;
 import io.playleap.rnative.newarchitecture.MainApplicationReactNativeHost;
 import java.lang.reflect.InvocationTargetException;
@@ -31,7 +31,7 @@ public class MainApplication extends Application implements ReactApplication {
           // Packages that cannot be autolinked yet can be added manually here, for example:
           // packages.add(new MyReactNativePackage());
 //            packages.add(new VideoEditorReactPackage());
-            packages.add(new ReactVideoPackage());
+            // packages.add(new ReactVideoPackage());
            packages.add(new MyAppPackage());
           return packages;
         }
