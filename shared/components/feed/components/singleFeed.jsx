@@ -7,6 +7,7 @@ import {useTheme} from '@react-navigation/native';
 import Dots from '../../../images/dots.svg';
 import Block from '../../../images/block.svg';
 import {
+  firstFeedLoaded,
   openThreeDotsBottomDrawer,
   selectedFeedItem,
   setAudioOff,
@@ -154,6 +155,9 @@ const SingleFeed = ({item, index, currentIndex, totalhHeight, virtualRef,videoRe
   }, [audioOn, activeVideo, isPrevVideo, isNextVideo]);
 
   const handleProgress = data => {
+    if(currentIndex===0){
+      dispatch(firstFeedLoaded());
+    }
     if (activeVideo) {
       setProgress(data);
     }

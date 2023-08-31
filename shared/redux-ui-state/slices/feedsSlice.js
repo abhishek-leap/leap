@@ -2,7 +2,6 @@ import {createSlice} from '@reduxjs/toolkit';
 import {removeElementFromArray} from '../../utils/helper';
 
 const initialState = {
-  dareBarHeight: 0,
   feedsThreeDotsShow: false,
   feedItem: {},
   reportItemShow: false,
@@ -13,7 +12,7 @@ const initialState = {
   commentUIShow: false,
   notificationUIShow: false,
   feeds: [],
-  feedScreen: 0,
+  firstFeedLoaded: false,
   audioOn: true,
   searchText: '',
 };
@@ -23,20 +22,13 @@ export const feedsSlice = createSlice({
   initialState,
   reducers: {
     setAudioOn: state => {
-      console.log('on');
       state.audioOn = true;
     },
     setAudioOff: state => {
-      console.log('off');
       state.audioOn = false;
     },
-    feedScreenDisplay: (state, param) => {
-      const {payload} = param;
-      state.feedScreen = payload;
-    },
-    selectedFeeds: (state, param) => {
-      const {payload} = param;
-      state.feeds = payload;
+    firstFeedLoaded: (state, param) => {
+      state.firstFeedLoaded = true;
     },
     selectedFeedItem: (state, param) => {
       const {payload} = param;
@@ -52,10 +44,6 @@ export const feedsSlice = createSlice({
         state.blockedUsersList,
         n => n === payload,
       );
-    },
-    dareBarView: (state, param) => {
-      const {payload} = param;
-      state.dareBarHeight = payload;
     },
     searchScreenText: (state, param) => {
       const {payload} = param;
@@ -107,9 +95,7 @@ export const {
   searchScreenText,
   setAudioOn,
   setAudioOff,
-  feedScreenDisplay,
-  dareBarView,
-  selectedFeeds,
+  firstFeedLoaded,
   openNotificationBottomDrawer,
   closeNotificationBottomDrawer,
   openCommentUItBottomDrawer,

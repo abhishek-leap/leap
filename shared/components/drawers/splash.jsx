@@ -1,43 +1,39 @@
-import React, {useEffect, useState,useRef} from 'react';
+import React, {useEffect, useState, useRef} from 'react';
 import styled from '@emotion/native';
 import {useTheme} from '@react-navigation/native';
-import {SafeAreaView,Text} from 'react-native';
+import {SafeAreaView} from 'react-native';
 import Logo from '../../images/logo.svg';
-import {useInfiniteFeeds} from '../../hooks/useInfiniteFeeds';
-import {useInfiniteDares} from '../../hooks/useInfiniteDares';
 import LinearProgress from '../common/linearProgressBar';
+import { useSelector } from 'react-redux';
 
 const SplashDrawer = props => {
   const [show, setShow] = useState(true);
+  const {firstFeedLoaded} = useSelector(state => state.feeds);
   const {colors} = useTheme();
-  const {data: feedsData} = useInfiniteFeeds();
-  const {data: daresData} = useInfiniteDares();
   const [progress, setProgress] = useState(0);
   const progressInterval = useRef();
 
   useEffect(() => {
-    if (feedsData && daresData) {
+    if (firstFeedLoaded) {
       setProgress(100);
       setTimeout(() => {
         setShow(false);
       }, 200);
     }
-  }, [feedsData, daresData]);
+  }, [firstFeedLoaded]);
 
   useEffect(() => {
     progressInterval.current = setInterval(() => {
-      setProgress(prevProgress => prevProgress + 4);
-    }, 40);
+      setProgress(prevProgress => prevProgress + 3);
+    }, 100);
   }, []);
 
-
   useEffect(() => {
-    if(progress>92 && progressInterval.current){
+    if (progress > 93 && progressInterval.current) {
       clearInterval(progressInterval.current);
-      progressInterval.current=null
+      progressInterval.current = null;
     }
   }, [progress]);
-
 
   if (!show) return <></>;
 
@@ -88,9 +84,8 @@ const StyledView = styled.View`
   height: 100%;
 `;
 
-
-const StyledText=styled.Text`
-  color:white;
-  fontSize:12px;
-  margin-top:5px;
-`
+const StyledText = styled.Text`
+  color: white;
+  fontsize: 12px;
+  margin-top: 5px;
+`;
