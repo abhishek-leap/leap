@@ -31,6 +31,7 @@ const VideoPlayMode = ({
   const cube = useRef();
 
   const handleAudio = () => {
+    console.log("audio on",audioOn);
     if (audioOn) {
       dispatch(setAudioOff());
     } else {
@@ -106,7 +107,7 @@ const VideoPlayMode = ({
                     // }
                   }}
                   handleEnd={handleFirstVideoFinish}
-                  muted={audioOn}
+                  muted={!audioOn}
                   playing={VideoPlayStatus && onCurrentScreen}
                   loop={false}
                 />
@@ -115,8 +116,8 @@ const VideoPlayMode = ({
                 <UnmuteMuteIcon
                   height={35}
                   width={35}
-                  fill={audioOn ? 'transparent' : 'white'}
-                  color={audioOn ? 'white' : 'transparent'}
+                  fill={!audioOn ? 'transparent' : 'white'}
+                  color={!audioOn ? 'white' : 'transparent'}
                 />
               </VolumeBtnWrapper>
               <OneTapToaster
@@ -144,7 +145,7 @@ const VideoPlayMode = ({
                     // }
                   }}
                   handleEnd={handleSecondVideoFinish}
-                  muted={audioOn}
+                  muted={!audioOn}
                   playing={!VideoPlayStatus && onCurrentScreen} // !VideoPlayStatus
                   loop={false}
                 />
@@ -153,8 +154,8 @@ const VideoPlayMode = ({
                 <UnmuteMuteIcon
                   height={35}
                   width={35}
-                  fill={audioOn ? 'transparent' : 'white'}
-                  color={audioOn ? 'white' : 'transparent'}
+                  fill={!audioOn ? 'transparent' : 'white'}
+                  color={!audioOn ? 'white' : 'transparent'}
                 />
               </VolumeBtnWrapper>
             </>

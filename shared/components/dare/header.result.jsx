@@ -14,7 +14,7 @@ const DareResultHeader = ({ dare, allDares, nextDare, source }) => {
     <Icons platform={Platform.OS} >
         <HomeImage onPress={() => handleSetRoot({name: 'Home'})}>
             {source === 'bar' ? 
-              <HomeIcon width={28} height={28} />
+              <HomeIcon width={25} height={25} />
               :
               <CloseIcon style={{ color: colors.PLAYLEAP_WHITE }} width={29} height={29} />
             }
@@ -24,7 +24,7 @@ const DareResultHeader = ({ dare, allDares, nextDare, source }) => {
                 handlePush({name: 'DarePreview', params: {dare: nextDare, source: 'bar', allDares: allDares}})
             }}
         >
-            { source === 'bar' && <><NextIcon width={35} height={35} />
+            { source === 'bar' && <><NextIcon width={30} height={30} />
             <Next>Next</Next></>}
         </NextButton> 
     </Icons>
@@ -50,13 +50,12 @@ const Head = styled.View`
 `;
 
 const HeadText = styled.Text`
-    font-style: italic;
-    font-weight: 700;
     font-size: 20px;
     text-align: center;
     letter-spacing: 1.33333px;
     text-transform: uppercase;
     color: #ffffff;
+    font-family: Metropolis-BoldItalic;
 `;
 
 const NextButton = styled.TouchableOpacity`
@@ -68,6 +67,7 @@ const Next = styled.Text`
   text-transform: uppercase;
   color: #fff;
   text-align: center;
+  font-family: Metropolis-Regular
 `;
 
 const HomeImage = styled.TouchableOpacity`

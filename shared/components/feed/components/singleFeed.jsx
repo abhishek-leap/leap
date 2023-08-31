@@ -89,13 +89,14 @@ const SingleFeed = ({item, index, currentIndex, totalhHeight, virtualRef,videoRe
 
   const closeModal = () => {};
 
-  const clickHandler = useCallback(() => {
+  const clickHandler = () => {
+    console.log("audio on",audioOn)
     if (audioOn) {
       dispatch(setAudioOff());
     } else {
       dispatch(setAudioOn());
     }
-  }, [audioOn]);
+  };
 
   const playAndPause = useCallback(() => {
     setPlaying(prevPlaying => !prevPlaying);

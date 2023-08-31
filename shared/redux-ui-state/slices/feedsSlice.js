@@ -23,9 +23,11 @@ export const feedsSlice = createSlice({
   initialState,
   reducers: {
     setAudioOn: state => {
+      console.log('on');
       state.audioOn = true;
     },
     setAudioOff: state => {
+      console.log('off');
       state.audioOn = false;
     },
     feedScreenDisplay: (state, param) => {

@@ -130,7 +130,7 @@ const height=Dimensions.get('window').height;
                   )}
               </PercentWrapper>
               <BattelBackWrapper upper={true}>
-                  <Battle width={63} height={70} item={dare}/>
+                  <Battle width={55} height={55} item={dare}/>
               </BattelBackWrapper>
               </>
                 :  <Svg height="110%" width="100%">
@@ -191,7 +191,7 @@ const height=Dimensions.get('window').height;
                     )}
                 </PercentWrapper>
                 <BattelBackWrapper  upper={false}>
-                    <Battle width={63} height={70} item={dare}/>
+                    <Battle width={55} height={55} item={dare}/>
                 </BattelBackWrapper>
               </>
               : 
@@ -296,14 +296,15 @@ const Alias = styled.Text`
 
 const VoteFigure = styled.Text`
   font-size: ${(props) => (props.moreVotes ? "24px" : "20px")};
-  font-weight: 600;
   color:${(props) => (props.moreVotes ? "#f5e342" : "white")};
   letter-spacing: 0.4px;
   textShadow: 0px  3px  3px  black;
+  font-family:Metropolis-Bold;
 `;
 
 const MiddleProfile = styled.View`
-      padding-vertical: 20px;
+      padding-top: 10px; 
+      padding-bottom: 20px; 
 `;
 
 const BattelBackWrapper = styled.View`

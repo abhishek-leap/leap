@@ -118,16 +118,15 @@ const Content = styled.View`
 const Title = styled.Text`
   color: #fff;
   font-size: 23px;
-  font-style: italic;
-  font-weight: 700;
+  font-family: Metropolis-BoldItalic;
 `;
 
 const SubTitle = styled.Text`
   color: #ffffff60;
-  font-size: 16px;
+  font-size: 18px;
   margin-top: 5px;
-  font-weight: 400;
   text-align: center;
+  font-family: Metropolis-Regular;
 `;
 
 const IconsWrapper = styled.View`
