@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useRef,useState} from 'react';
+import React, {useCallback, useEffect, useRef, useState} from 'react';
 import {Platform, StyleSheet, Animated} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import styled from '@emotion/native';
@@ -16,19 +16,21 @@ import {
 import {setGlobalNavigation} from '../utils/helper';
 import Loader from '../components/common/loader';
 import {getStatusBarHeight} from 'react-native-status-bar-height';
+import {useFeeds} from '../hooks/feeds';
 
 const otherHeight =
   BOTTOM_BAR_HEIGHT + (Platform.OS === 'ios' ? getStatusBarHeight() + 2 : 0);
-const totalhHeight = WINDOW_HEIGHT-otherHeight - DARE_BAR_HEIGHT - HEADER_HEIGHT;
+const totalhHeight =
+  WINDOW_HEIGHT - otherHeight - DARE_BAR_HEIGHT - HEADER_HEIGHT;
 
 export default ({navigation}) => {
   const {colors} = useTheme();
-  const {data, fetchNextPage,refetch,isRefetching} = useInfiniteFeeds();
+  const {data, fetchNextPage, refetch, isRefetching} = useFeeds({});
   const videoRef = useRef(null);
   const virtualRef = useRef(null);
   const Yscroll = React.useRef(new Animated.Value(0)).current;
   // const activeIndex = React.useRef(0);
-  const [activeIndex,setActiveIndex]=useState(0);
+  const [activeIndex, setActiveIndex] = useState(0);
 
   const onViewableItemsChanged = useCallback(({viewableItems}) => {
     const item = viewableItems[0];
@@ -99,10 +101,10 @@ export default ({navigation}) => {
       <DareView colors={colors} height={DARE_BAR_HEIGHT}>
         <DareBar />
       </DareView>
-      {data?.feeds?.length > 0 ? (
+      {data?.length > 0 ? (
         <Animated.FlatList
           ref={virtualRef}
-          data={data?.feeds}
+          data={data}
           key={'flatlist'}
           // extraData={feedRecord.current}
           renderItem={Slide}
@@ -113,7 +115,7 @@ export default ({navigation}) => {
           // Below three settings stop free scrolling
           snapToInterval={totalhHeight}
           snapToAlignment={'start'}
-          decelerationRate={0.980}
+          decelerationRate={0.98}
           //Performance settings
           removeClippedSubviews={true}
           initialNumToRender={0}

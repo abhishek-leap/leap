@@ -12,7 +12,9 @@ export const BOTTOM_BAR_HEIGHT = 70;
 export const HEADER_HEIGHT = 40;
 export const DARE_BAR_HEIGHT = 90;
 export const TALENTS_PER_PAGE = 10;
+export const FEEDS_TO_FETCH = 10;
 
+export const BLOCK_ACTION = 'block';
 export const CLOSED = 'closed';
 export const NEW = 'new';
 export const SIGN_IN_UP_FOR = 'Sign in/up for';

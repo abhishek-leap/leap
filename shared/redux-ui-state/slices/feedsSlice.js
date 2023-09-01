@@ -15,6 +15,11 @@ const initialState = {
   firstFeedLoaded: false,
   audioOn: true,
   searchText: '',
+  feedPlayerModalId: '',
+  feedSource: '',
+  feedSlug: '',
+  feedCommentsModalId: '',
+  feedIdMenuOptions: '',
 };
 
 export const feedsSlice = createSlice({

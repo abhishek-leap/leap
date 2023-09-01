@@ -31,6 +31,7 @@
     "@reduxjs/toolkit": "^1.9.1",
     "@sentry/react-native": "^5.1.1",
     "@tanstack/react-query": "^4.20.4",
+    "date-fns": "^2.30.0",
     "lodash": "^4.17.21",
     "patch-package": "^7.0.0",
     "react": "18.1.0",
