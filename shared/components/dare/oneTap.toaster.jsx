@@ -65,8 +65,7 @@ const styles = StyleSheet.create({
   modalText: {
     color: '#4a4a4a',
     textAlign: 'center',
-    fontWeight: 'bold',
-    fontFamily: 'Metropolis-Regular',
+    fontFamily: 'Metropolis-Medium',
     paddingHorizontal: 10,
   },
 });

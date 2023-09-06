@@ -9,6 +9,7 @@ import { DARE_STATE, WINDOW_WIDTH } from '../../constants';
 import PinkBorderLine from "../common/pinkBorderLine";
 import FadeInView from "../common/fadeIn.animate";
 import Blink from '../common/blink';
+import useLocalization from "../../hooks/useLocalization";
 
 const previewHeight = 190;
 const previewBorderHeight = 3.5;
@@ -18,6 +19,7 @@ export const previewRotateDegs = "6.5deg";
 
 const DareSeparator = ({ title, subTitle, dareState, onVote }) => {
   const [dragPosition, setDragPosition] = useState({ x: WINDOW_WIDTH / 5, y: draggableYPosition });
+  const {translate}=useLocalization();
 
   return (
     <Wrapper dareState={dareState} previewRotateDegs={previewRotateDegs}>
@@ -25,7 +27,7 @@ const DareSeparator = ({ title, subTitle, dareState, onVote }) => {
         <FadeInView duration={600}>
           <PinkBorderLine height={previewBorderHeight} top={true}/>
           <Content>
-            <Title>{title}</Title>
+            <Title>{translate(title)}</Title>
             <SubTitle>{subTitle}</SubTitle>
           </Content>
           <PinkBorderLine height={previewBorderHeight} top={false}/>
@@ -119,6 +121,7 @@ const Title = styled.Text`
   color: #fff;
   font-size: 23px;
   font-family: Metropolis-BoldItalic;
+  text-align: center;
 `;
 
 const SubTitle = styled.Text`

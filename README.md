@@ -21,3 +21,6 @@ Remember Points:
          - This issue was created in Version 1.0 build number 103 and was solved in 104.
          - Issue Branch URL : https://github.com/redmatch/leap/commit/0da00a23b46d50e94033490f3896a54531325462#diff-48cf64ad5cf4cb6e974f910f6fcac10a65674c1a7f0183e557c2697b997ca0e3
          - Issue resolve branch URL: https://github.com/redmatch/leap/commit/b0ca2354945e4fd0df66929d438d587bc9c8eb7e#diff-48cf64ad5cf4cb6e974f910f6fcac10a65674c1a7f0183e557c2697b997ca0e3
+
+    2. Added a script to download language json files from server. Run this command before deploying apps to update transalations.
+         -Run "npm run get-translations" 

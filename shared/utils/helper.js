@@ -1,4 +1,3 @@
-import {Platform} from 'react-native';
 import {storage} from '../mmkv-store/store';
 import * as RNFS from 'react-native-fs';
 

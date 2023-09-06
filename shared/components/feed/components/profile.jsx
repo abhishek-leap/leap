@@ -13,18 +13,15 @@ import {Platform} from 'react-native';
 import ProfileFollowButton from './follow';
 
 const DefaultAvatarWidth = Platform.OS == 'ios' ? '120%' : '105%';
-const Profile = ({
-  author, 
-  shieldHeight,
-  hasFollowIcon
-}) => {
+const Profile = ({author, shieldHeight, hasFollowIcon}) => {
   const {entityId} = author;
   // const [avatarId, setAvatarId] = useState(storage.getString(AVATAR_ID));
   const srcImg = `${MEDIA}/Attachments/avatar/download/${entityId}_200x200.jpeg`;
 
   return (
     <>
-    <Container  onPress={() => handlePush({name: 'Profile', params: {auth: false}})}>
+      <Container
+        onPress={() => handlePush({name: 'Profile', params: {auth: false}})}>
         <Svg height="100" width="100">
           <Defs>
             <ClipPath id="clip">
@@ -38,29 +35,41 @@ const Profile = ({
               />
             </ClipPath>
           </Defs>
-          <Shield width={Platform.OS === 'ios' ? '70%' : '60%'} height={shieldHeight ? shieldHeight : "75%" } />
+          <Shield
+            width={Platform.OS === 'ios' ? '70%' : '60%'}
+            height={shieldHeight ? shieldHeight : '75%'}
+          />
           <>
             <G
               clipPath="url(#clip)"
               transform={[{scale: 0.85}, {translateX: 2.9}, {translateY: 2.9}]}>
-              <DefaultProfileAvatar width={DefaultAvatarWidth} height="120%" />
+              <DefaultProfileAvatar
+                width={Platform.OS === 'ios' ? '120%' : '35%'}
+                height={Platform.OS === 'ios' ? '120%' : '40%'}
+              />
             </G>
+            {srcImg.length > 0 ? (
               <Image
                 width="35%"
                 height="40%"
                 preserveAspectRatio="xMidYMid slice"
-                transform={[{scale: 0.85}, {translateX: 2.9}, {translateY: 2.9}]}
+                transform={[
+                  {scale: 0.85},
+                  {translateX: 2.9},
+                  {translateY: 2.9},
+                ]}
                 href={{uri: srcImg}}
                 clipPath="url(#clip)"
               />
+            ) : null}
           </>
         </Svg>
       </Container>
       <ProfileFollowButton
-      isText={false}
-      entityId={entityId}
-      hasFollowIcon={hasFollowIcon}
-    />
+        isText={false}
+        entityId={entityId}
+        hasFollowIcon={hasFollowIcon}
+      />
     </>
   );
 };

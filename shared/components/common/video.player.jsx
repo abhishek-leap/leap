@@ -57,6 +57,7 @@ const VideoPlayer= ({
         onLoadStart={() => {
         }}
         onLoad={onLoad}
+        ignoreSilentSwitch={"ignore"}
     />
   );
 };

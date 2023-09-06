@@ -9,6 +9,7 @@ import UnmuteMuteIcon from '../../images/unmuteMute.svg';
 import CubeNavigationHorizontal from './horizontal.cubeAnimate';
 import {StyleSheet} from 'react-native';
 import OneTapToaster from './oneTap.toaster';
+import useLocalization from '../../hooks/useLocalization';
 
 const {width, height} = Dimensions.get('window');
 
@@ -29,6 +30,7 @@ const VideoPlayMode = ({
   const [onCurrentScreen, setOnCurrentScreen] = useState(true);
   const move = useState(new Animated.Value(600));
   const cube = useRef();
+  const {translate}=useLocalization();
 
   const handleAudio = () => {
     console.log("audio on",audioOn);
@@ -121,7 +123,7 @@ const VideoPlayMode = ({
                 />
               </VolumeBtnWrapper>
               <OneTapToaster
-                toasterMessage={'One Tap to Skip'}
+                toasterMessage={translate('tapToSkip')}
                 handleFirstVideoFinish={()=>{handleFirstVideoFinish(true)}}
               />
             </>

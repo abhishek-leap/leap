@@ -1,10 +1,14 @@
 import React from 'react';
 import { View, Button } from 'react-native';
 import { removeAllData } from '../utils/helper';
+import { useDispatch } from 'react-redux';
+import { setLanguage } from '../redux-ui-state/slices/userSlice';
 
 const DareCenter = () => {
+  const dispatch=useDispatch();
   const handleButtonPress = () => {
     removeAllData();
+    dispatch(setLanguage(''));
   };
 
   return (

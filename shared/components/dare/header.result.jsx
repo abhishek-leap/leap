@@ -7,9 +7,11 @@ import HomeIcon from '../../images/home.svg';
 import { handlePush, handleSetRoot } from '../../navigation/navigationService';
 import CloseIcon from '../../images/close.svg'
 import { useTheme } from '@react-navigation/native';
+import useLocalization from '../../hooks/useLocalization';
 
 const DareResultHeader = ({ dare, allDares, nextDare, source }) => {
   const {colors} = useTheme();
+  const {translate}=useLocalization();
   return (
     <Icons platform={Platform.OS} >
         <HomeImage onPress={() => handleSetRoot({name: 'Home'})}>
@@ -19,13 +21,13 @@ const DareResultHeader = ({ dare, allDares, nextDare, source }) => {
               <CloseIcon style={{ color: colors.PLAYLEAP_WHITE }} width={29} height={29} />
             }
         </HomeImage>
-        {dare.status === CLOSED_STATUS && <Head><HeadText>Dare closed</HeadText></Head>}
+        {dare?.status === CLOSED_STATUS && <Head><HeadText>{translate('dareClosed')}</HeadText></Head>}
         <NextButton onPress={() => {
                 handlePush({name: 'DarePreview', params: {dare: nextDare, source: 'bar', allDares: allDares}})
             }}
         >
             { source === 'bar' && <><NextIcon width={30} height={30} />
-            <Next>Next</Next></>}
+            <Next>{translate('next')}</Next></>}
         </NextButton> 
     </Icons>
   );

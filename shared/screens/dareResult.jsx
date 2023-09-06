@@ -38,7 +38,7 @@ const DareResult = ({
   const [votesA, setVotesA] = useState(resultedVotesA);
   const [votesB, setVotesB] = useState(resultedVotesB);
   const [votedAssetId, setVotedAssetId] = useState(dare?.votedAssetId);
-  const [dareStatus, setDareStatus] = useState(dare.status);
+  const [dareStatus, setDareStatus] = useState(dare?.status);
   const curDareIndex = allDares?.findIndex(item => item.id === dare?.id);
   const nextDare = allDares[curDareIndex + 1];
 

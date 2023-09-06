@@ -6,6 +6,7 @@ import Battle from './battle';
 import { parsePostBody } from '../../../utils';
 import Content from './content';
 import { handlePush } from '../../../navigation/navigationService';
+import useLocalization from '../../../hooks/useLocalization';
 
 const { DEFAULT_HASH_TAGS_COUNTOSHOW } = require('../../../constants');
 
@@ -13,6 +14,7 @@ const Info = ({item, windowHeight, closeModal}) => {
     const { author, availableForDareBack, hashTags, body, skills } = item;
     const [showMoreHashtagsBtn, setShowMoreHashtagsBtn] = useState(hashTags > DEFAULT_HASH_TAGS_COUNTOSHOW);
     const [postTitle] = parsePostBody(body);
+    const {translate}=useLocalization();
 
     return (
         <Container windowHeight={windowHeight}>
@@ -40,8 +42,8 @@ const Info = ({item, windowHeight, closeModal}) => {
                         <ContentMoreSpan onPress={() => setShowMoreHashtagsBtn(prev => !prev)}>
                         {
                             !showMoreHashtagsBtn ? 
-                            <HashTagText>{'More...'}</HashTagText> :
-                            <HashTagText>{'...less'}</HashTagText>
+                            <HashTagText>{translate('more')}{'...'}</HashTagText> :
+                            <HashTagText>{'...'}{translate('less')}</HashTagText>
                         }
                         </ContentMoreSpan>
                     )}
@@ -50,7 +52,7 @@ const Info = ({item, windowHeight, closeModal}) => {
                 {skills.length > 0 ? (
                   <SkillView>
                       <Skill width={24} height={24} />
-                      <SkillBtn onPress={() => handlePush({name: 'SkillAndHashtag', params: {screen: 'skill'}})}><SkillText>{skills[0]?.alias}</SkillText></SkillBtn>
+                      <SkillBtn onPress={() => handlePush({name: 'SkillAndHashtag', params: {screen: 'skill'}})}><SkillText>{translate(skills[0]?.alias)}</SkillText></SkillBtn>
                   </SkillView>
                 )
                 :

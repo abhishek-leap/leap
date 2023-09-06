@@ -6,6 +6,7 @@ import {ACTIVE_DARE_STATUS, CLOSED, NEW} from '../../constants';
 import styled from '@emotion/native';
 import LinearGradient from 'react-native-linear-gradient';
 import {handlePush} from '../../navigation/navigationService';
+import useLocalization from '../../hooks/useLocalization';
 
 const TEXT_LENGTH = 47;
 const TEXT_HEIGHT = 35;
@@ -13,6 +14,7 @@ const OFFSET = TEXT_LENGTH / 2 - TEXT_HEIGHT / 2;
 
 const DareBar = () => {
   const {data, fetchNextPage} = useInfiniteDares();
+  const {translate} = useLocalization();
 
   const onClickHandle = dare => {
     handlePush({
@@ -43,7 +45,7 @@ const DareBar = () => {
         renderItem={({item, index}) => (
           <>
             {index === 0 ||
-            (item.status !== data.dares[index - 1]?.status &&
+            (item?.status !== data.dares[index - 1]?.status &&
               data.dares[index - 1]?.status !== undefined) ? (
               item?.status === ACTIVE_DARE_STATUS ? (
                 <LinearGradient
@@ -70,7 +72,7 @@ const DareBar = () => {
                         width: TEXT_LENGTH,
                         height: TEXT_HEIGHT,
                       }}>
-                      {NEW}
+                      {translate('new')}
                     </Text>
                   </View>
                 </LinearGradient>
@@ -103,7 +105,7 @@ const DareBar = () => {
                         width: TEXT_LENGTH,
                         height: TEXT_HEIGHT,
                       }}>
-                      {CLOSED}
+                      {translate('closed')}
                     </Text>
                   </View>
                 </LinearGradient>

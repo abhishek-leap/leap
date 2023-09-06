@@ -18,18 +18,19 @@ import { BASE_URL_SITE } from '../../../apis/urls';
 import Loader from '../../common/loader';
 import Block from '../../../images/block.svg';
 import { useInfiniteFeeds } from '../../../hooks/useInfiniteFeeds';
+import useLocalization from '../../../hooks/useLocalization';
 
 const FeedsThreeDots = () => {
   const dispatch = useDispatch();
   const [isLoading, setIsLoading] = useState(false);
   const {feedItem, blockedUsersList} = useSelector(state => state.feeds);
+  const {translate}=useLocalization();
   // const { refetch } = useInfiniteFeeds();
   const isPowerUser = getData('power_user');
   const token =  getData('token');
   const userId =  getData('user_id');
   const [threeDotData, setThreeDotData] = useState([
-    {name: "Post ID", code: "post", id: 0}, 
-    {name: "View Profile", code: "profile", id: 1}, 
+    {name: "viewProfile", code: "profile", id: 1}, 
     {name: "Report", code: "report", id: 2}
   ])
 
@@ -39,25 +40,23 @@ const FeedsThreeDots = () => {
     const isAlreadyBlocked = blockedUsersList.indexOf(feedItem.id);
 
     if(feedItem?.author?.entityId == userId) {
-      setThreeDotData([ {name: "Post ID", code: "post", id: 0}, 
-      {name: "View Profile", code: "profile", id: 1}, 
-      {name: "Report", code: "report", id: 2},
-      {name: "Delete Post", code: "DeletePost", id: 5}])
+      setThreeDotData([ 
+      {name: "viewProfile", code: "profile", id: 1}, 
+      {name: "report", code: "report", id: 2},
+      {name: "delete", code: "DeletePost", id: 5}])
     } else if (token && isAlreadyBlocked == -1) {
       setThreeDotData([
-        {name: "Post ID", code: "post", id: 0, }, 
-        {name: "View Profile", code: "profile", id: 1}, 
-        {name: "Report", code: "report", id: 2},
-        {name: "Block Post", code: "BlockPost", id: 3, color: isPowerUser === 'true' ? '#FF7474' : '#fff', image:  isPowerUser === 'true' ? <BlockBGView><BlockUpperView><Block /></BlockUpperView></BlockBGView> : null},
-        {name: "Block User", code: "BlockUser", id: 4, color: isPowerUser === 'true' ? '#FF7474' : '#fff', image:  isPowerUser === 'true' ? <BlockBGView><BlockUpperView><Block /></BlockUpperView></BlockBGView> : null}
+        {name: "viewProfile", code: "profile", id: 1}, 
+        {name: "report", code: "report", id: 2},
+        {name: "blockPost", code: "BlockPost", id: 3, color: isPowerUser === 'true' ? '#FF7474' : '#fff', image:  isPowerUser === 'true' ? <BlockBGView><BlockUpperView><Block /></BlockUpperView></BlockBGView> : null},
+        {name: "blockUser", code: "BlockUser", id: 4, color: isPowerUser === 'true' ? '#FF7474' : '#fff', image:  isPowerUser === 'true' ? <BlockBGView><BlockUpperView><Block /></BlockUpperView></BlockBGView> : null}
       ])
     } else if (token && isAlreadyBlocked > -1) {
-      setThreeDotData([
-        {name: "Post ID", code: "post", id: 0}, 
-        {name: "View Profile", code: "profile", id: 1}, 
-        {name: "Report", code: "report", id: 2},
-        {name: "UnBlock Post", code: "UnBlockPost", id: 3},
-        {name: "Block User", code: "BlockUser", id: 4}
+      setThreeDotData([, 
+        {name: "viewProfile", code: "profile", id: 1}, 
+        {name: "report", code: "report", id: 2},
+        {name: "unblockPost", code: "UnBlockPost", id: 3},
+        {name: "blockuser", code: "BlockUser", id: 4}
       ])
     }
   }, [])
@@ -137,7 +136,7 @@ const FeedsThreeDots = () => {
   return (
     <TopView>
       <Picker
-        title={'More'} 
+        title={translate('more') }
         hr={true}
         data={threeDotData}
         onCloseIconClick={onCloseIconClick}

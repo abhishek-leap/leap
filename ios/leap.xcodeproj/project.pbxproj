@@ -639,7 +639,7 @@
 				DEVELOPMENT_TEAM = J3S98DQ2KZ;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = leap/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = LeapNative;
+				INFOPLIST_KEY_CFBundleDisplayName = PlayLeap;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -674,7 +674,7 @@
 				DEVELOPMENT_TEAM = J3S98DQ2KZ;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = leap/Info.plist;
-				INFOPLIST_KEY_CFBundleDisplayName = LeapNative;
+				INFOPLIST_KEY_CFBundleDisplayName = PlayLeap;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (

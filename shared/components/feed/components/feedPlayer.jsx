@@ -118,6 +118,7 @@ const FeedPlayer = ({
           });
         }
       }}
+      ignoreSilentSwitch={"ignore"}
     />
   );
 };
