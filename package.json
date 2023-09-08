@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "android": "node download-script.js && npx react-native run-android",
+    "android": "npx react-native run-android",
     "get-translations": "node download-script.js",
     "build": "cd android && bundle exec fastlane",
     "iosbuild": "cd ios && bundle exec fastlane ios build",

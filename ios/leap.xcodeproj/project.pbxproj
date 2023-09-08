@@ -270,6 +270,7 @@
 				FD10A7F022414F080027D42C /* Start Packager */,
 				13B07F871A680F5B00A75B9A /* Sources */,
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
+				EBC085852AAAE7EB001E30CD /* ShellScript */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
 				00EEFC60759A1932668264C0 /* [CP] Embed Pods Frameworks */,
@@ -503,6 +504,25 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-leap/Pods-leap-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
+		EBC085852AAAE7EB001E30CD /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "$(which node) \"${SRCROOT}/../download-script.js\" false\n";
+			showEnvVarsInLog = 0;
+		};
 		F6A41C54EA430FDDC6A6ED99 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -635,7 +655,7 @@
 				CODE_SIGN_ENTITLEMENTS = leap/leapDebug.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 139;
+				CURRENT_PROJECT_VERSION = 141;
 				DEVELOPMENT_TEAM = J3S98DQ2KZ;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = leap/Info.plist;
@@ -670,7 +690,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 139;
+				CURRENT_PROJECT_VERSION = 141;
 				DEVELOPMENT_TEAM = J3S98DQ2KZ;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = leap/Info.plist;
