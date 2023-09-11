@@ -30,14 +30,20 @@ const downloadJsonFilesFromCloudFront = async () => {
     lang => `https://d1hus0nx0ytxoz.cloudfront.net/translations/${lang}.json`,
   );
   try {
+    let folder = './translations/';
+    if (isAndroid) {
+      folder =
+        isAndroid === 'true' ? '../../translations/' : '../translations/';
+    }
+    console.log(isAndroid);
+    if (!fs.existsSync(folder)) {
+      fs.mkdirSync(folder);
+    }
     for (const url of urls) {
       try {
         const fileUrl = url;
         const response = await axios.get(fileUrl);
         const data = JSON.stringify(response?.data);
-        const folder =
-          isAndroid === 'true' ? '../../translations/' : '../translations/';
-        console.log(isAndroid);
         const destinationPath = folder + url.substring(51, url.length);
         fs.writeFile(destinationPath, data, function (err) {
           if (err) throw err;
