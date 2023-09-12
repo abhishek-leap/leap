@@ -47,7 +47,7 @@ const downloadJsonFilesFromCloudFront = async () => {
         const destinationPath = folder + url.substring(51, url.length);
         fs.writeFile(destinationPath, data, function (err) {
           if (err) throw err;
-          console.log('Saved!');
+          console.log(destinationPath, 'Saved!');
         });
       } catch (error) {
         console.error('Error downloading file:', error);

@@ -1,4 +1,4 @@
-import React, {useEffect, useState, memo, useMemo, useCallback} from 'react';
+import React, {useEffect, useState, useCallback} from 'react';
 import {Pressable, AppState} from 'react-native';
 // import Video from 'react-native-video';
 import styled from '@emotion/native';
@@ -10,8 +10,6 @@ import {
   firstFeedLoaded,
   openThreeDotsBottomDrawer,
   selectedFeedItem,
-  setAudioOff,
-  setAudioOn,
 } from '../../../redux-ui-state/slices/feedsSlice';
 import Info from './info';
 import FeedOptions from './feedOptions';
@@ -19,26 +17,29 @@ import {getData} from '../../../utils/helper';
 import LinearProgress from '../../common/linearProgressBar';
 import FeedPlayer from './feedPlayer';
 import Loader from '../../common/loader';
+import {useFeed} from '../../../hooks/feeds';
+import Battle from './battle';
 
-const areEqualFeed = (prevProps, nextProps) => {
-  const {currentIndex: prevCurrentIndex} = prevProps;
-  const {currentIndex: nextCurrentIndex} = nextProps;
-  if (prevCurrentIndex === nextCurrentIndex) return true;
-  return false;
-};
-
-const SingleFeed = ({item, index, currentIndex, totalhHeight, virtualRef,videoRef}) => {
+const SingleFeed = ({
+  item,
+  index,
+  currentIndex,
+  totalhHeight,
+  virtualRef,
+  videoRef,
+}) => {
   const {colors} = useTheme();
   const dispatch = useDispatch();
+  const {data} = useFeed();
+  const feed = item || data || {};
   const {blockedUsersList, audioOn} = useSelector(state => state.feeds);
   const [progress, setProgress] = useState();
   const [isBlockToggle, setIsBlockToggle] = useState(false);
   const [playing, setPlaying] = useState(true);
   const [showLoader, setShowLoader] = useState(true);
-
-  const asset = item?.videos ? item?.videos[0] || '' : '';
-  const uri = asset?.reference || item?.compressedVideoUrl || '';
-  const poster = asset?.imageLink || item?.compressedThumbUrl || '';
+  const asset = feed?.videos ? feed?.videos[0] || '' : '';
+  const uri = asset?.reference || feed?.compressedVideoUrl || '';
+  const poster = asset?.imageLink || feed?.compressedThumbUrl || '';
   const activeVideo =
     currentIndex === undefined ? false : currentIndex === index;
 
@@ -63,17 +64,17 @@ const SingleFeed = ({item, index, currentIndex, totalhHeight, virtualRef,videoRe
   useEffect(() => {
     AppState.addEventListener('change', _handleAppStateChange);
     const timeout = setTimeout(() => {
-      isBlocked = blockedUsersList.indexOf(item?.id) > -1;
+      isBlocked = blockedUsersList.indexOf(feed?.id) > -1;
       isPowerUser = getData('power_user');
-      blockedByPowerUser = item?.blockPowerUserId ? true : false;
+      blockedByPowerUser = feed?.blockPowerUserId ? true : false;
       let blockedText = '';
       if (
-        item?.communityBlockersCount &&
-        !item?.blockPowerUserId &&
-        !item?.blockedAt
+        feed?.communityBlockersCount &&
+        !feed?.blockPowerUserId &&
+        !feed?.blockedAt
       ) {
-        blockedText = item?.communityBlockersCount;
-      } else if (!item?.blockPowerUserId && item?.blockedAt) {
+        blockedText = feed?.communityBlockersCount;
+      } else if (!feed?.blockPowerUserId && feed?.blockedAt) {
         blockedText = 'you blocked';
       }
     }, 1000);
@@ -90,72 +91,17 @@ const SingleFeed = ({item, index, currentIndex, totalhHeight, virtualRef,videoRe
 
   const closeModal = () => {};
 
-  const clickHandler = () => {
-    console.log("audio on",audioOn)
-    if (audioOn) {
-      dispatch(setAudioOff());
-    } else {
-      dispatch(setAudioOn());
-    }
-  };
-
   const playAndPause = useCallback(() => {
     setPlaying(prevPlaying => !prevPlaying);
   }, []);
 
   const handleOpenDrawer = useCallback(() => {
     dispatch(openThreeDotsBottomDrawer());
-    dispatch(selectedFeedItem(item));
-  }, [blockedUsersList, item]);
-
-  const FeedContent = useMemo(() => {
-    if (isPrevVideo || activeVideo || isNextVideo) {
-      return (
-        <>
-          {
-            (isBlocked ||
-              (item?.communityBlockersCount > 0 && isPowerUser == 'true')) && (
-              <BlockBGView
-                blockedByPowerUser={blockedByPowerUser}
-                isBlockToggle={isBlockToggle}
-                onPress={() => setIsBlockToggle(status => !status)}>
-                <BlockUpperView>
-                  <Block />
-                  <BlockText>{'Blocked'}</BlockText>
-                </BlockUpperView>
-                {isBlockToggle && (
-                  <BlockLowerView colors={colors}>
-                    <BlockCountText>{blockedText}</BlockCountText>
-                  </BlockLowerView>
-                )}
-              </BlockBGView>
-            )
-            // <BlockItem />
-          }
-          <ThreeDots onPress={handleOpenDrawer}>
-            <Dots height={25} width={25} />
-          </ThreeDots>
-          <FeedOptionsContainer>
-            <FeedOptions
-              data={item}
-              clickHandler={clickHandler}
-              mute={!audioOn}
-            />
-          </FeedOptionsContainer>
-          <Info
-            item={item}
-            windowHeight={totalhHeight}
-            closeModal={closeModal}
-          />
-        </>
-      );
-    } else {
-      return <></>;
-    }
-  }, [audioOn, activeVideo, isPrevVideo, isNextVideo]);
+    dispatch(selectedFeedItem(feed));
+  }, [blockedUsersList, feed]);
 
   const handleProgress = data => {
-    if(currentIndex===0){
+    if (currentIndex === 0) {
       dispatch(firstFeedLoaded());
     }
     if (activeVideo) {
@@ -164,7 +110,7 @@ const SingleFeed = ({item, index, currentIndex, totalhHeight, virtualRef,videoRe
   };
 
   return (
-    <StyledView key={item?.id} height={totalhHeight} bgColor={colors.primary}>
+    <StyledView key={feed?.id} height={totalhHeight} bgColor={colors.primary}>
       <Pressable
         activeOpacity={0.7}
         onPress={playAndPause}
@@ -189,7 +135,41 @@ const SingleFeed = ({item, index, currentIndex, totalhHeight, virtualRef,videoRe
           <Loader />
         </LoaderContainer>
       )}
-      {FeedContent}
+      {/* {
+        (isBlocked ||
+          (feed?.communityBlockersCount > 0 && isPowerUser == 'true')) && (
+          <BlockBGView
+            blockedByPowerUser={blockedByPowerUser}
+            isBlockToggle={isBlockToggle}
+            onPress={() => setIsBlockToggle(status => !status)}>
+            <BlockUpperView>
+              <Block />
+              <BlockText>{'Blocked'}</BlockText>
+            </BlockUpperView>
+            {isBlockToggle && (
+              <BlockLowerView colors={colors}>
+                <BlockCountText>{blockedText}</BlockCountText>
+              </BlockLowerView>
+            )}
+          </BlockBGView>
+        )
+        // <BlockItem />
+      } */}
+
+      <FeedOptionsContainer windowHeight={totalhHeight}>
+        <ThreeDots onPress={handleOpenDrawer}>
+          <Dots height={25} width={25} />
+        </ThreeDots>
+        <FeedOptions data={feed} height={totalhHeight - 100} />
+        <BattleIconContainer>
+          {feed?.availableForDareBack ? (
+            <Battle width={63} height={70} item={item} />
+          ) : (
+            <></>
+          )}
+        </BattleIconContainer>
+      </FeedOptionsContainer>
+      <Info item={feed} windowHeight={totalhHeight} closeModal={closeModal} />
       {activeVideo && (
         <LinearProgress
           backgroundColor={colors.PLAYLEAP_PROGRESS_BG_COLOR}
@@ -202,28 +182,31 @@ const SingleFeed = ({item, index, currentIndex, totalhHeight, virtualRef,videoRe
   );
 };
 
-export default memo(SingleFeed, areEqualFeed);
+export default SingleFeed;
 
 const StyledView = styled.View`
   height: ${props => props.height};
   width: 100%;
   background-color: ${props => props.bgColor};
   blur-radius: 90px;
+  position: relative;
 `;
 
 const FeedOptionsContainer = styled.View`
   position: absolute;
   right: 4px;
-  height: 100%;
+  height: ${props => props.windowHeight || '100%'};
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 0;
 `;
 
 const ThreeDots = styled.TouchableOpacity`
   position: absolute;
-  right: 5px;
   transform: rotate(90deg);
-  hitSlop: {top: 100, bottom: 100, left: 100, right: 100}
   padding: 20px 20px 20px 0;
 `;
+const BattleIconContainer = styled.TouchableOpacity``;
 
 const BlockBGView = styled.TouchableOpacity`
   padding: 4.67px 8.78px;

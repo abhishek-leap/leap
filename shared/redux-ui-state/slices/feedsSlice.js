@@ -9,7 +9,6 @@ const initialState = {
   toasterDisplay: false,
   toasterMessage: '',
   blockedUsersList: [],
-  commentUIShow: false,
   notificationUIShow: false,
   feeds: [],
   firstFeedLoaded: false,
@@ -80,11 +79,11 @@ export const feedsSlice = createSlice({
       const {payload} = param;
       state.toasterDisplay = payload;
     },
-    openCommentUItBottomDrawer: state => {
-      state.commentUIShow = true;
+    openCommentUItBottomDrawer: (state, action) => {
+      state.feedCommentsModalId = action.payload;
     },
     closeCommentUItBottomDrawer: state => {
-      state.commentUIShow = false;
+      state.feedCommentsModalId = '';
     },
     openNotificationBottomDrawer: state => {
       state.notificationUIShow = true;

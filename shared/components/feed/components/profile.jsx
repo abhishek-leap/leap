@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {memo} from 'react';
 import styled from '@emotion/native';
 import Svg, {ClipPath, Path, Defs, Image, G} from 'react-native-svg';
 
@@ -13,13 +13,19 @@ import {Platform} from 'react-native';
 import ProfileFollowButton from './follow';
 
 const DefaultAvatarWidth = Platform.OS == 'ios' ? '120%' : '105%';
-const Profile = ({author, shieldHeight, hasFollowIcon}) => {
+
+const areEqual = (prevProps, nextProps) => {
+  const {author: prevAuthor} = prevProps;
+  const {author: nextAuthor} = nextProps;
+  return prevAuthor.entityId === nextAuthor.entityId;
+};
+const Profile = ({author, shieldHeight, hasFollowIcon, width}) => {
   const {entityId} = author;
   // const [avatarId, setAvatarId] = useState(storage.getString(AVATAR_ID));
   const srcImg = `${MEDIA}/Attachments/avatar/download/${entityId}_200x200.jpeg`;
 
   return (
-    <>
+    <Root width={width} height={shieldHeight}>
       <Container
         onPress={() => handlePush({name: 'Profile', params: {auth: false}})}>
         <Svg height="100" width="100">
@@ -65,20 +71,32 @@ const Profile = ({author, shieldHeight, hasFollowIcon}) => {
           </>
         </Svg>
       </Container>
-      <ProfileFollowButton
-        isText={false}
-        entityId={entityId}
-        hasFollowIcon={hasFollowIcon}
-      />
-    </>
+      <ProfileBtn>
+        <ProfileFollowButton
+          isText={false}
+          entityId={entityId}
+          hasFollowIcon={hasFollowIcon}
+        />
+      </ProfileBtn>
+    </Root>
   );
 };
 
-export default Profile;
+export default memo(Profile, areEqual);
 
 const Container = styled.TouchableOpacity`
-  width: ${props => `${WINDOW_WIDTH / 5.25}px`};
-  height: ${props => `${WINDOW_WIDTH / 6.25}px`};
+  width: 100%;
+  height: 100%;
 `;
 
-const ProfileBtn = styled.TouchableOpacity``;
+const ProfileBtn = styled.TouchableOpacity`
+  position: absolute;
+  bottom: 0;
+`;
+
+const Root = styled.View`
+  position: relative;
+  align-items: center;
+  width: ${props => props.width || `${WINDOW_WIDTH / 6.2}px`};
+  height: ${props => props.height || `${WINDOW_WIDTH / 5.2}px`};
+`;

@@ -76,7 +76,7 @@ export const loadProfile = options =>
   get(`${CORE}/Profiles/detailsByUserAlias${queryString(options)}`);
 
 // Like Comment share APIs
-export const like = (id, params) =>
+export const like = ({id, params}) =>
   post(`${FEED_NEXT_STG}/feeds/${id}/reactions`, params);
 export const dislike = (id, params) =>
   Delete(`${FEED_NEXT_STG}/feed-reactions/${id}`, params);

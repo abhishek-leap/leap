@@ -28,8 +28,12 @@ const BottomCommonDrawer = props => {
     useSelector(state => state.createDare);
   const {darBackshow} = useSelector(state => state.dareBack);
   const {secondStepShow} = useSelector(state => state.dareBack);
-  const {feedsThreeDotsShow, reportItemShow, blockUserShow, commentUIShow} =
-    useSelector(state => state.feeds);
+  const {
+    feedsThreeDotsShow,
+    reportItemShow,
+    blockUserShow,
+    feedCommentsModalId,
+  } = useSelector(state => state.feeds);
 
   // const {show, authStatus} = useSelector(state => state.authentication);
   const {colors} = useTheme();
@@ -75,7 +79,7 @@ const BottomCommonDrawer = props => {
       } else {
         toValue = WINDOW_HEIGHT / 3;
       }
-    } else if (blockUserShow || commentUIShow) {
+    } else if (blockUserShow || feedCommentsModalId) {
       toValue = WINDOW_HEIGHT / 4;
     }
     toggleDrawer(toValue, animationDuration);
@@ -92,7 +96,7 @@ const BottomCommonDrawer = props => {
     feedsThreeDotsShow,
     reportItemShow,
     blockUserShow,
-    commentUIShow,
+    feedCommentsModalId,
   ]);
 
   if (
@@ -107,7 +111,7 @@ const BottomCommonDrawer = props => {
     !feedsThreeDotsShow &&
     !reportItemShow &&
     !blockUserShow &&
-    !commentUIShow
+    !feedCommentsModalId
   ) {
     return <></>;
   }
@@ -160,7 +164,7 @@ const BottomCommonDrawer = props => {
               <ReportAbuse />
             ) : blockUserShow ? (
               <BlockUser />
-            ) : commentUIShow ? (
+            ) : feedCommentsModalId ? (
               <CommentsBox />
             ) : (
               <></>

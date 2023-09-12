@@ -1,82 +1,105 @@
-import { useState } from 'react';
+import {memo, useState} from 'react';
 import styled from '@emotion/native';
 
 import Skill from './skill';
-import Battle from './battle';
-import { parsePostBody } from '../../../utils';
+import {parsePostBody} from '../../../utils';
 import Content from './content';
-import { handlePush } from '../../../navigation/navigationService';
+import {handlePush} from '../../../navigation/navigationService';
 import useLocalization from '../../../hooks/useLocalization';
 
-const { DEFAULT_HASH_TAGS_COUNTOSHOW } = require('../../../constants');
-
+const {DEFAULT_HASH_TAGS_COUNTOSHOW} = require('../../../constants');
+const areEqual = (prevProps, nextProps) => {
+  const {item: prevItem} = prevProps;
+  const {item: nextItem} = nextProps;
+  return prevItem && nextItem && prevItem.id === nextItem.id;
+};
 const Info = ({item, windowHeight, closeModal}) => {
-    const { author, availableForDareBack, hashTags, body, skills } = item;
-    const [showMoreHashtagsBtn, setShowMoreHashtagsBtn] = useState(hashTags > DEFAULT_HASH_TAGS_COUNTOSHOW);
-    const [postTitle] = parsePostBody(body);
-    const {translate}=useLocalization();
+  const {author, hashTags, body, skills} = item;
+  const [showMoreHashtagsBtn, setShowMoreHashtagsBtn] = useState(
+    hashTags > DEFAULT_HASH_TAGS_COUNTOSHOW,
+  );
+  const [postTitle] = parsePostBody(body);
+  const {translate} = useLocalization();
 
-    return (
-        <Container windowHeight={windowHeight}>
-            <InfoContainer>
-                {author.alias !== "" && (
-                <AliasBtn onPress={() => handlePush({name: 'Profile', params: {auth: false} })}>
-                 <AliasText>{author.alias && author.alias !== author?.entityId ? author.alias : author?.name}</AliasText>
-                </AliasBtn>
+  return (
+    <Container windowHeight={windowHeight}>
+      <InfoContainer>
+        {author.alias !== '' && (
+          <AliasBtn
+            onPress={() =>
+              handlePush({name: 'Profile', params: {auth: false}})
+            }>
+            <AliasText>
+              {author.alias && author.alias !== author?.entityId
+                ? author.alias
+                : author?.name}
+            </AliasText>
+          </AliasBtn>
+        )}
+        {postTitle && <PostTitleText>{postTitle}</PostTitleText>}
+        {hashTags ? (
+          <HashtagsContainer>
+            {hashTags?.map((item, idx) => {
+              return !showMoreHashtagsBtn && idx < 2 ? (
+                <Content
+                  key={`${idx}-${item}`}
+                  text={item}
+                  isHashTag={true}
+                  fontSize={11}
+                  closeModal={closeModal}
+                />
+              ) : showMoreHashtagsBtn ? (
+                <Content
+                  key={`${idx}-${item}`}
+                  text={item}
+                  isHashTag={true}
+                  fontSize={11}
+                  closeModal={closeModal}
+                />
+              ) : null;
+            })}
+            {hashTags.length > DEFAULT_HASH_TAGS_COUNTOSHOW && (
+              <ContentMoreSpan
+                onPress={() => setShowMoreHashtagsBtn(prev => !prev)}>
+                {!showMoreHashtagsBtn ? (
+                  <HashTagText>
+                    {translate('more')}
+                    {'...'}
+                  </HashTagText>
+                ) : (
+                  <HashTagText>
+                    {'...'}
+                    {translate('less')}
+                  </HashTagText>
                 )}
-                {postTitle && <PostTitleText>{postTitle}</PostTitleText> }
-                {hashTags ? (
-                    <HashtagsContainer>
-                    {hashTags?.map((item, idx) => {
-                        return (
-                          (!showMoreHashtagsBtn && idx < 2) ?
-                          <Content key={`${idx}-${item}`} text={item} isHashTag={true} fontSize={11} closeModal={closeModal} />
-                          :
-                          showMoreHashtagsBtn ?
-                          <Content key={`${idx}-${item}`} text={item} isHashTag={true} fontSize={11} closeModal={closeModal} />
-                          :
-                          null
-                        );
-                    })}
-                    {hashTags.length > DEFAULT_HASH_TAGS_COUNTOSHOW && (
-                        <ContentMoreSpan onPress={() => setShowMoreHashtagsBtn(prev => !prev)}>
-                        {
-                            !showMoreHashtagsBtn ? 
-                            <HashTagText>{translate('more')}{'...'}</HashTagText> :
-                            <HashTagText>{'...'}{translate('less')}</HashTagText>
-                        }
-                        </ContentMoreSpan>
-                    )}
-                    </HashtagsContainer>
-                ) : <></>}
-                {skills.length > 0 ? (
-                  <SkillView>
-                      <Skill width={24} height={24} />
-                      <SkillBtn onPress={() => handlePush({name: 'SkillAndHashtag', params: {screen: 'skill'}})}><SkillText>{translate(skills[0]?.alias)}</SkillText></SkillBtn>
-                  </SkillView>
-                )
-                :
-                <></>
-              }
-            </InfoContainer> 
-            {availableForDareBack ? <BattleIconContainer>
-                <Battle width={63} height={70} item={item}/>
-                {/* onCallBackFunc={dareBackUI} */}
-            </BattleIconContainer> : <></> }
-         </Container>
-    )
-}
+              </ContentMoreSpan>
+            )}
+          </HashtagsContainer>
+        ) : (
+          <></>
+        )}
+        {skills.length > 0 ? (
+          <SkillView>
+            <Skill width={24} height={24} />
+            <SkillBtn
+              onPress={() =>
+                handlePush({name: 'SkillAndHashtag', params: {screen: 'skill'}})
+              }>
+              <SkillText>{translate(skills[0]?.alias)}</SkillText>
+            </SkillBtn>
+          </SkillView>
+        ) : (
+          <></>
+        )}
+      </InfoContainer>
+    </Container>
+  );
+};
 
-export default Info;
+export default memo(Info, areEqual);
 
 const Container = styled.View`
   height: ${props => props.windowHeight};
-`;
-
-const BattleIconContainer = styled.TouchableOpacity`
-  position: absolute;
-  bottom: 10px;
-  right: 10px;
 `;
 
 const InfoContainer = styled.TouchableOpacity`
@@ -108,8 +131,7 @@ const AliasText = styled.Text`
   font-family: Metropolis-Medium;
 `;
 
-const AliasBtn = styled.TouchableOpacity`
-`;
+const AliasBtn = styled.TouchableOpacity``;
 
 const PostTitleText = styled.Text`
   font-size: 12px;
@@ -121,8 +143,8 @@ const PostTitleText = styled.Text`
 `;
 
 const HashTagText = styled.Text`
-    color: rgb(255, 255, 255);
-    font-family: Metropolis-Medium;
+  color: rgb(255, 255, 255);
+  font-family: Metropolis-Medium;
 `;
 
 const SkillView = styled.View`
@@ -140,5 +162,4 @@ const SkillText = styled.Text`
   font-family: Metropolis-Medium;
 `;
 
-const SkillBtn = styled.TouchableOpacity`
-`;
+const SkillBtn = styled.TouchableOpacity``;

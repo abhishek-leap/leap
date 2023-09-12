@@ -1,8 +1,14 @@
-import React from 'react';
-import { Share } from 'react-native';
+import React, {memo} from 'react';
+import {Share} from 'react-native';
 import styled from '@emotion/native';
 
-const ShareItem = ({ component, copyText }) => {
+const areEqual = (prevProps, nextProps) => {
+  const {copyText: prevText} = prevProps;
+  const {copyText: nextText} = nextProps;
+  return prevText === nextText;
+};
+
+const ShareItem = ({component, copyText}) => {
   const onShare = async () => {
     try {
       const result = await Share.share({
@@ -21,15 +27,9 @@ const ShareItem = ({ component, copyText }) => {
       console.log(error.message);
     }
   };
-  return (
-    <TapForShare 
-        onPress={onShare}>
-      {component}
-    </TapForShare>
-  );
+  return <TapForShare onPress={onShare}>{component}</TapForShare>;
 };
 
-export default ShareItem;
+export default memo(ShareItem, areEqual);
 
-const TapForShare = styled.TouchableOpacity`
-`;
+const TapForShare = styled.TouchableOpacity``;

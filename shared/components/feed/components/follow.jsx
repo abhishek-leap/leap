@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React, {useEffect, useState} from 'react';
 import styled from '@emotion/native';
 import FollowIcon from '../../../images/profile-plus.svg';
-import withAuthentication from "../../../hoc/withAuthentication";
-import { loadProfile, startFollow } from "../../../apis";
-import { getData } from "../../../utils/helper";
-import { FullAuthentication, openAuthenticationBottomDrawer } from "../../../redux-ui-state/slices/authenticationSlice";
-import { useDispatch } from "react-redux";
+import withAuthentication from '../../../hoc/withAuthentication';
+import {loadProfile, startFollow} from '../../../apis';
+import {getData} from '../../../utils/helper';
+import {
+  FullAuthentication,
+  openAuthenticationBottomDrawer,
+} from '../../../redux-ui-state/slices/authenticationSlice';
+import {useDispatch} from 'react-redux';
 
 const ProfileFollowButton = ({
   followId,
@@ -17,16 +20,16 @@ const ProfileFollowButton = ({
   setFollowList,
   updateFollowings,
   isNotification,
-  isToken
+  isToken,
 }) => {
-//   const router = useRouter();
+  //   const router = useRouter();
   const [loading, setLoading] = useState(false);
   const [hasFollow, setHasFollowIcon] = useState(hasFollowIcon);
   const [followedId, setFollowedId] = useState();
   const dispatch = useDispatch();
-  const alias = getData("user_alias");
+  const alias = getData('user_alias');
 
-  const followUser = async (data) => {
+  const followUser = async data => {
     try {
       let followData = await startFollow(data);
       if (followData?.id) {
@@ -36,15 +39,15 @@ const ProfileFollowButton = ({
           setFollowedId(followData?.id);
           setLoading(false);
           if (updateFollowers) {
-            updateFollowers({ type: "follow", data: followData });
+            updateFollowers({type: 'follow', data: followData});
           }
           if (setFollowList) {
-            setFollowList((prev) => {
+            setFollowList(prev => {
               return [...prev, followData?.bindEntityId];
             });
           }
           if (updateFollowings) {
-            updateFollowings({ data: followData });
+            updateFollowings({data: followData});
           }
         }
       } else {
@@ -61,13 +64,13 @@ const ProfileFollowButton = ({
     try {
       const unfollowData = await deleteFollow(followedId);
       if (unfollowData?.count) {
-        setFollowedId("");
+        setFollowedId('');
         setLoading(false);
         if (updateFollowings) {
-          updateFollowings({ followedId });
+          updateFollowings({followedId});
         }
         if (updateFollowers) {
-          updateFollowers({ type: "unfollow", followedId });
+          updateFollowers({type: 'unfollow', followedId});
         }
       }
     } catch (e) {
@@ -76,29 +79,29 @@ const ProfileFollowButton = ({
   };
 
   const handleFollowUnfollow = async () => {
-        if (isBasicSignupCompleted) {
-        setLoading(true);
-        if (!isText) {
-            setHasFollowIcon(false);
-        }
-        if (followedId) {
-            unfollowUser();
-        } else {
-            const data = await loadProfile({ userAlias: alias });
-            followUser({
-            id: data?.details?.id,
-            data: {
-                bindEntityId: entityId,
-                bindEntityName: "Customer",
-            },
-            });
-        }
-        } else {
-            if (!isToken) {
-                dispatch(FullAuthentication(0));
-                dispatch(openAuthenticationBottomDrawer());
-            }
-        }
+    if (isBasicSignupCompleted) {
+      setLoading(true);
+      if (!isText) {
+        setHasFollowIcon(false);
+      }
+      if (followedId) {
+        unfollowUser();
+      } else {
+        const data = await loadProfile({userAlias: alias});
+        followUser({
+          id: data?.details?.id,
+          data: {
+            bindEntityId: entityId,
+            bindEntityName: 'Customer',
+          },
+        });
+      }
+    } else {
+      if (!isToken) {
+        dispatch(FullAuthentication(0));
+        dispatch(openAuthenticationBottomDrawer());
+      }
+    }
   };
 
   useEffect(() => {
@@ -122,14 +125,12 @@ const ProfileFollowButton = ({
           ) : (
             <FollowBtnWrapper
               disabled={loading}
-              type={!!followedId && "secondary"}
-            >
+              type={!!followedId && 'secondary'}>
               <FollowBtn
                 disabled={loading}
-                type={!!followedId && "secondary"}
-                notification={isNotification}
-              >
-                {!!followedId ? "UNFOLLOW" : "FOLLOW"}
+                type={!!followedId && 'secondary'}
+                notification={isNotification}>
+                {!!followedId ? 'UNFOLLOW' : 'FOLLOW'}
               </FollowBtn>
             </FollowBtnWrapper>
           )}
@@ -150,41 +151,38 @@ const ProfileFollowButton = ({
 };
 
 const Root = styled.View`
-  ${(props) =>
+  ${props =>
     props.notification &&
     `
   width: 75px
   `}
 `;
 
-const StyledButton = styled.TouchableOpacity`
-  padding-left: ${Platform.OS === 'ios' ? '44%' : '42%'};
-  position: absolute;
-`;
+const StyledButton = styled.TouchableOpacity``;
 
 const FollowBtnWrapper = styled.View`
   padding: 4px 3.21px;
 
-  background: ${(props) =>
+  background: ${props =>
     props.disabled
-      ? "#C0C8D9"
-      : props.type === "secondary"
-      ? "rgba(153, 0, 217, 0.38)"
-      : "linear-gradient(270deg, rgba(255, 0, 172, 0.24) 0%, rgba(153, 0, 217, 0.24) 100%);"};
+      ? '#C0C8D9'
+      : props.type === 'secondary'
+      ? 'rgba(153, 0, 217, 0.38)'
+      : 'linear-gradient(270deg, rgba(255, 0, 172, 0.24) 0%, rgba(153, 0, 217, 0.24) 100%);'};
   border-radius: 18px;
   display: block;
 `;
 
 const FollowBtn = styled.Button`
-  background: ${(props) =>
+  background: ${props =>
     props.disabled
-      ? "#C0C8D9"
-      : props.type === "secondary"
-      ? "rgba(153, 0, 217, 0.38)"
-      : "linear-gradient(270deg, #ff00ac 0%, #9900d9 100%)"};
+      ? '#C0C8D9'
+      : props.type === 'secondary'
+      ? 'rgba(153, 0, 217, 0.38)'
+      : 'linear-gradient(270deg, #ff00ac 0%, #9900d9 100%)'};
   font-weight: 500;
-  font-size: ${(props) => (props.notification ? 10 : 12)}px;
-  line-height: ${(props) => (props.notification ? 12 : 16)}px;
+  font-size: ${props => (props.notification ? 10 : 12)}px;
+  line-height: ${props => (props.notification ? 12 : 16)}px;
   text-align: center;
   text-transform: uppercase;
   letter-spacing: 1.07143px;
