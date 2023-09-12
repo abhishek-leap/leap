@@ -16,6 +16,7 @@ export const isPartners = url => url.includes('://partner');
 export const isDare = url => url.includes('://dare');
 export const isMediaNext = url => url.includes('://media-next');
 export const isNotification = url => url.includes('notification');
+export const isNotificationNext = url => url.includes('://notification-next');
 
 export const isBearer = url =>
   [
@@ -26,6 +27,7 @@ export const isBearer = url =>
     isMediaNext,
     isNotification,
   ].some(fn => fn(url));
+
 
 export const loadFeeds = options =>
   get(`${FEED_NEXT_STG}/feeds/feedsByUserId${queryString(options)}`);
@@ -57,9 +59,9 @@ export const countriesList = () => get(`${BASE_URL_CORE_STG}/Countries`);
 //Notification APIs
 export const loadNotifications = (id, options) =>
   get(
-    `${NOTIFICATION}/Notifications/findByUserId${queryString(
+    `${NOTIFICATION}/notifications/findByUserId/${id}${queryString(
       options,
-    )}&userId=${id}`,
+    )}`,
   );
 
 export const registerFcm = options => {

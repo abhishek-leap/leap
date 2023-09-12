@@ -81,33 +81,35 @@ export const useCommentAPI = () => {
 };
 
 const getInfiniteNotification = async ({pageParam = 0}) => {
-  const queyParams = {options: {offset: pageParam, limit: 10}};
+  const queryParams = {filter: {offset: pageParam, limit: 10}};
   const USER_ID = getData('user_id');
-  const {data: apiNotification, meta} = await loadNotifications(
-    USER_ID,
-    queyParams,
-  );
-  return {response: apiNotification, nextPage: meta};
+  const {notifications, meta} = await loadNotifications(USER_ID, queryParams);
+  return {response: notifications, nextPage: meta};
 };
 
 export const useInfiniteNotifications = () => {
-  return useInfiniteQuery(['notificaion'], getInfiniteNotification, {
-    select: data => {
-      const allPagesArray = [];
-      data?.pages
-        ? data.pages.forEach(notificationsArray =>
-            allPagesArray.push(notificationsArray?.response),
-          )
-        : null;
-      const flatContacts = allPagesArray.flat();
-      return {
-        pages: data.pages,
-        pageParams: data.pageParams,
-        feeds: flatContacts,
-      };
+  const {data, fetchNextPage, hasNextPage} = useInfiniteQuery(
+    ['notification'],
+    getInfiniteNotification,
+    {
+      getNextPageParam: lastPage => lastPage?.nextPage?.offset + OFFSET_LIMIT,
+      select: data => {
+        const allPagesArray = [];
+        data?.pages
+          ? data.pages.forEach(notificationsArray =>
+              allPagesArray.push(notificationsArray?.response),
+            )
+          : null;
+        const flatContacts = allPagesArray.flat();
+        return {
+          pages: data.pages,
+          pageParams: data.pageParams,
+          notifications: flatContacts,
+        };
+      },
+      onError: error => console.log('useInfiniteNotifications ', error),
+      staleTime: 1000 * 60 * 60,
     },
-    getNextPageParam: lastPage => lastPage?.nextPage?.offset + OFFSET_LIMIT,
-    onError: error => console.log('useInfiniteNotifications ', error),
-    staleTime: 1000 * 60 * 60,
-  });
+  );
+  return {data, fetchNextPage, hasNextPage};
 };
