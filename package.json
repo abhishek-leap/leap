@@ -21,10 +21,12 @@
   "dependencies": {
     "@emotion/native": "^11.10.0",
     "@emotion/react": "^11.10.5",
+    "@notifee/react-native": "^7.8.0",
     "@react-native-clipboard/clipboard": "^1.11.2",
     "@react-native-community/netinfo": "^9.3.7",
     "@react-native-firebase/app": "^17.3.2",
     "@react-native-firebase/crashlytics": "^17.3.2",
+    "@react-native-firebase/messaging": "^18.4.0",
     "@react-navigation/bottom-tabs": "^6.4.3",
     "@react-navigation/material-top-tabs": "^6.6.2",
     "@react-navigation/native": "^6.0.16",

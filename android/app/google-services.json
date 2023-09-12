@@ -1,40 +1,78 @@
 {
   "project_info": {
-    "project_number": "991286465180",
-    "project_id": "playleap-nextjs",
-    "storage_bucket": "playleap-nextjs.appspot.com"
+    "project_number": "753882211718",
+    "project_id": "playleap-d6aa1",
+    "storage_bucket": "playleap-d6aa1.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:991286465180:android:cc350cf58849c877561359",
+        "mobilesdk_app_id": "1:753882211718:android:df830f0d4c0caa3a123807",
         "android_client_info": {
-          "package_name": "io.playleap.rnative"
+          "package_name": "io.playleap.app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "991286465180-gvnivbs0marne6jqhmbtu35n9vib8r78.apps.googleusercontent.com",
+          "client_id": "753882211718-cergkfsqkdclfr3k6qtctrnn0p0qkin8.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyAvmMFe2Rez541aaN2DDs_-eJ96GIVD970"
+          "current_key": "AIzaSyAfMD-GK5k9WeTmb57kWyJAyMzD0u7Gjco"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "991286465180-gvnivbs0marne6jqhmbtu35n9vib8r78.apps.googleusercontent.com",
+              "client_id": "753882211718-cergkfsqkdclfr3k6qtctrnn0p0qkin8.apps.googleusercontent.com",
               "client_type": 3
             },
             {
-              "client_id": "991286465180-g62rt2ugje34vkd5ne7no2k8vke24noj.apps.googleusercontent.com",
+              "client_id": "753882211718-eg3skivi7c5os3gg8fsa52vgheh61dei.apps.googleusercontent.com",
               "client_type": 2,
               "ios_info": {
-                "bundle_id": "io.playleap.rnative"
+                "bundle_id": "io.playleap.app",
+                "app_store_id": "1591794707"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:753882211718:android:a7edb6e76aaf03c7123807",
+        "android_client_info": {
+          "package_name": "io.playleap.rnative"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "753882211718-cergkfsqkdclfr3k6qtctrnn0p0qkin8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAfMD-GK5k9WeTmb57kWyJAyMzD0u7Gjco"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "753882211718-cergkfsqkdclfr3k6qtctrnn0p0qkin8.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "753882211718-eg3skivi7c5os3gg8fsa52vgheh61dei.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "io.playleap.app",
+                "app_store_id": "1591794707"
               }
             }
           ]

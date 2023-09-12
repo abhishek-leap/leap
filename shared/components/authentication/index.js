@@ -16,6 +16,7 @@ import {
   genderCountryRegistration,
   loadProfile,
   otpVerify,
+  registerFcm,
 } from '../../apis';
 import DateOfBirth from './components/dateOfBirth';
 import GenderCountries from './components/genderCountries';
@@ -28,6 +29,7 @@ import {getData, setData} from '../../utils/helper';
 import {storage} from '../../mmkv-store/store';
 import useLocalization from '../../hooks/useLocalization';
 import {setLanguage} from '../../redux-ui-state/slices/userSlice';
+import notifee from '@notifee/react-native';
 
 export const SignInUp = ({
   onCloseIconClick,
@@ -131,7 +133,13 @@ export const SignInUp = ({
         dispatch(setLanguage(data?.details.lang));
         storage.set('lang', data?.details.lang);
       }
-
+      const fcmToken = getData('fcmToken');
+      console.log(fcmToken, 'fcm token');
+      registerFcm({
+        appInstallationId: fcmToken,
+        appInstallationDevice: Platform.OS,
+        fmsUtm: {},
+      });
       if (storageUser?.isBasicSignupCompleted) {
         closeSignup();
       } else {

@@ -54,7 +54,11 @@ export const removeData = async key => {
 };
 
 export const removeAllData = async () => {
+  const fcmToken = getData('fcmToken');
   storage.clearAll();
+  if (fcmToken) {
+    setData('fcmToken', fcmToken);
+  }
 };
 
 export const checkKeyExist = async key => {

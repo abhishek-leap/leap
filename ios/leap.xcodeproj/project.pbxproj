@@ -34,6 +34,14 @@
 		D8BE7B24BE2F42188D29037D /* Metropolis-Medium.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 8E3493D2F2BD422CA8FB1652 /* Metropolis-Medium.ttf */; };
 		EB091B6B29925B9800B1101A /* VideoEditorModuleBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = EB091B6A29925B9800B1101A /* VideoEditorModuleBridge.m */; };
 		EB091B6E29925BF100B1101A /* VideoEditorModule.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB091B6D29925BF100B1101A /* VideoEditorModule.swift */; };
+		EB210ABF2AB044B0006CCCD3 /* tick.png in Resources */ = {isa = PBXBuildFile; fileRef = EB210ABE2AB044B0006CCCD3 /* tick.png */; };
+		EB210AC12AB044CE006CCCD3 /* thumbnail.png in Resources */ = {isa = PBXBuildFile; fileRef = EB210AC02AB044CD006CCCD3 /* thumbnail.png */; };
+		EB210AC32AB04526006CCCD3 /* dare.png in Resources */ = {isa = PBXBuildFile; fileRef = EB210AC22AB04526006CCCD3 /* dare.png */; };
+		EB210AC52AB04536006CCCD3 /* dare-winner.png in Resources */ = {isa = PBXBuildFile; fileRef = EB210AC42AB04536006CCCD3 /* dare-winner.png */; };
+		EB210AC72AB04545006CCCD3 /* loser.png in Resources */ = {isa = PBXBuildFile; fileRef = EB210AC62AB04545006CCCD3 /* loser.png */; };
+		EB210AC92AB04555006CCCD3 /* dare-vote.png in Resources */ = {isa = PBXBuildFile; fileRef = EB210AC82AB04555006CCCD3 /* dare-vote.png */; };
+		EB210ACB2AB0456A006CCCD3 /* invalid.png in Resources */ = {isa = PBXBuildFile; fileRef = EB210ACA2AB0456A006CCCD3 /* invalid.png */; };
+		EB210ACD2AB04579006CCCD3 /* dare-winner.png in Resources */ = {isa = PBXBuildFile; fileRef = EB210ACC2AB04579006CCCD3 /* dare-winner.png */; };
 		EB2A6C1A29756D6800E7E5BC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = EB2A6C1929756D6800E7E5BC /* GoogleService-Info.plist */; };
 		EB762E742992717B00634C99 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = EB762E732992717B00634C99 /* Constants.swift */; };
 		EB933FC32A96109100468160 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = EB933FC22A96109100468160 /* Launch Screen.storyboard */; };
@@ -92,6 +100,15 @@
 		EB091B6A29925B9800B1101A /* VideoEditorModuleBridge.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideoEditorModuleBridge.m; sourceTree = "<group>"; };
 		EB091B6C29925BF100B1101A /* leap-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "leap-Bridging-Header.h"; sourceTree = "<group>"; };
 		EB091B6D29925BF100B1101A /* VideoEditorModule.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoEditorModule.swift; sourceTree = "<group>"; };
+		EB210ABA2AB035A9006CCCD3 /* leap.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = leap.entitlements; path = leap/leap.entitlements; sourceTree = "<group>"; };
+		EB210ABE2AB044B0006CCCD3 /* tick.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = tick.png; sourceTree = "<group>"; };
+		EB210AC02AB044CD006CCCD3 /* thumbnail.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = thumbnail.png; path = ../shared/images/thumbnail.png; sourceTree = "<group>"; };
+		EB210AC22AB04526006CCCD3 /* dare.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = dare.png; path = ../shared/images/dare.png; sourceTree = "<group>"; };
+		EB210AC42AB04536006CCCD3 /* dare-winner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "dare-winner.png"; path = "../shared/images/dare-winner.png"; sourceTree = "<group>"; };
+		EB210AC62AB04545006CCCD3 /* loser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = loser.png; path = ../shared/images/loser.png; sourceTree = "<group>"; };
+		EB210AC82AB04555006CCCD3 /* dare-vote.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "dare-vote.png"; path = "../shared/images/dare-vote.png"; sourceTree = "<group>"; };
+		EB210ACA2AB0456A006CCCD3 /* invalid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = invalid.png; path = ../shared/images/invalid.png; sourceTree = "<group>"; };
+		EB210ACC2AB04579006CCCD3 /* dare-winner.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "dare-winner.png"; path = "../shared/images/dare-winner.png"; sourceTree = "<group>"; };
 		EB2A6C1929756D6800E7E5BC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		EB762E732992717B00634C99 /* Constants.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		EB762E752992744300634C99 /* leapDebug.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = leapDebug.entitlements; path = leap/leapDebug.entitlements; sourceTree = "<group>"; };
@@ -140,6 +157,7 @@
 		13B07FAE1A68108700A75B9A /* leap */ = {
 			isa = PBXGroup;
 			children = (
+				EB210ABA2AB035A9006CCCD3 /* leap.entitlements */,
 				EB762E752992744300634C99 /* leapDebug.entitlements */,
 				13B07FAF1A68108700A75B9A /* AppDelegate.h */,
 				13B07FB01A68108700A75B9A /* AppDelegate.mm */,
@@ -205,6 +223,14 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
+				EB210AC42AB04536006CCCD3 /* dare-winner.png */,
+				EB210AC22AB04526006CCCD3 /* dare.png */,
+				EB210ACA2AB0456A006CCCD3 /* invalid.png */,
+				EB210AC82AB04555006CCCD3 /* dare-vote.png */,
+				EB210AC62AB04545006CCCD3 /* loser.png */,
+				EB210ACC2AB04579006CCCD3 /* dare-winner.png */,
+				EB210AC02AB044CD006CCCD3 /* thumbnail.png */,
+				EB210ABE2AB044B0006CCCD3 /* tick.png */,
 				13B07FAE1A68108700A75B9A /* leap */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
 				00E356EF1AD99517003FC87E /* leapTests */,
@@ -337,21 +363,28 @@
 			files = (
 				EB933FC32A96109100468160 /* Launch Screen.storyboard in Resources */,
 				81AB9BB82411601600AC10FF /* LaunchScreen.storyboard in Resources */,
+				EB210AC12AB044CE006CCCD3 /* thumbnail.png in Resources */,
 				13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */,
 				EB2A6C1A29756D6800E7E5BC /* GoogleService-Info.plist in Resources */,
+				EB210ACB2AB0456A006CCCD3 /* invalid.png in Resources */,
 				8B4E63F19ACF4325A9484717 /* Mohave-Bold.ttf in Resources */,
 				104D781CF4734C57B29417AC /* Mohave-Regular.ttf in Resources */,
 				F8475D05210041BA813730F0 /* Roboto-Regular.ttf in Resources */,
+				EB210AC52AB04536006CCCD3 /* dare-winner.png in Resources */,
 				78365D8722624613AAAA48D5 /* Metropolis-Black.ttf in Resources */,
 				C47E53CBB4DD488C86F16780 /* Metropolis-BlackItalic.ttf in Resources */,
 				FF59DE28040E4C9DAB445986 /* Metropolis-Bold.ttf in Resources */,
 				86D76E2DE8C74804A012323F /* Metropolis-BoldItalic.ttf in Resources */,
+				EB210AC72AB04545006CCCD3 /* loser.png in Resources */,
 				3A136FADE5CE43FDB7E9EAC8 /* Metropolis-ExtraBold.ttf in Resources */,
 				3F4ACB1E0B664C69B1220150 /* Metropolis-ExtraBoldItalic.ttf in Resources */,
 				9E79802350834E8FBA429573 /* Metropolis-ExtraLight.ttf in Resources */,
 				ACEC1D8D8ED24E3FA748829A /* Metropolis-ExtraLightItalic.ttf in Resources */,
 				58171BD4C859469CB0A683A1 /* Metropolis-Light.ttf in Resources */,
+				EB210ABF2AB044B0006CCCD3 /* tick.png in Resources */,
+				EB210AC92AB04555006CCCD3 /* dare-vote.png in Resources */,
 				B6A90DCDCF984D1B9228348C /* Metropolis-LightItalic.ttf in Resources */,
+				EB210ACD2AB04579006CCCD3 /* dare-winner.png in Resources */,
 				D8BE7B24BE2F42188D29037D /* Metropolis-Medium.ttf in Resources */,
 				FB59528B97734ACBBF648093 /* Metropolis-MediumItalic.ttf in Resources */,
 				870EB0CF39A74D3EB4F3ED38 /* Metropolis-Regular.ttf in Resources */,
@@ -360,6 +393,7 @@
 				6DA74A0F5DFF45CB91E2CD1B /* Metropolis-SemiBoldItalic.ttf in Resources */,
 				7A111F4D3B264F47B2F2ACCF /* Metropolis-Thin.ttf in Resources */,
 				68E2C9AB4F074C8298AC16E1 /* Metropolis-ThinItalic.ttf in Resources */,
+				EB210AC32AB04526006CCCD3 /* dare.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -688,6 +722,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CLANG_ENABLE_MODULES = YES;
+				CODE_SIGN_ENTITLEMENTS = leap/leap.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 141;

@@ -15,11 +15,17 @@ export const isCommunication = url => url.includes('://communication');
 export const isPartners = url => url.includes('://partner');
 export const isDare = url => url.includes('://dare');
 export const isMediaNext = url => url.includes('://media-next');
+export const isNotification = url => url.includes('notification');
 
 export const isBearer = url =>
-  [isFeedNext, isCommunication, isPartners, isDare, isMediaNext].some(fn =>
-    fn(url),
-  );
+  [
+    isFeedNext,
+    isCommunication,
+    isPartners,
+    isDare,
+    isMediaNext,
+    isNotification,
+  ].some(fn => fn(url));
 
 export const loadFeeds = options =>
   get(`${FEED_NEXT_STG}/feeds/feedsByUserId${queryString(options)}`);
@@ -56,11 +62,15 @@ export const loadNotifications = (id, options) =>
     )}&userId=${id}`,
   );
 
+export const registerFcm = options => {
+  console.log(options);
+  post(`${NOTIFICATION}/appInstallation/saveAppInstallationId`, options, false);
+};
 // Follow
 export const startFollow = ({id, data}) =>
   post(`${CORE}/CustomerDetails/${id}/follow`, data);
 
-export const loadProfile = (options) =>
+export const loadProfile = options =>
   get(`${CORE}/Profiles/detailsByUserAlias${queryString(options)}`);
 
 // Like Comment share APIs

@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>991286465180-g62rt2ugje34vkd5ne7no2k8vke24noj.apps.googleusercontent.com</string>
+	<string>753882211718-qp5b7u3lqpe2mi812kaufkpadi5jftuf.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.991286465180-g62rt2ugje34vkd5ne7no2k8vke24noj</string>
+	<string>com.googleusercontent.apps.753882211718-qp5b7u3lqpe2mi812kaufkpadi5jftuf</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDRom-C__uPB-zjcoIgIUhTe8x8fgKjIgs</string>
+	<string>AIzaSyBMArAGQQJCesEOGSDegyJ-W6a2gBJufxI</string>
 	<key>GCM_SENDER_ID</key>
-	<string>991286465180</string>
+	<string>753882211718</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
 	<string>io.playleap.rnative</string>
 	<key>PROJECT_ID</key>
-	<string>playleap-nextjs</string>
+	<string>playleap-d6aa1</string>
 	<key>STORAGE_BUCKET</key>
-	<string>playleap-nextjs.appspot.com</string>
+	<string>playleap-d6aa1.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:991286465180:ios:d2c6c5bea1bc0b4d561359</string>
+	<string>1:753882211718:ios:44be95ef229f72a5123807</string>
 </dict>
 </plist>

@@ -44,6 +44,7 @@ import DarePreviewScreen from './shared/screens/darePreview';
 import DareVideoScreen from './shared/screens/dareVideo';
 import DareResultScreen from './shared/screens/dareResult';
 import {BOTTOM_BAR_HEIGHT} from './shared/constants';
+import {configureFcm} from './shared/utils/messaging';
 
 const Tab = createMaterialTopTabNavigator(); //createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -207,6 +208,7 @@ const App = () => {
 
   useEffect(() => {
     const subscription = AppState.addEventListener('change', onAppStateChange);
+    configureFcm();
     return () => subscription.remove();
   }, []);
 
