@@ -22,8 +22,10 @@ const VideoPlayer = ({
       removeClippedSubviews={true}
       repeat={loop}
       poster={
-        assetPoster.replace('d1hus0nx0ytxoz.cloudfront', 'playleap-img.imgix') +
-        '?max-w=350&auto=compress'
+        assetPoster?.replace(
+          'd1hus0nx0ytxoz.cloudfront',
+          'playleap-img.imgix',
+        ) + '?max-w=350&auto=compress'
       }
       posterResizeMode="contain" //{isCover ? "cover" : "contain"}
       resizeMode={isHorizontal ? 'contain' : 'cover'} //{isCover ? "cover" : "contain"}

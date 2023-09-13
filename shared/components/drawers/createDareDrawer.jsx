@@ -1,16 +1,23 @@
 import {useEffect, useRef} from 'react';
 import styled from '@emotion/native';
-import { Animated, SafeAreaView } from 'react-native';
+import {Animated, SafeAreaView} from 'react-native';
 import {useTheme} from '@react-navigation/native';
 import {useSelector, useDispatch} from 'react-redux';
 import {WINDOW_HEIGHT} from '../../constants';
 import CreateDare from '../createDare';
-import { closeCreateDareBottomDrawer } from '../../redux-ui-state/slices/createDareSlice';
-import { useCompetitorsList, useHashtagList, useSkillsGroup, useSkillsList, useSportList, useSuggestionList } from '../../hooks/useMasterAPI';
+import {closeCreateDareBottomDrawer} from '../../redux-ui-state/slices/createDareSlice';
+import {
+  useCompetitorsList,
+  useHashtagList,
+  useSkillsGroup,
+  useSkillsList,
+  useSportList,
+  useSuggestionList,
+} from '../../hooks/useMasterAPI';
 
 const ANIMATION_DURATION = 100; // 5 sec
 
-const CreateDareDrawer = (props, { navigation }) => {
+const CreateDareDrawer = (props, {navigation}) => {
   const dispatch = useDispatch();
   // const {  } = useSportList();
   // const {  } = useHashtagList();
@@ -40,7 +47,6 @@ const CreateDareDrawer = (props, { navigation }) => {
     toggleDrawer();
   }, [toggleDrawer, creatDareshow]);
 
-
   return (
     <Animated.View
       style={{
@@ -53,9 +59,7 @@ const CreateDareDrawer = (props, { navigation }) => {
       }}>
       <SafeAreaView>
         <Body>
-           <CreateDare 
-            onCloseIconClick={onCloseIconClick}
-           />
+          <CreateDare onCloseIconClick={onCloseIconClick} />
         </Body>
       </SafeAreaView>
     </Animated.View>

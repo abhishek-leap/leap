@@ -15,6 +15,7 @@ import {BASE_URL_SITE} from '../../../apis/urls';
 import {getData} from '../../../utils/helper';
 import AudioToggler from './audioToggler';
 import {useSelector} from 'react-redux';
+import {Platform} from 'react-native';
 
 const FeedOptions = ({data, height}) => {
   const {stats, author, id, following, userReactions} = data || {};

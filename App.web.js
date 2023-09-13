@@ -275,7 +275,7 @@ const AppWithReactQuery = () => {
   );
 };
 
-export default Sentry.withTouchEventBoundary(AppWithReactQuery);
+export default AppWithReactQuery;
 
 const IconContainer = styled.View`
   border-bottom-width: 2px;

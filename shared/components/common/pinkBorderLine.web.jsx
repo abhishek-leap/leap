@@ -1,5 +1,5 @@
 import React from 'react';
-import Styled from '@emotion/react';
+import Styled from '@emotion/native';
 
 const PinkBorderLine = ({height = 3.5, top}) => {
   return <LinearGradient />;
@@ -7,7 +7,7 @@ const PinkBorderLine = ({height = 3.5, top}) => {
 
 export default PinkBorderLine;
 
-const LinearGradient = Styled.div`
+const LinearGradient = Styled.View`
     width: '100%',
     position: 'absolute',
     border: 0,

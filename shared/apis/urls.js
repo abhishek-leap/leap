@@ -1,7 +1,7 @@
 const MEDIA_PROD = 'https://media.playleap.io/v1';
 const MEDIA_STG = 'https://mediastg.playleap.io/v1';
 
-export const IsProductionAPIs = process.env.REACT_APP_ENV === 'production';
+export const IsProductionAPIs = false;
 export const MEDIA = IsProductionAPIs ? MEDIA_PROD : MEDIA_STG;
 
 export const AVATAR_ID = 'avatarId';

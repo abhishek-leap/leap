@@ -4,7 +4,7 @@ import {useTheme} from '@react-navigation/native';
 import {SafeAreaView} from 'react-native';
 import Logo from '../../images/logo.svg';
 import LinearProgress from '../common/linearProgressBar';
-import { useSelector } from 'react-redux';
+import {useSelector} from 'react-redux';
 import useLocalization from '../../hooks/useLocalization';
 
 const SplashDrawer = props => {
@@ -16,12 +16,12 @@ const SplashDrawer = props => {
   const {configI18} = useLocalization();
 
   useEffect(() => {
-    if (firstFeedLoaded) {
-      setProgress(100);
-      setTimeout(() => {
-        setShow(false);
-      }, 800);
-    }
+    // if (firstFeedLoaded) {
+    setProgress(100);
+    setTimeout(() => {
+      setShow(false);
+    }, 800);
+    // }
   }, [firstFeedLoaded]);
 
   useEffect(() => {

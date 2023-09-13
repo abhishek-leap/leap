@@ -1,6 +1,6 @@
 import React from 'react';
 import Group from './group';
-import {Text, View, FlatList, StyleSheet} from 'react-native';
+import {Text, View, FlatList, StyleSheet, Platform} from 'react-native';
 import {useInfiniteDares} from '../../hooks/useInfiniteDares';
 import {ACTIVE_DARE_STATUS, CLOSED, NEW} from '../../constants';
 import styled from '@emotion/native';

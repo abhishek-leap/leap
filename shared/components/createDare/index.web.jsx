@@ -183,116 +183,116 @@ const CreateDare = ({optionChoose, value, isLoading}) => {
     VideoUploadWithStatus(videoURI);
     handleBack();
   };
+  return <></>;
+  // return (
+  //   <>
+  //     <Header text={CREATE_DARE} handleBack={handleBack} />
+  //     <InnerView colors={colors} currentWidth={WINDOW_WIDTH}>
+  //       <TopView>
+  //         {videoThumbnailImg && <Thumbnail source={{uri: videoThumbnailImg}} />}
+  //         <ThumbnailRightView>
+  //           <RightText colors={colors}>{SELECT_FROM_GALLERY}</RightText>
+  //         </ThumbnailRightView>
+  //       </TopView>
 
-  return (
-    <>
-      <Header text={CREATE_DARE} handleBack={handleBack} />
-      <InnerView colors={colors} currentWidth={WINDOW_WIDTH}>
-        <TopView>
-          {videoThumbnailImg && <Thumbnail source={{uri: videoThumbnailImg}} />}
-          <ThumbnailRightView>
-            <RightText colors={colors}>{SELECT_FROM_GALLERY}</RightText>
-          </ThumbnailRightView>
-        </TopView>
-
-        <TextInputOuterView>
-          <TxtInput
-            value={title}
-            width={WINDOW_WIDTH / 3.85 + '%'}
-            onChangeText={text => setTitle(text)}
-            placeholder={PLACEHOLDER_DARE_TITLE}
-            placeholderTextColor={'rgba(255, 255, 255, 1)'}
-            // style={{padding: '2% 2% 2% 0%'}}
-          />
-        </TextInputOuterView>
-        <Sports
-          onPress={() => dispatch(openSportsBottomDrawer())}
-          currentWidth={WINDOW_WIDTH}
-          colors={colors}>
-          <Selected colors={colors}>
-            {sport?.name || PLACEHOLDER_SPORTS}
-          </Selected>
-          <DownArrow color={colors.PLAYLEAP_WHITE} width={50} />
-        </Sports>
-        <Skills
-          onPress={() => dispatch(openSkillsBottomDrawer())}
-          currentWidth={WINDOW_WIDTH}
-          colors={colors}>
-          <Selected colors={colors}>
-            {skills?.name || PLACEHOLDER_SKILLS}
-          </Selected>
-          <DownArrow color={colors.PLAYLEAP_WHITE} width={50} />
-        </Skills>
-        <Competitor
-          onPress={() => dispatch(openCompetitorBottomDrawer())}
-          currentWidth={WINDOW_WIDTH}
-          colors={colors}>
-          <Selected colors={colors}>
-            {competitor?.name || PLACEHOLDER_COMPETITOR}
-          </Selected>
-          <DownArrow color={colors.PLAYLEAP_WHITE} width={50} />
-        </Competitor>
-        <Hashtag
-          onPress={() => dispatch(openHastagBottomDrawer())}
-          currentWidth={WINDOW_WIDTH}
-          colors={colors}>
-          {
-            hashtags.length == '' ? (
-              <Selected colors={colors}>{PLACEHOLDER_HASHTAGS}</Selected>
-            ) : (
-              <FlatList
-                data={hashtags}
-                renderItem={({item}) => {
-                  return (
-                    <HashTag
-                      colors={colors}
-                      currentWidth={WINDOW_WIDTH}
-                      hashtagLength={hashtags.length}>
-                      <HashTagItem>{item.value}</HashTagItem>
-                      <ClosedContainer
-                        colors={colors}
-                        onPress={() =>
-                          dispatch(
-                            selectedHashtags({
-                              name: item.value,
-                              value: item.value,
-                            }),
-                          )
-                        }>
-                        <CloseIcon
-                          color={colors.PLAYLEAP_DARK_PINK}
-                          width={25}
-                          height={25}
-                        />
-                      </ClosedContainer>
-                    </HashTag>
-                  );
-                }}
-                keyExtractor={(item, index) => item.value}
-              />
-            )
-            // hashtags.map((item) => (
-            // <HashTag colors={colors} currentWidth={WINDOW_WIDTH} hashtagLength={hashtags.length} >
-            //     <HashTagItem>{item.value}</HashTagItem>
-            //     <ClosedContainer colors={colors}  onPress={() => dispatch(selectedHashtags({name: item.value, value: item.value}))}>
-            //         <CloseIcon color={colors.PLAYLEAP_DARK_PINK} width={25} height={25} />
-            //     </ClosedContainer>
-            // </HashTag> ))
-          }
-          <DownArrow color={colors.PLAYLEAP_WHITE} width={50} />
-        </Hashtag>
-        <NextBtn
-          optionChoose={optionChoose}
-          colors={colors}
-          searchValue={title && sport?.name && skills?.name ? 'true' : ''}>
-          <TouchableOpacity onPress={() => nextAPI()}>
-            <NextBtnText>{!isLoading ? LETS_GO : <Loader />}</NextBtnText>
-          </TouchableOpacity>
-        </NextBtn>
-        {/* <Toaster successMessage={"Video Uploaded Successfully"}/> */}
-      </InnerView>
-    </>
-  );
+  //       <TextInputOuterView>
+  //         <TxtInput
+  //           value={title}
+  //           width={WINDOW_WIDTH / 3.85 + '%'}
+  //           onChangeText={text => setTitle(text)}
+  //           placeholder={PLACEHOLDER_DARE_TITLE}
+  //           placeholderTextColor={'rgba(255, 255, 255, 1)'}
+  //           // style={{padding: '2% 2% 2% 0%'}}
+  //         />
+  //       </TextInputOuterView>
+  //       <Sports
+  //         onPress={() => dispatch(openSportsBottomDrawer())}
+  //         currentWidth={WINDOW_WIDTH}
+  //         colors={colors}>
+  //         <Selected colors={colors}>
+  //           {sport?.name || PLACEHOLDER_SPORTS}
+  //         </Selected>
+  //         <DownArrow color={colors.PLAYLEAP_WHITE} width={50} />
+  //       </Sports>
+  //       <Skills
+  //         onPress={() => dispatch(openSkillsBottomDrawer())}
+  //         currentWidth={WINDOW_WIDTH}
+  //         colors={colors}>
+  //         <Selected colors={colors}>
+  //           {skills?.name || PLACEHOLDER_SKILLS}
+  //         </Selected>
+  //         <DownArrow color={colors.PLAYLEAP_WHITE} width={50} />
+  //       </Skills>
+  //       <Competitor
+  //         onPress={() => dispatch(openCompetitorBottomDrawer())}
+  //         currentWidth={WINDOW_WIDTH}
+  //         colors={colors}>
+  //         <Selected colors={colors}>
+  //           {competitor?.name || PLACEHOLDER_COMPETITOR}
+  //         </Selected>
+  //         <DownArrow color={colors.PLAYLEAP_WHITE} width={50} />
+  //       </Competitor>
+  //       <Hashtag
+  //         onPress={() => dispatch(openHastagBottomDrawer())}
+  //         currentWidth={WINDOW_WIDTH}
+  //         colors={colors}>
+  //         {
+  //           hashtags.length == '' ? (
+  //             <Selected colors={colors}>{PLACEHOLDER_HASHTAGS}</Selected>
+  //           ) : (
+  //             <FlatList
+  //               data={hashtags}
+  //               renderItem={({item}) => {
+  //                 return (
+  //                   <HashTag
+  //                     colors={colors}
+  //                     currentWidth={WINDOW_WIDTH}
+  //                     hashtagLength={hashtags.length}>
+  //                     <HashTagItem>{item.value}</HashTagItem>
+  //                     <ClosedContainer
+  //                       colors={colors}
+  //                       onPress={() =>
+  //                         dispatch(
+  //                           selectedHashtags({
+  //                             name: item.value,
+  //                             value: item.value,
+  //                           }),
+  //                         )
+  //                       }>
+  //                       <CloseIcon
+  //                         color={colors.PLAYLEAP_DARK_PINK}
+  //                         width={25}
+  //                         height={25}
+  //                       />
+  //                     </ClosedContainer>
+  //                   </HashTag>
+  //                 );
+  //               }}
+  //               keyExtractor={(item, index) => item.value}
+  //             />
+  //           )
+  //           // hashtags.map((item) => (
+  //           // <HashTag colors={colors} currentWidth={WINDOW_WIDTH} hashtagLength={hashtags.length} >
+  //           //     <HashTagItem>{item.value}</HashTagItem>
+  //           //     <ClosedContainer colors={colors}  onPress={() => dispatch(selectedHashtags({name: item.value, value: item.value}))}>
+  //           //         <CloseIcon color={colors.PLAYLEAP_DARK_PINK} width={25} height={25} />
+  //           //     </ClosedContainer>
+  //           // </HashTag> ))
+  //         }
+  //         <DownArrow color={colors.PLAYLEAP_WHITE} width={50} />
+  //       </Hashtag>
+  //       <NextBtn
+  //         optionChoose={optionChoose}
+  //         colors={colors}
+  //         searchValue={title && sport?.name && skills?.name ? 'true' : ''}>
+  //         <TouchableOpacity onPress={() => nextAPI()}>
+  //           <NextBtnText>{!isLoading ? LETS_GO : <Loader />}</NextBtnText>
+  //         </TouchableOpacity>
+  //       </NextBtn>
+  //       {/* <Toaster successMessage={"Video Uploaded Successfully"}/> */}
+  //     </InnerView>
+  //   </>
+  // );
 };
 
 export default CreateDare;
