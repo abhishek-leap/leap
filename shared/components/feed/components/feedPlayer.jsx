@@ -1,5 +1,5 @@
-import React, {useEffect, useRef,useState} from 'react';
-import Video from 'react-native-video';
+import React, {useEffect, useRef, useState} from 'react';
+import Video from '../../common/video.player';
 
 const areEqual = (prevProps, nextProps) => {
   const {
@@ -37,7 +37,7 @@ const FeedPlayer = ({
   activeVideo,
 }) => {
   const isReady = useRef(false);
-  const [isHorizontal,setIsHorizontal]=useState(true);
+  const [isHorizontal, setIsHorizontal] = useState(true);
   const onReadyForDisplay = () => {
     setShowLoader(false);
     isReady.current = true;
@@ -47,8 +47,8 @@ const FeedPlayer = ({
       });
     }
   };
-  const onLoad = ({ naturalSize }) => {
-    if(naturalSize.height>naturalSize.width){
+  const onLoad = ({naturalSize}) => {
+    if (naturalSize.height > naturalSize.width) {
       setIsHorizontal(false);
     }
     setShowLoader(false);
@@ -69,10 +69,13 @@ const FeedPlayer = ({
       }}
       key={assetReference}
       repeat={loop}
-      decelerationRate={"normal"}
-      poster={assetPoster.replace("d1hus0nx0ytxoz.cloudfront", "playleap-img.imgix")+"?max-w=350&auto=compress"}
-      posterResizeMode={isHorizontal ? "contain" : "cover"} //{isCover ? "cover" : "contain"}
-      resizeMode={isHorizontal ? "contain" : "cover"} //{isCover ? "cover" : "contain"}
+      decelerationRate={'normal'}
+      poster={
+        assetPoster.replace('d1hus0nx0ytxoz.cloudfront', 'playleap-img.imgix') +
+        '?max-w=350&auto=compress'
+      }
+      posterResizeMode={isHorizontal ? 'contain' : 'cover'} //{isCover ? "cover" : "contain"}
+      resizeMode={isHorizontal ? 'contain' : 'cover'} //{isCover ? "cover" : "contain"}
       paused={pausedStatus} //!activeVideo || !playing
       source={{
         isNetwork: true,
@@ -83,7 +86,7 @@ const FeedPlayer = ({
         },
       }}
       useSecureView={true}
-      shutterColor='transparent'
+      shutterColor="transparent"
       muted={muted} // mute
       playWhenInactive={true}
       playInBackground={true}
@@ -93,7 +96,6 @@ const FeedPlayer = ({
         type: 'resolution',
         value: 240,
       }}
-    
       bufferConfig={{
         minBufferMs: 1500, //number
         maxBufferMs: 3000, //number
@@ -118,7 +120,7 @@ const FeedPlayer = ({
           });
         }
       }}
-      ignoreSilentSwitch={"ignore"}
+      ignoreSilentSwitch={'ignore'}
     />
   );
 };

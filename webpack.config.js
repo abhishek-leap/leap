@@ -16,7 +16,7 @@ const babelLoaderConfiguration = {
   // Add every directory that needs to be compiled by Babel during the build.
   include: [
     path.resolve(__dirname, 'index.web.js'), // Entry to your application
-    path.resolve(__dirname, 'App.js'), // Change this to your main App file
+    path.resolve(__dirname, 'App.web.js'), // Change this to your main App file
     path.resolve(__dirname, 'src'),
     path.resolve(__dirname, 'shared'),
     ...compileNodeModules,
@@ -54,7 +54,9 @@ const confirmationCodeField = {
   test: /\.(js|jsx)$/,
   include: [
     path.resolve('src'),
-    path.parse(require.resolve('react-native-confirmation-code-field/package.json')).dir
+    path.parse(
+      require.resolve('react-native-confirmation-code-field/package.json'),
+    ).dir,
   ],
   use: {
     loader: 'babel-loader',
@@ -77,7 +79,7 @@ const webLoader = {
   test: /\.(js|jsx)$/,
   include: [
     path.resolve('src'),
-    path.parse(require.resolve('react-native-webview/package.json')).dir
+    path.parse(require.resolve('react-native-webview/package.json')).dir,
   ],
   use: {
     loader: 'babel-loader',
@@ -126,7 +128,7 @@ module.exports = {
       imageLoaderConfiguration,
       svgLoaderConfiguration,
       confirmationCodeField,
-      webLoader
+      webLoader,
     ],
   },
   plugins: [

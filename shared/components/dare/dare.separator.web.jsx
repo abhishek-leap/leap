@@ -1,6 +1,6 @@
 import React, {useState} from 'react';
 import styled from '@emotion/native';
-import Draggable from 'react-native-draggable';
+// import Draggable from 'react-native-draggable';
 
 //Import SVG
 import Like from '../../images/like.svg';
@@ -42,30 +42,31 @@ const DareSeparator = ({title, subTitle, dareState, onVote}) => {
             alt="arrows-up"
           />
           <VoteIconWrapper>
-            <Draggable
+            {/* <Draggable 
               x={dragPosition.x}
-              y={draggableYPosition}
+              y={draggableYPosition} 
               maxX={dragPosition.x}
               minX={dragPosition.x}
               shouldReverse={true}
               bounds={{left: 0, top: 0, right: 0, bottom: 500}}
               enableDrag={true}
               onDragRelease={(e, data) => {
-                if (data.dy > 80) {
-                  onVote('down');
-                } else if (Math.abs(data.dy) > 80) {
-                  onVote('up');
+                 if (data.dy > 80) {
+                  onVote("down");
+                } else if(Math.abs(data.dy) > 80) {
+                  onVote("up");
                 }
-              }}>
+              }}
+             >
               <Blink duration={1000}>
-                <Like
-                  width={180 - Math.abs(dragPosition.y) / 2}
-                  height={150}
-                  // strokeWidth={2}
-                  stroke="white"
+                <Like 
+                  width={180 - Math.abs(dragPosition.y) / 2} 
+                  height={150} 
+                  // strokeWidth={2} 
+                  stroke="white" 
                 />
               </Blink>
-            </Draggable>
+            </Draggable> */}
           </VoteIconWrapper>
           <ArrowImage
             source={require('../../images/ArrowsDown.gif')}

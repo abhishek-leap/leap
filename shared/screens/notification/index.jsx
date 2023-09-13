@@ -7,7 +7,6 @@ import {handleGoBack} from '../../navigation/navigationService';
 import {useInfiniteNotifications} from '../../hooks/useInfiniteFeeds';
 import NotificationBase from './components/notification-base';
 import {getData} from '../..//utils/helper';
-import LinearGradient from 'react-native-linear-gradient';
 import DefaultAvatar from '../../images/default-avatar/avatar.svg';
 import DefaultCover from '../../images/defaultCover.png';
 
@@ -17,10 +16,10 @@ const Notification = ({authStatus}) => {
     useInfiniteNotifications();
 
   const handleLoadMore = () => {
-      if (hasNextPage) {
-        fetchNextPage();
-      }
-    };
+    if (hasNextPage) {
+      fetchNextPage();
+    }
+  };
   let userId = getData('user_id');
   const flattenedData = data?.pages.flatMap(page => page.response);
   const ItemSeparator = styled.View`
@@ -30,16 +29,25 @@ const Notification = ({authStatus}) => {
   `;
   const renderItem = ({item}) => {
     return (
-        <NotificationBase
-          read={item.status !== "new"}
-          left={
-            <View style={{width: 100, display: 'flex', alignItems: 'center'}}>
-              <DefaultAvatar />
-            </View>
-          }
-          middle={<NotificationText>Man Great news! Someone just liked your post!</NotificationText>}
-          right={<Image  style={{ width: 50, height:74}} source={require('../../images/defaultCover.png')}/>}
-        />
+      <NotificationBase
+        read={item.status !== 'new'}
+        left={
+          <View style={{width: 100, display: 'flex', alignItems: 'center'}}>
+            <DefaultAvatar />
+          </View>
+        }
+        middle={
+          <NotificationText>
+            Man Great news! Someone just liked your post!
+          </NotificationText>
+        }
+        right={
+          <Image
+            style={{width: 50, height: 74}}
+            source={require('../../images/defaultCover.png')}
+          />
+        }
+      />
     );
   };
   return (
@@ -102,7 +110,7 @@ const NotificationText = styled.Text`
   line-height: 17px;
   color: rgba(255, 255, 255, 0.6);
   padding-bottom: 8px;
-`
+`;
 const HR = styled.View`
   height: 1px;
   margin: 4% 4% 1% 4%;
