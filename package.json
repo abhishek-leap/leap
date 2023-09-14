@@ -20,7 +20,7 @@
   "dependencies": {
     "@babel/preset-env": "^7.22.15",
     "@babel/preset-react": "^7.22.15",
-    "@emotion/native": "^11.10.0",
+    "@emotion/native": "^11.11.0",
     "@emotion/react": "^11.10.5",
     "@notifee/react-native": "^7.8.0",
     "@react-native-clipboard/clipboard": "^1.11.2",
