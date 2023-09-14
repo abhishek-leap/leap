@@ -72,9 +72,7 @@
     "webpack-dev-server": "^4.11.1",
     "html-webpack-plugin": "^5.5.0",
     "babel-loader": "^9.1.0",
-    "babel-plugin-react-native-web": "^0.18.10"
-  },
-  "devDependencies": {
+    "babel-plugin-react-native-web": "^0.18.10",
     "@babel/core": "^7.12.9",
     "@babel/runtime": "^7.12.5",
     "@react-native-community/eslint-config": "^2.0.0",
