@@ -15,8 +15,7 @@
     "prebuild-android": "npx mkdirp android/app/src/main/assets/ && react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle",
     "build:web": "rm -rf dist/ && webpack --mode=production --config webpack.config.js",
     "web": "webpack serve --mode=development --config webpack.config.js",
-    "pod-install": "RCT_NEW_ARCH_ENABLED=1 bundle exec pod install",
-    "postinstall": "patch-package"
+    "pod-install": "RCT_NEW_ARCH_ENABLED=1 bundle exec pod install"
   },
   "dependencies": {
     "@emotion/native": "^11.10.0",
@@ -70,7 +69,6 @@
     "react-redux": "^8.0.5",
     "ts-loader": "^9.4.4"
   },
- 
   "jest": {
     "preset": "react-native"
   }
