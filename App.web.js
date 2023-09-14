@@ -105,6 +105,7 @@ const App = () => {
   };
 
   const Home = () => {
+    console.log('Home');
     return (
       <Tab.Navigator
         screenOptions={{
