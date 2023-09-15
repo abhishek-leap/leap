@@ -16,12 +16,12 @@ const SplashDrawer = props => {
   const {configI18} = useLocalization();
 
   useEffect(() => {
-    // if (firstFeedLoaded) {
-    setProgress(100);
-    setTimeout(() => {
-      setShow(false);
-    }, 800);
-    // }
+    if (firstFeedLoaded) {
+      setProgress(100);
+      setTimeout(() => {
+        setShow(false);
+      }, 800);
+    }
   }, [firstFeedLoaded]);
 
   useEffect(() => {
@@ -85,6 +85,8 @@ const StyledView = styled.View`
   background-color: ${props => props.bgColor};
   width: 100%;
   height: 100%;
+  display: flex;
+  justify-content: center;
 `;
 
 const StyledText = styled.Text`
