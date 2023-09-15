@@ -11,11 +11,11 @@ const LinearProgress = ({
 }) => {
   const progress = percentage
     ? data
-    : (data?.currentTime * 100) / data?.seekableDuration || 0;
+    : ((data?.currentTime || 0) * 100) / (data?.seekableDuration || 1) ||
+      (data?.played || 0) * 100 ||
+      0;
   return (
-    <Container
-      backgroundColor={backgroundColor}
-      bottom={Platform.OS === 'ios' ? '2px' : '4px'}>
+    <Container backgroundColor={backgroundColor}>
       <TopView>
         <ProgressBarHeight
           backgroundColor={backgroundColor}
@@ -36,11 +36,12 @@ const Container = styled.View`
   width: 100%;
   height: 2px;
   position: absolute;
-  bottom: ${props => (props.bottom ? props.bottom : '0px')};
+  bottom: 0px;
 `;
 
 const TopView = styled.View`
   justify-content: center;
+  height: 100%;
 `;
 
 const ProgressBarHeight = styled.View`

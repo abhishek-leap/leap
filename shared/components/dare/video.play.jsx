@@ -182,7 +182,9 @@ const VolumeBtnWrapper = styled.TouchableOpacity`
   bottom: 25%;
 `;
 
-const TapView = styled.TouchableOpacity``;
+const TapView = styled.TouchableOpacity`
+  height: 100%;
+`;
 
 const styles = StyleSheet.create({
   container: {

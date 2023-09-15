@@ -109,12 +109,14 @@ const SingleFeed = ({
     }
   };
   return (
-    <StyledView key={feed?.id} height={totalhHeight} bgColor={colors.primary}>
+    <StyledView key={feed?.id} bgColor={colors.primary}>
       <Pressable
         activeOpacity={0.7}
         onPress={playAndPause}
         style={{
           opacity: isBlocked && isPowerUser == 'false' ? 0.2 : 1,
+          width: '100%',
+          height: '100%',
         }}>
         <FeedPlayer
           loop={true}
@@ -184,7 +186,7 @@ const SingleFeed = ({
 export default SingleFeed;
 
 const StyledView = styled.View`
-  height: ${props => props.height};
+  height: 100%;
   width: 100%;
   background-color: ${props => props.bgColor};
   blur-radius: 90px;
@@ -251,7 +253,7 @@ const BlockCountText = styled.Text`
 
 const LoaderContainer = styled.View`
   position: absolute;
-  height: ${props => (props.height ? props.height : '100%')};
+  height: 100%;
   width: 100%;
   background-color: rgba(0, 0, 0, 0.4);
   display: flex;

@@ -77,6 +77,7 @@ export default ({navigation}) => {
           styles.slide,
           {
             transform: [{scale}, {perspective: 1000}],
+            height: totalhHeight,
           },
         ]}>
         <SingleFeed
@@ -94,7 +95,6 @@ export default ({navigation}) => {
   useEffect(() => {
     setGlobalNavigation(navigation);
   }, []);
-
   return (
     <Container colors={colors}>
       <Header />
@@ -143,7 +143,7 @@ export default ({navigation}) => {
 
 const Container = styled.SafeAreaView`
   flex: 1;
-  height: ${Platform.OS === 'ios' ? '100%' : '100%'};
+  height: 100%;
   background-color: ${props => props.colors.primary};
 `;
 
