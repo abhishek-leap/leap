@@ -1,5 +1,6 @@
 import {createSlice} from '@reduxjs/toolkit';
 import {removeElementFromArray} from '../../utils/helper';
+import {Platform} from 'react-native';
 
 const initialState = {
   feedsThreeDotsShow: false,
@@ -12,7 +13,7 @@ const initialState = {
   notificationUIShow: false,
   feeds: [],
   firstFeedLoaded: false,
-  audioOn: true,
+  audioOn: Platform.OS !== 'web',
   searchText: '',
   feedPlayerModalId: '',
   feedSource: '',

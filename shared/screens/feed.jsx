@@ -76,7 +76,7 @@ export default ({navigation}) => {
         style={[
           styles.slide,
           {
-            transform: Platform.OS !== 'web' && [{scale}, {perspective: 1000}],
+            transform: [{scale}, {perspective: 1000}],
           },
         ]}>
         <SingleFeed

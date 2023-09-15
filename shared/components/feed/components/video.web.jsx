@@ -4,18 +4,18 @@ import ReactPlayer from 'react-player';
 const areEqual = (prevProps, nextProps) => {
   const {
     muted: prevMuted,
-    paused: prevPaused,
+    playing: prevPlaying,
     assetReference: prevUrl,
   } = prevProps;
   const {
     muted: nextMuted,
-    paused: nextPaused,
+    playing: nextPlaying,
     assetReference: nextUrl,
   } = nextProps;
 
   if (
     prevMuted === nextMuted &&
-    prevPaused === nextPaused &&
+    prevPlaying === nextPlaying &&
     prevUrl === nextUrl
   )
     return true;
@@ -24,7 +24,7 @@ const areEqual = (prevProps, nextProps) => {
 
 const MemoisedReactPlayer = memo(ReactPlayer, areEqual);
 
-const Video = ({
+const VideoPlayer = ({
   ref,
   paused,
   assetPoster,
@@ -46,7 +46,6 @@ const Video = ({
   const isSafari = /Macintosh|iPod|iPad|iPhone|AppleWebKit/i.test(
     navigator.userAgent,
   );
-  console.log('video', assetReference, assetPoster);
   return (
     <MemoisedReactPlayer
       ref={ref}
@@ -76,4 +75,4 @@ const Video = ({
   );
 };
 
-export default Video;
+export default VideoPlayer;

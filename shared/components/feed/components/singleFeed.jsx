@@ -108,7 +108,6 @@ const SingleFeed = ({
       setProgress(data);
     }
   };
-
   return (
     <StyledView key={feed?.id} height={totalhHeight} bgColor={colors.primary}>
       <Pressable
@@ -120,7 +119,7 @@ const SingleFeed = ({
         <FeedPlayer
           loop={true}
           assetPoster={poster}
-          pausedStatus={true || !activeVideo || !playing}
+          pausedStatus={!activeVideo || !playing}
           assetReference={uri}
           muted={!audioOn}
           handleProgress={handleProgress}

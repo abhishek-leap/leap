@@ -35,6 +35,7 @@ target 'leap' do
   pod 'MBProgressHUD', :modular_headers => true
   pod 'BVLinearGradient', :path => '../node_modules/react-native-linear-gradient'
   # pod 'LeapVideoEditor', :git => 'git@github.com:redmatch/VideoEditorIOS.git', :branch => 'develop'
+  # pod 'LeapVideoEditor', :git => "https://github.com/redmatch/VideoEditorIOS.git", :branch => 'feature/objectReturn'
   pod 'LeapVideoEditor', :git => "git@github.com:redmatch/VideoEditorIOS.git", :branch => 'feature/objectReturn'
 
   pod 'RNFS', :path => '../node_modules/react-native-fs'
