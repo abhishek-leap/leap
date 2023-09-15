@@ -3,7 +3,7 @@ import styled from '@emotion/native';
 import {useDispatch, useSelector} from 'react-redux';
 import {Animated, Dimensions, View} from 'react-native';
 
-import VideoPlayer from '../common/video.player';
+import DareVideoPlayer from '../common/dareVideoPlayer';
 import {setAudioOff, setAudioOn} from '../../redux-ui-state/slices/feedsSlice';
 import UnmuteMuteIcon from '../../images/unmuteMute.svg';
 import CubeNavigationHorizontal from './horizontal.cubeAnimate';
@@ -30,10 +30,10 @@ const VideoPlayMode = ({
   const [onCurrentScreen, setOnCurrentScreen] = useState(true);
   const move = useState(new Animated.Value(600));
   const cube = useRef();
-  const {translate}=useLocalization();
+  const {translate} = useLocalization();
 
   const handleAudio = () => {
-    console.log("audio on",audioOn);
+    console.log('audio on', audioOn);
     if (audioOn) {
       dispatch(setAudioOff());
     } else {
@@ -41,9 +41,9 @@ const VideoPlayMode = ({
     }
   };
 
-  const handleFirstVideoFinish = (skipped=false) => {
+  const handleFirstVideoFinish = (skipped = false) => {
     if (secondVideoUrl) {
-      if(!skipped){
+      if (!skipped) {
         firstVideoProgress(100);
       }
       if (source === 'bar') {
@@ -96,7 +96,7 @@ const VideoPlayMode = ({
           {firstVideoUrl && (
             <>
               <TapView onPress={() => goToNext()}>
-                <VideoPlayer
+                <DareVideoPlayer
                   assetPoster={firstCover}
                   assetReference={firstVideoUrl}
                   handleProgress={playedObj => {
@@ -124,16 +124,18 @@ const VideoPlayMode = ({
               </VolumeBtnWrapper>
               <OneTapToaster
                 toasterMessage={translate('tapToSkip')}
-                handleFirstVideoFinish={()=>{handleFirstVideoFinish(true)}}
+                handleFirstVideoFinish={() => {
+                  handleFirstVideoFinish(true);
+                }}
               />
             </>
           )}
         </View>
-        <View >
+        <View>
           {secondVideoUrl && (
             <>
               <TapView onPress={() => handleSecondVideoFinish()}>
-                <VideoPlayer
+                <DareVideoPlayer
                   assetPoster={secondCover}
                   assetReference={secondVideoUrl}
                   handleProgress={playedObj => {

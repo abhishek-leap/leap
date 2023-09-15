@@ -120,7 +120,7 @@ const SingleFeed = ({
         <FeedPlayer
           loop={true}
           assetPoster={poster}
-          pausedStatus={!activeVideo || !playing}
+          pausedStatus={true || !activeVideo || !playing}
           assetReference={uri}
           muted={!audioOn}
           handleProgress={handleProgress}

@@ -13,10 +13,9 @@
     "test": "jest",
     "lint": "eslint .",
     "prebuild-android": "npx mkdirp android/app/src/main/assets/ && react-native bundle --platform android --dev false --entry-file index.js --bundle-output android/app/src/main/assets/index.android.bundle",
-    "build:web": "rm -rf dist/ && webpack --mode=production --config webpack.config.js",
-    "web": "webpack serve --mode=development --config webpack.config.js",
-    "pod-install": "RCT_NEW_ARCH_ENABLED=1 bundle exec pod install",
-    "postinstall": "patch-package"
+    "build:web": "rm -rf dist/ && node download-script.js && webpack --mode=production --config webpack.config.js",
+    "web": "node download-script.js && webpack serve --mode=development --config webpack.config.js",
+    "pod-install": "RCT_NEW_ARCH_ENABLED=1 bundle exec pod install"
   },
   "dependencies": {
     "@emotion/native": "^11.10.0",
@@ -95,5 +94,6 @@
   },
   "jest": {
     "preset": "react-native"
-  }
+  },
+  "packageManager": "yarn@1.22.19"
 }
